@@ -1,26 +1,83 @@
+/* ============================================================
+   HINOKI TECHNOLOGIES — Tailwind CSS v4 Design Tokens
+
+   Tailwind v4 generates utility classes from @theme vars:
+     --color-bg-base     → bg-bg-base, text-bg-base, border-bg-base
+     --color-accent      → bg-accent, text-accent, border-accent
+     --font-sans         → font-sans
+     --font-mono         → font-mono
+   ============================================================ */
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ── Fonts ─────────────────────────────────────────────── */
+  --font-sans: var(--font-dm-sans), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-dm-mono), "Fira Code", "Courier New", monospace;
+
+  /* ── Background colors ─────────────────────────────────── */
+  --color-bg-base: #f7f4ef;
+  --color-bg-subtle: #ede9e3;
+  --color-bg-recessed: #e6e1d9;
+  --color-bg-inverse: #1e2124;
+
+  /* ── Foreground colors ─────────────────────────────────── */
+  --color-fg-primary: #252830;
+  --color-fg-secondary: #5a5e6b;
+  --color-fg-tertiary: #9099a8;
+  --color-fg-inverse: #f4f1ed;
+
+  /* ── Accent — warm orange, use sparingly ───────────────── */
+  --color-accent: #e8622a;
+  --color-accent-hover: #d45420;
+  --color-accent-subtle: #f5e0d5;
+
+  /* ── Borders ───────────────────────────────────────────── */
+  --color-border: #d8d3cb;
+  --color-border-strong: #b8b2a8;
+
+  /* ── Dark surface borders ──────────────────────────────── */
+  --color-border-inverse: #2e3238;
+  --color-border-inverse-strong: #3a3f48;
+
+  /* ── Border radius ─────────────────────────────────────── */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+
+  /* ── Transitions ───────────────────────────────────────── */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 350ms;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    background-color: var(--color-bg-base);
+    color: var(--color-fg-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    background-color: var(--color-bg-base);
+    color: var(--color-fg-primary);
+    overflow-x: hidden;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .overline {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
 }

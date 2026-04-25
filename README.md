@@ -1,3 +1,44 @@
+# Hinoki Technologies — Marketing Site
+
+This is the production implementation of the `design_handoff_hinoki/` prototype using **Next.js App Router**, **TypeScript**, and **Tailwind CSS v4**.
+
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+## Routes
+
+- `/` — marketing one-pager (Nav → Hero → Metrics → Features → Applications → CTA → Footer)
+- `/reflex` — canvas animation reference (discrete vs continuous control)
+
+## Assets
+
+This repo includes lightweight SVG placeholders:
+
+- `public/assets/logo-mark-light.svg`
+- `public/assets/logo-mark.svg`
+
+If you have the official handoff assets (`logo-mark-light.png`, `logo-mark.png`, `banner.jpg`), copy them into `public/assets/` and update the `<img src="...">` paths if desired.
+
+## Deploy to Vercel
+
+1. Push this folder to GitHub (or any Git provider).
+2. In Vercel, **Import Project** and set:
+   - **Root Directory**: `hinoki-site`
+   - **Framework Preset**: Next.js (auto-detected)
+3. Deploy.
+
+If you want to deploy from the CLI:
+
+```bash
+npm i -g vercel
+vercel login
+vercel --prod
+```
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
