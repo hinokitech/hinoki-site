@@ -12,7 +12,7 @@ type Tweaks = {
 };
 
 const TWEAKS_DEFAULT: Tweaks = {
-  speed: 0.8,
+  speed: 0.75,
   glow: 1.0,
   wavePath: false,
   darkMode: false,
@@ -29,7 +29,7 @@ const BASE_RPERIOD = 1500;
 const BOX_LABELS = ["Sensor", "Memory", "Inference", "Decision", "Output"];
 const MOBILE_PAD_PX = 24;
 const MOBILE_PANEL_GAP_PX = 32;
-const RIGHT_TIME_SCALE = 0.82;
+const RIGHT_TIME_SCALE = 0.78;
 
 function ease(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -89,10 +89,19 @@ function getColors(dark: boolean) {
   };
 }
 
-export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
+export function ReflexCanvas({
+  tweaks,
+  active = true,
+  panel = "both",
+}: {
+  tweaks?: Partial<Tweaks>;
+  active?: boolean;
+  panel?: "both" | "left" | "right";
+}) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const t0Ref = useRef<number | null>(null);
+  const startedAtRef = useRef<number | null>(null);
 
   const T = useMemo<Tweaks>(
     () => ({ ...TWEAKS_DEFAULT, ...(tweaks ?? {}) }),
@@ -115,9 +124,14 @@ export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
       dpr = window.devicePixelRatio || 1;
       W = canvas.clientWidth || window.innerWidth;
       isMobile = W < 768;
-      H = isMobile
-        ? Math.max(520, Math.min(760, Math.round(W * 0.9)))
-        : Math.max(320, Math.min(480, Math.round(W * 0.31)));
+      if (isMobile) {
+        H =
+          panel === "both"
+            ? Math.max(520, Math.min(760, Math.round(W * 0.9)))
+            : Math.max(280, Math.min(420, Math.round(W * 0.55)));
+      } else {
+        H = Math.max(320, Math.min(480, Math.round(W * 0.31)));
+      }
       canvas.style.height = `${H}px`;
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
@@ -157,24 +171,33 @@ export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
     function layout() {
       const pad = isMobile ? MOBILE_PAD_PX : Math.max(36, W * 0.045);
       const gut = isMobile ? 0 : 20;
+      const singlePanel = panel !== "both";
 
-      const topPanelH = isMobile ? (H - MOBILE_PANEL_GAP_PX) / 2 : H;
-      const bottomPanelY0 = isMobile ? topPanelH + MOBILE_PANEL_GAP_PX : 0;
-      const bottomPanelH = isMobile ? (H - MOBILE_PANEL_GAP_PX) / 2 : H;
+      const isSplitMobile = isMobile && panel === "both";
+      const topPanelH = isSplitMobile ? (H - MOBILE_PANEL_GAP_PX) / 2 : H;
+      const bottomPanelY0 = isSplitMobile ? topPanelH + MOBILE_PANEL_GAP_PX : 0;
+      const bottomPanelH = isSplitMobile ? (H - MOBILE_PANEL_GAP_PX) / 2 : H;
+
+      // On desktop, when rendering a single panel, treat the canvas as one region.
+      // (The parent layout is responsible for placing panels side-by-side.)
+      const lx0 = pad;
+      const lx1 = singlePanel ? W - pad : W * 0.5 - gut;
+      const rx0 = singlePanel ? pad : W * 0.5 + gut;
+      const rx1 = W - pad;
 
       const leftRegion: Region = isMobile
         ? {
             x0: pad,
             x1: W - pad,
             cx: W * 0.5,
-            cy: topPanelH * 0.54,
-            labelY: topPanelH * 0.18,
-            subY: topPanelH * 0.90,
+            cy: (panel === "both" ? topPanelH * 0.54 : H * 0.55),
+            labelY: (panel === "both" ? topPanelH * 0.18 : H * 0.18),
+            subY: (panel === "both" ? topPanelH * 0.90 : H * 0.90),
           }
         : {
-            x0: pad,
-            x1: W * 0.5 - gut,
-            cx: (pad + (W * 0.5 - gut)) / 2,
+            x0: lx0,
+            x1: lx1,
+            cx: (lx0 + lx1) / 2,
             cy: H * 0.5,
             labelY: H * 0.185,
             subY: H * 0.705,
@@ -185,14 +208,17 @@ export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
             x0: pad,
             x1: W - pad,
             cx: W * 0.5,
-            cy: bottomPanelY0 + bottomPanelH * 0.50,
-            labelY: bottomPanelY0 + bottomPanelH * 0.18,
-            subY: bottomPanelY0 + bottomPanelH * 0.90,
+            cy:
+              panel === "both" ? bottomPanelY0 + bottomPanelH * 0.5 : H * 0.55,
+            labelY:
+              panel === "both" ? bottomPanelY0 + bottomPanelH * 0.18 : H * 0.18,
+            subY:
+              panel === "both" ? bottomPanelY0 + bottomPanelH * 0.9 : H * 0.9,
           }
         : {
-            x0: W * 0.5 + gut,
-            x1: W - pad,
-            cx: ((W * 0.5 + gut) + (W - pad)) / 2,
+            x0: rx0,
+            x1: rx1,
+            cx: (rx0 + rx1) / 2,
             cy: H * 0.5,
             labelY: H * 0.185,
             subY: H * 0.705,
@@ -275,6 +301,10 @@ export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
 
     function drawDivider(L: ReturnType<typeof layout>, C: ReturnType<typeof getColors>) {
       ctx.beginPath();
+      if (panel !== "both") {
+        // no divider in single-panel mode
+        return;
+      }
       if (isMobile) {
         const y = (H - MOBILE_PANEL_GAP_PX) / 2 + MOBILE_PANEL_GAP_PX / 2;
         ctx.moveTo(L.pad, y);
@@ -294,50 +324,64 @@ export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
       ctx.textBaseline = "alphabetic";
 
       font(9.5, 600);
-      ctx.fillStyle = C.lLabel;
-      ctx.fillText("TODAY'S CONTROLLERS", L.leftRegion.cx, L.leftRegion.labelY);
-
-      ctx.fillStyle = C.rLabel;
-      ctx.fillText("HINOKI REFLEX ARCHITECTURE", L.rightRegion.cx, L.rightRegion.labelY);
+      if (panel !== "right") {
+        ctx.fillStyle = C.lLabel;
+        ctx.fillText("TODAY'S CONTROLLERS", L.leftRegion.cx, L.leftRegion.labelY);
+      }
+      if (panel !== "left") {
+        ctx.fillStyle = C.rLabel;
+        ctx.fillText(
+          "HINOKI REFLEX ARCHITECTURE",
+          L.rightRegion.cx,
+          L.rightRegion.labelY,
+        );
+      }
 
       const ruleW = 100;
 
-      ctx.beginPath();
-      const ruleYLeft = L.leftRegion.labelY + 6;
-      ctx.moveTo(L.leftRegion.cx - ruleW / 2, ruleYLeft);
-      ctx.lineTo(L.leftRegion.cx + ruleW / 2, ruleYLeft);
-      ctx.strokeStyle = C.lLabel;
-      ctx.globalAlpha = 0.25;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-
-      ctx.save();
-      ctx.shadowColor = C.rSig;
-      ctx.shadowBlur = 6;
-      ctx.beginPath();
-      const ruleYRight = L.rightRegion.labelY + 6;
-      ctx.moveTo(L.rightRegion.cx - ruleW / 2, ruleYRight);
-      ctx.lineTo(L.rightRegion.cx + ruleW / 2, ruleYRight);
-      ctx.strokeStyle = C.rSig;
-      ctx.globalAlpha = 0.45;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-      ctx.restore();
+      if (panel !== "right") {
+        ctx.beginPath();
+        const ruleYLeft = L.leftRegion.labelY + 6;
+        ctx.moveTo(L.leftRegion.cx - ruleW / 2, ruleYLeft);
+        ctx.lineTo(L.leftRegion.cx + ruleW / 2, ruleYLeft);
+        ctx.strokeStyle = C.lLabel;
+        ctx.globalAlpha = 0.25;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+      if (panel !== "left") {
+        ctx.save();
+        ctx.shadowColor = C.rSig;
+        ctx.shadowBlur = 6;
+        ctx.beginPath();
+        const ruleYRight = L.rightRegion.labelY + 6;
+        ctx.moveTo(L.rightRegion.cx - ruleW / 2, ruleYRight);
+        ctx.lineTo(L.rightRegion.cx + ruleW / 2, ruleYRight);
+        ctx.strokeStyle = C.rSig;
+        ctx.globalAlpha = 0.45;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+        ctx.restore();
+      }
 
       font(9.5, 400);
       ctx.fillStyle = C.meta;
-      ctx.fillText(
-        "5 discrete steps · latency at every layer",
-        L.leftRegion.cx,
-        L.leftRegion.subY,
-      );
-      ctx.fillText(
-        "continuous · sensor to actuator · no inference layer",
-        L.rightRegion.cx,
-        L.rightRegion.subY,
-      );
+      if (panel !== "right") {
+        ctx.fillText(
+          "5 discrete steps · latency at every layer",
+          L.leftRegion.cx,
+          L.leftRegion.subY,
+        );
+      }
+      if (panel !== "left") {
+        ctx.fillText(
+          "continuous · sensor to actuator · no inference layer",
+          L.rightRegion.cx,
+          L.rightRegion.subY,
+        );
+      }
     }
 
     function drawLeft(
@@ -449,6 +493,7 @@ export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
 
     function drawRight(
       ts: number,
+      sinceStartMs: number,
       L: ReturnType<typeof layout>,
       C: ReturnType<typeof getColors>,
       tweaks: Tweaks,
@@ -511,6 +556,10 @@ export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
       ctx.globalAlpha = 1;
       ctx.restore();
 
+      // On initial activation, start with "nothing" traveling across.
+      if (sinceStartMs < 350) return;
+      const pulseAlpha = clamp((sinceStartMs - 350) / 450, 0, 1);
+
       for (let p = 0; p < nPulse; p++) {
         const offset = p * (rPeriod / nPulse);
         const t = ((tts + offset) % rPeriod) / rPeriod;
@@ -532,8 +581,8 @@ export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
           ctx.strokeStyle = C.rSig;
           ctx.lineWidth = primary ? 2 : 1.5;
           ctx.globalAlpha = primary
-            ? clamp(0.65 * glow, 0, 0.9)
-            : clamp(0.38 * glow, 0, 0.7);
+            ? clamp(0.65 * glow, 0, 0.9) * pulseAlpha
+            : clamp(0.38 * glow, 0, 0.7) * pulseAlpha;
           ctx.stroke();
           ctx.globalAlpha = 1;
         }
@@ -546,14 +595,23 @@ export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
         ctx.fillStyle = primary
           ? C.rSig
           : `rgba(232,98,42,${clamp(0.75 * glow, 0.3, 1)})`;
+        ctx.globalAlpha = pulseAlpha;
         ctx.fill();
+        ctx.globalAlpha = 1;
         ctx.restore();
       }
     }
 
-    function loop(ts: number) {
-      if (t0Ref.current === null) t0Ref.current = ts;
+    function drawFrame(ts: number) {
+      if (!active) {
+        t0Ref.current = null;
+        startedAtRef.current = null;
+      } else {
+        if (startedAtRef.current === null) startedAtRef.current = ts;
+        if (t0Ref.current === null) t0Ref.current = ts;
+      }
       const elapsed = ts - (t0Ref.current ?? ts);
+      const sinceStart = ts - (startedAtRef.current ?? ts);
 
       const C = getColors(T.darkMode);
       const CYCLE = BASE_CYCLE / T.speed;
@@ -566,23 +624,37 @@ export function ReflexCanvas({ tweaks }: { tweaks?: Partial<Tweaks> }) {
       drawDivider(L, C);
       drawLabels(L, C);
 
-      drawLeft(cycleT, stepDurScaled, L, C, T);
+      if (panel !== "right") {
+        drawLeft(cycleT, stepDurScaled, L, C, T);
+      }
 
       // Right side should remain continuous — no loop pause.
-      drawRight(elapsed, L, C, T);
+      if (panel !== "left") {
+        drawRight(elapsed, sinceStart, L, C, T);
+      }
+    }
+
+    function loop(ts: number) {
+      drawFrame(ts);
 
       rafRef.current = window.requestAnimationFrame(loop);
     }
 
     resize();
     window.addEventListener("resize", resize);
-    rafRef.current = window.requestAnimationFrame(loop);
+
+    if (active) {
+      rafRef.current = window.requestAnimationFrame(loop);
+    } else {
+      // Draw a single static frame when inactive.
+      drawFrame(performance.now());
+    }
 
     return () => {
       window.removeEventListener("resize", resize);
       if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
     };
-  }, [T]);
+  }, [T, active, panel]);
 
   return (
     <div className="bg-bg-base">

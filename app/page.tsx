@@ -4,6 +4,31 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { HeroAnimation } from "./hero-animation";
 import { RequestAccessModal } from "./request-access-modal";
 
+function useInViewOnce<T extends Element>(options?: IntersectionObserverInit) {
+  const ref = useRef<T | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (visible) return;
+    const el = ref.current;
+    if (!el) return;
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.25, ...(options ?? {}) },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [options, visible]);
+
+  return { ref, visible };
+}
+
 export default function Home() {
   const [requestOpen, setRequestOpen] = useState(false);
   const openRequest = useCallback(() => setRequestOpen(true), []);
@@ -73,6 +98,12 @@ function Nav({ onRequestAccess }: { onRequestAccess: () => void }) {
 }
 
 function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
+  const [heroVisible, setHeroVisible] = useState(false);
+  useEffect(() => {
+    const id = window.setTimeout(() => setHeroVisible(true), 0);
+    return () => window.clearTimeout(id);
+  }, []);
+
   return (
     <section className="relative min-h-[520px] overflow-hidden overflow-x-hidden bg-bg-base px-5 pb-20 pt-4 md:px-12 md:pt-24">
       <div className="relative z-[1] mx-auto max-w-[1200px]">
@@ -85,21 +116,33 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
         </div>
 
         <div className="max-w-[640px]">
-          <div className="mb-5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
+          <div
+            className={`reveal mb-5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent ${heroVisible ? "is-visible" : ""}`}
+            style={{ ["--reveal-delay" as any]: "0ms" }}
+          >
             Reflex control architecture
           </div>
-          <h1 className="mb-6 text-[36px] font-light leading-[1.1] tracking-[-0.025em] text-fg-primary md:text-[52px]">
+          <h1
+            className={`reveal mb-6 text-[36px] font-light leading-[1.1] tracking-[-0.025em] text-fg-primary md:text-[52px] ${heroVisible ? "is-visible" : ""}`}
+            style={{ ["--reveal-delay" as any]: "216ms" }}
+          >
             The reflex layer
             <br />
             robots have been missing.
           </h1>
-          <p className="mb-9 max-w-[520px] text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px]">
+          <p
+            className={`reveal mb-9 max-w-[520px] text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px] ${heroVisible ? "is-visible" : ""}`}
+            style={{ ["--reveal-delay" as any]: "432ms" }}
+          >
             Hinoki couples sensor input directly to actuation — continuously, at
             hardware speed — eliminating the discrete inference steps that make
             current robots brittle.
           </p>
 
-          <div className="mb-8 flex flex-wrap gap-3">
+          <div
+            className={`reveal mb-8 flex flex-wrap gap-3 ${heroVisible ? "is-visible" : ""}`}
+            style={{ ["--reveal-delay" as any]: "648ms" }}
+          >
             <a
               href="#architecture"
               className="inline-flex items-center rounded-md bg-accent px-6 py-3 text-[13px] font-medium text-fg-inverse transition-colors duration-200 hover:bg-accent-hover"
@@ -118,7 +161,10 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             </a>
           </div>
 
-          <div className="flex flex-wrap items-center gap-[10px] text-[12px] text-fg-tertiary">
+          <div
+            className={`reveal flex flex-wrap items-center gap-[10px] text-[12px] text-fg-tertiary ${heroVisible ? "is-visible" : ""}`}
+            style={{ ["--reveal-delay" as any]: "864ms" }}
+          >
             <span>Tsukuba, Japan</span>
             <span className="text-border">·</span>
             <span>Antler Japan 2026</span>
@@ -390,7 +436,11 @@ function MetricBar() {
     >
       <div className="mx-auto grid max-w-[1200px] grid-cols-2 gap-x-6 gap-y-6 md:flex md:items-center md:justify-between md:gap-6">
         {metrics.map((m, i) => (
-          <div key={m.label} className="flex items-center gap-6 md:flex-1">
+          <div
+            key={m.label}
+            className={`reveal flex items-center gap-6 md:flex-1 ${triggered ? "is-visible" : ""}`}
+            style={{ ["--reveal-delay" as any]: `${i * 150}ms` }}
+          >
             <div className="flex flex-1 flex-col gap-1">
               <div className="font-mono text-[28px] font-normal leading-none tracking-[-0.01em] text-fg-primary">
                 {m.prefix ? (
@@ -403,14 +453,14 @@ function MetricBar() {
                     <DramaticZeroRoll
                       active={triggered}
                       delayMs={i * 140}
-                      durationMs={1200}
+                      durationMs={1350}
                     />
                   ) : (
                     <RollingInt
                       active={triggered}
                       value={m.value}
                       delayMs={i * 140}
-                      durationMs={1500}
+                      durationMs={1700}
                     />
                   )}
                 </span>
@@ -444,36 +494,35 @@ function RollingInt({
   durationMs: number;
   delayMs: number;
 }) {
-  const [offset, setOffset] = useState(0);
+  const [display, setDisplay] = useState<number>(value);
+  const ranRef = useRef(false);
 
   useEffect(() => {
-    if (!active) return;
-    const id = window.setTimeout(() => {
-      // Add extra cycles to feel like an odometer.
-      const loops = 2;
-      setOffset(loops * 10 + (value % 10));
+    if (!active || ranRef.current) return;
+    ranRef.current = true;
+    let raf = 0;
+    let t0: number | null = null;
+    const start = window.setTimeout(() => {
+      const from = 0;
+      const to = value;
+      setDisplay(from);
+      const step = (ts: number) => {
+        if (t0 === null) t0 = ts;
+        const p = Math.min(1, (ts - t0) / durationMs);
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        setDisplay(Math.round(from + (to - from) * eased));
+        if (p < 1) raf = window.requestAnimationFrame(step);
+      };
+      raf = window.requestAnimationFrame(step);
     }, delayMs);
-    return () => window.clearTimeout(id);
-  }, [active, delayMs, value]);
+    return () => {
+      window.clearTimeout(start);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, [active, delayMs, durationMs, value]);
 
   return (
-    <span className="relative inline-flex h-[1em] w-[1ch] overflow-hidden align-[-0.05em] tabular-nums">
-      <span
-        className="absolute left-0 top-0 w-full"
-        style={{
-          transform: `translateY(${-offset}em)`,
-          transitionProperty: "transform",
-          transitionDuration: `${durationMs}ms`,
-          transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-        }}
-      >
-        {Array.from({ length: 30 }, (_, i) => (
-          <span key={i} className="block h-[1em] leading-none">
-            {i % 10}
-          </span>
-        ))}
-      </span>
-    </span>
+    <span className="inline-block w-[1ch] tabular-nums">{display}</span>
   );
 }
 
@@ -486,33 +535,33 @@ function DramaticZeroRoll({
   delayMs: number;
   durationMs: number;
 }) {
-  const [phase, setPhase] = useState<"idle" | "up" | "down">("idle");
-  const [n, setN] = useState(0);
+  const [display, setDisplay] = useState<number>(0);
+  const ranRef = useRef(false);
 
   useEffect(() => {
-    if (!active) return;
+    if (!active || ranRef.current) return;
+    ranRef.current = true;
     let t0: number | null = null;
     let raf = 0;
     let downTimer = 0;
+    let interval = 0;
     const start = window.setTimeout(() => {
-      setPhase("up");
       const target = 5;
       const step = (ts: number) => {
         if (t0 === null) t0 = ts;
         const p = Math.min(1, (ts - t0) / durationMs);
         const eased = 1 - Math.pow(1 - p, 3);
-        setN(Math.max(0, Math.round(eased * target)));
+        setDisplay(Math.max(0, Math.round(eased * target)));
         if (p < 1) raf = window.requestAnimationFrame(step);
         else {
           downTimer = window.setTimeout(() => {
-            setPhase("down");
             let cur = target;
-            const interval = window.setInterval(() => {
+            interval = window.setInterval(() => {
               cur -= 1;
-              setN(Math.max(0, cur));
+              setDisplay(Math.max(0, cur));
               if (cur <= 0) window.clearInterval(interval);
-            }, 55);
-          }, 120);
+            }, 65);
+          }, 160);
         }
       };
       raf = window.requestAnimationFrame(step);
@@ -521,15 +570,12 @@ function DramaticZeroRoll({
     return () => {
       window.clearTimeout(start);
       window.clearTimeout(downTimer);
+      if (interval) window.clearInterval(interval);
       if (raf) window.cancelAnimationFrame(raf);
     };
   }, [active, delayMs, durationMs]);
 
-  return (
-    <span className="inline-block w-[1ch] tabular-nums">
-      {phase === "idle" ? 0 : n}
-    </span>
-  );
+  return <span className="inline-block w-[1ch] tabular-nums">{display}</span>;
 }
 
 function FeatureSection() {
@@ -551,10 +597,24 @@ function FeatureSection() {
     },
   ];
 
+  const archHeader = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
+  const archCards = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
+  const archAnim = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
+  const [archAnimActive, setArchAnimActive] = useState(false);
+
+  useEffect(() => {
+    if (!archAnim.visible) return;
+    const id = window.setTimeout(() => setArchAnimActive(true), 700);
+    return () => window.clearTimeout(id);
+  }, [archAnim.visible]);
+
   return (
     <section id="architecture" className="bg-bg-base px-5 py-20 md:px-12 md:py-24">
       <div className="mx-auto max-w-[1200px]">
-        <header className="mb-10 max-w-[600px] md:mb-14">
+        <header
+          ref={archHeader.ref as React.RefObject<HTMLDivElement>}
+          className={`mb-10 max-w-[600px] md:mb-14 ${archHeader.visible ? "is-visible" : ""} reveal`}
+        >
           <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
             Core Architecture
           </div>
@@ -568,11 +628,23 @@ function FeatureSection() {
           </p>
         </header>
 
-        <HeroAnimation />
+        <div
+          ref={archAnim.ref as React.RefObject<HTMLDivElement>}
+          className={`reveal ${archAnim.visible ? "is-visible" : ""}`}
+        >
+          <HeroAnimation active={archAnimActive} />
+        </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-border bg-border md:mt-0 md:grid-cols-3">
-          {features.map((f) => (
-            <div key={f.title} className="bg-bg-subtle px-7 py-8">
+        <div
+          ref={archCards.ref as React.RefObject<HTMLDivElement>}
+          className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-border bg-border md:mt-0 md:grid-cols-3"
+        >
+          {features.map((f, idx) => (
+            <div
+              key={f.title}
+              className={`reveal bg-bg-subtle px-7 py-8 ${archCards.visible ? "is-visible" : ""}`}
+              style={{ ["--reveal-delay" as any]: `${idx * 180}ms` }}
+            >
               <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
                 {f.tag}
               </div>
@@ -606,21 +678,30 @@ function ApplicationsSection() {
     },
   ];
 
+  const appsHead = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
+  const appsList = useInViewOnce<HTMLDivElement>({ threshold: 0.15 });
+
   return (
     <section id="applications" className="bg-bg-inverse px-5 py-20 md:px-12 md:py-24">
       <div className="mx-auto max-w-[1200px]">
-        <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-          Target Applications
+        <div
+          ref={appsHead.ref as React.RefObject<HTMLDivElement>}
+          className={`reveal ${appsHead.visible ? "is-visible" : ""}`}
+        >
+          <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
+            Target Applications
+          </div>
+          <h2 className="mb-10 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-inverse md:mb-12 md:text-[36px]">
+            Where latency is not optional.
+          </h2>
         </div>
-        <h2 className="mb-10 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-inverse md:mb-12 md:text-[36px]">
-          Where latency is not optional.
-        </h2>
 
-        <div className="flex flex-col">
+        <div ref={appsList.ref as React.RefObject<HTMLDivElement>} className="flex flex-col">
           {apps.map((a, i) => (
             <div
               key={a.tag}
-              className="flex flex-col gap-3 border-t border-border-inverse py-7 md:flex-row md:gap-8"
+              className={`reveal flex flex-col gap-3 border-t border-border-inverse py-7 md:flex-row md:gap-8 ${appsList.visible ? "is-visible" : ""}`}
+              style={{ ["--reveal-delay" as any]: `${i * 150}ms` }}
             >
               <div className="min-w-8 pt-0.5 font-mono text-[13px] text-fg-secondary">
                 {String(i + 1).padStart(2, "0")}
@@ -642,12 +723,16 @@ function ApplicationsSection() {
 }
 
 function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
+  const cta = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
   return (
     <section
       id="contact"
       className="border-t border-border bg-bg-subtle px-5 py-20 md:px-12 md:py-24"
     >
-      <div className="mx-auto max-w-[640px]">
+      <div
+        ref={cta.ref as React.RefObject<HTMLDivElement>}
+        className={`mx-auto max-w-[640px] reveal ${cta.visible ? "is-visible" : ""}`}
+      >
         <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
           Work with us
         </div>
@@ -655,9 +740,10 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
           Hardware validation is underway.
         </h2>
         <p className="mb-8 text-[16px] leading-[1.7] text-fg-secondary">
-          We are in active conversation with engineers and research institutions
-          across humanoid, industrial, and defense robotics. If your platform
-          requires reflex-speed control, let&apos;s talk.
+          We are in active conversation with robotics engineers and research
+          institutions across Japan, and selectively opening co-development
+          discussions. If your platform requires reflex-speed control,
+          let&apos;s talk.
         </p>
         <button
           type="button"
@@ -711,12 +797,6 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
             >
               Applications
             </a>
-            <a
-              href="#architecture"
-              className="text-[13px] text-fg-tertiary transition-colors duration-200 hover:text-fg-inverse"
-            >
-              Architecture
-            </a>
           </div>
           <div className="flex flex-col gap-2.5">
             <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-fg-secondary">
@@ -734,7 +814,7 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
       </div>
 
       <div className="mx-auto max-w-[1200px] border-t border-border-inverse pt-6 text-[11px] text-fg-secondary">
-        © 2026 Hinoki Technologies K.K. All rights reserved.
+        © 2026 Hinoki Technologies. All rights reserved.
       </div>
     </footer>
   );
