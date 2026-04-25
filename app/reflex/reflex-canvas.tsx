@@ -17,7 +17,7 @@ const TWEAKS_DEFAULT: Tweaks = {
   wavePath: false,
   darkMode: false,
   latencyBar: false,
-  pulseCount: 3,
+  pulseCount: 2,
 };
 
 const BASE_CYCLE = 4400;
@@ -29,7 +29,9 @@ const BASE_RPERIOD = 1500;
 const BOX_LABELS = ["Sensor", "Memory", "Inference", "Decision", "Output"];
 const MOBILE_PAD_PX = 24;
 const MOBILE_PANEL_GAP_PX = 32;
+const LEFT_TIME_SCALE = 0.75;
 const RIGHT_TIME_SCALE = 0.78;
+const RIGHT_PULSE_SPEED = 3.2;
 
 function ease(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -503,7 +505,8 @@ export function ReflexCanvas({
       const amp = tweaks.wavePath ? 12 : 0;
       const glow = tweaks.glow;
       const nPulse = tweaks.pulseCount;
-      const rPeriod = BASE_RPERIOD / (tweaks.speed * RIGHT_TIME_SCALE);
+      const rPeriod =
+        BASE_RPERIOD / (tweaks.speed * RIGHT_TIME_SCALE * RIGHT_PULSE_SPEED);
 
       const SEGS = amp > 0 ? 80 : 2;
       ctx.beginPath();
@@ -615,7 +618,8 @@ export function ReflexCanvas({
 
       const C = getColors(T.darkMode);
       const CYCLE = BASE_CYCLE / T.speed;
-      const cycleT = elapsed % CYCLE;
+      const leftElapsed = elapsed * LEFT_TIME_SCALE;
+      const cycleT = leftElapsed % CYCLE;
       const stepDurScaled = CYCLE / STEPS;
 
       const L = layout();
