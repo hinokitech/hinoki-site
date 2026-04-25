@@ -97,4 +97,24 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Slower card reveals on mobile */
+  .reveal-card {
+    transition-duration: 1080ms;
+  }
+  @media (max-width: 767px) {
+    .reveal-card {
+      transition-duration: 1300ms;
+    }
+  }
+
+  /* Slightly slower reveals on mobile for lower sections */
+  .reveal-slow {
+    transition-duration: 1080ms;
+  }
+  @media (max-width: 767px) {
+    .reveal-slow {
+      transition-duration: 1250ms;
+    }
+  }
 }

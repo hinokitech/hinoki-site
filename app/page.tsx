@@ -642,7 +642,7 @@ function FeatureSection() {
           {features.map((f, idx) => (
             <div
               key={f.title}
-              className={`reveal bg-bg-subtle px-7 py-8 ${archCards.visible ? "is-visible" : ""}`}
+              className={`reveal reveal-card bg-bg-subtle px-7 py-8 ${archCards.visible ? "is-visible" : ""}`}
               style={{ ["--reveal-delay" as any]: `${idx * 180}ms` }}
             >
               <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
@@ -686,7 +686,7 @@ function ApplicationsSection() {
       <div className="mx-auto max-w-[1200px]">
         <div
           ref={appsHead.ref as React.RefObject<HTMLDivElement>}
-          className={`reveal ${appsHead.visible ? "is-visible" : ""}`}
+          className={`reveal reveal-slow ${appsHead.visible ? "is-visible" : ""}`}
         >
           <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
             Target Applications
@@ -700,7 +700,7 @@ function ApplicationsSection() {
           {apps.map((a, i) => (
             <div
               key={a.tag}
-              className={`reveal flex flex-col gap-3 border-t border-border-inverse py-7 md:flex-row md:gap-8 ${appsList.visible ? "is-visible" : ""}`}
+              className={`reveal reveal-slow flex flex-col gap-3 border-t border-border-inverse py-7 md:flex-row md:gap-8 ${appsList.visible ? "is-visible" : ""}`}
               style={{ ["--reveal-delay" as any]: `${i * 150}ms` }}
             >
               <div className="min-w-8 pt-0.5 font-mono text-[13px] text-fg-secondary">
@@ -731,7 +731,7 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
     >
       <div
         ref={cta.ref as React.RefObject<HTMLDivElement>}
-        className={`mx-auto max-w-[640px] reveal ${cta.visible ? "is-visible" : ""}`}
+        className={`mx-auto max-w-[640px] reveal reveal-slow ${cta.visible ? "is-visible" : ""}`}
       >
         <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
           Work with us

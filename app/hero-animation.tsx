@@ -40,17 +40,23 @@ export function HeroAnimation({ active }: { active: boolean }) {
   useEffect(() => {
     if (isDesktop) return;
     if (!leftInView.visible) return;
-    setLeftVisible(true);
-    const id = window.setTimeout(() => setLeftActive(true), 700);
-    return () => window.clearTimeout(id);
+    const t1 = window.setTimeout(() => setLeftVisible(true), 0);
+    const t2 = window.setTimeout(() => setLeftActive(true), 750);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
   }, [isDesktop, leftInView.visible]);
 
   useEffect(() => {
     if (isDesktop) return;
     if (!rightInView.visible) return;
-    setRightVisible(true);
-    const id = window.setTimeout(() => setRightActive(true), 700);
-    return () => window.clearTimeout(id);
+    const t1 = window.setTimeout(() => setRightVisible(true), 216);
+    const t2 = window.setTimeout(() => setRightActive(true), 950);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
   }, [isDesktop, rightInView.visible]);
 
   return (
@@ -68,6 +74,7 @@ export function HeroAnimation({ active }: { active: boolean }) {
             <div
               ref={rightInView.ref}
               className={`reveal ${rightVisible ? "is-visible" : ""} md:border-l md:border-border`}
+              style={{ ["--reveal-delay" as any]: isDesktop ? "0ms" : "216ms" }}
             >
               <ReflexCanvas active={active && rightActive} panel="right" />
             </div>
