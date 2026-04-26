@@ -795,7 +795,7 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
             </span>
           </div>
           <div className="text-[12px] text-fg-secondary">
-            Arc — Reflex Control Architecture
+            Arc — Adaptive Physical AI
           </div>
           <div className="text-[12px] text-fg-secondary">Tsukuba, Japan</div>
         </div>
