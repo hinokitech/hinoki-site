@@ -590,7 +590,7 @@ function FeatureSection() {
     {
       tag: "THE TIMING",
       title: "Reflex speed at >1 kHz",
-      body: "The control loop closes in under one millisecond, faster than a human blink reflex. Humanoid robots are shipping at scale for the first time. Every platform needs Arc. None of them have it yet.",
+      body: "The control loop closes in under one millisecond, faster than a human blink reflex. Humanoid robots are shipping at scale. Every platform needs Arc. None of them have it yet.",
     },
     {
       tag: "THE POSITION",
@@ -787,7 +787,7 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
             </span>
           </div>
           <div className="text-[12px] text-fg-secondary">
-            Reflex Control Architecture
+            Arc — Reflex Control Architecture
           </div>
           <div className="text-[12px] text-fg-secondary">Tsukuba, Japan</div>
         </div>
