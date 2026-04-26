@@ -624,7 +624,7 @@ function FeatureSection() {
             INTRODUCING ARC — HINOKI&apos;S REFLEX CONTROL ARCHITECTURE
           </div>
           <h2 className="mb-4 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[36px]">
-            Built from what nature already solved.
+            Built from biological principles.
           </h2>
           <div className="text-[16px] leading-[1.7] text-fg-secondary">
             Biological reflex systems achieve real-time physical response
@@ -632,9 +632,8 @@ function FeatureSection() {
             Just continuous dynamics coupling sensation directly to response.
             <br />
             <br />
-            This principle has existed for hundreds of millions of years. It
+            This principle has existed for millions of years. It
             has never been implemented in hardware.
-            <p className="mt-6">Until now.</p>
           </div>
         </header>
 
