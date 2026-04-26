@@ -707,7 +707,7 @@ function ApplicationsSection() {
             Target Applications
           </div>
           <h2 className="mb-10 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-inverse md:mb-12 md:text-[36px]">
-            Where latency is not optional.
+            Where reaction is not optional.
           </h2>
         </div>
 
