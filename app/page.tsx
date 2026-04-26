@@ -585,12 +585,12 @@ function FeatureSection() {
     {
       tag: "THE MOAT",
       title: "Sensor-actuation coupling",
-      body: "Every control cycle reads sensors and commands actuators in the same hardware tick. No operating system scheduling. No network hops. No inference queue. This is not a software feature. Arc must be rebuilt from scratch to replicate.",
+      body: "Every control cycle reads sensors and commands actuators in the same hardware tick. No operating system scheduling. No network hops. No inference queue. The principles are biological. The implementation is Arc. The first team to validate this architecture owns the category.",
     },
     {
       tag: "THE TIMING",
       title: "Reflex speed at >1 kHz",
-      body: "The control loop closes in under one millisecond, faster than a human blink reflex. Humanoid robots are shipping at scale. Every platform needs Arc. None of them have it yet.",
+      body: "The control loop closes in under one millisecond, faster than a human blink reflex. At this speed, Arc responds to physical contact before a digital stack finishes its first inference pass. Humanoid robots are shipping at scale. Every platform needs Arc. None of them have it yet.",
     },
     {
       tag: "THE POSITION",
@@ -754,8 +754,8 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
         <p className="mb-8 text-[16px] leading-[1.7] text-fg-secondary">
           We are in active conversation with robotics engineers and research
           institutions across Japan, and selectively opening co-development
-          discussions. If your platform requires reflex-speed control,
-          let&apos;s talk.
+          discussions. If your platform could benefit from Arc, let&apos;s
+          talk.
         </p>
         <button
           type="button"

@@ -142,8 +142,8 @@ export function RequestAccessModal({
                 Partners
               </div>
               <div className="mb-4 text-[14px] leading-[1.7] text-fg-secondary">
-                If your platform requires reflex-speed control, we want to hear
-                from you
+                If your platform could benefit from Arc, we want to hear from
+                you.
               </div>
 
               <form onSubmit={submitPartners} className="flex flex-col gap-3">
