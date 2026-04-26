@@ -120,7 +120,7 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             className={`reveal mb-5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "0ms" }}
           >
-            ARC BY HINOKI
+            ARC BY HINOKI TECHNOLOGIES
           </div>
           <h1
             className={`reveal mb-6 text-[36px] font-light leading-[1.1] tracking-[-0.025em] text-fg-primary md:text-[52px] ${heroVisible ? "is-visible" : ""}`}
