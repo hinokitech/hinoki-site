@@ -379,7 +379,7 @@ export function ReflexCanvas({
       }
       if (panel !== "left") {
         ctx.fillText(
-          "continuous · sensor to actuator · no inference layer",
+          "continuous · sensor to actuator · no inference layer · adaptive",
           L.rightRegion.cx,
           L.rightRegion.subY,
         );
