@@ -333,7 +333,7 @@ export function ReflexCanvas({
       if (panel !== "left") {
         ctx.fillStyle = C.rLabel;
         ctx.fillText(
-          "ARC — REFLEX ARCHITECTURE",
+          "ARC — ADAPTIVE REFLEX ARCHITECTURE",
           L.rightRegion.cx,
           L.rightRegion.labelY,
         );
@@ -372,7 +372,7 @@ export function ReflexCanvas({
       ctx.fillStyle = C.meta;
       if (panel !== "right") {
         ctx.fillText(
-          "5 discrete steps · latency at every layer",
+          "5 discrete steps · complexity at every layer",
           L.leftRegion.cx,
           L.leftRegion.subY,
         );
