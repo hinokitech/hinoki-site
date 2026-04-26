@@ -333,7 +333,7 @@ export function ReflexCanvas({
       if (panel !== "left") {
         ctx.fillStyle = C.rLabel;
         ctx.fillText(
-          "ARC — ADAPTIVE REFLEX ARCHITECTURE",
+          "ARC — ADAPTIVE PHYSICAL AI",
           L.rightRegion.cx,
           L.rightRegion.labelY,
         );

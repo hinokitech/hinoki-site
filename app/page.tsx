@@ -120,7 +120,7 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             className={`reveal mb-5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "0ms" }}
           >
-            ARC BY HINOKI · ADAPTIVE PHYSICAL AI ARCHITECTURE
+            ARC BY HINOKI · ADAPTIVE PHYSICAL AI FOR ROBOTICS
           </div>
           <h1
             className={`reveal mb-6 text-[36px] font-light leading-[1.1] tracking-[-0.025em] text-fg-primary md:text-[52px] ${heroVisible ? "is-visible" : ""}`}
@@ -585,7 +585,7 @@ function FeatureSection() {
     {
       tag: "THE MOAT",
       title: "Sensor-actuation coupling",
-      body: "Every control cycle reads sensors and commands actuators in the same hardware tick. No operating system scheduling. No network hops. No inference queue. The principles are biological. The implementation is Arc. The first team to validate this architecture owns the category.",
+      body: "Every control cycle reads sensors and commands actuators in the same hardware tick. No operating system scheduling. No network hops. No inference queue. The principles are biological. The implementation is Arc.",
     },
     {
       tag: "THE TIMING",
@@ -621,7 +621,7 @@ function FeatureSection() {
           className={`mb-10 max-w-[600px] md:mb-14 ${archHeader.visible ? "is-visible" : ""} reveal`}
         >
           <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-            INTRODUCING ARC — HINOKI&apos;S REFLEX CONTROL ARCHITECTURE
+            INTRODUCING ARC — HINOKI&apos;S ADAPTIVE PHYSICAL AI FOR ROBOTICS
           </div>
           <h2 className="mb-4 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[36px]">
             Built from biological principles.
@@ -685,11 +685,11 @@ function ApplicationsSection() {
     },
     {
       tag: "Industrial Manipulation",
-      desc: "The global industrial robotics market exceeds $300 billion. Force-controlled assembly at production throughput requires sensor feedback at the actuator, not the server. Every major manufacturer is looking for this capability. Most are still waiting for it.",
+      desc: "The global industrial robotics market exceeds $300 billion. Force-controlled assembly at production throughput requires sensor feedback at the actuator, not the server. Every major manufacturer is looking for this capability. Most are still waiting for it. Arc brings physical AI to the factory floor.",
     },
     {
       tag: "Defense & Autonomous",
-      desc: "NATO and allied defense programs are actively procuring robotic platforms for contested environments. Unpredictable terrain, adversarial conditions, physical damage. The reflex layer keeps the platform operational while high-level planning continues. Damage a limb or lose a rotor. The platform keeps moving.",
+      desc: "NATO and allied defense programs are actively procuring robotic platforms for contested environments. Unpredictable terrain, adversarial conditions, physical damage. The reflex layer keeps the platform operational while high-level planning continues. Damage a limb or lose a rotor. The platform keeps moving. Arc is the reason.",
     },
   ];
 
@@ -754,6 +754,11 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
         <h2 className="mb-4 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[36px]">
           Hardware validation is underway.
         </h2>
+        <p className="mb-4 text-[16px] leading-[1.7] text-fg-secondary">
+          We are raising a pre-seed validation round to complete the Arc
+          benchmark and bring physical AI to robotic platforms at scale.
+          Selected for Antler Japan 2026.
+        </p>
         <p className="mb-8 text-[16px] leading-[1.7] text-fg-secondary">
           We are in active conversation with robotics engineers and research
           institutions across Japan, and selectively opening co-development
