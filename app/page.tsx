@@ -423,7 +423,9 @@ function MetricBar() {
           obs.disconnect();
         }
       },
-      { threshold: 0.35 },
+      // Trigger a bit later so the counters animate when the user reaches it,
+      // especially on smaller mobile viewports.
+      { threshold: 0.7, rootMargin: "0px 0px -15% 0px" },
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -583,17 +585,17 @@ function FeatureSection() {
     {
       tag: "THE MOAT",
       title: "Sensor-actuation coupling",
-      body: "Every control cycle reads sensors and commands actuators in the same hardware tick. No operating system scheduling. No network hops. No inference queue. This is not a software feature. It must be rebuilt from scratch to replicate.",
+      body: "Every control cycle reads sensors and commands actuators in the same hardware tick. No operating system scheduling. No network hops. No inference queue. This is not a software feature. Arc must be rebuilt from scratch to replicate.",
     },
     {
       tag: "THE TIMING",
       title: "Reflex speed at >1 kHz",
-      body: "The control loop closes in under one millisecond, faster than a human blink reflex. Humanoid robots are shipping at scale for the first time. Every platform needs this layer. None of them have it yet.",
+      body: "The control loop closes in under one millisecond, faster than a human blink reflex. Humanoid robots are shipping at scale for the first time. Every platform needs Arc. None of them have it yet.",
     },
     {
       tag: "THE POSITION",
       title: "Continuous, not episodic",
-      body: "Traditional stacks respond to events. Arc adapts continuously. No discrete state transitions. No latency cliffs. Failure modes are bounded by physics, not software. The reflex layer becomes infrastructure. Infrastructure gets licensed.",
+      body: "Traditional stacks respond to events. Arc adapts continuously. No discrete state transitions. No latency cliffs. Failure modes are bounded by physics, not software. Once embedded, Arc becomes infrastructure. Infrastructure gets licensed.",
     },
   ];
 
@@ -611,7 +613,7 @@ function FeatureSection() {
   return (
     <section
       id="architecture"
-      className="bg-bg-base px-5 pb-10 pt-14 md:px-12 md:pb-14 md:pt-[72px]"
+      className="bg-bg-base px-5 pb-2 pt-14 md:px-12 md:pb-6 md:pt-[72px]"
     >
       <div className="mx-auto max-w-[1200px]">
         <header
