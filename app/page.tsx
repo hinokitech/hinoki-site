@@ -613,7 +613,7 @@ function FeatureSection() {
   return (
     <section
       id="architecture"
-      className="bg-bg-base px-5 pb-2 pt-14 md:px-12 md:pb-6 md:pt-[72px]"
+      className="scroll-mt-[80px] bg-bg-base px-5 pb-2 pt-14 md:px-12 md:pb-6 md:pt-[72px]"
     >
       <div className="mx-auto max-w-[1200px]">
         <header
