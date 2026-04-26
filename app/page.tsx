@@ -120,7 +120,7 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             className={`reveal mb-5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "0ms" }}
           >
-            Reflex control architecture
+            ARC BY HINOKI
           </div>
           <h1
             className={`reveal mb-6 text-[36px] font-light leading-[1.1] tracking-[-0.025em] text-fg-primary md:text-[52px] ${heroVisible ? "is-visible" : ""}`}
@@ -581,19 +581,19 @@ function DramaticZeroRoll({
 function FeatureSection() {
   const features = [
     {
-      tag: "Architecture",
-      title: "Direct sensor-actuation coupling",
-      body: "Every control cycle reads sensors and commands actuators in the same hardware tick. No operating system scheduling. No network hops. No inference queue.",
+      tag: "THE MOAT",
+      title: "Sensor-actuation coupling",
+      body: "Every control cycle reads sensors and commands actuators in the same hardware tick. No operating system scheduling. No network hops. No inference queue. This is not a software feature. It must be rebuilt from scratch to replicate.",
     },
     {
-      tag: "Performance",
+      tag: "THE TIMING",
       title: "Reflex speed at >1 kHz",
-      body: "The control loop closes in under one millisecond — faster than a human blink reflex. This is not a software optimization; it is an architectural constraint. Continuous-time processing eliminates the memory access and inference overhead that drives power consumption in digital control stacks.",
+      body: "The control loop closes in under one millisecond, faster than a human blink reflex. Humanoid robots are shipping at scale for the first time. Every platform needs this layer. None of them have it yet.",
     },
     {
-      tag: "Safety",
+      tag: "THE POSITION",
       title: "Continuous, not episodic",
-      body: "Traditional stacks respond to events. Hinoki's architecture adapts continuously. No discrete state transitions. No latency cliffs. Failure modes are bounded by physics, not software.",
+      body: "Traditional stacks respond to events. Arc adapts continuously. No discrete state transitions. No latency cliffs. Failure modes are bounded by physics, not software. The reflex layer becomes infrastructure. Infrastructure gets licensed.",
     },
   ];
 
@@ -609,30 +609,40 @@ function FeatureSection() {
   }, [archAnim.visible]);
 
   return (
-    <section id="architecture" className="bg-bg-base px-5 py-20 md:px-12 md:py-24">
+    <section
+      id="architecture"
+      className="bg-bg-base px-5 pb-10 pt-14 md:px-12 md:pb-14 md:pt-[72px]"
+    >
       <div className="mx-auto max-w-[1200px]">
         <header
           ref={archHeader.ref as React.RefObject<HTMLDivElement>}
           className={`mb-10 max-w-[600px] md:mb-14 ${archHeader.visible ? "is-visible" : ""} reveal`}
         >
           <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-            Core Architecture
+            INTRODUCING ARC — HINOKI&apos;S REFLEX CONTROL ARCHITECTURE
           </div>
           <h2 className="mb-4 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[36px]">
-            Built from biological principles.
+            Built from what nature already solved.
           </h2>
-          <p className="text-[16px] leading-[1.7] text-fg-secondary">
-            Current robotic control stacks were designed for capability, not
-            speed. Hinoki&apos;s architecture is designed around a single
-            constraint: latency cannot exist in the reflex path.
-          </p>
+          <div className="text-[16px] leading-[1.7] text-fg-secondary">
+            Biological reflex systems achieve real-time physical response
+            without a central processor. No inference layer. No memory lookup.
+            Just continuous dynamics coupling sensation directly to response.
+            <br />
+            <br />
+            This principle has existed for hundreds of millions of years. It
+            has never been implemented in hardware.
+            <p className="mt-6">Until now.</p>
+          </div>
         </header>
 
         <div
           ref={archAnim.ref as React.RefObject<HTMLDivElement>}
           className={`reveal ${archAnim.visible ? "is-visible" : ""}`}
         >
-          <HeroAnimation active={archAnimActive} />
+          <div className="my-12 rounded-2xl border border-[#E0DDD8] p-8">
+            <HeroAnimation active={archAnimActive} />
+          </div>
         </div>
 
         <div
@@ -666,15 +676,15 @@ function ApplicationsSection() {
   const apps = [
     {
       tag: "Humanoid Safety",
-      desc: "Real-time contact response. The robot reacts before the central controller finishes its first inference pass.",
+      desc: "Tesla is targeting 100,000 Optimus units in 2026. Every humanoid operating near humans needs a real-time collision response layer. Current digital stacks are too slow. McKinsey identified safety as the primary bottleneck blocking commercial deployment. Arc closes that gap at the hardware level.",
     },
     {
       tag: "Industrial Manipulation",
-      desc: "Force-controlled assembly at production throughput. Sensor feedback closes the loop at the actuator, not the server.",
+      desc: "The global industrial robotics market exceeds $300 billion. Force-controlled assembly at production throughput requires sensor feedback at the actuator, not the server. Every major manufacturer is looking for this capability. Most are still waiting for it.",
     },
     {
       tag: "Defense & Autonomous",
-      desc: "Unpredictable terrain, adversarial conditions. The reflex layer keeps the platform stable while high-level planning continues. Platforms that lose a limb or a rotor continue operating. The reflex layer adapts to the new physical state in real time.",
+      desc: "NATO and allied defense programs are actively procuring robotic platforms for contested environments. Unpredictable terrain, adversarial conditions, physical damage. The reflex layer keeps the platform operational while high-level planning continues. Damage a limb or lose a rotor. The platform keeps moving.",
     },
   ];
 

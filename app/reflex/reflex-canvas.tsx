@@ -333,7 +333,7 @@ export function ReflexCanvas({
       if (panel !== "left") {
         ctx.fillStyle = C.rLabel;
         ctx.fillText(
-          "HINOKI REFLEX ARCHITECTURE",
+          "ARC — REFLEX ARCHITECTURE",
           L.rightRegion.cx,
           L.rightRegion.labelY,
         );
