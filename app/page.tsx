@@ -126,7 +126,7 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             className={`reveal mb-6 text-[36px] font-light leading-[1.1] tracking-[-0.025em] text-fg-primary md:text-[52px] ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "216ms" }}
           >
-            The reflex layer
+            The physical intelligence
             <br />
             robots have been missing.
           </h1>
@@ -134,9 +134,8 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             className={`reveal mb-9 max-w-[520px] text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px] ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "432ms" }}
           >
-            Hinoki couples sensor input directly to actuation — continuously, at
-            hardware speed — eliminating the discrete inference steps that make
-            current robots brittle.
+            Robots today are computationally intelligent but not physically
+            intelligent. Arc is the architecture layer that changes that.
           </p>
 
           <div
@@ -396,13 +395,13 @@ function MetricBar() {
         prefix: "",
         value: 0,
         unit: "inference steps",
-        label: "In the reflex path",
+        label: "In the physical response loop",
         dramaticZero: true,
       },
       {
         prefix: "",
         value: 3,
-        unit: "target markets",
+        unit: "platforms",
         label: "Humanoid · Industrial · Defense",
       },
     ],
@@ -583,19 +582,19 @@ function DramaticZeroRoll({
 function FeatureSection() {
   const features = [
     {
-      tag: "THE MOAT",
-      title: "Sensor-actuation coupling",
-      body: "Every control cycle reads sensors and commands actuators in the same hardware tick, with no operating system scheduling, no network hops, and no inference queue between them. The principles are biological. The implementation is Arc.",
+      tag: "PHYSICAL RESPONSE",
+      title: "The body acts before the brain decides.",
+      body: "In living systems, physical response happens at the body level. A hand withdraws from heat before the brain registers pain. A cat lands before it calculates the trajectory. Arc brings this same principle to robotic hardware. Sensor input couples directly to actuation in the same hardware tick, with no inference, no memory access, no digital round trip. The response happens where the physics happen.",
     },
     {
-      tag: "THE TIMING",
-      title: "Reflex speed at >1 kHz",
-      body: "The control loop closes in under one millisecond, faster than a human blink reflex, and at this speed Arc responds to physical contact before a digital stack finishes its first inference pass. Humanoid robots are shipping at scale. Every platform needs Arc. None of them have it yet.",
+      tag: "PHYSICAL ADAPTATION",
+      title: "A body that learns from contact.",
+      body: "Living systems don't retune themselves when conditions change. They adapt continuously through the dynamics of their own physical structure. Arc does the same. The control loop adjusts in real time to variable loads, changing surfaces, unexpected contact, and shifting conditions without manual intervention. This is not software adaptation layered above hardware. This is adaptation within the hardware itself.",
     },
     {
-      tag: "THE POSITION",
-      title: "Continuous, not episodic",
-      body: "Traditional stacks respond to discrete events, creating latency cliffs and rigid failure modes at every layer. Arc adapts continuously, with no discrete state transitions and failure modes bounded by physics rather than software. Once embedded, Arc becomes infrastructure. Infrastructure gets licensed.",
+      tag: "PHYSICAL RESILIENCE",
+      title: "Function through failure.",
+      body: "Biological systems continue operating when damaged because physical intelligence is distributed, not centralised. A three legged animal keeps moving. A bird with an injured wing still glides. Arc brings this resilience to robotic platforms. When a limb fails, a rotor stops, or conditions become unpredictable, Arc redistributes physical response in real time. The platform keeps functioning because intelligence lives in the body, not just the brain.",
     },
   ];
 
@@ -621,22 +620,24 @@ function FeatureSection() {
           className={`mb-10 max-w-[600px] md:mb-14 ${archHeader.visible ? "is-visible" : ""} reveal`}
         >
           <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-            INTRODUCING ARC — ADAPTIVE PHYSICAL AI FOR ROBOTICS
+            INTRODUCING ARC — PHYSICAL INTELLIGENCE FOR ROBOTICS
           </div>
           <h2 className="mb-4 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[36px]">
             Built from biological principles.
           </h2>
           <div className="text-[16px] leading-[1.7] text-fg-secondary">
-            Biological reflex systems achieve real-time physical response
-            without a central processor. No inference layer. No memory lookup.
-            Just continuous dynamics coupling sensation directly to response.
-            <br />
-            <br />
-            This principle has existed for millions of years. It
-            has never been implemented in hardware.
+            Nature solved physical intelligence hundreds of millions of years
+            ago. Biological reflex systems achieve real-time physical response
+            without a central processor, no inference layer, no memory lookup,
+            just continuous dynamics coupling sensation directly to response.
+            Every living system that moves, reacts, and survives in an
+            unpredictable world runs on this principle.
             <p className="mt-6">
-              Arc is not AI applied to physical systems. Arc is AI that exists
-              within the physical dynamics itself.
+              Computational intelligence lives in the brain. Physical
+              intelligence lives in the body.
+            </p>
+            <p className="mt-6">
+              Robots have been given brains. Arc gives them a nervous system.
             </p>
           </div>
         </header>
@@ -681,15 +682,15 @@ function ApplicationsSection() {
   const apps = [
     {
       tag: "Humanoid Safety",
-      desc: "Tesla is targeting 100,000 Optimus units in 2026. Every humanoid operating near humans needs a real-time collision response layer. Current digital stacks are too slow. McKinsey identified safety as the primary bottleneck blocking commercial deployment. Arc closes that gap at the hardware level.",
+      desc: "Tesla is targeting 100,000 Optimus units in 2026, and every one of them will operate near humans. McKinsey identified real-time safety response as the primary bottleneck blocking commercial deployment at scale. Current digital stacks are too slow for this problem. In humanoids operating near humans, Arc delivers physical response at the speed physics demands.",
     },
     {
       tag: "Industrial Manipulation",
-      desc: "The global industrial robotics market exceeds $300 billion. Force-controlled assembly at production throughput requires sensor feedback at the actuator, not the server. Every major manufacturer is looking for this capability. Most are still waiting for it. Arc brings physical AI to the factory floor.",
+      desc: "The global industrial robotics market exceeds $300 billion, and the capability gap at the control layer remains largely unsolved. Force-controlled assembly at production throughput requires sensor feedback at the actuator, not the server. In factory systems handling variable conditions, Arc delivers the physical adaptation that precision requires.",
     },
     {
       tag: "Defense & Autonomous",
-      desc: "NATO and allied defense programs are actively procuring robotic platforms for contested environments. Unpredictable terrain, adversarial conditions, physical damage. The reflex layer keeps the platform operational while high-level planning continues. Damage a limb or lose a rotor. The platform keeps moving. Arc is the reason.",
+      desc: "NATO and allied defense programs are actively procuring robotic platforms for contested environments. Unpredictable terrain, adversarial conditions, physical damage. Damage a limb or lose a rotor. The platform keeps moving. In contested and unpredictable environments, Arc delivers the physical resilience that keeps platforms operational.",
     },
   ];
 
@@ -704,10 +705,10 @@ function ApplicationsSection() {
           className={`reveal reveal-slow ${appsHead.visible ? "is-visible" : ""}`}
         >
           <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-            Target Applications
+            ONE ARCHITECTURE
           </div>
           <h2 className="mb-10 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-inverse md:mb-12 md:text-[36px]">
-            Where reaction is not optional.
+            Every platform that moves.
           </h2>
         </div>
 
@@ -759,8 +760,8 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
         </div>
         <p className="mb-4 text-[16px] leading-[1.7] text-fg-secondary">
           Arc is in hardware validation. We are raising a pre-seed round to
-          complete the benchmark and bring physical AI to robotic platforms at
-          scale. Selected for Antler Japan 2026 Residency.
+          complete the benchmark and bring adaptive physical AI to robotic
+          platforms at scale. Selected for Antler Japan 2026 Residency.
         </p>
         <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
           For partners

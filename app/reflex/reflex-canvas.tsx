@@ -328,12 +328,16 @@ export function ReflexCanvas({
       font(9.5, 600);
       if (panel !== "right") {
         ctx.fillStyle = C.lLabel;
-        ctx.fillText("TODAY'S CONTROLLERS", L.leftRegion.cx, L.leftRegion.labelY);
+        ctx.fillText(
+          "COMPUTATIONAL INTELLIGENCE",
+          L.leftRegion.cx,
+          L.leftRegion.labelY,
+        );
       }
       if (panel !== "left") {
         ctx.fillStyle = C.rLabel;
         ctx.fillText(
-          "ARC — ADAPTIVE PHYSICAL AI",
+          "ARC — PHYSICAL INTELLIGENCE",
           L.rightRegion.cx,
           L.rightRegion.labelY,
         );
