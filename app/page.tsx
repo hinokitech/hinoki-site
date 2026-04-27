@@ -626,12 +626,11 @@ function FeatureSection() {
             Built from biological principles.
           </h2>
           <div className="text-[16px] leading-[1.7] text-fg-secondary">
-            Nature solved physical intelligence millions of years
-            ago. Biological reflex systems achieve real-time physical response
-            without a central processor, no inference layer, no memory lookup,
-            just continuous dynamics coupling sensation directly to response.
-            Every living system that moves, reacts, and survives in an
-            unpredictable world runs on this principle.
+            Nature solved physical intelligence millions of years ago, and every
+            living system that moves, reacts, and survives in an unpredictable
+            world runs on the same principle. Sensation couples directly to
+            response, without inference, without memory lookup, without a
+            central processor standing in the way.
             <p className="mt-6">
               Computational intelligence lives in the brain. Physical
               intelligence lives in the body.
