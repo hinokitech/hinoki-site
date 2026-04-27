@@ -626,7 +626,7 @@ function FeatureSection() {
             Built from biological principles.
           </h2>
           <div className="text-[16px] leading-[1.7] text-fg-secondary">
-            Nature solved physical intelligence hundreds of millions of years
+            Nature solved physical intelligence millions of years
             ago. Biological reflex systems achieve real-time physical response
             without a central processor, no inference layer, no memory lookup,
             just continuous dynamics coupling sensation directly to response.
