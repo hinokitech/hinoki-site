@@ -59,8 +59,8 @@ function Nav({ onRequestAccess }: { onRequestAccess: () => void }) {
       <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-5 md:px-12">
         <a href="#" className="flex items-center gap-[10px]">
           <img
-            src="/assets/logo-mark-light.png"
-            alt="Hinoki mark"
+            src="/assets/logo-hinoki-tree.png"
+            alt="Hinoki"
             width={34}
             height={34}
             className="block h-[34px] w-[34px] object-contain"
@@ -621,7 +621,7 @@ function FeatureSection() {
           className={`mb-10 max-w-[600px] md:mb-14 ${archHeader.visible ? "is-visible" : ""} reveal`}
         >
           <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-            INTRODUCING ARC — HINOKI&apos;S ADAPTIVE PHYSICAL AI FOR ROBOTICS
+            INTRODUCING ARC — ADAPTIVE PHYSICAL AI FOR ROBOTICS
           </div>
           <h2 className="mb-4 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[36px]">
             Built from biological principles.
@@ -755,9 +755,9 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
           Hardware validation is underway.
         </h2>
         <p className="mb-4 text-[16px] leading-[1.7] text-fg-secondary">
-          We are raising a pre-seed validation round to complete the Arc
-          benchmark and bring physical AI to robotic platforms at scale.
-          Selected for Antler Japan 2026.
+          Arc is in hardware validation. We are raising a pre-seed round to
+          complete the benchmark and bring physical AI to robotic platforms at
+          scale. Selected for Antler Japan 2026 Residency.
         </p>
         <p className="mb-8 text-[16px] leading-[1.7] text-fg-secondary">
           We are in active conversation with robotics engineers and research
@@ -784,8 +784,8 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
         <div>
           <div className="mb-2.5 flex items-center gap-2">
             <img
-              src="/assets/logo-mark-cropped.png"
-              alt="Hinoki mark"
+              src="/assets/logo-hinoki-tree.png"
+              alt="Hinoki"
               width={34}
               height={34}
               className="block h-[34px] w-[34px] object-contain"
