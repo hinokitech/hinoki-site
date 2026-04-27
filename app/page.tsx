@@ -782,7 +782,7 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
     <footer className="border-t border-border-inverse bg-bg-inverse px-5 pb-8 pt-14 md:px-12">
       <div className="mx-auto mb-12 flex max-w-[1200px] flex-col justify-between gap-12 md:flex-row md:gap-12">
         <div>
-          <div className="mb-2.5 flex items-center gap-2">
+          <div className="-ml-3 mb-2.5 flex items-center gap-2">
             <img
               src="/assets/logo-hinoki-tree.png"
               alt="Hinoki"
