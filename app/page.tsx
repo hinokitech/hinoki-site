@@ -652,12 +652,14 @@ function FeatureSection() {
 
         <div
           ref={archCards.ref as React.RefObject<HTMLDivElement>}
-          className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-border bg-border md:mt-0 md:grid-cols-3"
+          className="mt-10 grid grid-cols-1 overflow-hidden rounded-md border border-border bg-bg-subtle md:mt-0 md:grid-cols-3"
         >
           {features.map((f, idx) => (
             <div
               key={f.title}
-              className={`reveal reveal-card bg-bg-subtle px-7 py-8 ${archCards.visible ? "is-visible" : ""}`}
+              className={`reveal reveal-card px-7 py-8 ${archCards.visible ? "is-visible" : ""} border-border ${
+                idx === 0 ? "" : "border-t md:border-t-0 md:border-l"
+              }`}
               style={{ ["--reveal-delay" as any]: `${idx * 180}ms` }}
             >
               <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
@@ -759,7 +761,7 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
         </div>
         <p className="mb-4 text-[16px] leading-[1.7] text-fg-secondary">
           Arc is in hardware validation. We are raising a pre-seed round to
-          complete the benchmark and bring adaptive physical AI to robotic
+          complete the benchmark and bring physical intelligence to robotic
           platforms at scale. Selected for Antler Japan 2026 Residency.
         </p>
         <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
