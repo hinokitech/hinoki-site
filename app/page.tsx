@@ -585,17 +585,17 @@ function FeatureSection() {
     {
       tag: "THE MOAT",
       title: "Sensor-actuation coupling",
-      body: "Every control cycle reads sensors and commands actuators in the same hardware tick. No operating system scheduling. No network hops. No inference queue. The principles are biological. The implementation is Arc.",
+      body: "Every control cycle reads sensors and commands actuators in the same hardware tick, with no operating system scheduling, no network hops, and no inference queue between them. The principles are biological. The implementation is Arc.",
     },
     {
       tag: "THE TIMING",
       title: "Reflex speed at >1 kHz",
-      body: "The control loop closes in under one millisecond, faster than a human blink reflex. At this speed, Arc responds to physical contact before a digital stack finishes its first inference pass. Humanoid robots are shipping at scale. Every platform needs Arc. None of them have it yet.",
+      body: "The control loop closes in under one millisecond, faster than a human blink reflex, and at this speed Arc responds to physical contact before a digital stack finishes its first inference pass. Humanoid robots are shipping at scale. Every platform needs Arc. None of them have it yet.",
     },
     {
       tag: "THE POSITION",
       title: "Continuous, not episodic",
-      body: "Traditional stacks respond to events. Arc adapts continuously. No discrete state transitions. No latency cliffs. Failure modes are bounded by physics, not software. Once embedded, Arc becomes infrastructure. Infrastructure gets licensed.",
+      body: "Traditional stacks respond to discrete events, creating latency cliffs and rigid failure modes at every layer. Arc adapts continuously, with no discrete state transitions and failure modes bounded by physics rather than software. Once embedded, Arc becomes infrastructure. Infrastructure gets licensed.",
     },
   ];
 
