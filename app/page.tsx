@@ -754,11 +754,17 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
         <h2 className="mb-4 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[36px]">
           Hardware validation is underway.
         </h2>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
+          For investors
+        </div>
         <p className="mb-4 text-[16px] leading-[1.7] text-fg-secondary">
           Arc is in hardware validation. We are raising a pre-seed round to
           complete the benchmark and bring physical AI to robotic platforms at
           scale. Selected for Antler Japan 2026 Residency.
         </p>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
+          For partners
+        </div>
         <p className="mb-8 text-[16px] leading-[1.7] text-fg-secondary">
           We are in active conversation with robotics engineers and research
           institutions across Japan, and selectively opening co-development
