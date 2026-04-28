@@ -580,15 +580,15 @@ function DramaticZeroRoll({
   return <span className="inline-block w-[1ch] tabular-nums">{display}</span>;
 }
 
-function LatencyComparisonBar({ active }: { active: boolean }) {
+function LatencyComparisonBar() {
   const inView = useInViewOnce<HTMLDivElement>({ threshold: 0.4 });
   const [filled, setFilled] = useState(false);
 
   useEffect(() => {
-    if (!active && !inView.visible) return;
+    if (!inView.visible) return;
     const t = window.setTimeout(() => setFilled(true), 220);
     return () => window.clearTimeout(t);
-  }, [active, inView.visible]);
+  }, [inView.visible]);
 
   return (
     <div
@@ -729,7 +729,7 @@ function FeatureSection() {
               <span className="italic text-fg-primary">Arc</span> responds.
             </p>
             <HeroAnimation active={archAnimActive} />
-            <LatencyComparisonBar active={archAnimActive} />
+            <LatencyComparisonBar />
           </div>
         </div>
 
