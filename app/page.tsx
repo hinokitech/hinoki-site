@@ -674,10 +674,34 @@ function FeatureSection() {
   const archHeader = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
   const archCards = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
   const archAnim = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
-  const panelsTrigger = useInViewOnce<HTMLDivElement>({
+
+  // Desktop: a single trigger on the panels grid drives a staggered timeline
+  // because both panels are visible side-by-side at once.
+  const desktopTrigger = useInViewOnce<HTMLDivElement>({
     threshold: 0.15,
     rootMargin: "0px 0px -5% 0px",
   });
+
+  // Mobile: each panel has its own scroll trigger because the panels are
+  // stacked and the user views them sequentially. The Arc panel should fire
+  // only when the user actually scrolls down to it.
+  const leftPanelInView = useInViewOnce<HTMLDivElement>({
+    threshold: 0.3,
+    rootMargin: "0px 0px -10% 0px",
+  });
+  const rightPanelInView = useInViewOnce<HTMLDivElement>({
+    threshold: 0.3,
+    rootMargin: "0px 0px -10% 0px",
+  });
+
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const apply = () => setIsDesktop(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
 
   const [leftVisible, setLeftVisible] = useState(false);
   const [rightVisible, setRightVisible] = useState(false);
@@ -685,8 +709,9 @@ function FeatureSection() {
   const [rightActive, setRightActive] = useState(false);
   const [panelsReady, setPanelsReady] = useState(false);
 
+  // Desktop timeline: both panels staggered, then latency.
   useEffect(() => {
-    if (!panelsTrigger.visible) return;
+    if (!isDesktop || !desktopTrigger.visible) return;
     const t1 = window.setTimeout(() => setLeftVisible(true), 0);
     const t2 = window.setTimeout(() => setRightVisible(true), 280);
     const t3 = window.setTimeout(() => setLeftActive(true), 850);
@@ -699,7 +724,33 @@ function FeatureSection() {
       window.clearTimeout(t4);
       window.clearTimeout(t5);
     };
-  }, [panelsTrigger.visible]);
+  }, [isDesktop, desktopTrigger.visible]);
+
+  // Mobile left panel: independent reveal + activation when scrolled into view.
+  useEffect(() => {
+    if (isDesktop || !leftPanelInView.visible) return;
+    const t1 = window.setTimeout(() => setLeftVisible(true), 0);
+    const t2 = window.setTimeout(() => setLeftActive(true), 700);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
+  }, [isDesktop, leftPanelInView.visible]);
+
+  // Mobile right (Arc) panel: triggers only when the user scrolls to it,
+  // so the reveal lands while the user is looking at it. Latency bar gate
+  // (panelsReady) flips ~1.4s after, ensuring the bar always follows.
+  useEffect(() => {
+    if (isDesktop || !rightPanelInView.visible) return;
+    const t1 = window.setTimeout(() => setRightVisible(true), 0);
+    const t2 = window.setTimeout(() => setRightActive(true), 700);
+    const t3 = window.setTimeout(() => setPanelsReady(true), 1400);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      window.clearTimeout(t3);
+    };
+  }, [isDesktop, rightPanelInView.visible]);
 
   return (
     <section
@@ -750,12 +801,14 @@ function FeatureSection() {
               How robots respond today, and how{" "}
               <span className="italic text-fg-primary">Arc</span> responds.
             </p>
-            <div ref={panelsTrigger.ref as React.RefObject<HTMLDivElement>}>
+            <div ref={desktopTrigger.ref as React.RefObject<HTMLDivElement>}>
               <HeroAnimation
                 leftVisible={leftVisible}
                 rightVisible={rightVisible}
                 leftActive={leftActive}
                 rightActive={rightActive}
+                leftRef={leftPanelInView.ref as React.RefObject<HTMLDivElement | null>}
+                rightRef={rightPanelInView.ref as React.RefObject<HTMLDivElement | null>}
               />
             </div>
             <LatencyComparisonBar ready={panelsReady} />
