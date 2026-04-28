@@ -120,7 +120,7 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             className={`reveal mb-5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "0ms" }}
           >
-            ARC BY HINOKI · ADAPTIVE PHYSICAL AI FOR ROBOTICS
+            ARC BY HINOKI · PHYSICAL INTELLIGENCE FOR ROBOTICS
           </div>
           <h1
             className={`reveal mb-6 text-[36px] font-light leading-[1.1] tracking-[-0.025em] text-fg-primary md:text-[52px] ${heroVisible ? "is-visible" : ""}`}
@@ -135,7 +135,8 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             style={{ ["--reveal-delay" as any]: "432ms" }}
           >
             Robots today are computationally intelligent but not physically
-            intelligent. Arc is the architecture layer that changes that.
+            intelligent. <span className="italic">Arc</span> is the architecture
+            layer for physical intelligence.
           </p>
 
           <div
@@ -579,22 +580,91 @@ function DramaticZeroRoll({
   return <span className="inline-block w-[1ch] tabular-nums">{display}</span>;
 }
 
+function LatencyComparisonBar({ active }: { active: boolean }) {
+  const inView = useInViewOnce<HTMLDivElement>({ threshold: 0.4 });
+  const [filled, setFilled] = useState(false);
+
+  useEffect(() => {
+    if (!active && !inView.visible) return;
+    const t = window.setTimeout(() => setFilled(true), 220);
+    return () => window.clearTimeout(t);
+  }, [active, inView.visible]);
+
+  return (
+    <div
+      ref={inView.ref}
+      className="mt-7 border-t border-[#E0DDD8] pt-5 md:mt-10 md:pt-7"
+    >
+      <div className="mb-4 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-fg-tertiary md:mb-5">
+        End-to-end latency  ·  same scale
+      </div>
+
+      <div className="mx-auto flex max-w-[600px] flex-col gap-3 md:gap-3.5">
+        <div className="grid grid-cols-[78px_1fr_60px] items-center gap-2 md:grid-cols-[120px_1fr_72px] md:gap-4">
+          <div className="text-right text-[10px] text-fg-secondary md:text-[12px]">
+            Computational
+          </div>
+          <div className="relative h-2 overflow-hidden rounded-sm bg-[#E3DED7]">
+            <div
+              className="absolute inset-y-0 left-0 rounded-sm bg-[#7B8FAB] transition-[width] duration-1000 ease-out"
+              style={{ width: filled ? "100%" : "0%" }}
+            />
+          </div>
+          <div className="text-[10px] font-medium text-fg-primary md:text-[12px]">
+            ~50 ms
+          </div>
+        </div>
+
+        <div className="grid grid-cols-[78px_1fr_60px] items-center gap-2 md:grid-cols-[120px_1fr_72px] md:gap-4">
+          <div className="text-right text-[10px] text-fg-secondary md:text-[12px]">
+            <span className="italic">Arc</span>
+          </div>
+          <div className="relative h-2 overflow-hidden rounded-sm bg-[#E3DED7]">
+            <div
+              className="absolute inset-y-0 left-0 rounded-sm bg-accent transition-[width] duration-1000 ease-out"
+              style={{
+                width: filled ? "2%" : "0%",
+                transitionDelay: "260ms",
+              }}
+            />
+          </div>
+          <div className="text-[10px] font-medium text-fg-primary md:text-[12px]">
+            &lt;1 ms
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-2 grid max-w-[600px] grid-cols-[78px_1fr_60px] gap-2 md:grid-cols-[120px_1fr_72px] md:gap-4">
+        <div />
+        <div className="flex justify-between text-[9px] uppercase tracking-[0.12em] text-fg-tertiary md:text-[10px]">
+          <span>0 ms</span>
+          <span>~50 ms</span>
+        </div>
+        <div />
+      </div>
+    </div>
+  );
+}
+
 function FeatureSection() {
   const features = [
     {
       tag: "PHYSICAL RESPONSE",
       title: "The body acts before the brain decides.",
-      body: "In living systems, physical response happens at the body level. A hand withdraws from heat before the brain registers pain. A cat lands before it calculates the trajectory. Arc brings this same principle to robotic hardware. Sensor input couples directly to actuation in the same hardware tick, with no inference, no memory access, no digital round trip. The response happens where the physics happen.",
+      body: "A hand withdraws from heat before the brain registers pain. Arc brings this into robotic hardware: sensor input couples directly to actuation in the same hardware tick. No inference, no memory access, no digital round trip.",
+      claim: "Sub-millisecond response, with zero inference in the loop.",
     },
     {
       tag: "PHYSICAL ADAPTATION",
-      title: "A body that learns from contact.",
-      body: "Living systems don't retune themselves when conditions change. They adapt continuously through the dynamics of their own physical structure. Arc does the same. The control loop adjusts in real time to variable loads, changing surfaces, unexpected contact, and shifting conditions without manual intervention. Unlike software adaptation layered above the hardware, Arc's adaptation occurs within the hardware dynamics itself.",
+      title: "A body shaped by contact.",
+      body: "Most robotic adaptation happens in software — replanning, retuning, retraining. Arc's control loop adapts in the hardware itself, absorbing variable loads, changing surfaces, and unexpected contact in real time.",
+      claim: "Adaptation in the actuator, not the server.",
     },
     {
       tag: "PHYSICAL RESILIENCE",
       title: "Function through failure.",
-      body: "Biological systems continue operating when damaged because physical intelligence is distributed, not centralised. A three legged animal keeps moving. A bird with an injured wing still glides. Arc brings this resilience to robotic platforms. When a limb fails, a rotor stops, or conditions become unpredictable, Arc redistributes physical response in real time. The platform keeps functioning because intelligence lives in the body, not just the brain.",
+      body: "A three-legged animal keeps moving — physical resilience is distributed across the body. Arc brings this to robotic platforms: when a limb fails or a rotor stops, response redistributes across the remaining hardware in real time.",
+      claim: "Distributed response, no central failover.",
     },
   ];
 
@@ -617,26 +687,34 @@ function FeatureSection() {
       <div className="mx-auto max-w-[1200px]">
         <header
           ref={archHeader.ref as React.RefObject<HTMLDivElement>}
-          className={`mb-10 max-w-[600px] md:mb-14 ${archHeader.visible ? "is-visible" : ""} reveal`}
+          className={`mb-10 max-w-[720px] md:mb-14 ${archHeader.visible ? "is-visible" : ""} reveal`}
         >
           <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
             INTRODUCING ARC — PHYSICAL INTELLIGENCE FOR ROBOTICS
           </div>
-          <h2 className="mb-4 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[36px]">
+          <h2 className="mb-5 text-[28px] font-light leading-[1.1] tracking-[-0.03em] text-fg-primary md:text-[44px]">
             Built from biological principles.
           </h2>
-          <div className="text-[16px] leading-[1.7] text-fg-secondary">
-            Nature solved physical intelligence millions of years ago, and every
-            living system that moves, reacts, and survives in an unpredictable
-            world runs on the same principle. Sensation couples directly to
-            response, without inference, without memory lookup, without a
-            central processor standing in the way.
-            <p className="mt-6">
-              Computational intelligence lives in the brain. Physical
-              intelligence lives in the body.
+          <div className="max-w-[600px] text-[16px] leading-[1.75]">
+            <span className="text-fg-primary">
+              Nature solved physical intelligence millions of years ago.
+            </span>{" "}
+            <span className="text-fg-secondary">
+              Every living system that moves and survives in an unpredictable
+              world runs on the same principle: sensation couples directly to
+              response.
+            </span>
+            <p className="mt-10 text-[18px] font-light leading-[1.4] tracking-[-0.01em] md:mt-12 md:text-[20px]">
+              <span className="block text-fg-secondary">
+                Computational intelligence lives in the brain.
+              </span>
+              <span className="mt-3 block text-fg-primary">
+                Physical intelligence lives in the body.
+              </span>
             </p>
-            <p className="mt-6">
-              Robots have been given brains, but Arc gives them a nervous system.
+            <p className="mt-12 max-w-[640px] text-[24px] font-light leading-[1.3] tracking-[-0.02em] text-fg-primary md:mt-14 md:text-[32px]">
+              Robots have been given brains, but{" "}
+              <span className="italic">Arc</span> gives them a nervous system.
             </p>
           </div>
         </header>
@@ -645,8 +723,13 @@ function FeatureSection() {
           ref={archAnim.ref as React.RefObject<HTMLDivElement>}
           className={`reveal ${archAnim.visible ? "is-visible" : ""}`}
         >
-          <div className="my-12 rounded-2xl border border-[#E0DDD8] p-8">
+          <div className="my-12 rounded-2xl border border-[#E0DDD8] px-5 py-6 md:px-8 md:py-8">
+            <p className="mb-4 text-center text-[13px] leading-[1.5] text-fg-secondary md:mb-6 md:text-[14px]">
+              How robots respond today, and how{" "}
+              <span className="italic text-fg-primary">Arc</span> responds.
+            </p>
             <HeroAnimation active={archAnimActive} />
+            <LatencyComparisonBar active={archAnimActive} />
           </div>
         </div>
 
@@ -657,7 +740,7 @@ function FeatureSection() {
           {features.map((f, idx) => (
             <div
               key={f.title}
-              className={`reveal reveal-card px-7 py-8 ${archCards.visible ? "is-visible" : ""} border-border ${
+              className={`reveal reveal-card flex flex-col px-7 py-8 ${archCards.visible ? "is-visible" : ""} border-border ${
                 idx === 0 ? "" : "border-t md:border-t-0 md:border-l"
               }`}
               style={{ ["--reveal-delay" as any]: `${idx * 180}ms` }}
@@ -668,8 +751,11 @@ function FeatureSection() {
               <h3 className="mb-3 text-[18px] font-medium leading-[1.3] text-fg-primary">
                 {f.title}
               </h3>
-              <p className="text-[14px] leading-[1.7] text-fg-secondary">
+              <p className="mb-6 text-[14px] leading-[1.7] text-fg-secondary">
                 {f.body}
+              </p>
+              <p className="mt-auto border-l-2 border-accent pl-3 text-[15px] font-medium leading-[1.4] text-fg-primary">
+                {f.claim}
               </p>
             </div>
           ))}
@@ -683,15 +769,21 @@ function ApplicationsSection() {
   const apps = [
     {
       tag: "Humanoid Safety",
-      desc: "Tesla is targeting 100,000 Optimus units in 2026, and every one of them will operate near humans. McKinsey identified real-time safety response as the primary bottleneck blocking commercial deployment at scale. Current digital stacks are too slow for this problem. In humanoids operating near humans, Arc delivers physical response at the speed physics demands, making safe human-robot coexistence commercially viable.",
+      claim:
+        "Arc delivers physical response at the speed physics demands, making safe human-robot coexistence commercially viable.",
+      desc: "Tesla is targeting 100,000 Optimus units in 2026, and every one of them will operate near humans. McKinsey identified real-time safety response as the primary bottleneck blocking commercial deployment at scale. Current digital stacks are too slow for this problem.",
     },
     {
       tag: "Industrial Manipulation",
-      desc: "The global industrial robotics market exceeds $300 billion, and the capability gap at the control layer remains largely unsolved. Force-controlled assembly at production throughput requires sensor feedback at the actuator, not the server. In factory systems handling variable conditions, Arc delivers the physical adaptation that precision requires, unlocking the control layer opportunity across a $300 billion market.",
+      claim:
+        "Arc delivers the physical adaptation that precision requires, unlocking a control layer opportunity no software stack has reached.",
+      desc: "The global industrial robotics market exceeds $300 billion, and the capability gap at the control layer remains largely unsolved. Force-controlled assembly at production throughput requires sensor feedback at the actuator, not the server.",
     },
     {
       tag: "Defense & Autonomous",
-      desc: "NATO and allied defense programs are actively procuring robotic platforms for contested environments. Unpredictable terrain, adversarial conditions, physical damage. Damage a limb or lose a rotor, Arc enables the platform to keep moving. In these environments, Arc delivers the physical resilience that meets the reliability standard defense deployment demands.",
+      claim:
+        "Lose a limb or a rotor — the platform keeps moving.",
+      desc: "NATO and allied defense programs are actively procuring robotic platforms for contested environments. Unpredictable terrain, adversarial conditions, physical damage. In these environments, Arc delivers the physical resilience defense deployment demands.",
     },
   ];
 
@@ -724,9 +816,12 @@ function ApplicationsSection() {
                 {String(i + 1).padStart(2, "0")}
               </div>
               <div>
-                <div className="mb-1.5 text-[16px] font-medium text-fg-inverse">
+                <div className="mb-2 text-[16px] font-medium text-fg-inverse">
                   {a.tag}
                 </div>
+                <p className="mb-3 max-w-[600px] border-l-2 border-accent pl-3 text-[16px] font-medium leading-[1.45] text-fg-inverse md:text-[17px]">
+                  {a.claim}
+                </p>
                 <p className="max-w-[600px] text-[14px] leading-[1.7] text-fg-tertiary">
                   {a.desc}
                 </p>
@@ -760,9 +855,9 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
           For investors
         </div>
         <p className="mb-4 text-[16px] leading-[1.7] text-fg-secondary">
-          Arc is in hardware validation. We are raising a pre-seed round to
-          complete the benchmark and bring physical intelligence to robotic
-          platforms at scale. Selected for Antler Japan 2026 Residency.
+          We are raising a pre-seed round to complete the benchmark and bring
+          physical intelligence to robotic platforms at scale. Selected for
+          Antler Japan 2026 Residency.
         </p>
         <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
           For partners
@@ -803,7 +898,7 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
             </span>
           </div>
           <div className="text-[12px] text-fg-secondary">
-            Arc — Adaptive Physical AI
+            Arc — Physical Intelligence
           </div>
           <div className="text-[12px] text-fg-secondary">Tsukuba, Japan</div>
         </div>
@@ -842,7 +937,7 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
       </div>
 
       <div className="mx-auto max-w-[1200px] border-t border-border-inverse pt-6 text-[11px] text-fg-secondary">
-        © 2026 Hinoki Technologies. All rights reserved.
+        © {new Date().getFullYear()} Hinoki Technologies. All rights reserved.
       </div>
     </footer>
   );
