@@ -580,18 +580,18 @@ function DramaticZeroRoll({
   return <span className="inline-block w-[1ch] tabular-nums">{display}</span>;
 }
 
-function LatencyComparisonBar() {
+function LatencyComparisonBar({ ready }: { ready: boolean }) {
   const inView = useInViewOnce<HTMLDivElement>({
-    threshold: 0.7,
-    rootMargin: "0px 0px -15% 0px",
+    threshold: 0.5,
+    rootMargin: "0px 0px -10% 0px",
   });
   const [filled, setFilled] = useState(false);
 
   useEffect(() => {
-    if (!inView.visible) return;
-    const t = window.setTimeout(() => setFilled(true), 220);
+    if (!inView.visible || !ready) return;
+    const t = window.setTimeout(() => setFilled(true), 350);
     return () => window.clearTimeout(t);
-  }, [inView.visible]);
+  }, [inView.visible, ready]);
 
   return (
     <div
@@ -674,13 +674,32 @@ function FeatureSection() {
   const archHeader = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
   const archCards = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
   const archAnim = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
-  const [archAnimActive, setArchAnimActive] = useState(false);
+  const panelsTrigger = useInViewOnce<HTMLDivElement>({
+    threshold: 0.15,
+    rootMargin: "0px 0px -5% 0px",
+  });
+
+  const [leftVisible, setLeftVisible] = useState(false);
+  const [rightVisible, setRightVisible] = useState(false);
+  const [leftActive, setLeftActive] = useState(false);
+  const [rightActive, setRightActive] = useState(false);
+  const [panelsReady, setPanelsReady] = useState(false);
 
   useEffect(() => {
-    if (!archAnim.visible) return;
-    const id = window.setTimeout(() => setArchAnimActive(true), 700);
-    return () => window.clearTimeout(id);
-  }, [archAnim.visible]);
+    if (!panelsTrigger.visible) return;
+    const t1 = window.setTimeout(() => setLeftVisible(true), 0);
+    const t2 = window.setTimeout(() => setRightVisible(true), 280);
+    const t3 = window.setTimeout(() => setLeftActive(true), 850);
+    const t4 = window.setTimeout(() => setRightActive(true), 1150);
+    const t5 = window.setTimeout(() => setPanelsReady(true), 2000);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      window.clearTimeout(t3);
+      window.clearTimeout(t4);
+      window.clearTimeout(t5);
+    };
+  }, [panelsTrigger.visible]);
 
   return (
     <section
@@ -731,8 +750,15 @@ function FeatureSection() {
               How robots respond today, and how{" "}
               <span className="italic text-fg-primary">Arc</span> responds.
             </p>
-            <HeroAnimation active={archAnimActive} />
-            <LatencyComparisonBar />
+            <div ref={panelsTrigger.ref as React.RefObject<HTMLDivElement>}>
+              <HeroAnimation
+                leftVisible={leftVisible}
+                rightVisible={rightVisible}
+                leftActive={leftActive}
+                rightActive={rightActive}
+              />
+            </div>
+            <LatencyComparisonBar ready={panelsReady} />
           </div>
         </div>
 
