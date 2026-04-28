@@ -609,7 +609,7 @@ function LatencyComparisonBar({ ready }: { ready: boolean }) {
           </div>
           <div className="relative h-2 overflow-hidden rounded-sm bg-[#E3DED7]">
             <div
-              className="absolute inset-y-0 left-0 rounded-sm bg-[#7B8FAB] transition-[width] duration-1000 ease-out"
+              className="absolute inset-y-0 left-0 rounded-sm bg-[#7B8FAB] transition-[width] duration-[1500ms] ease-out"
               style={{ width: filled ? "100%" : "0%" }}
             />
           </div>
