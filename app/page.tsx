@@ -770,22 +770,20 @@ function FeatureSection() {
           <h2 className="mb-5 text-[28px] font-light leading-[1.1] tracking-[-0.03em] text-fg-primary md:text-[44px]">
             Built from biological principles.
           </h2>
-          <div className="max-w-[600px] text-[16px] leading-[1.75]">
-            <span className="text-fg-primary">
+          <div className="max-w-[600px] text-[16px] leading-[1.75] text-fg-secondary">
+            <strong className="font-semibold">
               Nature solved physical intelligence millions of years ago.
-            </span>{" "}
-            <span className="text-fg-secondary">
-              Every living system that moves and survives in an unpredictable
-              world runs on the same principle: sensation couples directly to
-              response.
-            </span>
-            <p className="mt-10 text-[18px] font-light leading-[1.4] tracking-[-0.01em] md:mt-12 md:text-[20px]">
-              <span className="block text-fg-secondary">
+            </strong>{" "}
+            Every living system that moves and survives in an unpredictable
+            world runs on the same principle: sensation couples directly to
+            response.
+            <p className="mt-10 text-[18px] font-light leading-[1.4] tracking-[-0.01em] text-fg-primary md:mt-12 md:text-[20px]">
+              <span className="block">
                 Computational intelligence lives in the brain.
               </span>
-              <span className="mt-3 block text-fg-primary">
+              <strong className="mt-3 block font-semibold">
                 Physical intelligence lives in the body.
-              </span>
+              </strong>
             </p>
             <p className="mt-12 max-w-[640px] text-[24px] font-light leading-[1.3] tracking-[-0.02em] text-fg-primary md:mt-14 md:text-[32px]">
               Robots have been given brains, but{" "}
