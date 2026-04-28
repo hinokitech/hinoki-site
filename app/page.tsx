@@ -589,7 +589,7 @@ function LatencyComparisonBar({ ready }: { ready: boolean }) {
 
   useEffect(() => {
     if (!inView.visible || !ready) return;
-    const t = window.setTimeout(() => setFilled(true), 350);
+    const t = window.setTimeout(() => setFilled(true), 450);
     return () => window.clearTimeout(t);
   }, [inView.visible, ready]);
 
@@ -675,26 +675,27 @@ function FeatureSection() {
   const archCards = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
   const archAnim = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
 
-  // Desktop: a single trigger on the panels grid drives a staggered timeline
-  // because both panels are visible side-by-side at once.
+  // Desktop: panels are side-by-side, so a single observer fires a
+  // choreographed sequence the user takes in as one composition.
   const desktopTrigger = useInViewOnce<HTMLDivElement>({
-    threshold: 0.15,
-    rootMargin: "0px 0px -5% 0px",
+    threshold: 0.2,
+    rootMargin: "0px 0px -10% 0px",
   });
 
-  // Mobile: each panel has its own scroll trigger because the panels are
-  // stacked and the user views them sequentially. The Arc panel should fire
-  // only when the user actually scrolls down to it.
+  // Mobile: panels are stacked. Each panel has its own observer so the
+  // reveal lands the moment the user scrolls to it — the Arc panel is
+  // never wasted while the user is still on the computational panel above.
   const leftPanelInView = useInViewOnce<HTMLDivElement>({
-    threshold: 0.3,
-    rootMargin: "0px 0px -10% 0px",
+    threshold: 0.5,
+    rootMargin: "0px 0px -15% 0px",
   });
   const rightPanelInView = useInViewOnce<HTMLDivElement>({
-    threshold: 0.3,
-    rootMargin: "0px 0px -10% 0px",
+    threshold: 0.5,
+    rootMargin: "0px 0px -15% 0px",
   });
 
-  const [isDesktop, setIsDesktop] = useState(false);
+  // Tri-state so effects never fire before the viewport mode is known.
+  const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
     const apply = () => setIsDesktop(mq.matches);
@@ -709,48 +710,49 @@ function FeatureSection() {
   const [rightActive, setRightActive] = useState(false);
   const [panelsReady, setPanelsReady] = useState(false);
 
-  // Desktop timeline: both panels staggered, then latency.
+  // DESKTOP — one trigger, full choreography (~2.7s total).
+  // Each beat has breathing room so the side-by-side comparison reads as
+  // a clear sequence rather than a flicker of everything at once.
   useEffect(() => {
-    if (!isDesktop || !desktopTrigger.visible) return;
-    const t1 = window.setTimeout(() => setLeftVisible(true), 0);
-    const t2 = window.setTimeout(() => setRightVisible(true), 280);
-    const t3 = window.setTimeout(() => setLeftActive(true), 850);
-    const t4 = window.setTimeout(() => setRightActive(true), 1150);
-    const t5 = window.setTimeout(() => setPanelsReady(true), 2000);
-    return () => {
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
-      window.clearTimeout(t3);
-      window.clearTimeout(t4);
-      window.clearTimeout(t5);
-    };
+    if (isDesktop !== true || !desktopTrigger.visible) return;
+    const timers = [
+      window.setTimeout(() => setLeftVisible(true), 0),
+      window.setTimeout(() => setLeftActive(true), 750),
+      window.setTimeout(() => setRightVisible(true), 1100),
+      window.setTimeout(() => setRightActive(true), 1850),
+    ];
+    return () => timers.forEach((id) => window.clearTimeout(id));
   }, [isDesktop, desktopTrigger.visible]);
 
-  // Mobile left panel: independent reveal + activation when scrolled into view.
+  // MOBILE LEFT — independent per-panel sequence on scroll-into-view.
   useEffect(() => {
-    if (isDesktop || !leftPanelInView.visible) return;
-    const t1 = window.setTimeout(() => setLeftVisible(true), 0);
-    const t2 = window.setTimeout(() => setLeftActive(true), 700);
-    return () => {
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
-    };
+    if (isDesktop !== false || !leftPanelInView.visible) return;
+    const timers = [
+      window.setTimeout(() => setLeftVisible(true), 0),
+      window.setTimeout(() => setLeftActive(true), 750),
+    ];
+    return () => timers.forEach((id) => window.clearTimeout(id));
   }, [isDesktop, leftPanelInView.visible]);
 
-  // Mobile right (Arc) panel: triggers only when the user scrolls to it,
-  // so the reveal lands while the user is looking at it. Latency bar gate
-  // (panelsReady) flips ~1.4s after, ensuring the bar always follows.
+  // MOBILE RIGHT (Arc) — same self-contained sequence; fires when the user
+  // actually arrives at the panel so the reveal is never missed.
   useEffect(() => {
-    if (isDesktop || !rightPanelInView.visible) return;
-    const t1 = window.setTimeout(() => setRightVisible(true), 0);
-    const t2 = window.setTimeout(() => setRightActive(true), 700);
-    const t3 = window.setTimeout(() => setPanelsReady(true), 1400);
-    return () => {
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
-      window.clearTimeout(t3);
-    };
+    if (isDesktop !== false || !rightPanelInView.visible) return;
+    const timers = [
+      window.setTimeout(() => setRightVisible(true), 0),
+      window.setTimeout(() => setRightActive(true), 750),
+    ];
+    return () => timers.forEach((id) => window.clearTimeout(id));
   }, [isDesktop, rightPanelInView.visible]);
+
+  // Latency-bar gate, derived from actual panel state. Identical logic on
+  // desktop and mobile: once both canvases are running, give the user a
+  // beat to take in the contrast, then flip the gate.
+  useEffect(() => {
+    if (!leftActive || !rightActive) return;
+    const t = window.setTimeout(() => setPanelsReady(true), 800);
+    return () => window.clearTimeout(t);
+  }, [leftActive, rightActive]);
 
   return (
     <section
