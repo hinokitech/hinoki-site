@@ -589,7 +589,7 @@ function FeatureSection() {
     {
       tag: "PHYSICAL ADAPTATION",
       title: "A body that learns from contact.",
-      body: "Living systems don't retune themselves when conditions change. They adapt continuously through the dynamics of their own physical structure. Arc does the same. The control loop adjusts in real time to variable loads, changing surfaces, unexpected contact, and shifting conditions without manual intervention. This is not software adaptation layered above hardware. This is adaptation within the hardware itself.",
+      body: "Living systems don't retune themselves when conditions change. They adapt continuously through the dynamics of their own physical structure. Arc does the same. The control loop adjusts in real time to variable loads, changing surfaces, unexpected contact, and shifting conditions without manual intervention. Unlike software adaptation layered above the hardware, Arc's adaptation occurs within the hardware dynamics itself.",
     },
     {
       tag: "PHYSICAL RESILIENCE",
@@ -636,7 +636,7 @@ function FeatureSection() {
               intelligence lives in the body.
             </p>
             <p className="mt-6">
-              Robots have been given brains. Arc gives them a nervous system.
+              Robots have been given brains, but Arc gives them a nervous system.
             </p>
           </div>
         </header>
@@ -683,15 +683,15 @@ function ApplicationsSection() {
   const apps = [
     {
       tag: "Humanoid Safety",
-      desc: "Tesla is targeting 100,000 Optimus units in 2026, and every one of them will operate near humans. McKinsey identified real-time safety response as the primary bottleneck blocking commercial deployment at scale. Current digital stacks are too slow for this problem. In humanoids operating near humans, Arc delivers physical response at the speed physics demands.",
+      desc: "Tesla is targeting 100,000 Optimus units in 2026, and every one of them will operate near humans. McKinsey identified real-time safety response as the primary bottleneck blocking commercial deployment at scale. Current digital stacks are too slow for this problem. In humanoids operating near humans, Arc delivers physical response at the speed physics demands, making safe human-robot coexistence commercially viable.",
     },
     {
       tag: "Industrial Manipulation",
-      desc: "The global industrial robotics market exceeds $300 billion, and the capability gap at the control layer remains largely unsolved. Force-controlled assembly at production throughput requires sensor feedback at the actuator, not the server. In factory systems handling variable conditions, Arc delivers the physical adaptation that precision requires.",
+      desc: "The global industrial robotics market exceeds $300 billion, and the capability gap at the control layer remains largely unsolved. Force-controlled assembly at production throughput requires sensor feedback at the actuator, not the server. In factory systems handling variable conditions, Arc delivers the physical adaptation that precision requires, unlocking the control layer opportunity across a $300 billion market.",
     },
     {
       tag: "Defense & Autonomous",
-      desc: "NATO and allied defense programs are actively procuring robotic platforms for contested environments. Unpredictable terrain, adversarial conditions, physical damage. Damage a limb or lose a rotor. The platform keeps moving. In contested and unpredictable environments, Arc delivers the physical resilience that keeps platforms operational.",
+      desc: "NATO and allied defense programs are actively procuring robotic platforms for contested environments. Unpredictable terrain, adversarial conditions, physical damage. Damage a limb or lose a rotor, Arc enables the platform to keep moving. In these environments, Arc delivers the physical resilience that meets the reliability standard defense deployment demands.",
     },
   ];
 
