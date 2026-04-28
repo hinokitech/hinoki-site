@@ -17,7 +17,7 @@ const dmMono = DM_Mono({
 });
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hinoki.tech";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hinokitech.com";
 
 const SITE_TITLE = "Hinoki — Physical intelligence for robotics";
 const SITE_DESCRIPTION =
