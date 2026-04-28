@@ -4,8 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { ReflexCanvas } from "./reflex/reflex-canvas";
 
 export function HeroAnimation({ active }: { active: boolean }) {
-  const leftInView = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
-  const rightInView = useInViewOnce<HTMLDivElement>({ threshold: 0.2 });
+  const leftInView = useInViewOnce<HTMLDivElement>({
+    threshold: 0.45,
+    rootMargin: "0px 0px -10% 0px",
+  });
+  const rightInView = useInViewOnce<HTMLDivElement>({
+    threshold: 0.45,
+    rootMargin: "0px 0px -10% 0px",
+  });
 
   const [isDesktop, setIsDesktop] = useState(false);
   const [leftVisible, setLeftVisible] = useState(false);

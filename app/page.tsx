@@ -581,7 +581,10 @@ function DramaticZeroRoll({
 }
 
 function LatencyComparisonBar() {
-  const inView = useInViewOnce<HTMLDivElement>({ threshold: 0.4 });
+  const inView = useInViewOnce<HTMLDivElement>({
+    threshold: 0.7,
+    rootMargin: "0px 0px -15% 0px",
+  });
   const [filled, setFilled] = useState(false);
 
   useEffect(() => {
