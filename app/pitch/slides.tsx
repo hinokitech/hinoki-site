@@ -1049,16 +1049,18 @@ export function AskSlide() {
             12-month milestone
           </div>
           <p className="mt-3 text-[22px] leading-[1.5] text-fg-primary">
-            Demonstrate measurable latency and energy improvement vs digital
-            control baseline, in a closed-loop actuator system.
+            Demonstrate measurable improvement in latency, energy, and
+            adaptive stability vs digital control baseline — closed-loop, on
+            hardware. The first benchmark of physical intelligence as a
+            control layer.
           </p>
           <div className="mt-7 font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
             Deliverable
           </div>
           <p className="mt-3 text-[20px] leading-[1.5] text-fg-secondary">
-            Benchmark-validated reflex hardware module, ready for licensing
-            conversations and partner co-development. Foundation for provisional
-            patent filing.
+            Benchmark-validated physical intelligence control module, ready
+            for licensing conversations and partner co-development. Foundation
+            for provisional patent filing.
           </p>
         </div>
         <div>

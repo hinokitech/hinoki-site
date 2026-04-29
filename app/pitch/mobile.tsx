@@ -322,8 +322,10 @@ export default function MobileDeck() {
           title="$400k pre-seed — validation runway."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            12-month milestone: benchmark measurable latency + energy
-            improvement vs digital baseline in a closed-loop actuator system.
+            12-month milestone: benchmark measurable improvement in latency,
+            energy, and adaptive stability vs digital baseline — closed-loop,
+            on hardware. The first benchmark of physical intelligence as a
+            control layer.
           </p>
           <BulletList
             items={[
