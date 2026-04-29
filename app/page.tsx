@@ -659,7 +659,7 @@ function FeatureSection() {
     },
     {
       tag: "PHYSICAL ADAPTATION",
-      title: "A body shaped by contact.",
+      title: "A body that learns from contact. Instantly.",
       body: "Most robotic adaptation happens in software — replanning, retuning, retraining. Arc's control loop adapts in the hardware itself, absorbing variable loads, changing surfaces, and unexpected contact in real time.",
       claim: "Adaptation in the actuator, not the server.",
     },
