@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { SLIDES } from "./slides";
+import MobileDeck from "./mobile";
 
 /** Prefer CSS `zoom` over `transform: scale()` — the transform path re-samples
  *  raster content (photos) and reads as softness / “artifacts” at deck scale.
@@ -70,17 +71,12 @@ export default function PitchDeck() {
 
   const Slide = SLIDES[index];
 
+  if (isMobile) {
+    return <MobileDeck />;
+  }
+
   return (
-    <main
-      className={`fixed inset-0 bg-bg-base ${
-        isMobile ? "overflow-y-auto overflow-x-hidden" : "overflow-hidden"
-      }`}
-    >
-      <div
-        className={`flex w-full ${
-          isMobile ? "min-h-full items-start justify-center py-6" : "h-full items-center justify-center"
-        }`}
-      >
+    <main className="fixed inset-0 flex items-center justify-center overflow-hidden bg-bg-base">
       <div
         style={
           cssZoomSupported
@@ -101,7 +97,6 @@ export default function PitchDeck() {
         className="relative shrink-0 bg-bg-base"
       >
         <Slide />
-      </div>
       </div>
 
       <div className="pointer-events-none fixed bottom-6 right-7 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
