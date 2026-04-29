@@ -293,7 +293,7 @@ export default function MobileDeck() {
         </Card>
 
         <div className="pt-4 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
-          Full presenter deck is available on desktop (arrow keys · F for fullscreen).
+          Full presenter deck is available on desktop.
         </div>
       </div>
     </main>
