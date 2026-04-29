@@ -768,18 +768,22 @@ function FeatureSection() {
           className={`mb-10 max-w-[720px] md:mb-14 ${archHeader.visible ? "is-visible" : ""} reveal`}
         >
           <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-            INTRODUCING ARC — PHYSICAL INTELLIGENCE FOR ROBOTICS
+            THE BIOLOGY OF PHYSICAL INTELLIGENCE
           </div>
-          <h2 className="mb-5 text-[28px] font-light leading-[1.1] tracking-[-0.03em] text-fg-primary md:text-[44px]">
-            Built from biological principles.
+          <h2 className="mb-6 text-[28px] font-light leading-[1.1] tracking-[-0.03em] text-fg-primary md:mb-8 md:text-[44px]">
+            Robots have been given brains.
+            <br />
+            <span className="italic">Arc</span> gives them a nervous system.
           </h2>
-          <div className="max-w-[600px] text-[16px] leading-[1.75] text-fg-primary">
-            <strong className="font-semibold">
-              Nature solved physical intelligence millions of years ago.
-            </strong>{" "}
-            Every living system that moves and survives in an unpredictable
-            world runs on the same principle: sensation couples directly to
-            response.
+          <div className="max-w-[600px] text-fg-primary">
+            <p className="text-[16px] leading-[1.75]">
+              <strong className="font-semibold">
+                Nature solved physical intelligence millions of years ago.
+              </strong>{" "}
+              Every living system that moves through an unpredictable world
+              runs on the same principle: sensation couples directly to
+              response — in the body, not the brain.
+            </p>
             <p className="mt-10 text-[18px] font-light leading-[1.4] tracking-[-0.01em] md:mt-12 md:text-[20px]">
               <span className="block">
                 Computational intelligence lives in the brain.
@@ -787,10 +791,6 @@ function FeatureSection() {
               <strong className="mt-3 block font-semibold">
                 Physical intelligence lives in the body.
               </strong>
-            </p>
-            <p className="mt-12 max-w-[640px] text-[24px] font-light leading-[1.3] tracking-[-0.02em] md:mt-14 md:text-[32px]">
-              Robots have been given brains, but{" "}
-              <span className="italic">Arc</span> gives them a nervous system.
             </p>
           </div>
         </header>
