@@ -786,6 +786,7 @@ export function TractionSlide() {
 function FounderCard({
   imageSrc,
   objectPosition,
+  maskArtifacts = true,
   initial,
   name,
   role,
@@ -793,6 +794,7 @@ function FounderCard({
 }: {
   imageSrc?: string;
   objectPosition?: string;
+  maskArtifacts?: boolean;
   initial?: string;
   name: string;
   role: string;
@@ -813,9 +815,11 @@ function FounderCard({
             decoding="async"
             style={{
               objectPosition: objectPosition ?? "center",
-              // Subtle masker for JPEG/edge artifacts in small circular avatars.
+              // Optional masker for JPEG/edge artifacts in small circular avatars.
               // Keep extremely light; the deck canvas itself is scaled.
-              filter: "blur(0.25px) contrast(1.05) saturate(1.03)",
+              filter: maskArtifacts
+                ? "blur(0.25px) contrast(1.05) saturate(1.03)"
+                : "none",
               transform: "translateZ(0)",
             }}
             className="absolute inset-0 h-full w-full object-cover"
@@ -855,8 +859,9 @@ export function TeamSlide() {
       </p>
       <div className="mt-10 grid max-w-[1640px] grid-cols-3 gap-6">
         <FounderCard
-          imageSrc="/team/salvatore.jpg"
+          imageSrc="/team/salvatore.png"
           objectPosition="center 20%"
+          maskArtifacts={false}
           name="Salvatore"
           role="Strategy &amp; Capital"
           body="Biology graduate, University of Tsukuba. Co-architect of the thesis — brought the biology framing. Built a Japan-based enterprise practice from zero, working with C-suite executives at major Japanese institutions. Drives Hinoki's commercial strategy and Japan investor relations."
