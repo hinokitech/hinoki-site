@@ -1,0 +1,104 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { SLIDES } from "./slides";
+
+/** Prefer CSS `zoom` over `transform: scale()` — the transform path re-samples
+ *  raster content (photos) and reads as softness / “artifacts” at deck scale.
+ *  Chromium/Edge/Safari support `zoom`; Firefox falls back to transform. */
+function useCssZoomSupported() {
+  const [supported, setSupported] = useState(false);
+  useEffect(() => {
+    setSupported("zoom" in document.documentElement.style);
+  }, []);
+  return supported;
+}
+
+export default function PitchDeck() {
+  const [index, setIndex] = useState(0);
+  const [scale, setScale] = useState(1);
+  const cssZoomSupported = useCssZoomSupported();
+
+  useEffect(() => {
+    function recompute() {
+      const sx = window.innerWidth / 1920;
+      const sy = window.innerHeight / 1080;
+      setScale(Math.min(sx, sy));
+    }
+    recompute();
+    window.addEventListener("resize", recompute);
+    return () => window.removeEventListener("resize", recompute);
+  }, []);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (
+        e.key === "ArrowRight" ||
+        e.key === "ArrowDown" ||
+        e.key === " " ||
+        e.key === "PageDown"
+      ) {
+        e.preventDefault();
+        setIndex((i) => Math.min(i + 1, SLIDES.length - 1));
+      } else if (
+        e.key === "ArrowLeft" ||
+        e.key === "ArrowUp" ||
+        e.key === "PageUp"
+      ) {
+        e.preventDefault();
+        setIndex((i) => Math.max(i - 1, 0));
+      } else if (e.key === "Home") {
+        setIndex(0);
+      } else if (e.key === "End") {
+        setIndex(SLIDES.length - 1);
+      } else if (e.key.toLowerCase() === "f") {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else {
+          document.documentElement.requestFullscreen();
+        }
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const Slide = SLIDES[index];
+
+  return (
+    <main className="fixed inset-0 flex items-center justify-center overflow-hidden bg-bg-base">
+      <div
+        style={
+          cssZoomSupported
+            ? {
+                width: 1920,
+                height: 1080,
+                zoom: scale,
+              }
+            : {
+                width: 1920,
+                height: 1080,
+                transform: `scale(${scale})`,
+                transformOrigin: "center center",
+                willChange: "transform",
+                backfaceVisibility: "hidden",
+              }
+        }
+        className="relative shrink-0 bg-bg-base"
+      >
+        <Slide />
+      </div>
+
+      <div className="pointer-events-none fixed bottom-6 right-7 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
+        {String(index + 1).padStart(2, "0")} /{" "}
+        {String(SLIDES.length).padStart(2, "0")}
+      </div>
+
+      {index === 0 && (
+        <div className="pointer-events-none fixed bottom-6 left-7 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
+          ← → to navigate · F for fullscreen
+        </div>
+      )}
+    </main>
+  );
+}
