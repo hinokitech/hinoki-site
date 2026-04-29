@@ -238,7 +238,7 @@ export function SolutionSlide() {
 
         <div>
           <div className="mb-3 font-mono text-[14px] uppercase tracking-[0.12em] text-accent">
-            Arc hybrid reflex architecture
+            Arc — physical intelligence stack
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <StackBox>Sensor</StackBox>
@@ -339,6 +339,8 @@ function ProofRow({ label }: { label: string }) {
 }
 
 export function ProductSlide() {
+  const [showProofImage, setShowProofImage] = React.useState(false);
+
   return (
     <Slide>
       <Eyebrow>Product</Eyebrow>
@@ -364,16 +366,58 @@ export function ProductSlide() {
             </span>
           </p>
         </div>
-        <div className="space-y-5 self-center">
-          <div className="mb-2 font-mono text-[14px] uppercase tracking-[0.12em] text-fg-tertiary">
+        <div className="space-y-4 self-start">
+          <div className="mb-3 font-mono text-[14px] uppercase tracking-[0.12em] text-fg-tertiary">
             What&rsquo;s validated today
           </div>
           <ProofRow label="Reservoir computer running on FPGA hardware" />
-          <ProofRow label="Live video sensor stream as real-time input" />
-          <ProofRow label="Object classification + motion tracking confirmed" />
-          <ProofRow label="Continuous-time RC processing outside simulation" />
+          <ProofRow label="Live sensor stream validated on hardware" />
+          <ProofRow label="Real-time classification + motion tracking confirmed" />
+          <button
+            type="button"
+            onClick={() => setShowProofImage(true)}
+            className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-bg-subtle px-4 py-2 text-[15px] font-medium text-fg-primary transition-colors hover:border-border-strong"
+          >
+            View hardware photo
+          </button>
         </div>
       </div>
+
+      {showProofImage && (
+        <div className="absolute inset-0 z-20 flex items-center justify-center bg-bg-base/75 backdrop-blur-[2px]">
+          <div className="w-[980px] rounded-[14px] border border-border bg-bg-base p-5 shadow-[0_20px_50px_rgba(0,0,0,0.18)]">
+            <div className="mb-3 flex items-center justify-between">
+              <div className="font-mono text-[12px] uppercase tracking-[0.12em] text-accent">
+                Phase 1 proof
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowProofImage(false)}
+                className="rounded-full border border-border px-3 py-1 text-[13px] font-medium text-fg-primary hover:border-border-strong"
+              >
+                Close
+              </button>
+            </div>
+            <div className="mx-auto w-[760px] overflow-hidden rounded-[10px] border border-border bg-bg-subtle">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/pitch/phase1-hardware.png"
+                alt="FPGA and sensor I/O bench setup used during Phase 1 validation"
+                className="block h-[560px] w-full object-cover"
+                style={{
+                  // Presentation crop: keep FPGA + active breadboards, remove desk clutter.
+                  objectPosition: "52% 56%",
+                  transform: "scale(1.08)",
+                }}
+              />
+            </div>
+            <div className="mt-2 text-[13px] leading-[1.4] text-fg-tertiary">
+              FPGA + sensor I/O bench setup used for Phase 1 validation.
+            </div>
+          </div>
+        </div>
+      )}
+
       <SlideFooter pageLabel="06 · Product" />
     </Slide>
   );
@@ -786,6 +830,7 @@ export function TractionSlide() {
 function FounderCard({
   imageSrc,
   objectPosition,
+  imageScale = 1,
   maskArtifacts = true,
   maskStrength = 0.25,
   initial,
@@ -795,6 +840,7 @@ function FounderCard({
 }: {
   imageSrc?: string;
   objectPosition?: string;
+  imageScale?: number;
   maskArtifacts?: boolean;
   maskStrength?: number;
   initial?: string;
@@ -822,7 +868,7 @@ function FounderCard({
               filter: maskArtifacts
                 ? `blur(${maskStrength}px) contrast(1.05) saturate(1.03)`
                 : "none",
-              transform: "translateZ(0)",
+              transform: `translateZ(0) scale(${imageScale})`,
             }}
             className="absolute inset-0 h-full w-full object-cover"
           />
@@ -861,10 +907,8 @@ export function TeamSlide() {
       </p>
       <div className="mt-10 grid max-w-[1640px] grid-cols-3 gap-6">
         <FounderCard
-          imageSrc="/team/salvatore.png"
-          objectPosition="center 20%"
-          maskArtifacts
-          maskStrength={0.12}
+          imageSrc="/team/salvatore.jpg"
+          objectPosition="center 30%"
           name="Salvatore"
           role="Strategy &amp; Capital"
           body="Biology graduate, University of Tsukuba. Co-architect of the thesis — brought the biology framing. Built a Japan-based enterprise practice from zero, working with C-suite executives at major Japanese institutions. Drives Hinoki's commercial strategy and Japan investor relations."
@@ -877,6 +921,7 @@ export function TeamSlide() {
         />
         <FounderCard
           imageSrc="/team/mina.jpg"
+          objectPosition="center 25%"
           name="Mina"
           role="Japan Market &amp; Ecosystem"
           body="Native Japanese fluency. Former business development and client relations at Meiji Yasuda Life Insurance. Deep understanding of Japanese corporate culture. Building relationships with robotics engineers and research institutions across Japan."

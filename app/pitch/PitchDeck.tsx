@@ -20,16 +20,28 @@ export default function PitchDeck() {
   const [scale, setScale] = useState(1);
   const cssZoomSupported = useCssZoomSupported();
   const [isMobile, setIsMobile] = useState(false);
+  const [nativeScale, setNativeScale] = useState(false);
 
   useEffect(() => {
     function recompute() {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
+      const params = new URLSearchParams(window.location.search);
+      const native = params.has("native");
+      setNativeScale(native);
+
       const sx = window.innerWidth / 1920;
       const sy = window.innerHeight / 1080;
       // Desktop: fit full slide in view.
       // Mobile: prioritize legibility by fitting width only; allow vertical scroll.
-      setScale(mobile ? sx : Math.min(sx, sy));
+      const raw = mobile ? sx : Math.min(sx, sy);
+
+      // Scaling raster content by arbitrary factors (e.g. 0.8732) can produce
+      // visible edge artifacts. Snap to a small increment for cleaner sampling.
+      // 1/64 gives a good balance between fit and fidelity.
+      const snapped = Math.max(0.1, Math.round(raw * 64) / 64);
+
+      setScale(native ? 1 : snapped);
     }
     recompute();
     window.addEventListener("resize", recompute);
@@ -76,7 +88,18 @@ export default function PitchDeck() {
   }
 
   return (
-    <main className="fixed inset-0 flex items-center justify-center overflow-hidden bg-bg-base">
+    <main
+      className={`fixed inset-0 bg-bg-base ${
+        nativeScale ? "overflow-auto" : "overflow-hidden"
+      }`}
+    >
+      <div
+        className={`${
+          nativeScale
+            ? "flex min-h-full min-w-full items-start justify-center p-8"
+            : "flex h-full w-full items-center justify-center"
+        }`}
+      >
       <div
         style={
           cssZoomSupported
@@ -97,6 +120,7 @@ export default function PitchDeck() {
         className="relative shrink-0 bg-bg-base"
       >
         <Slide />
+      </div>
       </div>
 
       <div className="pointer-events-none fixed bottom-6 right-7 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
