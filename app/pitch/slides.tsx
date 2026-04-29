@@ -804,10 +804,10 @@ function FounderCard({
 }) {
   return (
     <div className="rounded-[8px] border border-border bg-bg-subtle p-7">
-      <div className="relative h-[112px] w-[112px] overflow-hidden rounded-full border border-border bg-bg-base">
+      <div className="relative h-[152px] w-[152px] overflow-hidden rounded-full border border-border bg-bg-base">
         {imageSrc ? (
           // Native <img> with large width/height hints a high-res decode for
-          // downscaling into the 112×112 circle (avoids extra pipelines vs next/image).
+          // downscaling into the avatar circle (avoids extra pipelines vs next/image).
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={imageSrc}
@@ -827,7 +827,7 @@ function FounderCard({
             className="absolute inset-0 h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-[44px] font-light text-fg-primary">
+          <div className="flex h-full w-full items-center justify-center text-[56px] font-light text-fg-primary">
             {initial}
           </div>
         )}
