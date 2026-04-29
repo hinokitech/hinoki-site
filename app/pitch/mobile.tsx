@@ -203,19 +203,59 @@ export default function MobileDeck() {
           </p>
         </Card>
 
-        <Card tag="08 · Competitors" title="Where we sit in the landscape.">
+        <Card tag="08 · Target Applications" title="Every platform that moves.">
+          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+            <span className="italic">Arc</span> is a general-purpose control
+            layer. Phase 2 lands in industrial first; humanoid, defense, and
+            assistive systems extend on the same substrate.
+          </p>
+          <BulletList
+            items={[
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Humanoid:
+                </span>{" "}
+                operate near humans without a cage
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Industrial:
+                </span>{" "}
+                adapt to a new SKU without retooling the line
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Defense/autonomous:
+                </span>{" "}
+                keep moving under partial failure
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Wearable/assistive:
+                </span>{" "}
+                adapt to the body that&rsquo;s wearing it
+              </>,
+            ]}
+          />
+          <p className="mt-4 text-[15px] italic leading-[1.65] text-fg-secondary">
+            Wherever a body must respond, adapt, and stay standing — Arc becomes
+            the architecture layer.
+          </p>
+        </Card>
+
+        <Card tag="09 · Competitors" title="Where we sit in the landscape.">
           <BulletList
             items={[
               "Digital adaptive control (PID/MPC): deterministic, slow adaptation",
               "TinyML/embedded ML: discrete inference, latency-bound",
               "Neuromorphic: strong in perception, less mature in actuation loops",
               "TDK analog RC: silicon-first, topology locked",
-              "Hinoki Arc: FPGA-first, reflex actuation control",
+              "Hinoki Arc: physical intelligence control",
             ]}
           />
         </Card>
 
-        <Card tag="09 · Business Model" title="ARM for robotics.">
+        <Card tag="10 · Business Model" title="ARM for robotics.">
           <BulletList
             items={[
               "Phase 1: co-development revenue + proprietary validation data",
@@ -225,7 +265,7 @@ export default function MobileDeck() {
           />
         </Card>
 
-        <Card tag="10 · Go-to-Market" title="Japan first. By design.">
+        <Card tag="11 · Go-to-Market" title="Japan first. By design.">
           <BulletList
             items={[
               "Embedded in Tsukuba Science City (AIST/NIMS proximity)",
@@ -236,7 +276,7 @@ export default function MobileDeck() {
           />
         </Card>
 
-        <Card tag="11 · Traction" title="What’s already de-risked.">
+        <Card tag="12 · Traction" title="What’s already de-risked.">
           <BulletList
             items={[
               "Phase 1 hardware validated (FPGA + live sensor stream)",
@@ -248,7 +288,7 @@ export default function MobileDeck() {
           />
         </Card>
 
-        <Card tag="12 · Team" title="Biology meets hardware AI.">
+        <Card tag="13 · Team" title="Biology meets hardware AI.">
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
             We think modern compute is architecturally wrong for embodied
             systems. Nature doesn&rsquo;t run on von Neumann. We apply biological
@@ -277,7 +317,10 @@ export default function MobileDeck() {
           </p>
         </Card>
 
-        <Card tag="13 · Financial Model / Ask" title="$400k pre-seed — validation runway.">
+        <Card
+          tag="14 · Financial Model / Ask"
+          title="$400k pre-seed — validation runway."
+        >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
             12-month milestone: benchmark measurable latency + energy
             improvement vs digital baseline in a closed-loop actuator system.

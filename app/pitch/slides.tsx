@@ -529,7 +529,7 @@ export function MarketSlide() {
         Every robotic platform needs a control module.
         <br />
         <span className="font-semibold">
-          We license the control module that gives them reflex.
+          We license the control module that gives them physical intelligence.
         </span>
       </p>
       <p className="mt-8 max-w-[1500px] text-[20px] leading-[1.55] text-fg-secondary">
@@ -548,7 +548,77 @@ export function MarketSlide() {
 }
 
 // ---------------------------------------------------------------------
-//  09 · Competition
+//  09 · Target Applications
+// ---------------------------------------------------------------------
+function ApplicationCard({
+  label,
+  headline,
+  body,
+}: {
+  label: string;
+  headline: string;
+  body: string;
+}) {
+  return (
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-7">
+      <div className="font-mono text-[14px] uppercase tracking-[0.16em] text-accent">
+        {label}
+      </div>
+      <div className="mt-5 text-[26px] font-light leading-[1.25] tracking-[-0.01em] text-fg-primary">
+        {headline}
+      </div>
+      <div className="mt-4 text-[18px] leading-[1.55] text-fg-secondary">
+        {body}
+      </div>
+    </div>
+  );
+}
+
+export function ApplicationsSlide() {
+  return (
+    <Slide>
+      <Eyebrow>Target Applications</Eyebrow>
+      <h2 className="text-[88px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
+        Every platform that moves.
+      </h2>
+      <p className="mt-10 max-w-[1500px] text-[24px] font-normal leading-[1.55] text-fg-secondary">
+        <span className="italic">Arc</span> is a general-purpose control layer.
+        Phase 2 lands in industrial first; humanoid, defense, and assistive
+        systems extend on the same substrate.
+      </p>
+      <div className="mt-12 grid max-w-[1640px] grid-cols-2 gap-6">
+        <ApplicationCard
+          label="Humanoid robotics"
+          headline="Operate near humans without a cage."
+          body="Cage-free deployment is gated on response fast enough to be safe near humans. Today’s perception-to-actuation stack adds latency that’s incompatible with real-time safety. Arc closes the loop in the control layer itself."
+        />
+        <ApplicationCard
+          label="Industrial automation"
+          headline="Adapt to a new SKU without retooling the line."
+          body="Today, a new part means re-teaching paths and re-tuning controllers — hours of lost throughput per changeover. Arc adapts in the control loop itself, so the line keeps moving when conditions change."
+        />
+        <ApplicationCard
+          label="Defense &amp; autonomous systems"
+          headline="Lose a limb or a rotor — the platform keeps moving."
+          body="Physical resilience is distributed across the body, not central. When a limb fails or a rotor stops, response redistributes across the remaining hardware in real time — without the network, and without a central failover."
+        />
+        <ApplicationCard
+          label="Wearable &amp; assistive"
+          headline="Adapt to the body that’s wearing it."
+          body="Exoskeletons and prosthetics adapt too slowly to feel natural — lag between intent and motion blocks clinical and consumer adoption. Arc adapts in real time, at the body’s own timescale, making assistive movement feel intuitive instead of mechanical."
+        />
+      </div>
+      <p className="mt-8 max-w-[1500px] text-[20px] font-light italic leading-[1.5] text-fg-secondary">
+        Wherever a body must respond, adapt, and stay standing — Arc becomes
+        the architecture layer.
+      </p>
+      <SlideFooter pageLabel="09 · Applications" />
+    </Slide>
+  );
+}
+
+// ---------------------------------------------------------------------
+//  10 · Competition
 // ---------------------------------------------------------------------
 function CompetitorRow({
   approach,
@@ -621,7 +691,7 @@ export function CompetitionSlide() {
         />
         <CompetitorRow
           approach="Hinoki Arc"
-          focus="Reflex actuation control"
+          focus="Physical intelligence control"
           arch="FPGA continuous-time substrate"
           tradeoff="Iterable now → ASIC / IP licensable later"
           highlight
@@ -632,7 +702,7 @@ export function CompetitionSlide() {
         perception. We&rsquo;re optimizing the loop everyone else assumes is
         already solved.
       </p>
-      <SlideFooter pageLabel="09 · Competitors" />
+      <SlideFooter pageLabel="10 · Competitors" />
     </Slide>
   );
 }
@@ -708,7 +778,7 @@ export function BusinessModelSlide() {
         Compute companies don&rsquo;t capture value by selling devices. They
         capture value by sitting inside everyone else&rsquo;s.
       </p>
-      <SlideFooter pageLabel="10 · Business Model" />
+      <SlideFooter pageLabel="11 · Business Model" />
     </Slide>
   );
 }
@@ -766,7 +836,7 @@ export function GTMSlide() {
           body="Direct conversations with robotics engineers across industrial and humanoid applications. Pain confirmed: torque control switching in AMR deployments under variable conditions."
         />
       </div>
-      <SlideFooter pageLabel="11 · Go-to-Market" />
+      <SlideFooter pageLabel="12 · Go-to-Market" />
     </Slide>
   );
 }
@@ -819,7 +889,7 @@ export function TractionSlide() {
           body="Active conversations with Japan-based deep-tech and hardware investors following SusHi Tech Tokyo 2026."
         />
       </div>
-      <SlideFooter pageLabel="12 · Traction" />
+      <SlideFooter pageLabel="13 · Traction" />
     </Slide>
   );
 }
@@ -935,7 +1005,7 @@ export function TeamSlide() {
         redirecting full focus to Hinoki — given the time-sensitive validation
         window for physical intelligence.
       </p>
-      <SlideFooter pageLabel="13 · Team" />
+      <SlideFooter pageLabel="14 · Team" />
     </Slide>
   );
 }
@@ -1008,7 +1078,7 @@ export function AskSlide() {
         This round converts an architectural thesis into benchmarked hardware
         performance data.
       </p>
-      <SlideFooter pageLabel="14 · The Ask" />
+      <SlideFooter pageLabel="15 · The Ask" />
     </Slide>
   );
 }
@@ -1025,6 +1095,7 @@ export const SLIDES: Array<() => React.JSX.Element> = [
   ProductSlide,
   TechnologySlide,
   MarketSlide,
+  ApplicationsSlide,
   CompetitionSlide,
   BusinessModelSlide,
   GTMSlide,
