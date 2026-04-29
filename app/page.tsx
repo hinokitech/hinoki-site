@@ -668,7 +668,7 @@ function FeatureSection() {
     },
     {
       tag: "PHYSICAL RESILIENCE",
-      title: "Function through failure.",
+      title: "A body that doesn't stop when a part fails.",
       body: "A three-legged animal keeps moving — physical resilience is distributed across the body. Arc brings this to robotic platforms: when a limb fails or a rotor stops, response redistributes across the remaining hardware in real time.",
       claim: "Distributed response, no central failover.",
     },
