@@ -134,9 +134,12 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             className={`reveal mb-9 max-w-[520px] text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px] ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "432ms" }}
           >
-            Robots today are computationally intelligent but not physically
-            intelligent. <span className="italic">Arc</span> is the architecture
-            layer for physical intelligence.
+            When your hand touches something hot, you pull back before you
+            think. Every robot ever built is missing that.{" "}
+            <span className="font-semibold text-fg-primary">
+              <span className="italic">Arc</span> is the architecture for that
+              reflex.
+            </span>
           </p>
 
           <div
