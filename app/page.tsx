@@ -656,7 +656,7 @@ function FeatureSection() {
   const features = [
     {
       tag: "PHYSICAL RESPONSE",
-      title: "The body acts before the brain decides.",
+      title: "A body that acts before the brain decides.",
       body: "A hand withdraws from heat before the brain registers pain. Arc brings this into robotic hardware: sensor input couples directly to actuation in the same hardware tick. No inference, no memory access, no digital round trip.",
       claim: "Sub-millisecond response, with zero inference in the loop.",
     },
