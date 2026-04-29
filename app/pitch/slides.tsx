@@ -916,7 +916,7 @@ export function TeamSlide() {
         <FounderCard
           imageSrc="/team/bernardo.png"
           name="Bernardo"
-          role="Technical Co-Founder"
+          role="Technical"
           body="PhD Computer Vision Engineer. Co-architect of the thesis — operationalized it on FPGA hardware. 10+ years in robotics, embedded AI, and hardware integration. JSPS Research Grant recipient. MEXT Scholar. Former researcher at AIST Tsukuba. Built and validated Phase 1."
         />
         <FounderCard
