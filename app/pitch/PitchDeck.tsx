@@ -18,12 +18,17 @@ export default function PitchDeck() {
   const [index, setIndex] = useState(0);
   const [scale, setScale] = useState(1);
   const cssZoomSupported = useCssZoomSupported();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     function recompute() {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
       const sx = window.innerWidth / 1920;
       const sy = window.innerHeight / 1080;
-      setScale(Math.min(sx, sy));
+      // Desktop: fit full slide in view.
+      // Mobile: prioritize legibility by fitting width only; allow vertical scroll.
+      setScale(mobile ? sx : Math.min(sx, sy));
     }
     recompute();
     window.addEventListener("resize", recompute);
@@ -66,7 +71,16 @@ export default function PitchDeck() {
   const Slide = SLIDES[index];
 
   return (
-    <main className="fixed inset-0 flex items-center justify-center overflow-hidden bg-bg-base">
+    <main
+      className={`fixed inset-0 bg-bg-base ${
+        isMobile ? "overflow-y-auto overflow-x-hidden" : "overflow-hidden"
+      }`}
+    >
+      <div
+        className={`flex w-full ${
+          isMobile ? "min-h-full items-start justify-center py-6" : "h-full items-center justify-center"
+        }`}
+      >
       <div
         style={
           cssZoomSupported
@@ -87,6 +101,7 @@ export default function PitchDeck() {
         className="relative shrink-0 bg-bg-base"
       >
         <Slide />
+      </div>
       </div>
 
       <div className="pointer-events-none fixed bottom-6 right-7 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
