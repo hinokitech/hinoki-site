@@ -404,9 +404,9 @@ function MetricBar() {
       },
       {
         prefix: "",
-        value: 3,
+        value: 4,
         unit: "platforms",
-        label: "Humanoid · Industrial · Defense",
+        label: "Humanoid · Industrial · Defense · Wearable",
       },
     ],
     [],
@@ -869,6 +869,12 @@ function ApplicationsSection() {
       claim:
         "Lose a limb or a rotor — the platform keeps moving.",
       desc: "NATO and allied defense programs are actively procuring robotic platforms for contested environments. Unpredictable terrain, adversarial conditions, physical damage. In these environments, Arc delivers the physical resilience defense deployment demands.",
+    },
+    {
+      tag: "Wearable & Assistive",
+      claim:
+        "Arc adapts to the body that's wearing it, closing the loop between intent and motion at the speed of human movement.",
+      desc: "The global exoskeleton and prosthetic markets are projected to surpass $30 billion by 2032, and clinical adoption is gated on natural-feeling response. Standard adaptive control can't match the body's own timescale. Arc delivers the real-time coupling that intuitive assistive movement requires.",
     },
   ];
 
