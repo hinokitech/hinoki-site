@@ -266,26 +266,96 @@ export default function MobileDeck() {
         </Card>
 
         <Card tag="11 · Go-to-Market" title="Japan first. By design.">
+          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+            Japan is the world&rsquo;s most concentrated robotics ecosystem.
+            We&rsquo;re based in{" "}
+            <span className="font-semibold text-fg-primary">
+              Tsukuba Science City
+            </span>
+            , next to AIST and NIMS, and already inside the relationships
+            that matter.
+          </p>
+          <div className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+            Customer development
+          </div>
           <BulletList
             items={[
-              "Embedded in Tsukuba Science City (AIST/NIMS proximity)",
-              "Early dialogue with Nagoya University robotics lab",
-              "NEDO grant pathway post-Phase-2",
-              "Customer discovery active with robotics engineers in Japan",
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Customer discovery — active:
+                </span>{" "}
+                control-layer adaptation pain confirmed across multiple
+                robotics engineers
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Cyberdyne researcher:
+                </span>{" "}
+                early conversation on assistive exoskeleton applications
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Nagoya University Robotics Lab:
+                </span>{" "}
+                early dialogue on assistive exoskeleton collaboration
+              </>,
+            ]}
+          />
+          <div className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+            Capital pathway
+          </div>
+          <BulletList
+            items={[
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Antler Japan 2026 Residency:
+                </span>{" "}
+                May 2026 cohort begins
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  SusHi Tech Tokyo 2026:
+                </span>{" "}
+                investor relationships initiated across deep-tech VCs,
+                corporate venture arms, and government innovation programs
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  NEDO grant pathway:
+                </span>{" "}
+                targeted post-Phase-2 for non-dilutive runway extension
+              </>,
             ]}
           />
         </Card>
 
         <Card tag="12 · Traction" title="What’s already de-risked.">
+          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+            Two independent signals — one internal, one external — pointing
+            at the same architectural direction.
+          </p>
           <BulletList
             items={[
-              "Phase 1 hardware validated (FPGA + live sensor stream)",
-              "Antler Japan residency (May 2026)",
-              "Customer discovery confirms control-layer adaptation pain",
-              "Market direction validated (TDK CEATEC 2025 award)",
-              "Investor dialogue live after SusHi Tech Tokyo 2026",
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Internal proof — Phase 1 hardware validated:
+                </span>{" "}
+                FPGA + live sensor stream with classification and motion
+                tracking. Hardware, not simulation.
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  External validation — TDK CEATEC 2025 award:
+                </span>{" "}
+                independent confirmation of the technology direction. We took
+                the complementary architectural bet: FPGA-first, iterable,
+                then licensable IP.
+              </>,
             ]}
           />
+          <p className="mt-4 text-[15px] italic leading-[1.65] text-fg-secondary">
+            Phase 2 closes the loop between them.
+          </p>
         </Card>
 
         <Card tag="13 · Team" title="Biology meets hardware AI.">
@@ -318,21 +388,121 @@ export default function MobileDeck() {
         </Card>
 
         <Card
-          tag="14 · Financial Model / Ask"
-          title="$400k pre-seed — validation runway."
+          tag="14 · Financial Model"
+          title="Three phases. One royalty thesis."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            12-month milestone: benchmark measurable improvement in latency,
-            energy, and adaptive stability vs digital baseline — closed-loop,
-            on hardware. The first benchmark of physical intelligence as a
-            control layer.
+            ARM Holdings commands 1–2% royalty on $20–$200 chip prices. Hinoki
+            targets the equivalent on $20K–$150K robotic platforms and
+            $30K–$100K assistive devices — upfront licensing fees plus
+            per-unit royalties scaling with adoption across humanoid,
+            industrial, defense, and wearable/assistive markets.
           </p>
           <BulletList
             items={[
-              "Founder runway",
-              "FPGA refinement + benchmarking",
-              "Validation platform build",
-              "Latency/energy/adaptation dataset generation",
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Phase 1 · Years 1–2 post-validation:
+                </span>{" "}
+                3–5 paid co-development engagements →{" "}
+                <span className="font-semibold text-fg-primary">
+                  $1.5M–$5M cumulative
+                </span>
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Phase 2 · Years 2–5:
+                </span>{" "}
+                reference design licensing across 12–25 platform manufacturers
+                at $250K–$1M annual fees →{" "}
+                <span className="font-semibold text-fg-primary">
+                  $7M–$25M ARR
+                </span>
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Phase 3 · Years 5+:
+                </span>{" "}
+                per-unit royalties of $5–$50 per platform shipped →{" "}
+                <span className="font-semibold text-fg-primary">
+                  $30M–$250M ARR
+                </span>
+              </>,
+            ]}
+          />
+          <p className="mt-4 text-[15px] leading-[1.65] text-fg-secondary">
+            <span className="font-semibold text-fg-primary">
+              Adoption anchors.
+            </span>{" "}
+            10M+ humanoid units projected annually by 2030. Industrial
+            robotics ships 600K+ units annually today. Exoskeleton and
+            prosthetic markets projected to surpass $30B by 2032. Royalty-
+            based IP licensing carries 90%+ gross margins.
+          </p>
+          <p className="mt-3 text-[14px] italic leading-[1.6] text-fg-tertiary">
+            Assistive market adoption lags robotics by 18–24 months on
+            clinical validation cycles. Phase 3 wearable contribution is
+            modeled with that delay.
+          </p>
+        </Card>
+
+        <Card
+          tag="15 · The Ask"
+          title="$400k pre-seed — validation runway."
+        >
+          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+            <span className="font-semibold text-fg-primary">
+              12-month milestone:
+            </span>{" "}
+            benchmark measurable improvement in latency, energy, and adaptive
+            stability vs the digital baseline — closed-loop, on hardware. The
+            first hardware benchmark of physical intelligence as a control
+            layer.
+          </p>
+          <div className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+            Funding structure
+          </div>
+          <BulletList
+            items={[
+              <>
+                <span className="font-semibold text-fg-primary">
+                  up to $100K
+                </span>{" "}
+                · Antler Japan 2026 Residency, May 2026 cohort — potential
+                investment at $1M cap upon selection
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">$50K</span> ·
+                uncapped MFN SAFE
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  up to $250K
+                </span>{" "}
+                · Antler ARC matching, unlocks on $200K third-party investment
+              </>,
+              <>Open to additional pre-seed investors</>,
+            ]}
+          />
+          <div className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+            Use of funds
+          </div>
+          <p className="mt-2 text-[15px] leading-[1.6] text-fg-secondary">
+            Founder runway; hardware integration and
+            embedded systems expertise; FPGA refinement and benchmarking
+            platform; force sensor and actuator validation rig; dataset
+            generation; provisional patent filing; NEDO/JST grant application
+            support.
+          </p>
+          <div className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+            12-month outcomes — unlocks Phase 1 revenue
+          </div>
+          <BulletList
+            items={[
+              "Validated benchmark dataset for licensing conversations",
+              "First co-development LOI with a Japanese robotics manufacturer",
+              "Provisional patent filed",
+              "NEDO grant application submitted",
             ]}
           />
         </Card>

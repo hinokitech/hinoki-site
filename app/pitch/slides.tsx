@@ -26,9 +26,22 @@ import React from "react";
 //  Layout: ~140px side margins, content typically capped ≤ 1640px wide.
 // =====================================================================
 
-function Slide({ children }: { children: React.ReactNode }) {
+function Slide({
+  children,
+  align = "center",
+}: {
+  children: React.ReactNode;
+  /** `start` reserves extra bottom space for `SlideFooter` on dense slides. */
+  align?: "center" | "start";
+}) {
   return (
-    <div className="relative flex h-full w-full flex-col justify-center px-[140px] py-[100px]">
+    <div
+      className={`relative flex h-full w-full flex-col px-[140px] ${
+        align === "start"
+          ? "justify-start pt-[72px] pb-[132px]"
+          : "justify-center py-[100px]"
+      }`}
+    >
       {children}
     </div>
   );
@@ -535,7 +548,7 @@ export function MarketSlide() {
       <p className="mt-8 max-w-[1500px] text-[20px] leading-[1.55] text-fg-secondary">
         McKinsey identifies safety as the critical bridge from humanoid prototype
         to commercial deployment. Cage-free human–robot collaboration is gated
-        on real-time reflex response — the layer Arc operates in.
+        on real-time physical intelligence — the layer Arc operates in.
       </p>
       <div className="absolute bottom-[110px] left-[140px] right-[140px] font-mono text-[12px] leading-[1.5] tracking-[0.04em] text-fg-tertiary">
         ¹ IFR World Robotics &amp; industry analyst aggregates. ² IFR / Statista
@@ -770,7 +783,7 @@ export function BusinessModelSlide() {
           phase="Phase 3"
           range="Year 5–10"
           title="Per-unit royalties"
-          body="A royalty per robot shipped using the Arc reflex layer. The ARM model applied to robotic control."
+          body="A royalty per robot shipped using the Arc physical intelligence layer. The ARM model applied to robotic control."
         />
       </div>
 
@@ -794,13 +807,21 @@ function EcosystemTile({
   body: string;
 }) {
   return (
-    <div className="rounded-[8px] border border-border p-6">
-      <div className="text-[22px] font-semibold leading-[1.3] text-fg-primary">
+    <div className="rounded-[8px] border border-border p-5">
+      <div className="text-[20px] font-semibold leading-[1.3] text-fg-primary">
         {title}
       </div>
-      <div className="mt-3 text-[18px] leading-[1.5] text-fg-secondary">
+      <div className="mt-3 text-[16px] leading-[1.5] text-fg-secondary">
         {body}
       </div>
+    </div>
+  );
+}
+
+function GTMSectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
+      {children}
     </div>
   );
 }
@@ -809,32 +830,54 @@ export function GTMSlide() {
   return (
     <Slide>
       <Eyebrow>Go-to-Market</Eyebrow>
-      <h2 className="text-[88px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
+      <h2 className="text-[80px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
         Japan first. By design, not default.
       </h2>
-      <p className="mt-10 max-w-[1500px] text-[24px] font-normal leading-[1.55] text-fg-secondary">
+      <p className="mt-8 max-w-[1500px] text-[22px] font-normal leading-[1.55] text-fg-secondary">
         Japan is the world&rsquo;s most concentrated robotics ecosystem — Fanuc,
         Yaskawa, Kawasaki, Mitsubishi Electric, Sony, plus humanoid platform
-        partners. Our team, our network, and our research proximity are already
-        inside it.
+        partners. We&rsquo;re based in{" "}
+        <span className="font-semibold text-fg-primary">
+          Tsukuba Science City
+        </span>
+        , next to AIST and NIMS, and already inside the relationships that
+        matter.
       </p>
-      <div className="mt-12 grid max-w-[1640px] grid-cols-2 gap-5">
-        <EcosystemTile
-          title="Tsukuba Science City"
-          body="AIST + NIMS proximity. Embedded in Japan&rsquo;s densest robotics and materials research environment. Direct access to validation environments."
-        />
-        <EcosystemTile
-          title="Nagoya University Robotics Lab"
-          body="Early-stage research dialogue with leading Japanese robotics group. Path to academic publication and validation collaboration."
-        />
-        <EcosystemTile
-          title="NEDO Grant Pathway"
-          body="Japan&rsquo;s national agency for deep-tech validation funding. Application targeted post-Phase-2 to extend non-dilutive runway."
-        />
-        <EcosystemTile
-          title="Customer Discovery — Active"
-          body="Direct conversations with robotics engineers across industrial and humanoid applications. Pain confirmed: torque control switching in AMR deployments under variable conditions."
-        />
+
+      <div className="mt-9">
+        <GTMSectionLabel>Customer development</GTMSectionLabel>
+        <div className="mt-3 grid max-w-[1640px] grid-cols-3 gap-4">
+          <EcosystemTile
+            title="Customer discovery — active"
+            body="Direct conversations with robotics engineers across industrial and humanoid applications. Control-layer adaptation pain confirmed across multiple deployed systems."
+          />
+          <EcosystemTile
+            title="Cyberdyne researcher"
+            body="Early conversation with a Cyberdyne researcher on assistive exoskeleton applications. Signal that physical intelligence is a fit for clinical motion assistance."
+          />
+          <EcosystemTile
+            title="Nagoya University Robotics Lab"
+            body="Early dialogue on assistive exoskeleton collaboration. Path to academic publication and joint validation in the wearable domain."
+          />
+        </div>
+      </div>
+
+      <div className="mt-7">
+        <GTMSectionLabel>Capital pathway</GTMSectionLabel>
+        <div className="mt-3 grid max-w-[1640px] grid-cols-3 gap-4">
+          <EcosystemTile
+            title="Antler Japan 2026 Residency"
+            body="May 2026 cohort begins. Deep-tech founder program with potential follow-on investment and access to Japan&rsquo;s hardware investor base."
+          />
+          <EcosystemTile
+            title="SusHi Tech Tokyo 2026"
+            body="Investor relationships initiated across deep-tech VCs, corporate venture arms, and government innovation programs."
+          />
+          <EcosystemTile
+            title="NEDO grant pathway"
+            body="Japan&rsquo;s national agency for deep-tech validation funding. Application targeted post-Phase-2 to extend non-dilutive runway."
+          />
+        </div>
       </div>
       <SlideFooter pageLabel="12 · Go-to-Market" />
     </Slide>
@@ -844,17 +887,25 @@ export function GTMSlide() {
 // ---------------------------------------------------------------------
 //  12 · Traction & External Validation
 // ---------------------------------------------------------------------
-function SignalRow({ title, body }: { title: string; body: string }) {
+function TractionPanel({
+  label,
+  headline,
+  body,
+}: {
+  label: string;
+  headline: string;
+  body: string;
+}) {
   return (
-    <div className="flex gap-6 border-b border-border py-6">
-      <div className="text-[28px] font-light text-accent">✓</div>
-      <div className="flex-1">
-        <div className="text-[24px] font-semibold leading-[1.3] text-fg-primary">
-          {title}
-        </div>
-        <div className="mt-2 text-[20px] leading-[1.5] text-fg-secondary">
-          {body}
-        </div>
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-8">
+      <div className="font-mono text-[14px] uppercase tracking-[0.16em] text-accent">
+        {label}
+      </div>
+      <div className="mt-5 text-[32px] font-light leading-[1.25] tracking-[-0.01em] text-fg-primary">
+        {headline}
+      </div>
+      <div className="mt-4 text-[20px] leading-[1.55] text-fg-secondary">
+        {body}
       </div>
     </div>
   );
@@ -867,28 +918,26 @@ export function TractionSlide() {
       <h2 className="text-[88px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
         What&rsquo;s already de-risked.
       </h2>
-      <div className="mt-10 max-w-[1640px]">
-        <SignalRow
-          title="Phase 1 hardware validated"
-          body="Reservoir computer running on FPGA with live sensor stream classification and motion tracking. Hardware, not simulation."
+      <p className="mt-8 max-w-[1500px] text-[24px] font-normal leading-[1.55] text-fg-secondary">
+        Two independent signals — one internal, one external — pointing at
+        the same architectural direction.
+      </p>
+      <div className="mt-12 grid max-w-[1640px] grid-cols-2 gap-8">
+        <TractionPanel
+          label="Internal proof"
+          headline="Phase 1 hardware validated."
+          body="Reservoir computer running on FPGA with live sensor stream classification and motion tracking. Hardware, not simulation. The architectural thesis runs on real silicon."
         />
-        <SignalRow
-          title="Antler Japan residency · May 2026"
-          body="Selected into one of Japan&rsquo;s most competitive deep-tech founder programs. Active participation."
-        />
-        <SignalRow
-          title="Customer discovery active"
-          body="Direct conversations with robotics engineers in industrial and humanoid applications. Control-layer adaptation pain confirmed in deployed AMR systems."
-        />
-        <SignalRow
-          title="Market direction externally validated"
-          body="TDK&rsquo;s analog RC chip won the CEATEC 2025 Innovation Award — confirming the technology direction. We took the complementary architectural bet."
-        />
-        <SignalRow
-          title="Investor dialogue live"
-          body="Active conversations with Japan-based deep-tech and hardware investors following SusHi Tech Tokyo 2026."
+        <TractionPanel
+          label="External validation"
+          headline="Market direction confirmed."
+          body="TDK&rsquo;s analog RC chip won the CEATEC 2025 Innovation Award — independent confirmation of the technology direction. We took the complementary architectural bet: FPGA-first, iterable, then licensable IP."
         />
       </div>
+      <p className="mt-12 max-w-[1500px] text-[22px] font-light italic leading-[1.5] text-fg-secondary">
+        The thesis is hardware-validated. The market direction is externally
+        validated. Phase 2 closes the loop between them.
+      </p>
       <SlideFooter pageLabel="13 · Traction" />
     </Slide>
   );
@@ -1011,76 +1060,243 @@ export function TeamSlide() {
 }
 
 // ---------------------------------------------------------------------
-//  14 · The Ask
+//  15 · Financial Model
 // ---------------------------------------------------------------------
-function FundBucket({
-  pct,
-  label,
+function RevenuePhase({
+  phase,
+  range,
+  title,
+  body,
+  revenue,
+  revenueLabel,
 }: {
-  pct: string;
-  label: string;
+  phase: string;
+  range: string;
+  title: string;
+  body: string;
+  revenue: string;
+  revenueLabel: string;
 }) {
   return (
-    <div className="rounded-[8px] border border-border bg-bg-subtle p-6">
-      <div className="text-[44px] font-light leading-[1.0] tracking-[-0.02em] text-fg-primary">
-        {pct}
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-7">
+      <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
+        {phase}
       </div>
-      <div className="mt-3 text-[19px] leading-[1.4] text-fg-secondary">
-        {label}
+      <div className="mt-1 font-mono text-[12px] tracking-[0.06em] text-fg-tertiary">
+        {range}
       </div>
+      <div className="mt-5 text-[24px] font-medium leading-[1.3] text-fg-primary">
+        {title}
+      </div>
+      <div className="mt-3 flex-1 text-[17px] leading-[1.55] text-fg-secondary">
+        {body}
+      </div>
+      <div className="mt-6 border-t border-border pt-4">
+        <div className="text-[36px] font-light leading-[1.0] tracking-[-0.02em] text-fg-primary">
+          {revenue}
+        </div>
+        <div className="mt-2 font-mono text-[12px] uppercase tracking-[0.1em] text-fg-tertiary">
+          {revenueLabel}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function FinancialModelSlide() {
+  return (
+    <Slide>
+      <Eyebrow>Financial Model</Eyebrow>
+      <h2 className="text-[88px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
+        Three phases. One royalty thesis.
+      </h2>
+      <p className="mt-8 max-w-[1500px] text-[24px] font-normal leading-[1.55] text-fg-secondary">
+        ARM Holdings commands a 1–2% royalty on $20–$200 chip prices. Hinoki
+        targets the equivalent on $20K–$150K robotic platforms and
+        $30K–$100K assistive devices — upfront licensing fees plus per-unit
+        royalties scaling with adoption across humanoid, industrial, defense,
+        and wearable/assistive markets.
+      </p>
+
+      <div className="mt-10 grid max-w-[1640px] grid-cols-3 gap-6">
+        <RevenuePhase
+          phase="Phase 1"
+          range="Years 1–2 post-validation"
+          title="Co-development engagements"
+          body="3–5 paid integrations with robotics partners. Generates early revenue, proprietary validation data, and reference customers."
+          revenue="$1.5M–$5M"
+          revenueLabel="Cumulative"
+        />
+        <RevenuePhase
+          phase="Phase 2"
+          range="Years 2–5"
+          title="Reference design licensing"
+          body="12–25 platform manufacturers integrate the Arc reference design at $250K–$1M annual license fees per platform."
+          revenue="$7M–$25M"
+          revenueLabel="ARR"
+        />
+        <RevenuePhase
+          phase="Phase 3"
+          range="Years 5+"
+          title="Per-unit royalties"
+          body="$5–$50 per platform shipped. The ARM model — value capture scales with industry adoption, not headcount."
+          revenue="$30M–$250M"
+          revenueLabel="ARR"
+        />
+      </div>
+
+      <div className="mt-10 grid max-w-[1640px] grid-cols-[1.25fr_1fr] gap-12">
+        <p className="text-[18px] leading-[1.6] text-fg-secondary">
+          <span className="font-semibold text-fg-primary">Adoption anchors.</span>{" "}
+          10M+ humanoid units projected annually by 2030. Industrial robotics
+          ships 600K+ units annually today. Exoskeleton and prosthetic markets
+          are projected to surpass $30B by 2032. Royalty-based IP licensing
+          carries 90%+ gross margins.
+        </p>
+        <p className="text-[17px] italic leading-[1.6] text-fg-tertiary">
+          Assistive market adoption lags robotics by 18–24 months on clinical
+          validation cycles. Phase 3 wearable contribution is modeled with
+          that delay.
+        </p>
+      </div>
+      <SlideFooter pageLabel="15 · Financial Model" />
+    </Slide>
+  );
+}
+
+// ---------------------------------------------------------------------
+//  16 · The Ask
+// ---------------------------------------------------------------------
+function FundingTier({
+  amount,
+  source,
+  detail,
+  committed = false,
+}: {
+  amount: string;
+  source: string;
+  detail: string;
+  committed?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-[8px] border p-4 ${
+        committed
+          ? "border-accent bg-accent-subtle"
+          : "border-border bg-bg-subtle"
+      }`}
+    >
+      <div className="flex items-baseline justify-between gap-3">
+        <div className="text-[28px] font-light leading-[1.0] tracking-[-0.02em] text-fg-primary">
+          {amount}
+        </div>
+        {committed && (
+          <div className="font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+            Committed
+          </div>
+        )}
+      </div>
+      <div className="mt-2 text-[18px] font-semibold leading-[1.3] text-fg-primary">
+        {source}
+      </div>
+      <div className="mt-1 text-[15px] leading-[1.5] text-fg-secondary">
+        {detail}
+      </div>
+    </div>
+  );
+}
+
+function OutcomeTile({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="rounded-[6px] border border-border bg-bg-subtle p-3 text-[14px] leading-[1.45] text-fg-secondary">
+      {children}
     </div>
   );
 }
 
 export function AskSlide() {
   return (
-    <Slide>
+    <Slide align="start">
       <Eyebrow>The Ask</Eyebrow>
-      <h2 className="text-[96px] font-light leading-[1.0] tracking-[-0.025em] text-fg-primary">
+      <h2 className="text-[88px] font-light leading-[1.0] tracking-[-0.025em] text-fg-primary">
         $400k pre-seed.
       </h2>
-      <p className="mt-3 text-[36px] font-light leading-[1.2] tracking-[-0.015em] text-fg-secondary">
+      <p className="mt-3 text-[32px] font-light leading-[1.2] tracking-[-0.015em] text-fg-secondary">
         Validation runway.
       </p>
 
-      <div className="mt-10 grid max-w-[1640px] grid-cols-[1.2fr_1fr] gap-12">
+      <div className="mt-7 grid max-w-[1640px] grid-cols-[1.1fr_1fr] gap-10">
         <div>
           <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
             12-month milestone
           </div>
-          <p className="mt-3 text-[22px] leading-[1.5] text-fg-primary">
-            Demonstrate measurable improvement in latency, energy, and
-            adaptive stability vs digital control baseline — closed-loop, on
-            hardware. The first benchmark of physical intelligence as a
-            control layer.
+          <p className="mt-3 text-[21px] leading-[1.5] text-fg-primary">
+            Benchmark measurable improvement in latency, energy, and adaptive
+            stability vs the digital baseline — closed-loop, on hardware. The
+            first hardware benchmark of physical intelligence as a control
+            layer.
           </p>
+
           <div className="mt-7 font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
-            Deliverable
-          </div>
-          <p className="mt-3 text-[20px] leading-[1.5] text-fg-secondary">
-            Benchmark-validated physical intelligence control module, ready
-            for licensing conversations and partner co-development. Foundation
-            for provisional patent filing.
-          </p>
-        </div>
-        <div>
-          <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
             Use of funds
           </div>
-          <div className="mt-3 grid grid-cols-2 gap-3">
-            <FundBucket pct="40%" label="Founder full-time runway" />
-            <FundBucket pct="30%" label="FPGA refinement &amp; benchmarking" />
-            <FundBucket pct="20%" label="Micro-manipulation validation platform" />
-            <FundBucket pct="10%" label="Latency, energy &amp; adaptive-control dataset" />
+          <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 text-[16px] leading-[1.5] text-fg-secondary">
+            <div>· Founder runway</div>
+            <div>· FPGA refinement &amp; benchmarking platform</div>
+            <div>· Hardware integration &amp; embedded systems</div>
+            <div>· Force sensor &amp; actuator validation rig</div>
+            <div>· Latency / energy / adaptation dataset</div>
+            <div>· Provisional patent filing</div>
+            <div>· NEDO / JST grant application support</div>
+          </div>
+        </div>
+
+        <div>
+          <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
+            Funding structure
+          </div>
+          <div className="mt-3 grid grid-cols-1 gap-2">
+            <FundingTier
+              amount="up to $100K"
+              source="Antler Japan 2026 Residency"
+              detail="May 2026 cohort. Potential investment at $1M cap upon selection."
+            />
+            <FundingTier
+              amount="$50K"
+              source="Uncapped MFN SAFE"
+              detail="Most-favored-nation terms."
+            />
+            <FundingTier
+              amount="up to $250K"
+              source="Antler ARC matching"
+              detail="Unlocks on $200K third-party investment."
+            />
+            <FundingTier
+              amount="Open"
+              source="Additional pre-seed investors"
+              detail="Strategic deep-tech and hardware capital welcome."
+            />
           </div>
         </div>
       </div>
 
-      <p className="mt-10 max-w-[1500px] text-[24px] font-light italic leading-[1.5] text-fg-primary">
-        This round converts an architectural thesis into benchmarked hardware
-        performance data.
-      </p>
-      <SlideFooter pageLabel="15 · The Ask" />
+      <div className="mt-6 max-w-[1640px]">
+        <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
+          12-month outcomes — unlocks Phase 1 revenue
+        </div>
+        <div className="mt-2 grid grid-cols-4 gap-2">
+          <OutcomeTile>
+            Validated benchmark dataset for licensing conversations
+          </OutcomeTile>
+          <OutcomeTile>
+            First co-development LOI with a Japanese robotics manufacturer
+          </OutcomeTile>
+          <OutcomeTile>Provisional patent filed</OutcomeTile>
+          <OutcomeTile>NEDO grant application submitted</OutcomeTile>
+        </div>
+      </div>
+
+      <SlideFooter pageLabel="16 · The Ask" />
     </Slide>
   );
 }
@@ -1103,5 +1319,6 @@ export const SLIDES: Array<() => React.JSX.Element> = [
   GTMSlide,
   TractionSlide,
   TeamSlide,
+  FinancialModelSlide,
   AskSlide,
 ];
