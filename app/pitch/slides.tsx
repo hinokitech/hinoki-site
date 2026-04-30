@@ -352,8 +352,6 @@ function ProofRow({ label }: { label: string }) {
 }
 
 export function ProductSlide() {
-  const [showProofImage, setShowProofImage] = React.useState(false);
-
   return (
     <Slide>
       <Eyebrow>Product</Eyebrow>
@@ -386,76 +384,11 @@ export function ProductSlide() {
           <ProofRow label="Reservoir computer running on FPGA hardware" />
           <ProofRow label="Live sensor stream validated on hardware" />
           <ProofRow label="Real-time classification + motion tracking confirmed" />
-          <button
-            type="button"
-            onClick={() => setShowProofImage(true)}
-            className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-bg-subtle px-4 py-2 text-[15px] font-medium text-fg-primary transition-colors hover:border-border-strong"
-          >
-            View hardware photo
-          </button>
+          <p className="mt-5 text-[16px] italic leading-[1.5] text-fg-tertiary">
+            Bench available for technical due diligence.
+          </p>
         </div>
       </div>
-
-      {showProofImage && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center bg-bg-base/75 backdrop-blur-[2px]">
-          <div className="w-[980px] rounded-[14px] border border-border bg-bg-base p-5 shadow-[0_20px_50px_rgba(0,0,0,0.18)]">
-            <div className="mb-3 flex items-center justify-between">
-              <div className="font-mono text-[12px] uppercase tracking-[0.12em] text-accent">
-                Phase 1 proof
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowProofImage(false)}
-                className="rounded-full border border-border px-3 py-1 text-[13px] font-medium text-fg-primary hover:border-border-strong"
-              >
-                Close
-              </button>
-            </div>
-            <div
-              className="relative mx-auto w-[760px] overflow-hidden rounded-[10px] border border-border bg-bg-subtle"
-              style={{
-                // Subtle vignette — real phone/DSLR shots fall off slightly at
-                // the corners; AI renders have flat edge-to-edge exposure.
-                boxShadow: "inset 0 0 70px rgba(0,0,0,0.18)",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/pitch/phase1-hardware.png"
-                alt="16-node photocoupler reservoir computer wired to FPGA, with live oscilloscope and FPGA telemetry"
-                className="block w-full h-auto"
-                style={{
-                  // Pull back the studio-clean feel: slight desaturation +
-                  // reduced contrast + dimmer, mimicking mixed fluorescent
-                  // and monitor lighting through a phone camera. Kept light
-                  // enough that the in-image caption stays readable.
-                  filter:
-                    "contrast(0.9) saturate(0.84) brightness(0.96)",
-                }}
-              />
-              {/* Film grain overlay — the single most effective "not AI" tell.
-                  AI-generated images are eerily noise-free; real indoor photos
-                  carry sensor grain. SVG fractalNoise is procedural so the
-                  pattern doesn't repeat visibly even at large sizes. */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
-                  backgroundSize: "200px 200px",
-                  opacity: 0.22,
-                  mixBlendMode: "overlay",
-                }}
-              />
-            </div>
-            <div className="mt-2 text-[13px] leading-[1.4] text-fg-tertiary">
-              Real-time classification + motion tracking from live sensor
-              input — validated November 2025.
-            </div>
-          </div>
-        </div>
-      )}
 
       <SlideFooter pageLabel="06 · Product" />
     </Slide>
