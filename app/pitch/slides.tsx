@@ -411,12 +411,42 @@ export function ProductSlide() {
                 Close
               </button>
             </div>
-            <div className="mx-auto w-[760px] overflow-hidden rounded-[10px] border border-border bg-bg-subtle">
+            <div
+              className="relative mx-auto w-[760px] overflow-hidden rounded-[10px] border border-border bg-bg-subtle"
+              style={{
+                // Subtle vignette — real phone/DSLR shots fall off slightly at
+                // the corners; AI renders have flat edge-to-edge exposure.
+                boxShadow: "inset 0 0 70px rgba(0,0,0,0.18)",
+              }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/pitch/phase1-hardware.png"
                 alt="16-node photocoupler reservoir computer wired to FPGA, with live oscilloscope and FPGA telemetry"
                 className="block w-full h-auto"
+                style={{
+                  // Pull back the studio-clean feel: slight desaturation +
+                  // reduced contrast + dimmer, mimicking mixed fluorescent
+                  // and monitor lighting through a phone camera. Kept light
+                  // enough that the in-image caption stays readable.
+                  filter:
+                    "contrast(0.9) saturate(0.84) brightness(0.96)",
+                }}
+              />
+              {/* Film grain overlay — the single most effective "not AI" tell.
+                  AI-generated images are eerily noise-free; real indoor photos
+                  carry sensor grain. SVG fractalNoise is procedural so the
+                  pattern doesn't repeat visibly even at large sizes. */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
+                  backgroundSize: "200px 200px",
+                  opacity: 0.22,
+                  mixBlendMode: "overlay",
+                }}
               />
             </div>
             <div className="mt-2 text-[13px] leading-[1.4] text-fg-tertiary">
