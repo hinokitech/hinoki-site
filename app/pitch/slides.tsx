@@ -415,17 +415,13 @@ export function ProductSlide() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/pitch/phase1-hardware.png"
-                alt="FPGA and sensor I/O bench setup used during Phase 1 validation"
-                className="block h-[560px] w-full object-cover"
-                style={{
-                  // Presentation crop: keep FPGA + active breadboards, remove desk clutter.
-                  objectPosition: "52% 56%",
-                  transform: "scale(1.08)",
-                }}
+                alt="16-node photocoupler reservoir computer wired to FPGA, with live oscilloscope and FPGA telemetry"
+                className="block w-full h-auto"
               />
             </div>
             <div className="mt-2 text-[13px] leading-[1.4] text-fg-tertiary">
-              FPGA + sensor I/O bench setup used for Phase 1 validation.
+              Real-time classification + motion tracking from live sensor
+              input — validated November 2025.
             </div>
           </div>
         </div>
