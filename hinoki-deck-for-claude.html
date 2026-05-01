@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hinoki — Deck (text export)</title>
+    <style>
+      :root {
+        --bg: #f7f4ef;
+        --fg: #252830;
+        --muted: #5a5e6b;
+        --border: #d8d3cb;
+        --accent: #e8622a;
+        --card: #ede9e3;
+      }
+      html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .wrap { max-width: 920px; margin: 0 auto; padding: 32px 18px 80px; }
+      header { border-bottom: 1px solid var(--border); padding-bottom: 18px; margin-bottom: 22px; }
+      .kicker { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
+      h1 { font-size: 34px; font-weight: 300; margin: 10px 0 0; line-height: 1.15; }
+      .sub { margin-top: 12px; font-size: 15px; line-height: 1.65; color: var(--muted); }
+      .sub strong { color: var(--fg); }
+      .meta { margin-top: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: var(--muted); }
+      .slide { margin-top: 18px; border: 1px solid var(--border); background: var(--card); border-radius: 14px; padding: 18px 16px; }
+      .slide .tag { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+      .slide h2 { margin: 10px 0 0; font-size: 20px; font-weight: 600; line-height: 1.25; }
+      .slide p { margin: 10px 0 0; font-size: 14px; line-height: 1.65; color: var(--muted); }
+      .slide ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); }
+      .slide li { margin: 6px 0; font-size: 14px; line-height: 1.6; }
+      .note { margin-top: 12px; font-style: italic; color: var(--muted); }
+      hr { border: 0; border-top: 1px solid var(--border); margin: 20px 0; }
+      .smallgrid { display: grid; grid-template-columns: 110px 1fr; gap: 6px 14px; margin-top: 10px; }
+      .smallgrid .k { font-weight: 700; color: var(--fg); }
+      .smallgrid .v { color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="kicker">Hinoki Technologies · Deck text export</div>
+        <h1>The physical intelligence robots have been missing.</h1>
+        <div class="sub">
+          When your hand touches something hot, you pull back before you think.
+          That’s physical intelligence — and every robot ever built is missing it.
+          <strong><em>Arc</em> is the architecture that builds it in.</strong>
+        </div>
+        <div class="meta">Pre-Seed · April 2026 · Source: `/app/pitch/slides.tsx` + `/app/pitch/mobile.tsx`</div>
+      </header>
+
+      <div class="slide">
+        <div class="tag">01 · Problem</div>
+        <h2>Robots can think. They can’t react.</h2>
+        <p>Today’s robots run control loops through a layered digital stack. Each layer adds latency and energy cost — turning perception into action too slowly for human-proximate safety.</p>
+        <p>Cage-free deployment isn’t blocked by better models. It’s blocked by the architecture between sensing and actuation.</p>
+      </div>
+
+      <div class="slide">
+        <div class="tag">02 · Insight</div>
+        <h2>Physical intelligence lives in the body.</h2>
+        <ul>
+          <li><strong>Response:</strong> touch something hot — your hand pulls back before you think.</li>
+          <li><strong>Adaptation:</strong> an animal adjusts gait instantly on a new surface.</li>
+          <li><strong>Resilience:</strong> a three-legged dog keeps running — redistribution without a command.</li>
+        </ul>
+        <p>Three behaviors of one substrate — continuous-time, distributed, physical.</p>
+      </div>
+
+      <div class="slide">
+        <div class="tag">03 · Solution</div>
+        <h2><em>Arc</em> — the architecture for physical intelligence.</h2>
+        <p>A hybrid physical–digital control layer that runs as a continuous-time dynamical substrate — coupling sensor input to actuation without inference, memory access, or a digital round trip.</p>
+        <div class="smallgrid">
+          <div class="k">Today</div><div class="v">ADC → MCU/GPU → memory → inference → actuator</div>
+          <div class="k">Arc</div><div class="v">sensor → continuous dynamics → light digital → actuator</div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="tag">04 · Behaviors</div>
+        <h2>Three behaviors. One architecture.</h2>
+        <ul>
+          <li><strong>Response:</strong> sub-millisecond reaction to slip, contact, force change</li>
+          <li><strong>Adaptation:</strong> in-loop adjustment to new objects, surfaces, and loads</li>
+          <li><strong>Resilience:</strong> graceful redistribution under noise or partial failure</li>
+        </ul>
+        <p>Reflex is the wedge. Adaptation and resilience extend on the same substrate.</p>
+      </div>
+
+      <div class="slide">
+        <div class="tag">05 · Product</div>
+        <h2>Phase 1 is working.</h2>
+        <ul>
+          <li>Reservoir computing implemented on FPGA fabric</li>
+          <li>Live sensor stream validated on hardware (not simulation)</li>
+          <li>Real-time object classification + motion tracking confirmed</li>
+        </ul>
+        <p>Phase 2 closes the loop: connect RC output to an actuator and benchmark against a digital PID baseline across latency, energy per cycle, and stability under noise.</p>
+      </div>
+
+      <div class="slide">
+        <div class="tag">06 · Technology</div>
+        <h2>Why FPGA. Why now.</h2>
+        <p>Reservoir computing is a chaotic dynamical substrate. To find the right architecture, you have to iterate the substrate itself — not just software on top.</p>
+        <ul>
+          <li><strong>Silicon-first:</strong> topology frozen at tape-out</li>
+          <li><strong>FPGA-first:</strong> topology iterable weekly → then ASIC/IP</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="tag">07 · Market Size</div>
+        <h2>A control layer inside every robot.</h2>
+        <ul>
+          <li>$300B+ industrial automation</li>
+          <li>$100B+ robotics platforms</li>
+          <li>$165B humanoids by 2034 (50% CAGR projected)</li>
+        </ul>
+        <p>Every robotic platform needs a control module. We license the architecture layer that gives them physical intelligence.</p>
+      </div>
+
+      <div class="slide">
+        <div class="tag">08 · Target Applications</div>
+        <h2>Every platform that moves.</h2>
+        <p><em>Arc</em> is a general-purpose control layer. Phase 2 lands in industrial first; humanoid, defense, and assistive systems extend on the same substrate.</p>
+        <ul>
+          <li><strong>Humanoid:</strong> operate near humans without a cage</li>
+          <li><strong>Industrial:</strong> adapt to a new SKU without retooling the line</li>
+          <li><strong>Defense/autonomous:</strong> keep moving under partial failure</li>
+          <li><strong>Wearable/assistive:</strong> adapt to the body that’s wearing it</li>
+        </ul>
+        <p class="note">Wherever a body must respond, adapt, and stay standing — <em>Arc</em> becomes the architecture layer.</p>
+      </div>
+
+      <div class="slide">
+        <div class="tag">09 · Competitors</div>
+        <h2>Where we sit in the landscape.</h2>
+        <ul>
+          <li>Digital adaptive control (PID/MPC): deterministic, slow adaptation</li>
+          <li>TinyML/embedded ML: discrete inference, latency-bound</li>
+          <li>Neuromorphic: strong in perception, less mature in actuation loops</li>
+          <li>TDK analog RC: silicon-first, topology locked</li>
+          <li>Hinoki Arc: physical intelligence control</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="tag">10 · Business Model</div>
+        <h2>ARM for robotics.</h2>
+        <ul>
+          <li><strong>Phase 1:</strong> co-development revenue + proprietary validation data</li>
+          <li><strong>Phase 2:</strong> platform licensing (annual)</li>
+          <li><strong>Phase 3:</strong> per-unit royalties (ARM model applied to control)</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="tag">11 · Go-to-Market</div>
+        <h2>Japan first. By design.</h2>
+        <ul>
+          <li>Embedded in Tsukuba Science City (AIST/NIMS proximity)</li>
+          <li>Early dialogue with Nagoya University robotics lab</li>
+          <li>NEDO grant pathway post-Phase-2</li>
+          <li>Customer discovery active with robotics engineers in Japan</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="tag">12 · Traction</div>
+        <h2>What’s already de-risked.</h2>
+        <ul>
+          <li>Phase 1 hardware validated (FPGA + live sensor stream)</li>
+          <li>Antler Japan residency (May 2026)</li>
+          <li>Customer discovery confirms control-layer adaptation pain</li>
+          <li>Market direction validated (TDK CEATEC 2025 award)</li>
+          <li>Investor dialogue live after SusHi Tech Tokyo 2026</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="tag">13 · Team</div>
+        <h2>Biology meets hardware AI.</h2>
+        <p>We think modern compute is architecturally wrong for embodied systems. Nature doesn’t run on von Neumann. We apply biological architecture to the segment where digital systems fail hardest: real-time, embodied, physical control.</p>
+        <ul>
+          <li><strong>Salvatore:</strong> biology (Tsukuba), co-architect of thesis, commercial strategy &amp; Japan investor relations</li>
+          <li><strong>Bernardo:</strong> PhD CV, JSPS/MEXT, ex-AIST, co-architect, built Phase 1 on FPGA</li>
+          <li><strong>Mina:</strong> Japan market &amp; ecosystem, native fluency, relationship building with robotics engineers</li>
+        </ul>
+        <p>Hinoki is named after the Japanese cypress — a metaphor for distributed biological intelligence.</p>
+      </div>
+
+      <div class="slide">
+        <div class="tag">14 · Financial Model</div>
+        <h2>Three phases. One royalty thesis.</h2>
+        <p>ARM Holdings commands a 1–2% royalty on $20–$200 chip prices. Hinoki targets the equivalent on $20K–$150K robotic platforms and $30K–$100K assistive devices — upfront licensing fees plus per-unit royalties scaling with adoption across humanoid, industrial, defense, and wearable/assistive markets.</p>
+        <ul>
+          <li><strong>Phase 1 · Years 1–2 post-validation:</strong> 3–5 paid co-development engagements → <strong>$1.5M–$5M cumulative</strong></li>
+          <li><strong>Phase 2 · Years 2–5:</strong> reference design licensing across 12–25 platform manufacturers at $250K–$1M annual fees → <strong>$7M–$25M ARR</strong></li>
+          <li><strong>Phase 3 · Years 5+:</strong> per-unit royalties of $5–$50 per platform shipped → <strong>$30M–$250M ARR</strong></li>
+        </ul>
+        <p><strong>Adoption anchors.</strong> 10M+ humanoid units projected annually by 2030. Industrial robotics ships 600K+ units annually today. Exoskeleton and prosthetic markets are projected to surpass $30B by 2032. Royalty-based IP licensing carries 90%+ gross margins.</p>
+        <p class="note">Assistive market adoption lags robotics by 18–24 months on clinical validation cycles. Phase 3 wearable contribution is modeled with that delay.</p>
+      </div>
+
+      <div class="slide">
+        <div class="tag">15 · The Ask</div>
+        <h2>$400k pre-seed — validation runway.</h2>
+        <p><strong>12-month milestone:</strong> benchmark measurable improvement in latency, energy, and adaptive stability vs the digital baseline — closed-loop, on hardware. The first hardware benchmark of physical intelligence as a control layer.</p>
+        <p><strong>Funding structure:</strong></p>
+        <ul>
+          <li><strong>up to $100K · Vendor credits during residency</strong> — preferential credits and rates with AWS, Google Cloud, IBM and other Antler partners — accessible throughout the program, non-dilutive.</li>
+          <li><strong>USD 150,000 · Antler investment (upon IC approval)</strong> — USD 100,000 post-money J-KISS/SAFE at USD 1,000,000 cap (~10% post-ESOP) plus USD 50,000 uncapped MFN J-KISS/SAFE, contingent on Investment Committee at end of the program.</li>
+          <li><strong>up to $250K · Antler ARC matching</strong> — unlocks on $200K third-party investment</li>
+          <li>Open to additional pre-seed investors</li>
+        </ul>
+        <p><strong>Use of funds:</strong> founder runway; hardware integration and embedded systems expertise; FPGA refinement and benchmarking platform; force sensor and actuator validation rig; dataset generation; provisional patent filing; NEDO/JST grant application support.</p>
+        <p><strong>12-month outcomes — unlocks Phase 1 revenue:</strong></p>
+        <ul>
+          <li>Validated benchmark dataset for licensing conversations</li>
+          <li>First co-development LOI with a Japanese robotics manufacturer</li>
+          <li>Provisional patent filed</li>
+          <li>NEDO grant application submitted</li>
+        </ul>
+      </div>
+
+      <hr />
+      <div class="meta">
+        Tip: upload this HTML file directly to Claude, or copy/paste the text.
+      </div>
+    </div>
+  </body>
+</html>

@@ -38,7 +38,7 @@ function Slide({
     <div
       className={`relative flex h-full w-full flex-col px-[140px] ${
         align === "start"
-          ? "justify-start pt-[72px] pb-[132px]"
+          ? "justify-start pt-[72px] pb-[188px]"
           : "justify-center py-[100px]"
       }`}
     >
@@ -371,10 +371,10 @@ export function ProductSlide() {
           <p>
             This proves the architecture functions as a continuous-time
             computational substrate on real silicon. The remaining question is
-            closed-loop performance under physical actuator control.{" "}
-            <span className="font-semibold text-fg-primary">
-              That&rsquo;s Phase 2.
-            </span>
+            closed-loop performance under physical actuator control.
+          </p>
+          <p className="font-semibold text-fg-primary">
+            That&rsquo;s Phase 2.
           </p>
         </div>
         <div className="space-y-4 self-start">
@@ -1184,7 +1184,7 @@ export function AskSlide() {
         Validation runway.
       </p>
 
-      <div className="mt-7 grid max-w-[1640px] grid-cols-[1.1fr_1fr] gap-10">
+      <div className="mt-6 grid max-w-[1640px] grid-cols-[1.1fr_1fr] gap-10">
         <div>
           <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
             12-month milestone
@@ -1217,13 +1217,13 @@ export function AskSlide() {
           <div className="mt-3 grid grid-cols-1 gap-2">
             <FundingTier
               amount="up to $100K"
-              source="Antler Japan 2026 Residency"
-              detail="May 2026 cohort. Potential investment at $1M cap upon selection."
+              source="Vendor credits during residency"
+              detail="Preferential credits and rates with AWS, Google Cloud, IBM and other Antler partners — accessible throughout the program, non-dilutive."
             />
             <FundingTier
-              amount="$50K"
-              source="Uncapped MFN SAFE"
-              detail="Most-favored-nation terms."
+              amount="$150K"
+              source="Antler post-IC investment"
+              detail="$100K post-money J-KISS/SAFE at $1M cap (~10% post-ESOP) + $50K uncapped MFN SAFE — if Investment Committee approves at program end."
             />
             <FundingTier
               amount="up to $250K"
@@ -1239,11 +1239,11 @@ export function AskSlide() {
         </div>
       </div>
 
-      <div className="mt-6 max-w-[1640px]">
+      <div className="mt-5 max-w-[1640px]">
         <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
           12-month outcomes — unlocks Phase 1 revenue
         </div>
-        <div className="mt-2 grid grid-cols-4 gap-2">
+        <div className="mt-1.5 grid grid-cols-4 gap-2">
           <OutcomeTile>
             Validated benchmark dataset for licensing conversations
           </OutcomeTile>

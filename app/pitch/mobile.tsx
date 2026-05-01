@@ -467,13 +467,21 @@ export default function MobileDeck() {
               <>
                 <span className="font-semibold text-fg-primary">
                   up to $100K
-                </span>{" "}
-                · Antler Japan 2026 Residency, May 2026 cohort — potential
-                investment at $1M cap upon selection
+                </span>
+                <br />
+                <span className="font-semibold text-fg-primary">
+                  Vendor credits during residency
+                </span>
+                <br />
+                Preferential credits and rates with AWS, Google Cloud, IBM and
+                other Antler partners — accessible throughout the program,
+                non-dilutive.
               </>,
               <>
-                <span className="font-semibold text-fg-primary">$50K</span> ·
-                uncapped MFN SAFE
+                <span className="font-semibold text-fg-primary">$150K</span> ·
+                Antler post-IC: $100K J-KISS/SAFE at $1M cap (~10% post-ESOP) +
+                $50K uncapped MFN SAFE — if Investment Committee approves after
+                the program
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
