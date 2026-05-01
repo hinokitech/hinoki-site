@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function Card({
   tag,
   title,
@@ -53,8 +55,16 @@ export default function MobileDeck() {
   return (
     <main className="min-h-dvh bg-bg-base px-5 pb-20 pt-10 text-fg-primary">
       <header className="mx-auto max-w-[720px]">
-        <div className="mb-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-          Hinoki Technologies · Investor Deck
+        <div className="mb-4 flex items-center justify-between">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
+            Hinoki Technologies · Investor Deck
+          </div>
+          <Link
+            href="/pitch-jp"
+            className="rounded-md border border-border bg-bg-subtle px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-fg-secondary transition-colors hover:border-accent hover:text-accent"
+          >
+            日本語
+          </Link>
         </div>
         <h1 className="text-[38px] font-light leading-[1.1] tracking-[-0.03em] md:text-[52px]">
           The physical intelligence robots have been missing.

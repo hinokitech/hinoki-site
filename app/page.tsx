@@ -1023,6 +1023,12 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
             >
               Request Access
             </button>
+            <a
+              href="/pitch-jp"
+              className="text-left text-[13px] text-fg-tertiary transition-colors duration-200 hover:text-fg-inverse"
+            >
+              日本語版ピッチ
+            </a>
           </div>
         </div>
       </div>

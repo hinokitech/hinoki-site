@@ -11,5 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default function PitchPage() {
-  return <PitchDeck />;
+  return (
+    <PitchDeck
+      altLang={{ href: "/pitch-jp", label: "日本語" }}
+      navHint="← → to navigate · F for fullscreen"
+    />
+  );
 }

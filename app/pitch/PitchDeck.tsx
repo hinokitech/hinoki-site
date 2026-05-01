@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SLIDES } from "./slides";
-import MobileDeck from "./mobile";
+import Link from "next/link";
+import { SLIDES as DEFAULT_SLIDES } from "./slides";
+import DefaultMobileDeck from "./mobile";
 
 /** Prefer CSS `zoom` over `transform: scale()` — the transform path re-samples
  *  raster content (photos) and reads as softness / “artifacts” at deck scale.
@@ -15,7 +16,23 @@ function useCssZoomSupported() {
   return supported;
 }
 
-export default function PitchDeck() {
+export type PitchDeckProps = {
+  /** Optional slide manifest. Defaults to the English deck. */
+  slides?: Array<() => React.JSX.Element>;
+  /** Optional mobile deck override. Defaults to the English mobile deck. */
+  mobileDeck?: React.ComponentType;
+  /** Optional language toggle (renders top-right). */
+  altLang?: { href: string; label: string };
+  /** Hint string shown bottom-left on slide 1 (varies by language). */
+  navHint?: string;
+};
+
+export default function PitchDeck({
+  slides = DEFAULT_SLIDES,
+  mobileDeck: MobileDeck = DefaultMobileDeck,
+  altLang,
+  navHint = "← → to navigate · F for fullscreen",
+}: PitchDeckProps) {
   const [index, setIndex] = useState(0);
   const [scale, setScale] = useState(1);
   const cssZoomSupported = useCssZoomSupported();
@@ -57,7 +74,7 @@ export default function PitchDeck() {
         e.key === "PageDown"
       ) {
         e.preventDefault();
-        setIndex((i) => Math.min(i + 1, SLIDES.length - 1));
+        setIndex((i) => Math.min(i + 1, slides.length - 1));
       } else if (
         e.key === "ArrowLeft" ||
         e.key === "ArrowUp" ||
@@ -68,7 +85,7 @@ export default function PitchDeck() {
       } else if (e.key === "Home") {
         setIndex(0);
       } else if (e.key === "End") {
-        setIndex(SLIDES.length - 1);
+        setIndex(slides.length - 1);
       } else if (e.key.toLowerCase() === "f") {
         if (document.fullscreenElement) {
           document.exitFullscreen();
@@ -79,9 +96,9 @@ export default function PitchDeck() {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [slides.length]);
 
-  const Slide = SLIDES[index];
+  const Slide = slides[index];
 
   if (isMobile) {
     return <MobileDeck />;
@@ -123,14 +140,23 @@ export default function PitchDeck() {
       </div>
       </div>
 
+      {altLang && (
+        <Link
+          href={altLang.href}
+          className="fixed right-7 top-6 rounded-md border border-border bg-bg-subtle px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-fg-secondary transition-colors hover:border-accent hover:text-accent"
+        >
+          {altLang.label}
+        </Link>
+      )}
+
       <div className="pointer-events-none fixed bottom-6 right-7 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
         {String(index + 1).padStart(2, "0")} /{" "}
-        {String(SLIDES.length).padStart(2, "0")}
+        {String(slides.length).padStart(2, "0")}
       </div>
 
       {index === 0 && (
         <div className="pointer-events-none fixed bottom-6 left-7 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
-          ← → to navigate · F for fullscreen
+          {navHint}
         </div>
       )}
     </main>

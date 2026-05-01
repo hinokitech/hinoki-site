@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { DM_Mono, DM_Sans } from "next/font/google";
+import { DM_Mono, DM_Sans, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -14,6 +14,17 @@ const dmMono = DM_Mono({
   variable: "--font-dm-mono",
   subsets: ["latin"],
   weight: ["300", "400", "500"],
+  display: "swap",
+});
+
+// Noto Sans JP is loaded as a fallback so Japanese characters across the site
+// (and the /pitch-jp deck) render in a tone that matches DM Sans. Latin glyphs
+// stay on DM Sans because it appears first in the --font-sans stack; the
+// browser falls through to Noto for CJK code points.
+const notoSansJp = Noto_Sans_JP({
+  variable: "--font-noto-jp",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -85,7 +96,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${dmMono.variable} h-full antialiased`}
+      className={`${dmSans.variable} ${dmMono.variable} ${notoSansJp.variable} h-full antialiased`}
     >
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

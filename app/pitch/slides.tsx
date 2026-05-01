@@ -26,7 +26,7 @@ import React from "react";
 //  Layout: ~140px side margins, content typically capped ≤ 1640px wide.
 // =====================================================================
 
-function Slide({
+export function Slide({
   children,
   align = "center",
 }: {
@@ -47,7 +47,7 @@ function Slide({
   );
 }
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
+export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-8 text-[20px] font-semibold uppercase tracking-[0.18em] text-accent">
       {children}
@@ -55,7 +55,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SlideFooter({ pageLabel }: { pageLabel: string }) {
+export function SlideFooter({ pageLabel }: { pageLabel: string }) {
   return (
     <div className="absolute bottom-[60px] left-[140px] right-[140px] flex items-center justify-between font-mono text-[14px] tracking-[0.08em] text-fg-tertiary">
       <span>HINOKI · ARC</span>
@@ -134,7 +134,13 @@ export function ProblemSlide() {
 // ---------------------------------------------------------------------
 //  03 · Insight
 // ---------------------------------------------------------------------
-function InsightExample({ label, body }: { label: string; body: string }) {
+export function InsightExample({
+  label,
+  body,
+}: {
+  label: string;
+  body: string;
+}) {
   return (
     <div className="grid grid-cols-[180px_1fr] items-baseline gap-8">
       <div className="font-mono text-[16px] uppercase tracking-[0.16em] text-accent">
@@ -182,7 +188,7 @@ export function InsightSlide() {
 // ---------------------------------------------------------------------
 //  04 · Solution — architecture comparison diagram
 // ---------------------------------------------------------------------
-function StackBox({
+export function StackBox({
   children,
   emphasis = false,
 }: {
@@ -202,7 +208,7 @@ function StackBox({
   );
 }
 
-function StackArrow() {
+export function StackArrow() {
   return (
     <div className="flex items-center px-2 text-[28px] font-light text-fg-tertiary">
       →
@@ -275,7 +281,7 @@ export function SolutionSlide() {
 // ---------------------------------------------------------------------
 //  05 · Behaviors — three composable behaviors of physical intelligence
 // ---------------------------------------------------------------------
-function BehaviorCard({
+export function BehaviorCard({
   label,
   headline,
   body,
@@ -340,7 +346,7 @@ export function BehaviorsSlide() {
 // ---------------------------------------------------------------------
 //  06 · Product
 // ---------------------------------------------------------------------
-function ProofRow({ label }: { label: string }) {
+export function ProofRow({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-4">
       <div className="text-[28px] font-light text-accent">✓</div>
@@ -447,7 +453,7 @@ export function TechnologySlide() {
 // ---------------------------------------------------------------------
 //  08 · Market
 // ---------------------------------------------------------------------
-function MarketTier({
+export function MarketTier({
   size,
   label,
   note,
@@ -522,7 +528,7 @@ export function MarketSlide() {
 // ---------------------------------------------------------------------
 //  09 · Target Applications
 // ---------------------------------------------------------------------
-function ApplicationCard({
+export function ApplicationCard({
   label,
   headline,
   body,
@@ -592,7 +598,7 @@ export function ApplicationsSlide() {
 // ---------------------------------------------------------------------
 //  10 · Competition
 // ---------------------------------------------------------------------
-function CompetitorRow({
+export function CompetitorRow({
   approach,
   focus,
   arch,
@@ -682,7 +688,7 @@ export function CompetitionSlide() {
 // ---------------------------------------------------------------------
 //  10 · Business Model
 // ---------------------------------------------------------------------
-function PhaseCard({
+export function PhaseCard({
   phase,
   range,
   title,
@@ -758,7 +764,7 @@ export function BusinessModelSlide() {
 // ---------------------------------------------------------------------
 //  11 · Go-to-Market
 // ---------------------------------------------------------------------
-function EcosystemTile({
+export function EcosystemTile({
   title,
   body,
 }: {
@@ -777,7 +783,7 @@ function EcosystemTile({
   );
 }
 
-function GTMSectionLabel({ children }: { children: React.ReactNode }) {
+export function GTMSectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
       {children}
@@ -846,7 +852,7 @@ export function GTMSlide() {
 // ---------------------------------------------------------------------
 //  12 · Traction & External Validation
 // ---------------------------------------------------------------------
-function TractionPanel({
+export function TractionPanel({
   label,
   headline,
   body,
@@ -905,7 +911,7 @@ export function TractionSlide() {
 // ---------------------------------------------------------------------
 //  13 · Team
 // ---------------------------------------------------------------------
-function FounderCard({
+export function FounderCard({
   imageSrc,
   objectPosition,
   imageScale = 1,
@@ -923,8 +929,8 @@ function FounderCard({
   maskStrength?: number;
   initial?: string;
   name: string;
-  role: string;
-  body: string;
+  role: React.ReactNode;
+  body: React.ReactNode;
 }) {
   return (
     <div className="rounded-[8px] border border-border bg-bg-subtle p-7">
@@ -1021,7 +1027,7 @@ export function TeamSlide() {
 // ---------------------------------------------------------------------
 //  15 · Financial Model
 // ---------------------------------------------------------------------
-function RevenuePhase({
+export function RevenuePhase({
   phase,
   range,
   title,
@@ -1126,16 +1132,18 @@ export function FinancialModelSlide() {
 // ---------------------------------------------------------------------
 //  16 · The Ask
 // ---------------------------------------------------------------------
-function FundingTier({
+export function FundingTier({
   amount,
   source,
   detail,
   committed = false,
+  committedLabel = "Committed",
 }: {
   amount: string;
   source: string;
   detail: string;
   committed?: boolean;
+  committedLabel?: string;
 }) {
   return (
     <div
@@ -1151,7 +1159,7 @@ function FundingTier({
         </div>
         {committed && (
           <div className="font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
-            Committed
+            {committedLabel}
           </div>
         )}
       </div>
@@ -1165,7 +1173,7 @@ function FundingTier({
   );
 }
 
-function OutcomeTile({ children }: { children: React.ReactNode }) {
+export function OutcomeTile({ children }: { children: React.ReactNode }) {
   return (
     <div className="rounded-[6px] border border-border bg-bg-subtle p-3 text-[14px] leading-[1.45] text-fg-secondary">
       {children}
