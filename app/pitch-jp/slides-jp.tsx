@@ -636,7 +636,7 @@ function TeamSlide() {
         />
         <FounderCard
           imageSrc="/team/bernardo.png"
-          name="Bernardo B. Gatti"
+          name="Bernardo Gatto"
           role="技術"
           body="コンピュータビジョン博士。仮説の共同設計者であり、FPGA ハードウェア上で実装。ロボティクス、組込み AI、ハードウェア統合における 10 年以上の経験。日本学術振興会(JSPS)研究助成金受給者。文部科学省(MEXT)奨学生。元産業技術総合研究所(AIST)研究員。Phase 1 を構築・検証。"
         />

@@ -384,7 +384,7 @@ export default function MobileDeckJp() {
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
-                Bernardo B. Gatti:
+                Bernardo Gatto:
               </span>{" "}
               コンピュータビジョン博士、JSPS/MEXT、元 AIST、共同設計者、Phase 1 を
               FPGA 上で構築
