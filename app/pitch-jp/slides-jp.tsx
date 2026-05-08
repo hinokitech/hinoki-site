@@ -78,11 +78,7 @@ function ProblemSlide() {
           ADC、マイクロコントローラー、外部メモリ、推論層を経て、ようやくアクチュエーターに到達します。各層が遅延、エネルギーコスト、そして知覚と行動の間にデジタルラウンドトリップを生み出します。
         </p>
         <p className="text-[24px] font-normal leading-[1.8] text-fg-secondary">
-          ヒューマノイドが工場のケージを離れ、人間の近くで作業を始める時、これは単なるパフォーマンスの制限ではなくなります。
-          <span className="font-semibold text-fg-primary">
-            安全性のボトルネック
-          </span>
-          となり、ケージレス展開の規模化を阻む未解決の問題となります。
+          ヒューマノイドが人間と同じ空間で働き始めると、課題の性質が根本的に変わります。もはやスペックや性能の問題だけではなく、人と機械が安全に共存できるかという問題です。これが現在、ケージレス展開を本格的に普及させる上での最大のボトルネックとなっています。
         </p>
       </div>
       <p className="mt-12 max-w-[1500px] text-[26px] font-normal leading-[1.7] tracking-[-0.01em] text-fg-primary">
@@ -114,11 +110,11 @@ function InsightSlide() {
         />
         <InsightExample
           label="適応 / Adaptation"
-          body="動物は初めて踏む芝生の上を歩き、ミリ秒単位で歩様を調整する。"
+          body="動物は初めて踏む地面でも、ミリ秒単位で足の感触を読み取り、瞬時に歩き方を調整しています。"
         />
         <InsightExample
           label="回復力 / Resilience"
-          body="三本足の犬は走り続ける。指令なしに、身体が再分配する。"
+          body="三本足の犬は、それでも走り続けます。脳からの指令がなくても、身体が自然に重心とバランスを再分配するからです。"
         />
       </div>
       <p className="mt-12 max-w-[1500px] text-[24px] font-normal italic leading-[1.7] text-fg-primary">
@@ -200,31 +196,30 @@ function BehaviorsSlide() {
     <Slide>
       <Eyebrow>振る舞い</Eyebrow>
       <h2 className="text-[80px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary">
-        三つの振る舞い。一つのアーキテクチャ。
+        三つの能力。一つのアーキテクチャ。
       </h2>
       <p className="mt-10 max-w-[1500px] text-[24px] font-normal leading-[1.7] text-fg-secondary">
-        基板を正しく設計すれば、フィジカルインテリジェンスは三つの構成可能な振る舞いとして現れます。Phase
-        2 では、可変条件下での適応的把持という単一のベンチマークで、この三つすべてを実証します。
+        基板を正しく設計すれば、フィジカルインテリジェンスは三つの構成可能な機能として現れます。Phase 2では、『変化する条件下での把持』という一つのベンチマークで、この三つの能力をまとめて証明します。
       </p>
       <div className="mt-10 grid max-w-[1640px] grid-cols-3 gap-6">
         <BehaviorCard
           label="反応 / Response"
           headline="脳が判断する前に動く身体。"
-          body="推論をループに介在させず、滑り、接触、力の変化にサブミリ秒で反応。"
+          body="AIによる判断を挟まず、滑り・接触・力の変化をサブミリ秒で直接検知し、反応します。"
         />
         <BehaviorCard
           label="適応 / Adaptation"
-          headline="接触から学ぶ身体。瞬時に。"
-          body="再計画、再学習、再調整を必要とせず、新しい物体、表面、負荷にループ内で適応。"
+          headline="瞬時に接触から学ぶ身体。"
+          body="事前の学習や調整なしに、初めて触れる物体や表面にも、リアルタイムで対応できます。"
         />
         <BehaviorCard
           label="回復力 / Resilience"
           headline="部品が故障しても止まらない身体。"
-          body="中央フェイルオーバーなしに、センサーノイズや部分的なアクチュエーター喪失に対し、優雅に再分配。"
+          body="中央のフェイルオーバーシステムを使わず、センサーノイズや部分的なアクチュエーター故障に対しても、自然に動作を再分配します。"
         />
       </div>
       <p className="mt-8 max-w-[1500px] text-[20px] font-light italic leading-[1.7] text-fg-secondary">
-        反射が突破口です。適応と回復力は、同じ基板上での自然な拡張です。
+        突破口は、反射にあります。適応と回復力は、その延長線上に自然と生まれるものです。
       </p>
       <SlideFooter pageLabel="05 · 振る舞い" />
     </Slide>
@@ -239,7 +234,7 @@ function ProductSlide() {
     <Slide>
       <Eyebrow>プロダクト</Eyebrow>
       <h2 className="text-[88px] font-light leading-[1.1] tracking-[-0.02em] text-fg-primary">
-        Phase 1 は、すでに動いています。
+        Phase 1は、すでに稼働しています。
       </h2>
       <div className="mt-12 grid max-w-[1640px] grid-cols-[1.1fr_1fr] gap-x-20">
         <div className="space-y-7 text-[22px] font-normal leading-[1.75] text-fg-secondary">
@@ -252,7 +247,7 @@ function ProductSlide() {
             からのリアルタイム物体分類とモーション追跡を、シミュレーションではなくハードウェア上で検証済み。
           </p>
           <p>
-            これは、アーキテクチャが実シリコン上で連続時間計算基板として機能することを証明しています。残された問いは、物理アクチュエーター制御下での閉ループ性能。
+            アーキテクチャが実機で動くことは、すでに証明されています。次に検証すべきは、実際のアクチュエーターを制御したときのリアルタイム性能です。
           </p>
           <p className="font-semibold text-fg-primary">それが Phase 2 です。</p>
         </div>
@@ -285,7 +280,7 @@ function TechnologySlide() {
         なぜ FPGA か。なぜ今か。
       </h2>
       <p className="mt-10 max-w-[1500px] text-[24px] font-normal leading-[1.75] text-fg-secondary">
-        リザバーコンピューターは、カオス的な動的基板です。最適なアーキテクチャを見出すには、その上で動作するソフトウェアだけでなく、基板そのものを反復する必要があります。
+        リザバーコンピューターは、予測困難な動的な基板です。最適な設計を見つけるには、その上で動くソフトウェアだけでなく、基板そのものを繰り返し試行・改良する必要があります。
       </p>
 
       <div className="mt-10 grid max-w-[1640px] grid-cols-2 gap-10">
@@ -316,7 +311,7 @@ function TechnologySlide() {
       </div>
 
       <p className="mt-10 max-w-[1500px] text-[26px] font-light italic leading-[1.5] tracking-[-0.01em] text-fg-primary">
-        既存企業は答えに賭けました。私たちは問いに賭けます。
+        業界の前提を、私たちは問い直します。
       </p>
       <SlideFooter pageLabel="07 · 技術" />
     </Slide>
@@ -358,9 +353,7 @@ function MarketSlide() {
         </span>
       </p>
       <p className="mt-7 max-w-[1500px] text-[19px] leading-[1.7] text-fg-secondary">
-        McKinsey
-        は、ヒューマノイド試作から商用展開への重要な橋渡しとして安全性を特定しています。ケージレスでの人間とロボットの協働は、リアルタイムのフィジカルインテリジェンスに依存しており、それが
-        Arc が動作する層です。
+        McKinseyは、ヒューマノイドの商用展開における最大の壁は安全性だと指摘しています。人間とロボットがケージなしで共に働くには、リアルタイムで身体を制御するインテリジェンスが不可欠です。それこそが、Arcが動く領域です。
       </p>
       <div className="absolute bottom-[110px] left-[140px] right-[140px] font-mono text-[12px] leading-[1.6] tracking-[0.04em] text-fg-tertiary">
         ¹ IFR World Robotics 及び業界アナリスト集計。² IFR / Statista
@@ -391,22 +384,22 @@ function ApplicationsSlide() {
         <ApplicationCard
           label="ヒューマノイドロボティクス"
           headline="ケージなしで、人間の近くで動作する。"
-          body="ケージレス展開は、人間の近くで安全に動作するための応答速度に依存しています。今日の知覚-行動スタックは、リアルタイム安全性と相容れない遅延を加えます。Arc は、制御層そのものでループを閉じます。"
+          body="人間の隣で安全に動くには、圧倒的な応答速度が必要です。既存のシステムはその速度に追いつけていません。Arcは、制御の根幹でその問題を解決します。"
         />
         <ApplicationCard
           label="産業オートメーション"
           headline="ラインを再構築せずに、新しい SKU に適応する。"
-          body="今日、新しい部品はパスの再教育とコントローラーの再調整を意味し、切替えごとに数時間のスループット損失を生みます。Arc は制御ループ自体で適応するため、条件が変わってもラインは動き続けます。"
+          body="現在、部品が変わるたびに再教育と再調整が必要で、切り替えのたびに数時間の生産停止が発生します。Arcは制御ループ自体で適応するため、条件が変わってもラインを止めません。"
         />
         <ApplicationCard
           label="防衛・自律システム"
           headline="手足や回転翼を失っても、プラットフォームは動き続ける。"
-          body="物理的な回復力は、中央ではなく身体全体に分散しています。手足が故障したり回転翼が止まったりしても、応答はネットワークなしに、中央フェイルオーバーなしに、残りのハードウェア全体でリアルタイムに再分配されます。"
+          body="手足を失っても、ドローンが回転翼を一つ失っても、動きは止まりません。回復力は中央システムではなく、身体全体に分散しています。故障が起きた瞬間、ネットワークも切り替えも介さず、残りのハードウェア全体でリアルタイムに動作を再分配します。"
         />
         <ApplicationCard
           label="ウェアラブル・アシスティブ"
           headline="それを着用する身体に適応する。"
-          body="外骨格や義肢の適応は、自然に感じるには遅すぎます。意図と動作の間の遅延が、臨床および消費者の採用を阻んでいます。Arc は身体自身のタイムスケールでリアルタイムに適応し、アシスティブな動きを機械的ではなく直感的に感じさせます。"
+          body="今の外骨格・義肢は、動かそうとしてから実際に動くまでが遅く、不自然に感じられます。その遅延が普及の壁になっています。Arcは身体と同じ速さでリアルタイムに適応し、機械ではなく、自分の一部として感じられる動きを実現します。"
         />
       </div>
       <p className="mt-8 max-w-[1500px] text-[19px] font-light italic leading-[1.7] text-fg-secondary">
@@ -468,7 +461,7 @@ function CompetitionSlide() {
         />
       </div>
       <p className="mt-9 max-w-[1500px] text-[22px] font-normal leading-[1.7] text-fg-primary">
-        制御層が空いているのは、業界が知覚を追いかけてきたからです。私たちは、誰もがすでに解決済みと前提しているループを最適化しています。
+        業界が知覚を競っている間、制御層は放置されてきました。私たちは、誰も疑わなかった前提を最適化しています。
       </p>
       <SlideFooter pageLabel="10 · 競合" />
     </Slide>
@@ -601,12 +594,11 @@ function TractionSlide() {
         <TractionPanel
           label="外部による検証"
           headline="市場の方向性を確認。"
-          body="TDK のアナログ RC チップが CEATEC 2025 イノベーションアワードを受賞。技術の方向性を独立した形で確認。私たちは補完的なアーキテクチャの賭けを選びました。FPGA ファースト、反復可能、その後ライセンス可能な IP へ。"
+          body="TDKのアナログRCチップがCEATEC 2025イノベーションアワードを受賞し、この技術の方向性が独立した形で証明されました。私たちは補完的なアーキテクチャを選択しました。FPGAファーストで反復し、その後ライセンス可能なIPへと展開します。"
         />
       </div>
       <p className="mt-10 max-w-[1500px] text-[22px] font-light italic leading-[1.7] text-fg-secondary">
-        仮説はハードウェアで検証されています。市場の方向性は外部で検証されています。Phase
-        2 が、その間のループを閉じます。
+        仮説はハードウェアで証明されました。市場の方向性は外部からも裏付けられています。Phase 2で、その二つをつなぎます。
       </p>
       <SlideFooter pageLabel="13 · トラクション" />
     </Slide>
@@ -624,7 +616,7 @@ function TeamSlide() {
         生物学とハードウェア AI の交差点。
       </h2>
       <p className="mt-6 max-w-[1500px] text-[20px] font-normal leading-[1.75] text-fg-secondary">
-        私たちは、現代のコンピューティングが部分的に壊れているとは考えていません。アーキテクチャ的に間違っていると考えています。自然はフォン・ノイマンで動いていません。コンピューティングを再構築することはできませんが、デジタルシステムが最も苦手とする領域、すなわちリアルタイム、身体性、物理制御に、生物学的アーキテクチャを適用することはできます。
+        問題は性能ではなく、設計思想です。自然はフォン・ノイマン型では動いていない。私たちはコンピューティングを作り直すのではなく、デジタルが最も苦手とする場所に、自然の設計を持ち込みます。
       </p>
       <div className="mt-8 grid max-w-[1640px] grid-cols-3 gap-6">
         <FounderCard
@@ -632,13 +624,13 @@ function TeamSlide() {
           objectPosition="center 30%"
           name="Salvatore Martone"
           role="戦略・資金調達"
-          body="筑波大学生物学卒。仮説の共同設計者であり、生物学的フレーミングをもたらす。日本拠点のエンタープライズ事業をゼロから構築し、日本の主要機関の経営層と協働。Hinoki の商業戦略と日本投資家関係を主導。"
+          body="筑波大学生物学卒。アーキテクチャの共同設計者であり、生物学的視点をもたらす。日本拠点のエンタープライズ事業をゼロから構築し、日本の主要機関の経営層と協働。Hinokiの商業戦略と日本投資家関係を主導。"
         />
         <FounderCard
           imageSrc="/team/bernardo.png"
           name="Bernardo Gatto"
           role="技術"
-          body="コンピュータビジョン博士。仮説の共同設計者であり、FPGA ハードウェア上で実装。ロボティクス、組込み AI、ハードウェア統合における 10 年以上の経験。日本学術振興会(JSPS)研究助成金受給者。文部科学省(MEXT)奨学生。元産業技術総合研究所(AIST)研究員。Phase 1 を構築・検証。"
+          body="コンピュータビジョン博士。アーキテクチャの共同設計者であり、FPGAハードウェア上で実装を担う。ロボティクス・組込みAI・ハードウェア統合における10年以上の経験。日本学術振興会(JSPS)研究助成金受給者。文部科学省(MEXT)奨学生。元産業技術総合研究所(AIST)研究員。Phase 1を構築・検証。"
         />
         <FounderCard
           imageSrc="/team/mina.jpg"

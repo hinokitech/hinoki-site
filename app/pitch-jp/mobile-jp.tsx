@@ -106,11 +106,11 @@ export default function MobileDeckJp() {
             </li>
             <li>
               <span className="font-semibold text-fg-primary">適応:</span>{" "}
-              動物は新しい表面で瞬時に歩様を調整する。
+              動物は初めて踏む地面でも、ミリ秒単位で足の感触を読み取り、瞬時に歩き方を調整しています。
             </li>
             <li>
               <span className="font-semibold text-fg-primary">回復力:</span>{" "}
-              三本足の犬は走り続ける。指令なしの再分配。
+              三本足の犬は、それでも走り続けます。脳からの指令がなくても、身体が自然に重心とバランスを再分配するからです。
             </li>
           </ul>
           <p className="mt-4 text-[15px] leading-[1.85] text-fg-secondary">
@@ -144,29 +144,29 @@ export default function MobileDeckJp() {
           />
         </Card>
 
-        <Card tag="04 · 振る舞い" title="三つの振る舞い。一つのアーキテクチャ。">
+        <Card tag="04 · 振る舞い" title="三つの能力。一つのアーキテクチャ。">
           <BulletList
             items={[
               <>
                 <span className="font-semibold text-fg-primary">反応:</span>{" "}
-                滑り、接触、力の変化にサブミリ秒で反応
+                AIによる判断を挟まず、滑り・接触・力の変化をサブミリ秒で直接検知し、反応します
               </>,
               <>
                 <span className="font-semibold text-fg-primary">適応:</span>{" "}
-                新しい物体、表面、負荷にループ内で適応
+                事前の学習や調整なしに、初めて触れる物体や表面にも、リアルタイムで対応できます
               </>,
               <>
                 <span className="font-semibold text-fg-primary">回復力:</span>{" "}
-                ノイズや部分的な故障下での優雅な再分配
+                中央のフェイルオーバーシステムを使わず、センサーノイズや部分的な故障に対しても、自然に動作を再分配します
               </>,
             ]}
           />
           <p className="mt-4 text-[15px] leading-[1.85] text-fg-secondary">
-            反射が突破口です。適応と回復力は、同じ基板上での自然な拡張です。
+            突破口は、反射にあります。適応と回復力は、その延長線上に自然と生まれるものです。
           </p>
         </Card>
 
-        <Card tag="05 · プロダクト" title="Phase 1 は、すでに動いています。">
+        <Card tag="05 · プロダクト" title="Phase 1は、すでに稼働しています。">
           <BulletList
             items={[
               "FPGA ファブリック上に実装されたリザバーコンピューティング",
@@ -183,7 +183,7 @@ export default function MobileDeckJp() {
 
         <Card tag="06 · 技術" title="なぜ FPGA か。なぜ今か。">
           <p className="mt-3 text-[15px] leading-[1.85] text-fg-secondary">
-            リザバーコンピューティングは、カオス的な動的基板です。最適なアーキテクチャを見出すには、その上で動作するソフトウェアだけでなく、基板そのものを反復する必要があります。
+            リザバーコンピューターは、予測困難な動的な基板です。最適な設計を見つけるには、その上で動くソフトウェアだけでなく、基板そのものを繰り返し試行・改良する必要があります。
           </p>
           <BulletList
             items={[
@@ -358,13 +358,12 @@ export default function MobileDeckJp() {
                 <span className="font-semibold text-fg-primary">
                   外部による検証 — TDK CEATEC 2025 受賞:
                 </span>{" "}
-                技術の方向性を独立した形で確認。私たちは補完的なアーキテクチャの賭けを選びました:FPGA
-                ファースト、反復可能、その後ライセンス可能な IP へ。
+                TDKのアナログRCチップがCEATEC 2025イノベーションアワードを受賞し、この技術の方向性が独立した形で証明されました。FPGAファーストで反復し、その後ライセンス可能なIPへと展開します。
               </>,
             ]}
           />
           <p className="mt-4 text-[15px] italic leading-[1.85] text-fg-secondary">
-            Phase 2 が、その間のループを閉じます。
+            Phase 2で、その二つをつなぎます。
           </p>
         </Card>
 
@@ -373,21 +372,21 @@ export default function MobileDeckJp() {
           title="生物学とハードウェア AI の交差点。"
         >
           <p className="mt-3 text-[15px] leading-[1.85] text-fg-secondary">
-            私たちは、現代のコンピューティングがアーキテクチャ的に間違っていると考えています。自然はフォン・ノイマンで動いていません。デジタルシステムが最も苦手とする領域、すなわちリアルタイム、身体性、物理制御に、生物学的アーキテクチャを適用します。
+            問題は性能ではなく、設計思想です。自然はフォン・ノイマン型では動いていない。私たちはコンピューティングを作り直すのではなく、デジタルが最も苦手とする場所に、自然の設計を持ち込みます。
           </p>
           <div className="mt-4 grid gap-3 text-[15px] leading-[1.7] text-fg-secondary">
             <div>
               <span className="font-semibold text-fg-primary">
                 Salvatore Martone:
               </span>{" "}
-              筑波大学生物学卒、仮説の共同設計者、商業戦略・日本投資家関係
+              筑波大学生物学卒、アーキテクチャの共同設計者、商業戦略・日本投資家関係
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
                 Bernardo Gatto:
               </span>{" "}
-              コンピュータビジョン博士、JSPS/MEXT、元 AIST、共同設計者、Phase 1 を
-              FPGA 上で構築
+              コンピュータビジョン博士、JSPS/MEXT、元 AIST、アーキテクチャの共同設計者、Phase 1を
+              FPGA上で構築
             </div>
             <div>
               <span className="font-semibold text-fg-primary">大塚 美奈:</span>{" "}
