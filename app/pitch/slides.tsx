@@ -676,9 +676,9 @@ export function CompetitionSlide() {
         />
       </div>
       <p className="mt-10 max-w-[1500px] text-[24px] font-normal leading-[1.5] text-fg-primary">
-        The control layer is uncrowded because the field has been chasing
-        perception. We&rsquo;re optimizing the loop everyone else assumes is
-        already solved.
+        While the industry competes on perception, the commercial control
+        layer has been left untouched. We are optimizing the layer no one has
+        bridged from research to industry.
       </p>
       <SlideFooter pageLabel="10 · Competitors" />
     </Slide>
@@ -1008,7 +1008,7 @@ export function TeamSlide() {
           objectPosition="center 25%"
           name="Mina"
           role="Japan Market &amp; Ecosystem"
-          body="Native Japanese fluency. Former business development and client relations at Meiji Yasuda Life Insurance. Deep understanding of Japanese corporate culture. Building relationships with robotics engineers and research institutions across Japan."
+          body="Native Japanese fluency. Former Manager in business development and client relations at Meiji Yasuda Life Insurance, one of Japan's largest financial corporations. Deep understanding of Japanese corporate culture. Building relationships with robotics engineers and research institutions across Japan."
         />
       </div>
       <p className="mt-8 max-w-[1500px] text-[20px] font-light italic leading-[1.5] text-fg-secondary">
@@ -1200,8 +1200,8 @@ export function AskSlide() {
           <p className="mt-3 text-[21px] leading-[1.5] text-fg-primary">
             Benchmark measurable improvement in latency, energy, and adaptive
             stability vs the digital baseline — closed-loop, on hardware. The
-            first hardware benchmark of physical intelligence as a control
-            layer.
+            first industrial benchmark of physical intelligence as a
+            commercializable control layer.
           </p>
 
           <div className="mt-7 font-mono text-[13px] uppercase tracking-[0.12em] text-accent">

@@ -466,8 +466,8 @@ export default function MobileDeck() {
             </span>{" "}
             benchmark measurable improvement in latency, energy, and adaptive
             stability vs the digital baseline — closed-loop, on hardware. The
-            first hardware benchmark of physical intelligence as a control
-            layer.
+            first industrial benchmark of physical intelligence as a
+            commercializable control layer.
           </p>
           <div className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
             Funding structure

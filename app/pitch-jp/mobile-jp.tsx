@@ -465,7 +465,7 @@ export default function MobileDeckJp() {
             <span className="font-semibold text-fg-primary">
               12 ヶ月のマイルストーン:
             </span>{" "}
-            デジタルベースラインに対する遅延、エネルギー、適応的安定性の測定可能な改善のベンチマーク。閉ループ、ハードウェア上で。フィジカルインテリジェンスを制御層として実装した、世界初のハードウェアベンチマーク。
+            デジタルベースラインに対する遅延、エネルギー、適応的安定性の測定可能な改善のベンチマーク。閉ループ、ハードウェア上で。フィジカルインテリジェンスを商用化可能な制御層として実装した、世界初の産業ベンチマーク。
           </p>
           <div className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
             資金調達構成

@@ -461,7 +461,7 @@ function CompetitionSlide() {
         />
       </div>
       <p className="mt-9 max-w-[1500px] text-[22px] font-normal leading-[1.7] text-fg-primary">
-        業界が知覚を競っている間、制御層は放置されてきました。私たちは、誰も疑わなかった前提を最適化しています。
+        業界が知覚を競っている間、商用化された制御層は手つかずのまま残されてきました。私たちは、研究と産業の間に誰も架けてこなかった層を最適化しています。
       </p>
       <SlideFooter pageLabel="10 · 競合" />
     </Slide>
@@ -637,7 +637,7 @@ function TeamSlide() {
           objectPosition="center 25%"
           name="大塚 美奈"
           role="日本市場・エコシステム"
-          body="日本語ネイティブ。明治安田生命保険株式会社にて事業開発・顧客対応に従事。日本企業文化への深い理解。日本全国のロボティクスエンジニアおよび研究機関との関係構築を担当。"
+          body="日本語ネイティブ。明治安田生命保険株式会社にてマネージャーとして事業開発・顧客対応に従事。日本企業文化への深い理解。日本全国のロボティクスエンジニアおよび研究機関との関係構築を担当。"
         />
       </div>
       <p className="mt-7 max-w-[1500px] text-[18px] font-light italic leading-[1.7] text-fg-secondary">
@@ -736,7 +736,7 @@ function AskSlide() {
             12 ヶ月のマイルストーン
           </div>
           <p className="mt-3 text-[19px] leading-[1.7] text-fg-primary">
-            デジタルベースラインに対する遅延、エネルギー、適応的安定性の測定可能な改善のベンチマーク。閉ループ、ハードウェア上で。フィジカルインテリジェンスを制御層として実装した、世界初のハードウェアベンチマーク。
+            デジタルベースラインに対する遅延、エネルギー、適応的安定性の測定可能な改善のベンチマーク。閉ループ、ハードウェア上で。フィジカルインテリジェンスを商用化可能な制御層として実装した、世界初の産業ベンチマーク。
           </p>
 
           <div className="mt-7 font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
