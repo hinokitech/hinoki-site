@@ -335,8 +335,8 @@ export function BehaviorsSlide() {
         />
       </div>
       <p className="mt-8 max-w-[1500px] text-[20px] font-light italic leading-[1.5] text-fg-secondary">
-        Reflex is the wedge. Adaptation and resilience are the natural
-        extensions on the same substrate.
+        Response is the entry point. Adaptation and resilience emerge from the
+        same physical intelligence substrate.
       </p>
       <SlideFooter pageLabel="05 · Behaviors" />
     </Slide>

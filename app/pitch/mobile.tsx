@@ -159,8 +159,8 @@ export default function MobileDeck() {
             ]}
           />
           <p className="mt-4 text-[15px] leading-[1.65] text-fg-secondary">
-            Reflex is the wedge. Adaptation and resilience extend on the same
-            substrate.
+            Response is the entry point. Adaptation and resilience emerge from
+            the same physical intelligence substrate.
           </p>
         </Card>
 

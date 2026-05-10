@@ -1,7 +1,12 @@
 import { ReflexCanvas } from "./reflex-canvas";
 
 export const metadata = {
-  title: "Hinoki Technologies — Reflex Architecture",
+  title: "Hinoki Technologies — Physical Intelligence Architecture",
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: { index: false, follow: false },
+  },
 };
 
 export default function ReflexPage() {
@@ -9,7 +14,7 @@ export default function ReflexPage() {
     <main className="min-h-screen bg-bg-base text-fg-primary">
       <div className="mx-auto max-w-[1200px] px-12 py-10">
         <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-          Reflex architecture
+          Physical Intelligence Architecture
         </div>
         <h1 className="text-[36px] font-light leading-[1.15] tracking-[-0.02em]">
           Discrete inference vs. continuous control.
