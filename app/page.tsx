@@ -131,14 +131,17 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             robots have been missing.
           </h1>
           <p
-            className={`reveal mb-9 max-w-[520px] text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px] ${heroVisible ? "is-visible" : ""}`}
+            className={`reveal mb-9 max-w-[min(640px,100%)] text-pretty text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px] ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "432ms" }}
           >
-            When your hand touches something hot, you pull back before you
-            think. Every robot ever built is missing that.{" "}
-            <span className="font-semibold text-fg-primary">
-              <span className="italic">Arc</span> is the architecture for that
-              reflex.
+            <span className="block">
+              Hinoki inserts a continuous-time neuromorphic control layer between
+              sensors and actuators,
+            </span>
+            <span className="mt-2.5 block md:mt-3">
+              allowing robotic systems to respond, adapt, and stabilize at the
+              body level before the higher-level digital stack completes
+              perception, inference, or planning.
             </span>
           </p>
 
@@ -775,21 +778,31 @@ function FeatureSection() {
             <br />
             <span className="italic">Arc</span> gives them a nervous system.
           </h2>
-          <div className="max-w-[600px] text-fg-primary">
-            <p className="text-[16px] leading-[1.75]">
-              <strong className="font-semibold">
-                Nature solved physical intelligence millions of years ago.
-              </strong>{" "}
-              Every living system that moves through an unpredictable world
-              runs on the same principle: sensation couples directly to
-              response — in the body, not the brain.
-            </p>
-            <p className="mt-10 text-[18px] font-light leading-[1.4] tracking-[-0.01em] md:mt-12 md:text-[20px]">
-              <span className="block">
-                Computational intelligence lives in the brain.
+          <div className="max-w-[min(640px,100%)]">
+            <div className="space-y-6 md:space-y-7">
+              <p className="text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px]">
+                In living systems, physical intelligence is not confined to the
+                brain. It is distributed through the body, where sensation and
+                response are tightly coupled in real time.
+              </p>
+              <p className="text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px]">
+                That is why a hand pulls away from heat before conscious thought,
+                and why a body can adapt instantly when the ground, load, or
+                balance changes.
+              </p>
+              <p className="text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px]">
+                <span className="italic text-fg-primary">Arc</span> brings this
+                principle into robotic systems: a continuous-time control
+                architecture that sits closer to sensors and actuators, enabling
+                faster response, adaptive behavior, and physical resilience.
+              </p>
+            </div>
+            <p className="mt-10 text-[18px] font-light leading-[1.4] tracking-[-0.01em] text-fg-primary md:mt-12 md:text-[20px]">
+              <span className="block text-fg-secondary">
+                Computational intelligence helps robots understand the world.
               </span>
-              <strong className="mt-3 block font-semibold">
-                Physical intelligence lives in the body.
+              <strong className="mt-3 block font-semibold text-fg-primary">
+                Physical intelligence helps them survive in it.
               </strong>
             </p>
           </div>
