@@ -82,12 +82,25 @@ export function ArcIntegrationCanvas({
     let H = 0;
     let dpr = 1;
     let isMobile = false;
+    /** 1 at ~400px wide; shrinks on narrow phones so type + boxes fit the same layout. */
+    let mobileScale = 1;
+
+    function ms(n: number): number {
+      return isMobile ? n * mobileScale : n;
+    }
+
+    function msi(n: number): number {
+      return Math.round(ms(n));
+    }
 
     function resize() {
       if (!canvas) return;
       dpr = window.devicePixelRatio || 1;
       W = canvas.clientWidth || window.innerWidth;
       isMobile = W < 720;
+      mobileScale = isMobile
+        ? Math.max(0.76, Math.min(1.06, W / 400))
+        : 1;
       H = isMobile
         ? Math.max(620, Math.min(820, Math.round(W * 1.15)))
         : Math.max(520, Math.min(620, Math.round(W * 0.55)));
@@ -117,9 +130,9 @@ export function ArcIntegrationCanvas({
     type Box = { cx: number; cy: number; w: number; h: number; label: string };
 
     function layout() {
-      const padX = Math.max(28, W * 0.04);
-      const padTop = isMobile ? 36 : 44;
-      const padBot = isMobile ? 52 : 52;
+      const padX = Math.max(isMobile ? msi(22) : 28, W * (isMobile ? 0.038 : 0.04));
+      const padTop = isMobile ? msi(36) : 44;
+      const padBot = isMobile ? msi(52) : 52;
       const innerH = H - padTop - padBot;
 
       const rowTopY = padTop + innerH * 0.16;
@@ -130,11 +143,11 @@ export function ArcIntegrationCanvas({
         const x0 = padX;
         const x1 = W - padX;
         const n = labels.length;
-        const minG = isMobile ? 14 : 22;
+        const minG = isMobile ? msi(14) : 22;
         const availW = x1 - x0;
-        const maxBW = isMobile ? 120 : 220;
+        const maxBW = isMobile ? msi(120) : 220;
         const bW = Math.min(maxBW, Math.floor((availW - (n - 1) * minG) / n));
-        const bH = isMobile ? 40 : 48;
+        const bH = isMobile ? msi(40) : 48;
         const gap = Math.floor((availW - n * bW) / (n - 1));
         const tot = n * bW + (n - 1) * gap;
         const sx = (x0 + x1) / 2 - tot / 2 + bW / 2;
@@ -158,13 +171,69 @@ export function ArcIntegrationCanvas({
 
       const midX0 = padX;
       const midX1 = W - padX;
-      const arcW = isMobile ? 150 : 220;
-      const arcH = isMobile ? 56 : 64;
-      const endW = isMobile ? 110 : 170;
-      const endH = isMobile ? 40 : 48;
-      const arcCx = (midX0 + midX1) / 2;
-      const sensorInCx = midX0 + endW / 2 + (isMobile ? 0 : 4);
-      const correctionOutCx = midX1 - endW / 2 - (isMobile ? 0 : 4);
+      const innerMidW = midX1 - midX0;
+
+      let arcW: number;
+      let arcH: number;
+      let endW: number;
+      let endH: number;
+      let arcCx: number;
+      let sensorInCx: number;
+      let correctionOutCx: number;
+
+      if (isMobile) {
+        const gap = msi(16);
+        arcH = msi(48);
+        endH = msi(40);
+        arcCx = (midX0 + midX1) / 2;
+        const midConst = msi(108);
+        let ew = Math.min(
+          msi(104),
+          Math.max(msi(70), Math.floor((innerMidW - midConst - 2 * gap) / 2)),
+        );
+        let aw = Math.max(
+          msi(94),
+          Math.min(msi(126), innerMidW - 2 * gap - 2 * ew),
+        );
+        let sCx = arcCx - aw / 2 - gap - ew / 2;
+        let cCx = arcCx + aw / 2 + gap + ew / 2;
+        let minS = midX0 + ew / 2 + msi(2);
+        let maxC = midX1 - ew / 2 - msi(2);
+        if (sCx < minS || cCx > maxC) {
+          ew = Math.max(msi(66), ew - msi(10));
+          aw = Math.max(
+            msi(90),
+            Math.min(msi(122), innerMidW - 2 * gap - 2 * ew),
+          );
+          minS = midX0 + ew / 2 + msi(2);
+          maxC = midX1 - ew / 2 - msi(2);
+          sCx = Math.max(minS, arcCx - aw / 2 - gap - ew / 2);
+          cCx = Math.min(maxC, arcCx + aw / 2 + gap + ew / 2);
+        }
+        endW = ew;
+        arcW = aw;
+        sensorInCx = sCx;
+        correctionOutCx = cCx;
+      } else {
+        arcW = 220;
+        arcH = 64;
+        endW = 170;
+        endH = 48;
+        arcCx = (midX0 + midX1) / 2;
+        sensorInCx = midX0 + endW / 2 + 4;
+        correctionOutCx = midX1 - endW / 2 - 4;
+      }
+
+      const baseCorrectionCx = correctionOutCx;
+      const correctionW = endW + (isMobile ? msi(10) : 12);
+      const correctionArcGap = isMobile ? msi(30) : 16;
+      correctionOutCx = Math.min(
+        midX1 - (isMobile ? msi(2) : 2) - correctionW / 2,
+        Math.max(
+          arcCx + arcW / 2 + correctionArcGap + correctionW / 2,
+          baseCorrectionCx + endW * 0.15 + (isMobile ? msi(12) : 10),
+        ),
+      );
 
       const midElems = {
         sensorIn: {
@@ -184,7 +253,7 @@ export function ArcIntegrationCanvas({
         correction: {
           cx: correctionOutCx,
           cy: rowMidY,
-          w: endW,
+          w: correctionW,
           h: endH,
           label: "Bounded Correction Output",
         },
@@ -207,7 +276,7 @@ export function ArcIntegrationCanvas({
     function drawBG(C: ReturnType<typeof getColors>) {
       ctx.fillStyle = C.bg;
       ctx.fillRect(0, 0, W, H);
-      const sp = 26;
+      const sp = isMobile ? msi(26) : 26;
       ctx.fillStyle = C.gridDot;
       for (let x = sp; x < W; x += sp) {
         for (let y = sp; y < H; y += sp) {
@@ -222,12 +291,12 @@ export function ArcIntegrationCanvas({
       L: ReturnType<typeof layout>,
       C: ReturnType<typeof getColors>,
     ) {
-      const divY1 = (L.rowTopY + L.rowMidY) / 2 + (isMobile ? 4 : 8);
-      const divY2 = (L.rowMidY + L.rowBotY) / 2 - (isMobile ? 4 : 8);
+      const divY1 = (L.rowTopY + L.rowMidY) / 2 + (isMobile ? msi(4) : 8);
+      const divY2 = (L.rowMidY + L.rowBotY) / 2 - (isMobile ? msi(4) : 8);
 
       ctx.strokeStyle = C.div;
       ctx.lineWidth = 1;
-      ctx.setLineDash([2, 4]);
+      ctx.setLineDash([msi(2), msi(4)]);
       [divY1, divY2].forEach((y) => {
         ctx.beginPath();
         ctx.moveTo(L.padX, y);
@@ -236,11 +305,11 @@ export function ArcIntegrationCanvas({
       });
       ctx.setLineDash([]);
 
-      font(9.5, 600);
+      font(isMobile ? ms(9.5) : 9.5, 600);
       ctx.textAlign = "left";
       ctx.textBaseline = "alphabetic";
 
-      const labelOff = isMobile ? 34 : 40;
+      const labelOff = isMobile ? msi(34) : 40;
 
       ctx.fillStyle = C.lLabel;
       ctx.fillText("EXISTING CONTROLLER", L.rowLabelX, L.rowTopY - labelOff);
@@ -251,7 +320,7 @@ export function ArcIntegrationCanvas({
       ctx.fillStyle = C.meta;
       ctx.fillText("PHYSICAL HARDWARE", L.rowLabelX, L.rowBotY - labelOff);
 
-      font(isMobile ? 10 : 10.5, 400);
+      font(isMobile ? ms(10) : 10.5, 400);
 
       ctx.fillStyle = C.rLabel;
       ctx.globalAlpha = 0.85;
@@ -262,10 +331,10 @@ export function ArcIntegrationCanvas({
       ];
       if (isMobile) {
         const cx = W / 2;
-        const lineH = 11;
-        const lineGap = 2;
-        const blockBottom = divY2 - 10;
-        font(9, 400);
+        const lineH = msi(11);
+        const lineGap = msi(2);
+        const blockBottom = divY2 - msi(10);
+        font(ms(9), 400);
         ctx.textAlign = "center";
         ctx.textBaseline = "bottom";
         let y = blockBottom;
@@ -278,22 +347,30 @@ export function ArcIntegrationCanvas({
         ctx.textBaseline = "alphabetic";
         ctx.fillText(
           "Fast local adaptive control · sub-ms target · bounded output",
-          W - L.padX - 4,
-          divY2 - 6,
+          W - L.padX - msi(4),
+          divY2 - msi(6),
         );
       }
       ctx.globalAlpha = 1;
     }
 
     function drawConventionalBox(b: Box, C: ReturnType<typeof getColors>) {
-      rr(b.cx - b.w / 2, b.cy - b.h / 2, b.w, b.h, 4);
+      rr(
+        b.cx - b.w / 2,
+        b.cy - b.h / 2,
+        b.w,
+        b.h,
+        isMobile ? msi(4) : 4,
+      );
       ctx.fillStyle = C.lBox;
       ctx.fill();
       ctx.strokeStyle = C.lBorder;
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      const fs = Math.max(10, Math.min(13, b.w * 0.085));
+      const fs = isMobile
+        ? Math.max(ms(9.25), Math.min(ms(12.25), b.w * 0.088))
+        : Math.max(10, Math.min(13, b.w * 0.085));
       font(fs, 400);
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -302,14 +379,22 @@ export function ArcIntegrationCanvas({
     }
 
     function drawNeutralBox(b: Box, C: ReturnType<typeof getColors>) {
-      rr(b.cx - b.w / 2, b.cy - b.h / 2, b.w, b.h, 4);
+      rr(
+        b.cx - b.w / 2,
+        b.cy - b.h / 2,
+        b.w,
+        b.h,
+        isMobile ? msi(4) : 4,
+      );
       ctx.fillStyle = C.lBox;
       ctx.fill();
       ctx.strokeStyle = C.lBorder;
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      const fs = Math.max(10, Math.min(13, b.w * 0.085));
+      const fs = isMobile
+        ? Math.max(ms(9.25), Math.min(ms(12.25), b.w * 0.088))
+        : Math.max(10, Math.min(13, b.w * 0.085));
       font(fs, 400);
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -318,22 +403,32 @@ export function ArcIntegrationCanvas({
     }
 
     function drawArcBox(b: Box, C: ReturnType<typeof getColors>) {
-      rr(b.cx - b.w / 2, b.cy - b.h / 2, b.w, b.h, 6);
+      rr(
+        b.cx - b.w / 2,
+        b.cy - b.h / 2,
+        b.w,
+        b.h,
+        isMobile ? msi(6) : 6,
+      );
       ctx.fillStyle = C.rBoxFill;
       ctx.fill();
       ctx.strokeStyle = C.rBoxBorder;
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = isMobile ? ms(1.5) : 1.5;
       ctx.stroke();
 
-      font(7.5, 600);
+      font(isMobile ? ms(7.5) : 7.5, 600);
       ctx.textAlign = "center";
       ctx.textBaseline = "alphabetic";
       ctx.fillStyle = C.rLabel;
       ctx.globalAlpha = 0.7;
-      ctx.fillText("REFLEX", b.cx, b.cy - b.h / 2 - 6);
+      ctx.fillText(
+        "REFLEX",
+        b.cx,
+        b.cy - b.h / 2 - (isMobile ? ms(6) : 6),
+      );
       ctx.globalAlpha = 1;
 
-      font(isMobile ? 13 : 15, 500);
+      font(isMobile ? ms(12) : 15, 500);
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillStyle = C.text;
@@ -341,24 +436,32 @@ export function ArcIntegrationCanvas({
     }
 
     function drawArcEndpoint(b: Box, C: ReturnType<typeof getColors>) {
-      rr(b.cx - b.w / 2, b.cy - b.h / 2, b.w, b.h, 4);
+      rr(
+        b.cx - b.w / 2,
+        b.cy - b.h / 2,
+        b.w,
+        b.h,
+        isMobile ? msi(4) : 4,
+      );
       ctx.fillStyle = C.rEndpoint;
       ctx.fill();
       ctx.strokeStyle = C.rEndBorder;
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      font(isMobile ? 10 : 11, 500);
+      font(isMobile ? ms(10) : 11, 500);
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillStyle = C.text;
       const words = b.label.split(" ");
-      if (words.length > 1 && b.w < 200) {
+      const splitW = isMobile ? msi(200) : 200;
+      if (words.length > 1 && b.w < splitW) {
         const mid = Math.ceil(words.length / 2);
         const line1 = words.slice(0, mid).join(" ");
         const line2 = words.slice(mid).join(" ");
-        ctx.fillText(line1, b.cx, b.cy - 7);
-        ctx.fillText(line2, b.cx, b.cy + 7);
+        const d = ms(7);
+        ctx.fillText(line1, b.cx, b.cy - d);
+        ctx.fillText(line2, b.cx, b.cy + d);
       } else {
         ctx.fillText(b.label, b.cx, b.cy);
       }
@@ -371,17 +474,18 @@ export function ArcIntegrationCanvas({
       color: string,
       lw = 1,
     ) {
+      const lineW = isMobile ? ms(lw) : lw;
       ctx.beginPath();
       ctx.moveTo(x0, y);
       ctx.lineTo(x1, y);
       ctx.strokeStyle = color;
-      ctx.lineWidth = lw;
+      ctx.lineWidth = lineW;
       ctx.stroke();
-      const aw = 5,
-        ah = 3.5;
+      const aw = isMobile ? msi(5) : 5,
+        ah = isMobile ? ms(3.5) : 3.5;
       ctx.beginPath();
       ctx.moveTo(x1 - aw, y - ah);
-      ctx.lineTo(x1 + 1, y);
+      ctx.lineTo(x1 + (isMobile ? ms(1) : 1), y);
       ctx.lineTo(x1 - aw, y + ah);
       ctx.stroke();
     }
@@ -392,16 +496,22 @@ export function ArcIntegrationCanvas({
     ) {
       const { topBoxes } = L;
       const motion = topBoxes[2]!;
-      const capGap = isMobile ? 5 : 7;
-      font(isMobile ? 10 : 10.5, 400);
+      const capGap = isMobile ? msi(5) : 7;
+      font(isMobile ? ms(10) : 10.5, 400);
       ctx.textAlign = "center";
       ctx.textBaseline = "bottom";
       ctx.fillStyle = C.sub;
-      ctx.fillText(
-        "Task planning · supervision · safety",
-        motion.cx,
-        motion.cy - motion.h / 2 - capGap,
-      );
+      const planCap =
+        "Task planning · supervision · safety";
+      let planCapX = motion.cx - (isMobile ? msi(12) : 0);
+      if (isMobile) {
+        const tw = ctx.measureText(planCap).width;
+        const padR = L.padX + msi(4);
+        const maxCx = W - padR - tw / 2;
+        planCapX = Math.min(planCapX, maxCx);
+        planCapX = Math.max(L.padX + msi(4) + tw / 2, planCapX);
+      }
+      ctx.fillText(planCap, planCapX, motion.cy - motion.h / 2 - capGap);
 
       for (let i = 0; i < topBoxes.length - 1; i++) {
         const b0 = topBoxes[i]!;
@@ -458,15 +568,22 @@ export function ArcIntegrationCanvas({
       const spanL = b0.cx - b0.w / 2;
       const spanR = b2.cx + b2.w / 2;
       const spanCx = (spanL + spanR) / 2;
-      let maxW = Math.min(spanR - spanL - 12, isMobile ? 360 : 480);
-      maxW = Math.max(maxW, 160);
+      let maxW = Math.min(
+        spanR - spanL - (isMobile ? msi(12) : 12),
+        isMobile ? msi(360) : 480,
+      );
+      maxW = Math.max(maxW, isMobile ? msi(160) : 160);
 
       const botBottom = b0.cy + b0.h / 2;
-      let fs = isMobile ? 11.25 : 12;
+      let fs = isMobile ? ms(11.25) : 12;
       let lines = wrapCaptionToWidth(maxW, fs, HARDWARE_ROW_CAPTION);
       let lh = Math.round(fs * 1.38);
-      let capTop = botBottom + (isMobile ? 7 : 9);
-      while (capTop + lines.length * lh > H - 8 && fs > 9) {
+      let capTop = botBottom + (isMobile ? msi(7) : 9);
+      const minCaptionFs = isMobile ? ms(9) : 9;
+      while (
+        capTop + lines.length * lh > H - (isMobile ? msi(8) : 8) &&
+        fs > minCaptionFs
+      ) {
         fs -= 0.5;
         lines = wrapCaptionToWidth(maxW, fs, HARDWARE_ROW_CAPTION);
         lh = Math.round(fs * 1.38);
@@ -499,21 +616,22 @@ export function ArcIntegrationCanvas({
       ctx.moveTo(x0, y);
       ctx.lineTo(xArcL, y);
       ctx.strokeStyle = C.rPathBase;
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = isMobile ? ms(1.5) : 1.5;
       ctx.stroke();
       ctx.beginPath();
       ctx.moveTo(xArcR, y);
       ctx.lineTo(x1, y);
       ctx.stroke();
 
-      const aw = 5,
-        ah = 3.5;
+      const aw = isMobile ? msi(5) : 5,
+        ah = isMobile ? ms(3.5) : 3.5;
       ctx.strokeStyle = C.rPathBase;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = isMobile ? ms(1.2) : 1.2;
+      const tip = isMobile ? ms(1) : 1;
       ctx.beginPath();
-      ctx.moveTo(xArcL - aw - 1, y - ah);
-      ctx.lineTo(xArcL - 1, y);
-      ctx.lineTo(xArcL - aw - 1, y + ah);
+      ctx.moveTo(xArcL - aw - tip, y - ah);
+      ctx.lineTo(xArcL - tip, y);
+      ctx.lineTo(xArcL - aw - tip, y + ah);
       ctx.stroke();
       ctx.beginPath();
       ctx.moveTo(x1 - aw, y - ah);
@@ -539,14 +657,14 @@ export function ArcIntegrationCanvas({
         const supY0 = supTop.cy + supTop.h / 2;
         const supY1 = supBot.cy - supBot.h / 2;
         const arcEl = midElems.arc;
-        const bypassX = arcEl.cx + arcEl.w / 2 + 22;
+        const bypassX = arcEl.cx + arcEl.w / 2 + (isMobile ? msi(22) : 22);
         const jogY1 = (supY0 + (arcEl.cy - arcEl.h / 2)) / 2;
         const jogY2 = (supY1 + (arcEl.cy + arcEl.h / 2)) / 2;
 
         ctx.save();
         ctx.strokeStyle = C.lBorderAct;
         ctx.globalAlpha = 0.55;
-        ctx.setLineDash([4, 5]);
+        ctx.setLineDash([isMobile ? msi(4) : 4, isMobile ? msi(5) : 5]);
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(supTop.cx, supY0);
@@ -558,17 +676,27 @@ export function ArcIntegrationCanvas({
         ctx.stroke();
         ctx.setLineDash([]);
         ctx.beginPath();
-        ctx.moveTo(supBot.cx - 3.5, supY1 - 5);
+        ctx.moveTo(
+          supBot.cx - (isMobile ? ms(3.5) : 3.5),
+          supY1 - (isMobile ? msi(5) : 5),
+        );
         ctx.lineTo(supBot.cx, supY1);
-        ctx.lineTo(supBot.cx + 3.5, supY1 - 5);
+        ctx.lineTo(
+          supBot.cx + (isMobile ? ms(3.5) : 3.5),
+          supY1 - (isMobile ? msi(5) : 5),
+        );
         ctx.stroke();
 
-        font(8.5, 500);
+        font(isMobile ? ms(8.5) : 8.5, 500);
         ctx.textAlign = "left";
         ctx.textBaseline = "bottom";
         ctx.fillStyle = C.lLabel;
         ctx.globalAlpha = 0.75;
-        ctx.fillText("task-level control", bypassX + 6, jogY1 - 3);
+        ctx.fillText(
+          "task-level control",
+          bypassX + (isMobile ? msi(6) : 6),
+          jogY1 - (isMobile ? msi(3) : 3),
+        );
         ctx.globalAlpha = 1;
         ctx.restore();
       }
@@ -577,14 +705,14 @@ export function ArcIntegrationCanvas({
       {
         const fbTop = topBoxes[1]!;
         const arcEl = midElems.arc;
-        const fbX = arcEl.cx - 60;
+        const fbX = arcEl.cx - (isMobile ? msi(60) : 60);
         const fbYSrc = arcEl.cy - arcEl.h / 2;
         const fbYDst = fbTop.cy + fbTop.h / 2;
 
         ctx.save();
         ctx.strokeStyle = C.rSig;
         ctx.globalAlpha = 0.55;
-        ctx.setLineDash([3, 4]);
+        ctx.setLineDash([isMobile ? msi(3) : 3, isMobile ? msi(4) : 4]);
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(fbX, fbYSrc);
@@ -592,17 +720,21 @@ export function ArcIntegrationCanvas({
         ctx.stroke();
         ctx.setLineDash([]);
         ctx.beginPath();
-        ctx.moveTo(fbX - 3, fbYDst + 5);
+        ctx.moveTo(fbX - (isMobile ? msi(3) : 3), fbYDst + (isMobile ? msi(5) : 5));
         ctx.lineTo(fbX, fbYDst);
-        ctx.lineTo(fbX + 3, fbYDst + 5);
+        ctx.lineTo(fbX + (isMobile ? msi(3) : 3), fbYDst + (isMobile ? msi(5) : 5));
         ctx.stroke();
 
-        font(8.5, 500);
+        font(isMobile ? ms(8.5) : 8.5, 500);
         ctx.textAlign = "right";
         ctx.textBaseline = "middle";
         ctx.fillStyle = C.rLabel;
         ctx.globalAlpha = 0.7;
-        ctx.fillText("state feedback", fbX - 8, (fbYSrc + fbYDst) / 2);
+        ctx.fillText(
+          "state feedback",
+          fbX - (isMobile ? msi(8) : 8),
+          (fbYSrc + fbYDst) / 2,
+        );
         ctx.globalAlpha = 1;
         ctx.restore();
       }
@@ -620,7 +752,7 @@ export function ArcIntegrationCanvas({
         ctx.strokeStyle = C.rPathBase;
         ctx.lineWidth = 1.2;
         ctx.beginPath();
-        if (Math.abs(sX - sXTarget) < 4) {
+        if (Math.abs(sX - sXTarget) < (isMobile ? msi(4) : 4)) {
           ctx.moveTo(sX, sY0);
           ctx.lineTo(sX, sY1);
         } else {
@@ -632,9 +764,9 @@ export function ArcIntegrationCanvas({
         }
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(sXTarget - 3.5, sY1 + 5);
+        ctx.moveTo(sXTarget - (isMobile ? ms(3.5) : 3.5), sY1 + (isMobile ? msi(5) : 5));
         ctx.lineTo(sXTarget, sY1);
-        ctx.lineTo(sXTarget + 3.5, sY1 + 5);
+        ctx.lineTo(sXTarget + (isMobile ? ms(3.5) : 3.5), sY1 + (isMobile ? msi(5) : 5));
         ctx.stroke();
         ctx.restore();
       }
@@ -652,7 +784,7 @@ export function ArcIntegrationCanvas({
         ctx.strokeStyle = C.rPathBase;
         ctx.lineWidth = 1.2;
         ctx.beginPath();
-        if (Math.abs(cXSource - cXTarget) < 4) {
+        if (Math.abs(cXSource - cXTarget) < (isMobile ? msi(4) : 4)) {
           ctx.moveTo(cXSource, cY0);
           ctx.lineTo(cXSource, cY1);
         } else {
@@ -664,9 +796,15 @@ export function ArcIntegrationCanvas({
         }
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(cXTarget - 3.5, cY1 - 5);
+        ctx.moveTo(
+          cXTarget - (isMobile ? ms(3.5) : 3.5),
+          cY1 - (isMobile ? msi(5) : 5),
+        );
         ctx.lineTo(cXTarget, cY1);
-        ctx.lineTo(cXTarget + 3.5, cY1 - 5);
+        ctx.lineTo(
+          cXTarget + (isMobile ? ms(3.5) : 3.5),
+          cY1 - (isMobile ? msi(5) : 5),
+        );
         ctx.stroke();
         ctx.restore();
       }
