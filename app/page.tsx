@@ -37,7 +37,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-full flex-col bg-bg-base text-fg-primary">
-      <Nav onRequestAccess={openRequest} />
+      <Nav />
       <Hero onRequestAccess={openRequest} />
       <MetricBar />
       <FeatureSection />
@@ -49,7 +49,7 @@ export default function Home() {
   );
 }
 
-function Nav({ onRequestAccess }: { onRequestAccess: () => void }) {
+function Nav() {
   const links = [
     { label: "Architecture", href: "#architecture" },
     { label: "Applications", href: "#applications" },
@@ -84,14 +84,10 @@ function Nav({ onRequestAccess }: { onRequestAccess: () => void }) {
         </div>
 
         <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            onRequestAccess();
-          }}
+          href="#contact"
           className="inline-flex items-center rounded-md bg-accent px-[18px] py-2 text-[12px] font-medium tracking-[0.01em] text-fg-inverse transition-colors duration-200 hover:bg-accent-hover"
         >
-          Request Access
+          Work with us
         </a>
       </div>
     </nav>
@@ -174,7 +170,16 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
           >
             <span>Tsukuba, Japan</span>
             <span className="text-border">·</span>
-            <span>Antler Japan 2026</span>
+            <span className="inline-flex items-center gap-1.5">
+              <img
+                src="/assets/antler-mark.png"
+                alt=""
+                width={18}
+                height={18}
+                className="h-[18px] w-[18px] shrink-0 rounded-[3px] object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.06)]"
+              />
+              <span>Antler Japan 2026</span>
+            </span>
             <span className="text-border">·</span>
             <span>Hardware validation underway</span>
           </div>
@@ -1103,13 +1108,13 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
   return (
     <section
       id="contact"
-      className="border-t border-border bg-bg-subtle px-5 py-20 md:px-12 md:py-24"
+      className="scroll-mt-[80px] border-t border-border bg-bg-subtle px-5 py-20 md:px-12 md:py-24"
     >
       <div
         ref={cta.ref as React.RefObject<HTMLDivElement>}
         className={`mx-auto max-w-[640px] reveal reveal-slow ${cta.visible ? "is-visible" : ""}`}
       >
-        <div className="mb-[14px] text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
+        <div className="mb-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-accent md:mb-[18px] md:text-[14px] md:tracking-[0.12em]">
           Work with us
         </div>
         <h2 className="mb-4 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[36px]">
@@ -1123,6 +1128,15 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
           physical intelligence to robotic platforms at scale. Selected for
           Antler Japan 2026 Residency.
         </p>
+        <div className="mb-8">
+          <img
+            src="/assets/antler-wordmark.png"
+            alt="Antler"
+            width={220}
+            height={48}
+            className="h-7 w-auto max-w-full object-contain object-left md:h-8"
+          />
+        </div>
         <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
           For partners
         </div>
