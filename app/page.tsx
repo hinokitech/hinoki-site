@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { HeroAnimation } from "./hero-animation";
+import { ArcIntegrationCanvas } from "./reflex/ArcIntegrationCanvas";
 import { RequestAccessModal } from "./request-access-modal";
 
 function useInViewOnce<T extends Element>(options?: IntersectionObserverInit) {
@@ -659,21 +660,33 @@ function FeatureSection() {
   const features = [
     {
       tag: "PHYSICAL RESPONSE",
-      title: "A body that acts before the brain decides.",
-      body: "A hand withdraws from heat before the brain registers pain. Arc brings this into robotic hardware: sensor input couples directly to actuation in the same hardware tick. No inference, no memory access, no digital round trip.",
-      claim: "Sub-millisecond response, zero inference.",
+      title: "Humanoid safety around humans.",
+      paragraphs: [
+        "Robots working near people need to react to contact, force change, imbalance, or unexpected movement faster than a full perception-to-planning loop can complete.",
+        "Arc is designed to add a fast local response layer between selected sensors and actuators, so the system can react immediately while the main controller remains in charge.",
+      ],
+      useCases:
+        "Use cases: Humanoids, collaborative robots, assistive systems, mobile manipulators",
     },
     {
       tag: "PHYSICAL ADAPTATION",
-      title: "A body that learns from contact. Instantly.",
-      body: "Most robotic adaptation happens in software — replanning, retuning, retraining. Arc's control loop adapts in the hardware itself, absorbing variable loads, changing surfaces, and unexpected contact in real time.",
-      claim: "Adaptation in the actuator, not the server.",
+      title: "Gripper control under changing conditions.",
+      paragraphs: [
+        "Robotic grippers often struggle when objects vary in weight, surface, shape, or position. They may slip, crush delicate items, or require retuning between tasks.",
+        "Arc is designed to adapt inside the control loop, using local sensor feedback to adjust grip response as physical conditions change.",
+      ],
+      useCases:
+        "Use cases: Tactile sensing, adaptive grasping, pick-and-place, mobile manipulation",
     },
     {
       tag: "PHYSICAL RESILIENCE",
-      title: "A body that doesn't stop when a part fails.",
-      body: "A three-legged animal keeps moving — physical resilience is distributed across the body. Arc brings this to robotic platforms: when a limb fails or a rotor stops, response redistributes across the remaining hardware in real time.",
-      claim: "Distributed response, no central failover.",
+      title: "Stability when conditions degrade.",
+      paragraphs: [
+        "Robots operating in the real world face noisy sensors, shifting loads, vibration, and partial hardware degradation. Many systems slow down, stop, or require central intervention when conditions move outside expected parameters.",
+        "Arc is designed to support local stabilization and compensation in selected hardware loops before the broader system needs to intervene.",
+      ],
+      useCases:
+        "Use cases: Drones, mobile robots, quadrupeds, field robotics, assistive systems",
     },
   ];
 
@@ -829,34 +842,181 @@ function FeatureSection() {
             </div>
             <LatencyComparisonBar ready={panelsReady} />
           </div>
-        </div>
 
-        <div
-          ref={archCards.ref as React.RefObject<HTMLDivElement>}
-          className="mt-10 grid grid-cols-1 overflow-hidden rounded-md border border-border bg-bg-subtle md:mt-0 md:grid-cols-3"
-        >
-          {features.map((f, idx) => (
-            <div
-              key={f.title}
-              className={`reveal reveal-card flex flex-col px-7 py-8 ${archCards.visible ? "is-visible" : ""} border-border ${
-                idx === 0 ? "" : "border-t md:border-t-0 md:border-l"
-              }`}
-              style={{ ["--reveal-delay" as any]: `${idx * 180}ms` }}
-            >
-              <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
-                {f.tag}
-              </div>
-              <h3 className="mb-3 text-[18px] font-medium leading-[1.3] text-fg-primary">
-                {f.title}
-              </h3>
-              <p className="mb-6 text-[14px] leading-[1.7] text-fg-secondary">
-                {f.body}
+          <div className="my-12 rounded-2xl border border-[#E0DDD8] px-5 py-6 md:px-8 md:py-8">
+            <div className="mb-4 text-center md:mb-6">
+              <p className="text-[13px] leading-[1.5] text-fg-secondary md:text-[14px]">
+                How{" "}
+                <span className="italic text-fg-primary">Arc</span> integrates
+                into existing robotic systems.
               </p>
-              <p className="mt-auto border-l-2 border-accent pl-3 text-[15px] font-medium leading-[1.4] text-fg-primary">
-                {f.claim}
+              <p className="mt-2 text-[13px] leading-[1.5] text-fg-secondary md:text-[14px]">
+                A fast local control layer for selected sensor–actuator loops.
               </p>
             </div>
-          ))}
+            <ArcIntegrationCanvas />
+
+            <div className="mx-auto mt-8 max-w-[640px] md:mt-10">
+              <h3 className="text-center text-[17px] font-medium leading-tight tracking-[-0.02em] text-fg-primary md:text-left md:text-[18px]">
+                Power advantage
+              </h3>
+              <div className="mt-4 space-y-4 text-left text-[14px] leading-[1.7] text-fg-secondary md:text-[15px]">
+                <p>
+                  Conventional control loops often spend energy moving sensor
+                  data through processors, memory, and inference layers before
+                  actuation.{" "}
+                  <span className="italic text-fg-primary">Arc</span> is designed
+                  to handle fast physical responses locally, reducing unnecessary
+                  data movement and compute for selected control loops.
+                </p>
+              </div>
+              <p className="mt-4 text-[13px] leading-[1.65] text-fg-tertiary md:text-[14px]">
+                Phase 2 benchmarks will measure latency, energy per response,
+                and adaptive stability against a digital baseline.
+              </p>
+              <div className="mt-6">
+                <p className="mb-3 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6E7F99] md:text-left">
+                  Phase 2 benchmark targets
+                </p>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <div className="rounded-lg border border-[#E0DDD8] bg-bg-base px-3 py-2.5 text-left">
+                    <div className="text-[11px] font-semibold text-fg-primary">
+                      Latency
+                    </div>
+                    <div className="mt-0.5 text-[11px] leading-snug text-fg-secondary">
+                      sub-ms response target
+                    </div>
+                  </div>
+                  <div className="rounded-lg border border-[#E0DDD8] bg-bg-base px-3 py-2.5 text-left">
+                    <div className="text-[11px] font-semibold text-fg-primary">
+                      Energy
+                    </div>
+                    <div className="mt-0.5 text-[11px] leading-snug text-fg-secondary">
+                      lower energy per response
+                    </div>
+                  </div>
+                  <div className="rounded-lg border border-[#E0DDD8] bg-bg-base px-3 py-2.5 text-left">
+                    <div className="text-[11px] font-semibold text-fg-primary">
+                      Adaptation
+                    </div>
+                    <div className="mt-0.5 text-[11px] leading-snug text-fg-secondary">
+                      stable control under variable conditions
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 md:mt-10">
+              <div className="mb-3 text-center md:mb-4 md:text-left">
+                <h3 className="text-center text-[16px] font-medium leading-tight tracking-[-0.02em] text-fg-primary md:text-left md:text-[17px]">
+                  Example applications
+                </h3>
+                <p className="mx-auto mt-1.5 max-w-[520px] text-center text-[12px] leading-snug text-fg-secondary md:mx-0 md:mt-2 md:text-left md:text-[13px]">
+                  Three reflex-shaped paths: sensor →{" "}
+                  <span className="text-accent">Arc</span> → response.
+                </p>
+              </div>
+              <div className="overflow-hidden rounded-md border border-[#E0DDD8] bg-bg-base">
+                <div className="grid grid-cols-1 md:grid-cols-3">
+                <div className="border-b border-[#E0DDD8] px-5 py-6 md:border-b-0 md:border-r md:px-6 md:py-7">
+                  <div className="text-left text-[10px] font-semibold uppercase tracking-[0.12em] text-[#6E7F99]">
+                    Gripper
+                  </div>
+                  <div className="mt-4 flex flex-col items-center gap-1 text-center text-[13px] leading-snug text-fg-primary md:mt-6 md:text-[14px]">
+                    <span className="text-pretty">Tactile sensor</span>
+                    <span className="text-[11px] leading-none text-fg-secondary">
+                      ↓
+                    </span>
+                    <span className="text-accent">Arc</span>
+                    <span className="text-[11px] leading-none text-fg-secondary">
+                      ↓
+                    </span>
+                    <span>grip response</span>
+                  </div>
+                </div>
+                <div className="border-b border-[#E0DDD8] px-5 py-6 md:border-b-0 md:border-r md:px-6 md:py-7">
+                  <div className="text-left text-[10px] font-semibold uppercase tracking-[0.12em] text-[#6E7F99]">
+                    Exoskeleton
+                  </div>
+                  <div className="mt-4 flex flex-col items-center gap-1 text-center text-[13px] leading-snug text-fg-primary md:mt-6 md:text-[14px]">
+                    <span className="text-pretty">Joint / pressure sensor</span>
+                    <span className="text-[11px] leading-none text-fg-secondary">
+                      ↓
+                    </span>
+                    <span className="text-accent">Arc</span>
+                    <span className="text-[11px] leading-none text-fg-secondary">
+                      ↓
+                    </span>
+                    <span>assistive response</span>
+                  </div>
+                </div>
+                <div className="px-5 py-6 md:px-6 md:py-7">
+                  <div className="text-left text-[10px] font-semibold uppercase tracking-[0.12em] text-[#6E7F99]">
+                    Mobile robot / drone
+                  </div>
+                  <div className="mt-4 flex flex-col items-center gap-1 text-center text-[13px] leading-snug text-fg-primary md:mt-6 md:text-[14px]">
+                    <span className="text-pretty">IMU / vibration sensor</span>
+                    <span className="text-[11px] leading-none text-fg-secondary">
+                      ↓
+                    </span>
+                    <span className="text-accent">Arc</span>
+                    <span className="text-[11px] leading-none text-fg-secondary">
+                      ↓
+                    </span>
+                    <span>stabilization</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+
+        <div ref={archCards.ref as React.RefObject<HTMLDivElement>} className="mt-10 md:mt-14">
+          <div
+            className={`reveal max-w-[800px] ${archCards.visible ? "is-visible" : ""}`}
+          >
+            <h2 className="text-[24px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[32px]">
+              Future Applications of{" "}
+              <span className="italic text-fg-primary">Arc</span>
+            </h2>
+            <p className="mt-3 max-w-[min(640px,100%)] text-[15px] leading-[1.65] text-fg-secondary md:mt-4 md:text-[16px]">
+              Arc is designed for robotic systems where faster response, lower
+              power consumption, adaptation, or resilience can improve
+              real-world performance in the physical world.
+            </p>
+          </div>
+
+          <div
+            className={`reveal mt-8 grid grid-cols-1 overflow-hidden rounded-md border border-border bg-bg-subtle md:mt-10 md:grid-cols-3 ${archCards.visible ? "is-visible" : ""}`}
+            style={{ ["--reveal-delay" as any]: "100ms" }}
+          >
+            {features.map((f, idx) => (
+              <div
+                key={f.tag}
+                className={`reveal reveal-card flex flex-col px-7 py-8 ${archCards.visible ? "is-visible" : ""} border-border ${
+                  idx === 0 ? "" : "border-t md:border-t-0 md:border-l"
+                }`}
+                style={{ ["--reveal-delay" as any]: `${idx * 180 + 140}ms` }}
+              >
+                <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+                  {f.tag}
+                </div>
+                <h3 className="mb-3 text-[18px] font-semibold leading-[1.3] text-fg-primary">
+                  {f.title}
+                </h3>
+                <div className="mb-6 space-y-4 text-[14px] leading-[1.7] text-fg-secondary">
+                  {f.paragraphs.map((p, pi) => (
+                    <p key={`${f.tag}-${pi}`}>{p}</p>
+                  ))}
+                </div>
+                <p className="mt-auto border-l-2 border-accent pl-3 text-[12px] font-normal leading-[1.55] text-fg-tertiary md:text-[13px]">
+                  {f.useCases}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
