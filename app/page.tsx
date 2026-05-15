@@ -811,18 +811,13 @@ function FeatureSection() {
               <p className="text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px]">
                 <span className="italic text-fg-primary">Arc</span> brings this
                 principle into robotic systems: a continuous-time control
-                architecture that sits closer to sensors and actuators, enabling
-                faster response, adaptive behavior, and physical resilience.
+                architecture that sits closer to sensors and actuators,{" "}
+                <strong className="font-semibold text-fg-primary">
+                  enabling faster response, adaptive behavior, and physical
+                  resilience.
+                </strong>
               </p>
             </div>
-            <p className="mt-10 text-[18px] font-light leading-[1.4] tracking-[-0.01em] text-fg-primary md:mt-12 md:text-[20px]">
-              <span className="block text-fg-secondary">
-                Computational intelligence helps robots understand the world.
-              </span>
-              <strong className="mt-3 block font-semibold text-fg-primary">
-                Physical intelligence helps them survive in it.
-              </strong>
-            </p>
           </div>
         </header>
 
