@@ -18,7 +18,6 @@ function getColors(dark: boolean) {
     return {
       bg: "#1A1C1F",
       gridDot: "rgba(255,255,255,0.055)",
-      div: "#2C3038",
       text: "#EEE9E2",
       sub: "#8A8F9A",
       meta: "#555B66",
@@ -40,7 +39,6 @@ function getColors(dark: boolean) {
   return {
     bg: "#F4F1ED",
     gridDot: "rgba(140,128,115,0.20)",
-    div: "#D8D3CB",
     text: "#252830",
     sub: "#5A5E6B",
     meta: "#9099A8",
@@ -291,19 +289,7 @@ export function ArcIntegrationCanvas({
       L: ReturnType<typeof layout>,
       C: ReturnType<typeof getColors>,
     ) {
-      const divY1 = (L.rowTopY + L.rowMidY) / 2 + (isMobile ? msi(4) : 8);
       const divY2 = (L.rowMidY + L.rowBotY) / 2 - (isMobile ? msi(4) : 8);
-
-      ctx.strokeStyle = C.div;
-      ctx.lineWidth = 1;
-      ctx.setLineDash([msi(2), msi(4)]);
-      [divY1, divY2].forEach((y) => {
-        ctx.beginPath();
-        ctx.moveTo(L.padX, y);
-        ctx.lineTo(W - L.padX, y);
-        ctx.stroke();
-      });
-      ctx.setLineDash([]);
 
       font(isMobile ? ms(9.5) : 9.5, 600);
       ctx.textAlign = "left";
@@ -343,13 +329,22 @@ export function ArcIntegrationCanvas({
           y -= lineH + lineGap;
         }
       } else {
-        ctx.textAlign = "right";
+        const cap =
+          "Fast local adaptive control · sub-ms target · bounded output";
         ctx.textBaseline = "alphabetic";
-        ctx.fillText(
-          "Fast local adaptive control · sub-ms target · bounded output",
-          W - L.padX - msi(4),
-          divY2 - msi(6),
-        );
+        const tw = ctx.measureText(cap).width;
+        const lineX = L.midElems.correction.cx;
+        const gap = 14;
+        const padR = W - L.padX - msi(4);
+        const capRight = Math.min(padR, lineX - gap);
+
+        if (capRight - tw < L.padX + msi(4)) {
+          ctx.textAlign = "left";
+          ctx.fillText(cap, L.padX + msi(4), divY2 - msi(6));
+        } else {
+          ctx.textAlign = "right";
+          ctx.fillText(cap, capRight, divY2 - msi(6));
+        }
       }
       ctx.globalAlpha = 1;
     }

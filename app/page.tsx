@@ -857,7 +857,20 @@ function FeatureSection() {
             <ArcIntegrationCanvas />
 
             <div className="mx-auto mt-8 max-w-[640px] md:mt-10">
-              <h3 className="text-center text-[17px] font-medium leading-tight tracking-[-0.02em] text-fg-primary md:text-left md:text-[18px]">
+              <h3 className="flex items-center justify-center gap-2 text-center text-[17px] font-medium leading-tight tracking-[-0.02em] text-fg-primary md:justify-start md:text-left md:text-[18px]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="size-[1.05em] shrink-0 text-accent"
+                  aria-hidden
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-9.25 10.5a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l9.25-10.5a.75.75 0 0 1 .914-.092Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
                 Power advantage
               </h3>
               <div className="mt-4 space-y-4 text-left text-[14px] leading-[1.7] text-fg-secondary md:text-[15px]">
