@@ -1,0 +1,472 @@
+/* Scoped reflex-arc diagram — embeddable in page + modal */
+
+.reflexArcRoot {
+  --ra-bg: var(--color-bg-base, #f4f1ed);
+  --ra-bg-subtle: var(--color-bg-subtle, #ede9e3);
+  --ra-fg: var(--color-fg-primary, #252830);
+  --ra-fg-secondary: var(--color-fg-secondary, #5a5e6b);
+  --ra-fg-tertiary: var(--color-fg-tertiary, #9099a8);
+  --ra-border: var(--color-border, #d8d3cb);
+  --ra-border-strong: var(--color-border-strong, #b8b2a8);
+  --ra-accent: var(--color-accent, #e8622a);
+  --ra-bio: #7b8fab;
+  font-family: var(--font-sans);
+  color: var(--ra-fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.reflexArcRoot *,
+.reflexArcRoot *::before,
+.reflexArcRoot *::after {
+  box-sizing: border-box;
+}
+
+.reflexArcRoot .wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.reflexArcRoot .header {
+  margin-bottom: 28px;
+  padding: 0 4px;
+}
+
+.reflexArcRoot .eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--ra-bio);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.reflexArcRoot .eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--ra-border), transparent);
+  max-width: 240px;
+}
+
+.reflexArcRoot h1 {
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  color: var(--ra-fg);
+  line-height: 1.25;
+  margin: 0 0 6px;
+}
+
+.reflexArcRoot .subtitle {
+  font-size: 14px;
+  color: var(--ra-fg-secondary);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.reflexArcRoot .card {
+  background: var(--ra-bg);
+  border: 1px solid var(--ra-border);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  background-image: radial-gradient(rgba(140, 128, 115, 0.2) 0.75px, transparent 0.75px);
+  background-size: 26px 26px;
+  background-position: 13px 13px;
+}
+
+.reflexArcRoot .columns {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  align-items: stretch;
+}
+
+.reflexArcRoot .col {
+  padding: 36px 32px 30px;
+  position: relative;
+  min-width: 0;
+}
+
+.reflexArcRoot .vdiv {
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    var(--ra-border) 12%,
+    var(--ra-border) 88%,
+    transparent
+  );
+}
+
+.reflexArcRoot .col-label {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.reflexArcRoot .col-label.bio {
+  color: var(--ra-bio);
+}
+
+.reflexArcRoot .col-label.arc {
+  color: var(--ra-accent);
+}
+
+.reflexArcRoot .col-title {
+  font-size: clamp(13px, 1.6vw, 15px);
+  font-weight: 500;
+  color: var(--ra-fg);
+  letter-spacing: -0.005em;
+  margin-bottom: 26px;
+  line-height: 1.35;
+}
+
+.reflexArcRoot .diagram {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 42vw, 360px);
+}
+
+.reflexArcRoot .diagram > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.reflexArcRoot .sup {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  background: var(--ra-bg-subtle);
+  border: 1px solid var(--ra-border-strong);
+  border-radius: 4px;
+  padding: 9px 16px;
+  font-size: clamp(9px, 1.1vw, 11px);
+  color: var(--ra-fg-secondary);
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  max-width: calc(100% - 16px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 2;
+}
+
+.reflexArcRoot .flow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 38px;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0;
+  z-index: 2;
+  padding: 0 2px;
+}
+
+.reflexArcRoot .node {
+  flex: 1 1 0;
+  min-width: 0;
+  background: var(--ra-bg-subtle);
+  border: 1px solid var(--ra-border-strong);
+  border-radius: 4px;
+  padding: 10px 6px;
+  text-align: center;
+  font-size: clamp(8px, 1vw, 11px);
+  line-height: 1.3;
+  color: var(--ra-fg-secondary);
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reflexArcRoot .arrow {
+  flex: 0 0 clamp(14px, 2vw, 22px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.85;
+  user-select: none;
+}
+
+.reflexArcRoot .arrow svg {
+  display: block;
+  width: clamp(12px, 1.6vw, 18px);
+  height: auto;
+}
+
+.reflexArcRoot .node.reflex {
+  background: #fff6f1;
+  border: 1.5px solid var(--ra-accent);
+  color: var(--ra-fg);
+  font-weight: 500;
+  box-shadow: 0 0 0 4px rgba(232, 98, 42, 0.06);
+}
+
+.reflexArcRoot .node .tag {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--ra-accent);
+  text-transform: uppercase;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+.reflexArcRoot .uplabel {
+  position: absolute;
+  font-size: clamp(7px, 0.9vw, 9.5px);
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 3;
+  background: var(--ra-bg);
+  padding: 1px 5px;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reflexArcRoot .uplabel.bio {
+  color: var(--ra-bio);
+  opacity: 0.85;
+}
+
+.reflexArcRoot .uplabel.arc {
+  color: var(--ra-accent);
+  opacity: 0.85;
+}
+
+.reflexArcRoot .col-meta {
+  position: absolute;
+  right: clamp(16px, 3vw, 32px);
+  bottom: 18px;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.reflexArcRoot .col-meta.bio {
+  color: var(--ra-bio);
+}
+
+.reflexArcRoot .col-meta.arc {
+  color: var(--ra-accent);
+  opacity: 0.85;
+}
+
+.reflexArcRoot .col-caption {
+  margin-top: 18px;
+  font-size: 12px;
+  color: var(--ra-fg-secondary);
+  font-style: italic;
+  line-height: 1.5;
+  max-width: 92%;
+}
+
+.reflexArcRoot .footnote {
+  margin-top: 22px;
+  font-size: 12.5px;
+  color: var(--ra-fg-secondary);
+  text-align: center;
+  font-style: italic;
+  font-weight: 400;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.55;
+  padding: 0 8px;
+}
+
+.reflexArcRoot .mapping {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--ra-border);
+  border: 1px solid var(--ra-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.reflexArcRoot .map-cell {
+  background: var(--ra-bg);
+  padding: 14px 10px;
+  text-align: center;
+  min-width: 0;
+}
+
+.reflexArcRoot .map-cell .bio-term {
+  font-size: 11px;
+  color: var(--ra-fg-secondary);
+  margin-bottom: 4px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.reflexArcRoot .map-cell .map-arrow {
+  color: var(--ra-fg-tertiary);
+  font-size: 11px;
+  margin: 2px 0;
+}
+
+.reflexArcRoot .map-cell .arc-term {
+  font-size: 11px;
+  color: var(--ra-accent);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.reflexArcRoot .map-head {
+  grid-column: 1 / -1;
+  background: var(--ra-bg);
+  padding: 10px 16px 6px;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ra-fg-tertiary);
+  display: flex;
+  justify-content: space-between;
+}
+
+.reflexArcRoot .map-head span:last-child {
+  color: var(--ra-accent);
+  opacity: 0.85;
+}
+
+.reflexArcRoot.is-compact .header .eyebrow,
+.reflexArcRoot.is-compact .header .subtitle,
+.reflexArcRoot.is-compact .footnote {
+  display: none;
+}
+
+.reflexArcRoot.is-compact h1 {
+  font-size: clamp(18px, 2vw, 22px);
+  margin-bottom: 20px;
+}
+
+@media (max-width: 900px) {
+  .reflexArcRoot .columns {
+    grid-template-columns: 1fr;
+  }
+
+  .reflexArcRoot .vdiv {
+    height: 1px;
+    width: auto;
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      var(--ra-border) 12%,
+      var(--ra-border) 88%,
+      transparent
+    );
+    margin: 0 clamp(16px, 4vw, 32px);
+  }
+
+  .reflexArcRoot .col {
+    padding: 32px 24px 26px;
+  }
+
+  .reflexArcRoot .mapping {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .reflexArcRoot .map-head {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .reflexArcRoot .diagram {
+    height: auto;
+    min-height: 320px;
+    padding-bottom: 8px;
+  }
+
+  .reflexArcRoot .flow {
+    position: relative;
+    bottom: auto;
+    margin-top: 88px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 4px;
+    padding: 0 4px 12px;
+  }
+
+  .reflexArcRoot .node {
+    flex: 1 1 calc(33% - 8px);
+    min-width: 72px;
+    max-width: 110px;
+  }
+
+  .reflexArcRoot .arrow {
+    flex: 0 0 14px;
+  }
+
+  .reflexArcRoot .uplabel {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+    max-width: 85%;
+  }
+
+  .reflexArcRoot .mapping {
+    grid-template-columns: 1fr;
+  }
+
+  .reflexArcRoot .map-cell {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+    padding: 12px 16px;
+  }
+
+  .reflexArcRoot .map-cell .bio-term,
+  .reflexArcRoot .map-cell .arc-term {
+    margin: 0;
+  }
+
+  .reflexArcRoot .map-cell .map-arrow {
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .reflexArcRoot .col {
+    padding: 24px 14px 20px;
+  }
+
+  .reflexArcRoot .node {
+    flex: 1 1 calc(50% - 12px);
+    font-size: 9px;
+    padding: 8px 4px;
+  }
+
+  .reflexArcRoot .node.reflex {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .reflexArcRoot .arrow {
+    display: none;
+  }
+
+  .reflexArcRoot .col-meta {
+    display: none;
+  }
+}

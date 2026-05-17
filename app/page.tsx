@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { HeroAnimation } from "./hero-animation";
 import { ArcIntegrationCanvas } from "./reflex/ArcIntegrationCanvas";
+import { ReflexArcDiagramCta } from "./reflex/ReflexArcDiagramCta";
+import { ReflexArcDiagramModal } from "./reflex/ReflexArcDiagramModal";
 import { RequestAccessModal } from "./request-access-modal";
 
 function useInViewOnce<T extends Element>(options?: IntersectionObserverInit) {
@@ -662,6 +664,7 @@ function LatencyComparisonBar({ ready }: { ready: boolean }) {
 }
 
 function FeatureSection() {
+  const [reflexArcOpen, setReflexArcOpen] = useState(false);
   const features = [
     {
       tag: "PHYSICAL RESPONSE",
@@ -799,22 +802,24 @@ function FeatureSection() {
           <div className="max-w-[min(640px,100%)]">
             <div className="space-y-6 md:space-y-7">
               <p className="text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px]">
-                In living systems, physical intelligence is not confined to the
-                brain. It is distributed through the body, where sensation and
-                response are tightly coupled in real time.
+                <span className="italic text-fg-primary">Arc</span>{" "}
+                is inspired
+                by the spinal reflex arc, the body&rsquo;s fast local pathway
+                from sensation to response.
               </p>
+              <ReflexArcDiagramCta onOpen={() => setReflexArcOpen(true)} />
               <p className="text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px]">
-                That is why a hand pulls away from heat before conscious thought,
-                and why a body can adapt instantly when the ground, load, or
-                balance changes.
+                In living systems, not every movement waits for the brain. The
+                body senses, responds, adapts, and stabilizes through local
+                physical loops operating in real time.
               </p>
               <p className="text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px]">
                 <span className="italic text-fg-primary">Arc</span> brings this
-                principle into robotic systems: a continuous-time control
-                architecture that sits closer to sensors and actuators,{" "}
+                principle into robotics: a continuous-time control architecture
+                that sits closer to sensors and actuators,{" "}
                 <strong className="font-semibold text-fg-primary">
-                  enabling faster response, adaptive behavior, and physical
-                  resilience.
+                  enabling faster response, lower power consumption, adaptive
+                  behavior, and physical resilience.
                 </strong>
               </p>
             </div>
@@ -1032,6 +1037,11 @@ function FeatureSection() {
           </div>
         </div>
       </div>
+
+      <ReflexArcDiagramModal
+        open={reflexArcOpen}
+        onClose={() => setReflexArcOpen(false)}
+      />
     </section>
   );
 }
