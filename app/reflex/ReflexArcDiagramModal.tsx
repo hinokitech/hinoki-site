@@ -40,7 +40,7 @@ export function ReflexArcDiagramModal({
         aria-hidden="true"
       />
 
-      <div className="absolute inset-0 overflow-y-auto px-4 py-6 sm:px-6 md:px-10 md:py-10">
+      <div className="absolute inset-0 overflow-y-auto p-3 sm:p-6 md:px-10 md:py-10">
         <div
           role="dialog"
           aria-modal="true"
@@ -48,7 +48,7 @@ export function ReflexArcDiagramModal({
           className="mx-auto w-full max-w-[1240px] rounded-lg border border-border bg-bg-base shadow-lg"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-start justify-between gap-4 border-b border-border px-4 py-4 sm:px-6 sm:py-5">
+          <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-6 sm:py-4">
             <p className="min-w-0 pr-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
               Spinal Reflex Arc
             </p>
@@ -62,7 +62,7 @@ export function ReflexArcDiagramModal({
             </button>
           </div>
 
-          <div className="px-2 py-4 sm:px-4 sm:py-6 md:px-6 md:py-8">
+          <div className="px-3 py-4 sm:px-5 sm:py-6 md:px-6 md:py-8">
             <ReflexArcDiagram variant="full" labelledBy={titleId} />
           </div>
         </div>

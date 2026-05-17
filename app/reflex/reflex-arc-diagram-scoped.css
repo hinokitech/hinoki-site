@@ -381,92 +381,205 @@
   }
 
   .reflexArcRoot .mapping {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 
   .reflexArcRoot .map-head {
     grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 640px) {
-  .reflexArcRoot .diagram {
-    height: auto;
-    min-height: 320px;
-    padding-bottom: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 10px;
   }
 
-  .reflexArcRoot .flow {
-    position: relative;
-    bottom: auto;
-    margin-top: 88px;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px 4px;
-    padding: 0 4px 12px;
+  .reflexArcRoot .map-head span:first-child {
+    grid-column: 1;
+    justify-self: start;
   }
 
-  .reflexArcRoot .node {
-    flex: 1 1 calc(33% - 8px);
-    min-width: 72px;
-    max-width: 110px;
-  }
-
-  .reflexArcRoot .arrow {
-    flex: 0 0 14px;
-  }
-
-  .reflexArcRoot .uplabel {
-    white-space: normal;
-    text-align: center;
-    line-height: 1.25;
-    max-width: 85%;
-  }
-
-  .reflexArcRoot .mapping {
-    grid-template-columns: 1fr;
+  .reflexArcRoot .map-head span:last-child {
+    grid-column: 3;
+    justify-self: end;
   }
 
   .reflexArcRoot .map-cell {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     text-align: left;
     padding: 12px 16px;
   }
 
-  .reflexArcRoot .map-cell .bio-term,
-  .reflexArcRoot .map-cell .arc-term {
+  .reflexArcRoot .map-cell .bio-term {
+    justify-self: start;
+    text-align: left;
     margin: 0;
   }
 
   .reflexArcRoot .map-cell .map-arrow {
+    justify-self: center;
+    text-align: center;
+    margin: 0;
+  }
+
+  .reflexArcRoot .map-cell .arc-term {
+    justify-self: end;
+    text-align: right;
     margin: 0;
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile: vertical pathway per column (readable stack, no cramped horizontal flow) */
+@media (max-width: 768px) {
+  .reflexArcRoot .header {
+    margin-bottom: 20px;
+    padding: 0;
+  }
+
+  .reflexArcRoot h1 {
+    font-size: clamp(20px, 5.5vw, 24px);
+  }
+
+  .reflexArcRoot .subtitle {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
   .reflexArcRoot .col {
-    padding: 24px 14px 20px;
+    padding: 22px 16px 20px;
+  }
+
+  .reflexArcRoot .col-title {
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+
+  .reflexArcRoot .col-caption {
+    max-width: 100%;
+    font-size: 13px;
+  }
+
+  .reflexArcRoot .diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    min-height: 0;
+    padding-bottom: 4px;
+  }
+
+  .reflexArcRoot .diagram > svg {
+    display: none;
+  }
+
+  .reflexArcRoot .sup {
+    position: static;
+    transform: none;
+    align-self: center;
+    margin: 0 auto 10px;
+    max-width: 100%;
+    white-space: normal;
+    padding: 10px 14px;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .reflexArcRoot .uplabel {
+    position: static;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+    align-self: center;
+    margin: 0 auto 14px;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .reflexArcRoot .flow {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin: 0;
+    padding: 0;
   }
 
   .reflexArcRoot .node {
-    flex: 1 1 calc(50% - 12px);
-    font-size: 9px;
-    padding: 8px 4px;
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    padding: 11px 12px;
+    font-size: 12px;
+    line-height: 1.35;
+    white-space: normal;
   }
 
   .reflexArcRoot .node.reflex {
-    flex: 1 1 100%;
-    max-width: none;
+    padding-top: 20px;
+  }
+
+  .reflexArcRoot .node .tag {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8px;
   }
 
   .reflexArcRoot .arrow {
-    display: none;
+    flex: none;
+    align-self: center;
+    height: 22px;
+    width: 22px;
+    margin: 2px 0;
+  }
+
+  .reflexArcRoot .arrow svg {
+    width: 18px;
+    transform: rotate(90deg);
   }
 
   .reflexArcRoot .col-meta {
-    display: none;
+    position: static;
+    right: auto;
+    bottom: auto;
+    text-align: center;
+    margin-top: 14px;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .reflexArcRoot .footnote {
+    margin-top: 18px;
+    font-size: 12px;
+    text-align: left;
+    padding: 0;
+  }
+
+  .reflexArcRoot .mapping {
+    margin-top: 24px;
+  }
+
+  .reflexArcRoot .map-cell .bio-term,
+  .reflexArcRoot .map-cell .arc-term {
+    font-size: 12px;
+  }
+}
+
+/* Modal embed: tighter edge padding on small screens */
+@media (max-width: 768px) {
+  .reflexArcRoot.is-modal .wrap {
+    max-width: none;
+  }
+
+  .reflexArcRoot.is-modal .card {
+    border-radius: 4px;
   }
 }

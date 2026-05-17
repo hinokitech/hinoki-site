@@ -154,6 +154,7 @@ export function ReflexArcDiagram({
   const rootClass = [
     "reflexArcRoot",
     variant === "compact" ? "is-compact" : "",
+    labelledBy ? "is-modal" : "",
     className,
   ]
     .filter(Boolean)
