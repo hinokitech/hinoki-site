@@ -12,7 +12,10 @@ export function ReflexArcDiagramCta({ onOpen }: { onOpen: () => void }) {
         <span className="text-[14px] font-medium text-accent underline decoration-accent/35 underline-offset-[5px] transition-colors group-hover:text-accent-hover group-hover:decoration-accent/55 md:text-[15px]">
           See how the spinal reflex arc maps to Arc
         </span>
-        <span className="text-[12px] leading-snug text-fg-tertiary md:text-[13px]">
+        <span className="text-[12px] leading-snug text-fg-tertiary md:hidden">
+          Click to open the full diagram
+        </span>
+        <span className="hidden text-[12px] leading-snug text-fg-tertiary md:inline md:text-[13px]">
           Biology on the left, robotics on the right — click to open the full
           diagram
         </span>
