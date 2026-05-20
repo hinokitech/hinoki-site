@@ -12,5 +12,5 @@ export function middleware(_request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/pitch", "/pitch/:path*", "/pitch-jp", "/pitch-jp/:path*"],
+  matcher: ["/pitch", "/pitch/:path*", "/pitch-jp", "/pitch-jp/:path*", "/hub", "/hub/:path*"],
 };

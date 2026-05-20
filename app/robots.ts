@@ -7,7 +7,15 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/pitch", "/pitch/", "/pitch-jp", "/pitch-jp/", "/reflex"],
+      disallow: [
+        "/pitch",
+        "/pitch/",
+        "/hub",
+        "/hub/",
+        "/pitch-jp",
+        "/pitch-jp/",
+        "/reflex",
+      ],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };

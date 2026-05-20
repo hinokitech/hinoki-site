@@ -20,6 +20,9 @@
 # production
 /build
 
+# pitch hub notes (local dev fallback)
+/data/
+
 # misc
 .DS_Store
 *.pem

@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   },
 };
 
+/** English investor deck — canonical URL for sharing: `/pitch` */
 export default function PitchPage() {
   return (
     <PitchDeck
