@@ -918,6 +918,7 @@ export function FounderCard({
   maskArtifacts = true,
   maskStrength = 0.25,
   initial,
+  affiliation,
   name,
   role,
   body,
@@ -928,6 +929,8 @@ export function FounderCard({
   maskArtifacts?: boolean;
   maskStrength?: number;
   initial?: string;
+  /** Shown above the founder name (e.g. university affiliation). */
+  affiliation?: string;
   name: string;
   role: React.ReactNode;
   body: React.ReactNode;
@@ -962,7 +965,14 @@ export function FounderCard({
           </div>
         )}
       </div>
-      <div className="mt-5 text-[24px] font-semibold leading-[1.2] text-fg-primary">
+      {affiliation ? (
+        <div className="mt-5 text-[13px] font-medium leading-[1.3] text-fg-tertiary">
+          {affiliation}
+        </div>
+      ) : null}
+      <div
+        className={`${affiliation ? "mt-1" : "mt-5"} text-[24px] font-semibold leading-[1.2] text-fg-primary`}
+      >
         {name}
       </div>
       <div className="mt-1 font-mono text-[13px] uppercase tracking-[0.12em] text-accent">

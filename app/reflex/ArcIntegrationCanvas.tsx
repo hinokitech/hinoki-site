@@ -19,50 +19,55 @@ function getColors(dark: boolean) {
       bg: "#1A1C1F",
       gridDot: "rgba(255,255,255,0.055)",
       text: "#EEE9E2",
-      sub: "#8A8F9A",
-      meta: "#555B66",
+      sub: "#B4B9C2",
+      meta: "#7A828F",
       lBox: "#24272C",
       lBoxAct: "#2D3239",
-      lBorder: "#353A44",
-      lBorderAct: "#7B8FAB",
-      lConn: "#2E333B",
-      lSig: "#7B8FAB",
-      lLabel: "#7B8FAB",
-      rPathBase: "rgba(232,98,42,0.18)",
-      rSig: "#E8622A",
-      rLabel: "#E8622A",
+      lBorder: "#525864",
+      lBorderAct: "#9AAEC8",
+      lConn: "#4A5060",
+      lSig: "#9AAEC8",
+      lLabel: "#9AAEC8",
+      rPathBase: "rgba(232,98,42,0.62)",
+      rSig: "#F47A45",
+      rLabel: "#F47A45",
       rBoxFill: "#2A1F1A",
       rBoxBorder: "#E8622A",
-      rEndpoint: "#2A2D32",
-      rEndBorder: "#3A3F48",
+      rEndpoint: "#382820",
+      rEndBorder: "#A85A2C",
     };
   return {
     bg: "#F4F1ED",
     gridDot: "rgba(140,128,115,0.20)",
     text: "#252830",
-    sub: "#5A5E6B",
-    meta: "#9099A8",
+    sub: "#3F4350",
+    meta: "#6E7888",
     lBox: "#E9E5E0",
     lBoxAct: "#FFFFFF",
-    lBorder: "#C5C0B8",
-    lBorderAct: "#6E7F99",
-    lConn: "#D1CCC5",
-    lSig: "#6E7F99",
-    lLabel: "#7B8FAB",
-    rPathBase: "rgba(232,98,42,0.18)",
+    lBorder: "#A8A29A",
+    lBorderAct: "#5A6F8E",
+    lConn: "#9A938A",
+    lSig: "#5A6F8E",
+    lLabel: "#5A6F8E",
+    rPathBase: "rgba(232,98,42,0.62)",
     rSig: "#E8622A",
-    rLabel: "#E8622A",
-    rBoxFill: "#FFF6F1",
+    rLabel: "#C44A18",
+    rBoxFill: "#FFF1E6",
     rBoxBorder: "#E8622A",
-    rEndpoint: "#E3DFDA",
-    rEndBorder: "#B8B2A8",
+    rEndpoint: "#FCE9DC",
+    rEndBorder: "#D67A48",
   };
 }
 
 export function ArcIntegrationCanvas({
   tweaks,
+  /** Reduced canvas height + tighter top/bottom padding for pitch-deck slides
+   *  (slide 5). Boxes and labels stay at full readable size; only the empty
+   *  vertical space is compressed. */
+  compact = false,
 }: {
   tweaks?: Partial<Tweaks>;
+  compact?: boolean;
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -99,9 +104,11 @@ export function ArcIntegrationCanvas({
       mobileScale = isMobile
         ? Math.max(0.76, Math.min(1.06, W / 400))
         : 1;
-      H = isMobile
-        ? Math.max(620, Math.min(820, Math.round(W * 1.15)))
-        : Math.max(520, Math.min(620, Math.round(W * 0.55)));
+      H = compact
+        ? Math.max(380, Math.min(440, Math.round(W * 0.28)))
+        : isMobile
+          ? Math.max(620, Math.min(820, Math.round(W * 1.15)))
+          : Math.max(520, Math.min(620, Math.round(W * 0.55)));
       canvas.style.height = `${H}px`;
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
@@ -129,8 +136,8 @@ export function ArcIntegrationCanvas({
 
     function layout() {
       const padX = Math.max(isMobile ? msi(22) : 28, W * (isMobile ? 0.038 : 0.04));
-      const padTop = isMobile ? msi(36) : 44;
-      const padBot = isMobile ? msi(52) : 52;
+      const padTop = isMobile ? msi(36) : compact ? 24 : 44;
+      const padBot = isMobile ? msi(52) : compact ? 28 : 52;
       const innerH = H - padTop - padBot;
 
       const rowTopY = padTop + innerH * 0.16;
@@ -408,7 +415,7 @@ export function ArcIntegrationCanvas({
       ctx.fillStyle = C.rBoxFill;
       ctx.fill();
       ctx.strokeStyle = C.rBoxBorder;
-      ctx.lineWidth = isMobile ? ms(1.5) : 1.5;
+      ctx.lineWidth = isMobile ? ms(2) : 2.25;
       ctx.stroke();
 
       font(isMobile ? ms(7.5) : 7.5, 600);
@@ -611,17 +618,19 @@ export function ArcIntegrationCanvas({
       ctx.moveTo(x0, y);
       ctx.lineTo(xArcL, y);
       ctx.strokeStyle = C.rPathBase;
-      ctx.lineWidth = isMobile ? ms(1.5) : 1.5;
+      ctx.lineWidth = isMobile ? ms(1.75) : 2;
       ctx.stroke();
       ctx.beginPath();
       ctx.moveTo(xArcR, y);
       ctx.lineTo(x1, y);
       ctx.stroke();
 
-      const aw = isMobile ? msi(5) : 5,
-        ah = isMobile ? ms(3.5) : 3.5;
-      ctx.strokeStyle = C.rPathBase;
-      ctx.lineWidth = isMobile ? ms(1.2) : 1.2;
+      // Arrowheads drawn at full opacity so the loop direction reads clearly
+      // even when the path itself stays at reduced alpha.
+      const aw = isMobile ? msi(5) : 6,
+        ah = isMobile ? ms(3.5) : 4;
+      ctx.strokeStyle = C.rSig;
+      ctx.lineWidth = isMobile ? ms(1.5) : 1.75;
       const tip = isMobile ? ms(1) : 1;
       ctx.beginPath();
       ctx.moveTo(xArcL - aw - tip, y - ah);
@@ -745,7 +754,7 @@ export function ArcIntegrationCanvas({
 
         ctx.save();
         ctx.strokeStyle = C.rPathBase;
-        ctx.lineWidth = 1.2;
+        ctx.lineWidth = isMobile ? ms(1.5) : 1.75;
         ctx.beginPath();
         if (Math.abs(sX - sXTarget) < (isMobile ? msi(4) : 4)) {
           ctx.moveTo(sX, sY0);
@@ -758,10 +767,13 @@ export function ArcIntegrationCanvas({
           ctx.lineTo(sXTarget, sY1);
         }
         ctx.stroke();
+        // Arrowhead drawn at full opacity for readable direction
+        ctx.strokeStyle = C.rSig;
+        ctx.lineWidth = isMobile ? ms(1.5) : 1.75;
         ctx.beginPath();
-        ctx.moveTo(sXTarget - (isMobile ? ms(3.5) : 3.5), sY1 + (isMobile ? msi(5) : 5));
+        ctx.moveTo(sXTarget - (isMobile ? ms(3.5) : 4), sY1 + (isMobile ? msi(5) : 6));
         ctx.lineTo(sXTarget, sY1);
-        ctx.lineTo(sXTarget + (isMobile ? ms(3.5) : 3.5), sY1 + (isMobile ? msi(5) : 5));
+        ctx.lineTo(sXTarget + (isMobile ? ms(3.5) : 4), sY1 + (isMobile ? msi(5) : 6));
         ctx.stroke();
         ctx.restore();
       }
@@ -777,7 +789,7 @@ export function ArcIntegrationCanvas({
 
         ctx.save();
         ctx.strokeStyle = C.rPathBase;
-        ctx.lineWidth = 1.2;
+        ctx.lineWidth = isMobile ? ms(1.5) : 1.75;
         ctx.beginPath();
         if (Math.abs(cXSource - cXTarget) < (isMobile ? msi(4) : 4)) {
           ctx.moveTo(cXSource, cY0);
@@ -790,15 +802,17 @@ export function ArcIntegrationCanvas({
           ctx.lineTo(cXTarget, cY1);
         }
         ctx.stroke();
+        ctx.strokeStyle = C.rSig;
+        ctx.lineWidth = isMobile ? ms(1.5) : 1.75;
         ctx.beginPath();
         ctx.moveTo(
-          cXTarget - (isMobile ? ms(3.5) : 3.5),
-          cY1 - (isMobile ? msi(5) : 5),
+          cXTarget - (isMobile ? ms(3.5) : 4),
+          cY1 - (isMobile ? msi(5) : 6),
         );
         ctx.lineTo(cXTarget, cY1);
         ctx.lineTo(
-          cXTarget + (isMobile ? ms(3.5) : 3.5),
-          cY1 - (isMobile ? msi(5) : 5),
+          cXTarget + (isMobile ? ms(3.5) : 4),
+          cY1 - (isMobile ? msi(5) : 6),
         );
         ctx.stroke();
         ctx.restore();
@@ -829,7 +843,7 @@ export function ArcIntegrationCanvas({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [T]);
+  }, [T, compact]);
 
   const ariaLabel =
     "Diagram: Arc integration architecture. Existing controller (AI / Planner, Robot OS / PLC, Motion & Safety Layer) sends task-level control into the Motor Controller. Arc FPGA sits as a fast local reflex layer between Selected Sensor Input and Bounded Correction Output, feeding Motor Controller and reporting state back to Robot OS / PLC. Physical hardware: Sensor, Motor Controller, Actuator. Caption: The robot keeps its existing controller. Arc adds a faster reflex loop, while reporting state back to the main system.";
