@@ -1037,7 +1037,7 @@ function TractionInvestorRow({
   return (
     <div className="grid grid-cols-[132px_minmax(0,1fr)] items-center gap-x-4 border-b border-border/70 py-[11px] last:border-b-0">
       <div
-        className="flex h-9 items-center justify-start"
+        className="flex min-h-11 items-center justify-start"
         aria-hidden={!!logoSrc}
       >
         {logoSrc ? (
@@ -1143,6 +1143,13 @@ function InvestorProgramTractionCard() {
           logoMaxH={26}
           logoMaxW={132}
           status="Active continued conversation"
+        />
+        <TractionInvestorRow
+          name="Spiral Capital"
+          logoSrc="/assets/spiral-capital-logo.png"
+          logoMaxH={44}
+          logoMaxW={132}
+          status="Warm relationship; open for future investment discussions"
         />
         <TractionInvestorRow
           name="The Ventures Award 2026"

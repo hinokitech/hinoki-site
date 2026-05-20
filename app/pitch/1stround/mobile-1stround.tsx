@@ -438,8 +438,10 @@ export default function MobileDeck1stRound() {
             items={[
               "Selected for Antler Japan Residency",
               "Coreline / Atlas VC — first screening passed, team interview being scheduled",
-              "Sony Ventures — positive response, materials shared with deep-tech team",
-              "SusHi Tech Tokyo investor follow-ups initiated",
+              "Sony Innovation Fund — positive response, materials shared with deep-tech team",
+              "Co-Capital / Founder Institute Japan — active continued conversation",
+              "Spiral Capital — warm relationship; open for future investment discussions",
+              "The Ventures Award 2026 — first-round screening passed",
             ]}
           />
           <SubLabel>Technical / Ecosystem</SubLabel>
