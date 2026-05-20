@@ -59,15 +59,23 @@ function getColors(dark: boolean) {
   };
 }
 
+/** Snap stroke centers to the device pixel grid (crisper 1px / 3px lines). */
+function snapStrokeCoord(value: number, lineWidth: number): number {
+  return lineWidth % 2 === 1 ? Math.floor(value) + 0.5 : Math.round(value);
+}
+
 export function ArcIntegrationCanvas({
   tweaks,
   /** Reduced canvas height + tighter top/bottom padding for pitch-deck slides
    *  (slide 5). Boxes and labels stay at full readable size; only the empty
    *  vertical space is compressed. */
   compact = false,
+  /** Extra backing-store scale for pitch decks (whole slide is CSS-zoomed down). */
+  highDpi = false,
 }: {
   tweaks?: Partial<Tweaks>;
   compact?: boolean;
+  highDpi?: boolean;
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -96,10 +104,24 @@ export function ArcIntegrationCanvas({
       return Math.round(ms(n));
     }
 
+    /** Nudge sensor→Arc path right so it clears the PHYSICAL HARDWARE label. */
+    function sensorLinkOffsetX(): number {
+      return compact ? 16 : isMobile ? msi(12) : 18;
+    }
+
     function resize() {
       if (!canvas) return;
-      dpr = window.devicePixelRatio || 1;
-      W = canvas.clientWidth || window.innerWidth;
+      const rect = canvas.getBoundingClientRect();
+      const cssW = Math.max(1, Math.round(rect.width));
+      const systemDpr = window.devicePixelRatio || 1;
+      // Pitch slides are often zoomed < 1; a higher backing store keeps type/lines sharp.
+      dpr = Math.min(
+        3,
+        highDpi || compact
+          ? Math.max(systemDpr, 2)
+          : systemDpr,
+      );
+      W = cssW;
       isMobile = W < 720;
       mobileScale = isMobile
         ? Math.max(0.76, Math.min(1.06, W / 400))
@@ -109,9 +131,12 @@ export function ArcIntegrationCanvas({
         : isMobile
           ? Math.max(620, Math.min(820, Math.round(W * 1.15)))
           : Math.max(520, Math.min(620, Math.round(W * 0.55)));
+      canvas.style.width = `${W}px`;
       canvas.style.height = `${H}px`;
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.imageSmoothingEnabled = true;
     }
 
     function rr(x: number, y: number, w: number, h: number, r: number) {
@@ -129,7 +154,8 @@ export function ArcIntegrationCanvas({
     }
 
     function font(size: number, weight: number) {
-      ctx.font = `${weight} ${size}px -apple-system,"Helvetica Neue",Arial,sans-serif`;
+      const px = Math.max(8, Math.round(size));
+      ctx.font = `${weight} ${px}px -apple-system,"Helvetica Neue",Arial,sans-serif`;
     }
 
     type Box = { cx: number; cy: number; w: number; h: number; label: string };
@@ -310,8 +336,16 @@ export function ArcIntegrationCanvas({
       ctx.fillStyle = C.rLabel;
       ctx.fillText("ARC — REFLEX LAYER", L.rowLabelX, L.rowMidY - labelOff);
 
+      const hwLabel = "PHYSICAL HARDWARE";
       ctx.fillStyle = C.meta;
-      ctx.fillText("PHYSICAL HARDWARE", L.rowLabelX, L.rowBotY - labelOff);
+      const hwTw = ctx.measureText(hwLabel).width;
+      const sensorLineX = L.botBoxes[0]!.cx + sensorLinkOffsetX();
+      const hwGap = compact ? 48 : isMobile ? msi(28) : 52;
+      const hwX = Math.max(
+        L.padX,
+        Math.min(L.rowLabelX, sensorLineX - hwTw - hwGap),
+      );
+      ctx.fillText(hwLabel, hwX, L.rowBotY - labelOff);
 
       font(isMobile ? ms(10) : 10.5, 400);
 
@@ -477,18 +511,19 @@ export function ArcIntegrationCanvas({
       lw = 1,
     ) {
       const lineW = isMobile ? ms(lw) : lw;
+      const sy = snapStrokeCoord(y, lineW);
       ctx.beginPath();
-      ctx.moveTo(x0, y);
-      ctx.lineTo(x1, y);
+      ctx.moveTo(x0, sy);
+      ctx.lineTo(x1, sy);
       ctx.strokeStyle = color;
       ctx.lineWidth = lineW;
       ctx.stroke();
       const aw = isMobile ? msi(5) : 5,
         ah = isMobile ? ms(3.5) : 3.5;
       ctx.beginPath();
-      ctx.moveTo(x1 - aw, y - ah);
-      ctx.lineTo(x1 + (isMobile ? ms(1) : 1), y);
-      ctx.lineTo(x1 - aw, y + ah);
+      ctx.moveTo(x1 - aw, sy - ah);
+      ctx.lineTo(x1 + (isMobile ? ms(1) : 1), sy);
+      ctx.lineTo(x1 - aw, sy + ah);
       ctx.stroke();
     }
 
@@ -608,7 +643,8 @@ export function ArcIntegrationCanvas({
 
     function drawMidRow(L: ReturnType<typeof layout>, C: ReturnType<typeof getColors>) {
       const { sensorIn, arc, correction } = L.midElems;
-      const y = arc.cy;
+      const pathLw = isMobile ? ms(1.75) : 2;
+      const y = snapStrokeCoord(arc.cy, pathLw);
       const x0 = sensorIn.cx + sensorIn.w / 2;
       const xArcL = arc.cx - arc.w / 2;
       const xArcR = arc.cx + arc.w / 2;
@@ -618,7 +654,7 @@ export function ArcIntegrationCanvas({
       ctx.moveTo(x0, y);
       ctx.lineTo(xArcL, y);
       ctx.strokeStyle = C.rPathBase;
-      ctx.lineWidth = isMobile ? ms(1.75) : 2;
+      ctx.lineWidth = pathLw;
       ctx.stroke();
       ctx.beginPath();
       ctx.moveTo(xArcR, y);
@@ -749,20 +785,22 @@ export function ArcIntegrationCanvas({
         const sIn = midElems.sensorIn;
         const sY0 = sBot.cy - sBot.h / 2;
         const sY1 = sIn.cy + sIn.h / 2;
-        const sX = sBot.cx;
+        const sLineX = sBot.cx + sensorLinkOffsetX();
         const sXTarget = sIn.cx;
 
         ctx.save();
         ctx.strokeStyle = C.rPathBase;
         ctx.lineWidth = isMobile ? ms(1.5) : 1.75;
         ctx.beginPath();
-        if (Math.abs(sX - sXTarget) < (isMobile ? msi(4) : 4)) {
-          ctx.moveTo(sX, sY0);
-          ctx.lineTo(sX, sY1);
+        if (Math.abs(sLineX - sXTarget) < (isMobile ? msi(4) : 4)) {
+          ctx.moveTo(sBot.cx, sY0);
+          ctx.lineTo(sLineX, sY0);
+          ctx.lineTo(sLineX, sY1);
         } else {
           const midY = (sY0 + sY1) / 2;
-          ctx.moveTo(sX, sY0);
-          ctx.lineTo(sX, midY);
+          ctx.moveTo(sBot.cx, sY0);
+          ctx.lineTo(sLineX, sY0);
+          ctx.lineTo(sLineX, midY);
           ctx.lineTo(sXTarget, midY);
           ctx.lineTo(sXTarget, sY1);
         }
@@ -822,7 +860,6 @@ export function ArcIntegrationCanvas({
     function render() {
       const C = getColors(T.darkMode);
       const L = layout();
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       drawBG(C);
       drawRowChrome(L, C);
       drawVerticalLinks(L, C);
@@ -840,10 +877,16 @@ export function ArcIntegrationCanvas({
     resize();
     render();
     window.addEventListener("resize", handleResize);
+    const ro =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(handleResize)
+        : null;
+    ro?.observe(canvas);
     return () => {
       window.removeEventListener("resize", handleResize);
+      ro?.disconnect();
     };
-  }, [T, compact]);
+  }, [T, compact, highDpi]);
 
   const ariaLabel =
     "Diagram: Arc integration architecture. Existing controller (AI / Planner, Robot OS / PLC, Motion & Safety Layer) sends task-level control into the Motor Controller. Arc FPGA sits as a fast local reflex layer between Selected Sensor Input and Bounded Correction Output, feeding Motor Controller and reporting state back to Robot OS / PLC. Physical hardware: Sensor, Motor Controller, Actuator. Caption: The robot keeps its existing controller. Arc adds a faster reflex loop, while reporting state back to the main system.";
@@ -852,7 +895,7 @@ export function ArcIntegrationCanvas({
     <div className="bg-bg-base">
       <canvas
         ref={canvasRef}
-        className="w-full"
+        className="block w-full max-w-full"
         role="img"
         aria-label={ariaLabel}
       />

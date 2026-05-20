@@ -361,7 +361,7 @@ function DiscoveryCard({
       </div>
       {/* Fixed min-height so bodies align across the row even when
           headlines wrap to a different number of lines. */}
-      <div className="mt-3 min-h-[72px] text-[22px] font-light leading-[1.2] tracking-[-0.01em] text-fg-primary">
+      <div className="mt-3 min-h-[64px] text-[22px] font-light leading-[1.2] tracking-[-0.01em] text-fg-primary">
         {headline}
       </div>
       <div className="mt-3 text-[15px] leading-[1.55] text-fg-secondary">
@@ -379,12 +379,14 @@ function EngineerQuote({
   quote: string;
 }) {
   return (
-    <div className="rounded-[8px] border border-border bg-bg-subtle px-4 py-3">
-      <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle px-5 py-5">
+      <div className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent leading-[1.35]">
         {role}
       </div>
-      <div className="mt-1.5 text-[14px] leading-[1.5] text-fg-secondary">
-        &ldquo;{quote}&rdquo;
+      <div className="mt-2.5 flex flex-1 items-center">
+        <p className="text-[16px] leading-[1.58] text-fg-secondary">
+          &ldquo;{quote}&rdquo;
+        </p>
       </div>
     </div>
   );
@@ -402,7 +404,7 @@ function DiscoverySlide() {
         into a measurable first control-loop benchmark.
       </p>
 
-      <div className="mt-7 grid max-w-[1640px] grid-cols-3 gap-5">
+      <div className="mt-6 grid max-w-[1640px] grid-cols-3 gap-5">
         <DiscoveryCard
           label="Signal 01"
           headline="Latency matters in specific physical moments."
@@ -421,29 +423,29 @@ function DiscoverySlide() {
       </div>
 
       {/* Independent engineer confirmation — anonymized by role, paraphrased */}
-      <div className="mt-6 max-w-[1640px]">
+      <div className="mt-5 flex min-h-0 flex-1 flex-col max-w-[1640px]">
         <MutedLabel>Independent confirmation — engineer voices</MutedLabel>
-        <div className="mt-3 grid grid-cols-4 gap-3">
+        <div className="mt-3 grid flex-1 grid-cols-4 items-stretch gap-4">
           <EngineerQuote
             role="AMR torque-control engineer"
-            quote="Wheel slip and torque-vs-velocity control are real issues — strip the layers, measure direct sensor latency, then add back."
+            quote="We work around wheel slip by switching the drive between torque and velocity modes — it's a compromise, not a fix. Closing the loop at the wheel would still help."
           />
           <EngineerQuote
-            role="Field robotics engineer"
-            quote="Latency and power consumption at the control layer can definitely become pain points where real-time responsiveness and precision are critical."
+            role="Gripper / manipulation engineer"
+            quote="Slip shows up in the tactile stream before the grasp loop reacts — we bump grasp force after the part's already moving. Sensor-to-gripper latency keeps coming up."
           />
           <EngineerQuote
             role="Bipedal humanoid researcher (TUM)"
-            quote="Current humanoid control stacks have real architectural limits before cage-free deployment becomes practical."
+            quote="One slipped foothold and the gait is already behind — everything still goes through the same stack. There's no separate fast path for contact."
           />
           <EngineerQuote
             role="Assistive robotics researcher"
-            quote="Real-time response latency is a primary barrier to a natural user experience in exoskeleton control."
+            quote="The delay looks fine on paper, but users compensate through the whole trial — intent and assist torque never feel in phase."
           />
         </div>
       </div>
 
-      <p className="mt-5 max-w-[1640px] text-[20px] font-light italic leading-[1.4] text-fg-primary">
+      <p className="mt-4 w-full max-w-[1640px] text-[22px] font-light italic leading-[1.45] text-fg-primary">
         This pushed Hinoki toward a specific first validation benchmark:{" "}
         <span className="not-italic font-semibold">
           tactile slip detection and fast gripper response.
@@ -593,7 +595,7 @@ function SolutionSlide() {
       </p>
 
       <div className="mt-5 max-w-[1640px] overflow-hidden rounded-[12px] border border-border">
-        <ArcIntegrationCanvas compact />
+        <ArcIntegrationCanvas compact highDpi />
       </div>
 
       <div className="mt-5 grid max-w-[1640px] grid-cols-[1.2fr_1fr] gap-x-10">
