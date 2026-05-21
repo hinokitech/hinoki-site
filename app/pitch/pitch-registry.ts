@@ -48,6 +48,11 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
         label: "English",
         path: "/pitch/1stround",
       },
+      {
+        lang: "ja",
+        label: "日本語",
+        path: "/pitch/1stround-jp",
+      },
     ],
   },
 ];

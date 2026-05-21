@@ -9,6 +9,7 @@ export default function PitchDeck1stRound() {
     <PitchDeck
       slides={SLIDES_1STROUND}
       mobileDeck={MobileDeck1stRound}
+      altLang={{ href: "/pitch/1stround-jp", label: "日本語" }}
       navHint="← → to navigate · F for fullscreen"
     />
   );
