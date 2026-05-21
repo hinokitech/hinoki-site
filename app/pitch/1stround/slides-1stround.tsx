@@ -1683,8 +1683,8 @@ function TeamSlide() {
             <>
               Japan market strategy, ecosystem development, customer
               discovery, and corporate + research institution relationships.
-              Japanese corporate stakeholder management. Tsukuba-rooted
-              ecosystem development.
+              Japanese corporate stakeholder management. Lifelong Tsukuba
+              resident with deep local ecosystem ties.
             </>
           }
         />
@@ -1699,7 +1699,10 @@ function TeamSlide() {
             <li className="flex gap-3">
               <span className="text-accent">·</span>
               <span>
-                The Tsukuba co-founders have known each other for{" "}
+                <span className="font-semibold text-fg-primary">
+                  Salvatore and Bernardo
+                </span>{" "}
+                have known each other for{" "}
                 <span className="font-semibold text-fg-primary">8 years</span>{" "}
                 since their time at the University of Tsukuba.
               </span>
@@ -1707,8 +1710,10 @@ function TeamSlide() {
             <li className="flex gap-3">
               <span className="text-accent">·</span>
               <span>
-                The Japan market co-founder has known the team for{" "}
+                <span className="font-semibold text-fg-primary">Mina</span> has
+                known the team for{" "}
                 <span className="font-semibold text-fg-primary">4 years</span>.
+                Lifelong Tsukuba resident.
               </span>
             </li>
             <li className="flex gap-3">

@@ -627,6 +627,7 @@ export default function MobileDeck1stRound() {
               </span>{" "}
               Japan market strategy, ecosystem development, customer
               discovery, corporate + research institution relationships.
+              Lifelong Tsukuba resident.
             </div>
           </div>
           <SubLabel>Founder connection</SubLabel>
@@ -638,8 +639,10 @@ export default function MobileDeck1stRound() {
                 since their time at the University of Tsukuba.
               </>,
               <>
-                Mina has known the team for{" "}
+                <span className="font-semibold text-fg-primary">Mina</span> has
+                known the team for{" "}
                 <span className="font-semibold text-fg-primary">4 years</span>.
+                Lifelong Tsukuba resident.
               </>,
               <>
                 The team is built on{" "}
