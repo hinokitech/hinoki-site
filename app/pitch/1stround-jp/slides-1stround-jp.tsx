@@ -476,7 +476,7 @@ function BenchmarkSlide() {
           Discovery validation · tactile-sensing partner
         </div>
         <p className="mt-2 text-[17px] leading-[1.55] text-fg-primary">
-          東京を拠点とする触覚センシング企業との議論で、触覚センシングとグリッパー応答は、強い初期検証テーマになり得ることが確認されました。同社CEOより、非拘束の技術的LOIドラフト作成に向けた書面での前向きな確認を得ており、最初の技術的関係を具体化しています。
+          東京を拠点とする触覚センシング企業との議論で、触覚センシングとグリッパー応答は、強い初期検証テーマになり得ることが確認されました。同社CEOと技術LOIを最終化中であり、最初の技術的関係を具体化しています。
         </p>
       </div>
 
@@ -982,7 +982,7 @@ function CustomerPartnerTractionCard() {
             東京拠点の触覚センシングパートナー
           </div>
           <p className="mt-2 text-[16px] leading-[1.5] text-fg-primary">
-            CEOとの面談を完了。非拘束の技術的LOI作成に向けた書面での前向きな確認を取得。スリップ検知と高速グリッパー応答が、最初の検証ベンチマークとして一致。
+            CEOとの技術LOIを最終化中。スリップ検知と高速グリッパー応答を、最初の検証ベンチマークとして合意。
           </p>
         </div>
       </TractionSection>

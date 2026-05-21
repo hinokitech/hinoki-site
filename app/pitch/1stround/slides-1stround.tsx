@@ -1069,9 +1069,8 @@ function CustomerPartnerTractionCard() {
             Tokyo-based tactile sensing partner
           </div>
           <p className="mt-2 text-[16px] leading-[1.5] text-fg-primary">
-            CEO meeting completed. Written go-ahead to draft non-binding
-            technical LOI. Slip detection and fast gripper response aligned as
-            first validation benchmark.
+            Finalizing technical LOI with CEO. Slip detection and fast gripper
+            response aligned as first validation benchmark.
           </p>
         </div>
       </TractionSection>

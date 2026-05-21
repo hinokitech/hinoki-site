@@ -187,8 +187,7 @@ export default function MobileDeck1stRoundJp() {
               sensing and gripper response were identified as a strong initial
               validation direction.{" "}
               <span className="font-semibold">
-                XELA has given written go-ahead to draft a non-binding
-                technical relationship / LOI.
+                Finalizing the technical LOI with XELA.
               </span>
             </p>
           </div>
@@ -415,8 +414,8 @@ export default function MobileDeck1stRoundJp() {
           <SubLabel>Completed</SubLabel>
           <BulletList
             items={[
-              "XELA Robotics CEO meeting — written go-ahead to draft non-binding LOI",
-              "Slip detection & fast gripper response confirmed as first benchmark",
+              "Finalizing technical LOI with CEO",
+              "Slip detection & fast gripper response aligned as first validation benchmark",
             ]}
           />
           <SubLabel>Scheduled / active</SubLabel>

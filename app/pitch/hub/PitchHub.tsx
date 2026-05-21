@@ -11,10 +11,14 @@ import {
 } from "../pitch-registry";
 
 const NOTES_PREFIX = "pitch-hub-notes:";
-const SAVE_DEBOUNCE_MS = 500;
+const SAVE_MODE_KEY = "pitch-hub-notes-save-mode";
+const SAVE_DEBOUNCE_MS = 1800;
+const SAVED_INDICATOR_MS = 2800;
 
 type NotesPersistence = "blob" | "local" | "none";
-type SaveState = "idle" | "saving" | "saved" | "error";
+type NotesSaveMode = "auto" | "manual";
+type GlobalSaveState = "idle" | "pending" | "saving" | "saved" | "error";
+type TimerId = ReturnType<typeof setTimeout>;
 
 function deckUrl(path: string, origin: string): string {
   return `${origin}${path}`;
@@ -98,25 +102,24 @@ function DeckCard({
   origin,
   notes,
   onNotesChange,
-  saveState,
+  onNotesBlur,
   notesReadOnly,
+  saveMode,
+  isDirty,
+  onSaveNow,
+  isSaving,
 }: {
   deck: PitchDeckEntry;
   origin: string;
   notes: string;
   onNotesChange: (deckId: string, text: string) => void;
-  saveState: SaveState;
+  onNotesBlur: (deckId: string, text: string) => void;
   notesReadOnly: boolean;
+  saveMode: NotesSaveMode;
+  isDirty: boolean;
+  onSaveNow: (deckId: string) => void;
+  isSaving: boolean;
 }) {
-  const statusLabel =
-    saveState === "saving"
-      ? "Saving…"
-      : saveState === "saved"
-        ? "Saved"
-        : saveState === "error"
-          ? "Could not save"
-          : null;
-
   return (
     <article className="rounded-xl border border-border bg-bg-subtle p-6">
       <div>
@@ -142,23 +145,25 @@ function DeckCard({
           <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-fg-tertiary">
             Notes (synced across devices)
           </span>
-          {statusLabel && (
-            <span
-              className={`font-mono text-[10px] uppercase tracking-[0.1em] ${
-                saveState === "error" ? "text-accent" : "text-fg-tertiary"
-              }`}
+          {saveMode === "manual" && isDirty && !notesReadOnly && (
+            <button
+              type="button"
+              onClick={() => onSaveNow(deck.id)}
+              disabled={isSaving}
+              className="shrink-0 rounded-md border border-border bg-bg-base px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-fg-secondary transition-colors hover:border-accent hover:text-accent disabled:opacity-50"
             >
-              {statusLabel}
-            </span>
+              {isSaving ? "Saving…" : "Save"}
+            </button>
           )}
         </span>
         <textarea
           value={notes}
           onChange={(e) => onNotesChange(deck.id, e.target.value)}
+          onBlur={(e) => onNotesBlur(deck.id, e.target.value)}
           rows={2}
           disabled={notesReadOnly}
           placeholder="e.g. Sent EN to Acme VC · JP to NEDO on May 20"
-          className="w-full resize-y rounded-md border border-border bg-bg-base px-3 py-2 text-[14px] leading-[1.5] text-fg-primary outline-none transition-colors placeholder:text-fg-tertiary focus:border-accent disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full resize-y rounded-md border border-border bg-bg-base px-3 py-2 text-[14px] leading-[1.5] text-fg-primary outline-none placeholder:text-fg-tertiary focus:border-accent focus:ring-0 disabled:cursor-not-allowed disabled:opacity-60"
         />
       </label>
     </article>
@@ -216,12 +221,41 @@ export default function PitchHub({
   const [persistence, setPersistence] = useState<NotesPersistence>("none");
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
-  const [saveByDeck, setSaveByDeck] = useState<Record<string, SaveState>>({});
-  const saveTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+  const [saveMode, setSaveMode] = useState<NotesSaveMode>("auto");
+  const [globalSave, setGlobalSave] = useState<GlobalSaveState>("idle");
+  const [dirtyDecks, setDirtyDecks] = useState<Record<string, boolean>>({});
+  const [savingDeckId, setSavingDeckId] = useState<string | null>(null);
+  const saveTimers = useRef<Record<string, TimerId>>({});
+  const savedFadeTimer = useRef<TimerId | null>(null);
+  const notesByDeckRef = useRef(notesByDeck);
+
+  useEffect(() => {
+    notesByDeckRef.current = notesByDeck;
+  }, [notesByDeck]);
 
   useEffect(() => {
     setOrigin(window.location.origin);
+    const stored = localStorage.getItem(SAVE_MODE_KEY);
+    if (stored === "auto" || stored === "manual") setSaveMode(stored);
   }, []);
+
+  function setSaveModeAndStore(mode: NotesSaveMode) {
+    setSaveMode(mode);
+    localStorage.setItem(SAVE_MODE_KEY, mode);
+    for (const timer of Object.values(saveTimers.current)) clearTimeout(timer);
+    saveTimers.current = {};
+  }
+
+  const globalSaveLabel = (() => {
+    if (persistence === "none") return null;
+    if (globalSave === "error") return "Could not save — try again";
+    if (globalSave === "saving") return "Saving…";
+    if (globalSave === "saved") return "All changes saved";
+    if (globalSave === "pending" || Object.keys(dirtyDecks).length > 0) {
+      return saveMode === "manual" ? "Unsaved changes" : "Will save shortly";
+    }
+    return saveMode === "auto" ? "Auto-save on" : null;
+  })();
 
   const loadNotes = useCallback(async () => {
     setLoading(true);
@@ -244,6 +278,8 @@ export default function PitchHub({
       }
 
       setNotesByDeck(notes);
+      setDirtyDecks({});
+      setGlobalSave("idle");
     } catch {
       setLoadError("Could not load notes.");
     } finally {
@@ -255,52 +291,110 @@ export default function PitchHub({
     void loadNotes();
   }, [loadNotes]);
 
-  const persistNotes = useCallback(async (deckId: string, text: string) => {
-    setSaveByDeck((prev) => ({ ...prev, [deckId]: "saving" }));
-    try {
-      const res = await fetch("/api/pitch-hub/notes", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ deckId, text }),
-      });
-      if (!res.ok) {
-        setSaveByDeck((prev) => ({ ...prev, [deckId]: "error" }));
-        return;
-      }
-      const data = (await res.json()) as {
-        notes: Record<string, string>;
-        persistence: NotesPersistence;
-      };
-      setNotesByDeck(data.notes);
-      setPersistence(data.persistence);
-      setSaveByDeck((prev) => ({ ...prev, [deckId]: "saved" }));
-      window.setTimeout(() => {
-        setSaveByDeck((prev) => ({ ...prev, [deckId]: "idle" }));
-      }, 2000);
-    } catch {
-      setSaveByDeck((prev) => ({ ...prev, [deckId]: "error" }));
-    }
+  const scheduleSavedFade = useCallback(() => {
+    if (savedFadeTimer.current) clearTimeout(savedFadeTimer.current);
+    savedFadeTimer.current = setTimeout(() => {
+      setGlobalSave((s) => (s === "saved" ? "idle" : s));
+    }, SAVED_INDICATOR_MS) as TimerId;
   }, []);
 
-  const onNotesChange = useCallback(
-    (deckId: string, text: string) => {
-      setNotesByDeck((prev) => ({ ...prev, [deckId]: text }));
-      setSaveByDeck((prev) => ({ ...prev, [deckId]: "idle" }));
+  const persistNotes = useCallback(
+    async (deckId: string, text: string) => {
+      if (persistence === "none") return;
+
+      setSavingDeckId(deckId);
+      setGlobalSave("saving");
+      try {
+        const res = await fetch("/api/pitch-hub/notes", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ deckId, text }),
+        });
+        if (!res.ok) {
+          setGlobalSave("error");
+          return;
+        }
+        const data = (await res.json()) as { persistence: NotesPersistence };
+        setPersistence(data.persistence);
+        setDirtyDecks((prev) => {
+          const next = { ...prev };
+          delete next[deckId];
+          return next;
+        });
+        setGlobalSave("saved");
+        scheduleSavedFade();
+      } catch {
+        setGlobalSave("error");
+      } finally {
+        setSavingDeckId(null);
+      }
+    },
+    [persistence, scheduleSavedFade],
+  );
+
+  const queueSave = useCallback(
+    (deckId: string, text: string, immediate = false) => {
+      if (persistence === "none") return;
 
       const existing = saveTimers.current[deckId];
       if (existing) clearTimeout(existing);
 
-      saveTimers.current[deckId] = setTimeout(() => {
+      const run = () => {
+        delete saveTimers.current[deckId];
         void persistNotes(deckId, text);
-      }, SAVE_DEBOUNCE_MS);
+      };
+
+      if (immediate) {
+        run();
+        return;
+      }
+
+      setGlobalSave((s) => (s === "saving" ? s : "pending"));
+      saveTimers.current[deckId] = setTimeout(run, SAVE_DEBOUNCE_MS) as TimerId;
     },
-    [persistNotes],
+    [persistence, persistNotes],
+  );
+
+  const onNotesChange = useCallback(
+    (deckId: string, text: string) => {
+      setNotesByDeck((prev) => ({ ...prev, [deckId]: text }));
+      setDirtyDecks((prev) => ({ ...prev, [deckId]: true }));
+
+      if (saveMode === "auto" && persistence !== "none") {
+        queueSave(deckId, text);
+      } else if (persistence !== "none") {
+        setGlobalSave((s) => (s === "saving" ? s : "pending"));
+      }
+    },
+    [saveMode, persistence, queueSave],
+  );
+
+  const onNotesBlur = useCallback(
+    (deckId: string, text: string) => {
+      if (saveMode !== "auto" || persistence === "none") return;
+      const pending = saveTimers.current[deckId];
+      if (pending) {
+        clearTimeout(pending);
+        delete saveTimers.current[deckId];
+        void persistNotes(deckId, text);
+      }
+    },
+    [saveMode, persistence, persistNotes],
+  );
+
+  const onSaveNow = useCallback(
+    (deckId: string) => {
+      const text = notesByDeckRef.current[deckId] ?? "";
+      queueSave(deckId, text, true);
+    },
+    [queueSave],
   );
 
   useEffect(() => {
     const timers = saveTimers.current;
     return () => {
       for (const timer of Object.values(timers)) clearTimeout(timer);
+      if (savedFadeTimer.current) clearTimeout(savedFadeTimer.current);
     };
   }, []);
 
@@ -324,6 +418,53 @@ export default function PitchHub({
               Copy a deck link and send it directly. Recipients only see the
               presentation — not this page.
             </p>
+            {persistence !== "none" && (
+              <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+                <fieldset className="flex items-center gap-0 rounded-md border border-border p-0.5">
+                  <legend className="sr-only">Note saving mode</legend>
+                  <button
+                    type="button"
+                    onClick={() => setSaveModeAndStore("auto")}
+                    className={`rounded px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] transition-colors ${
+                      saveMode === "auto"
+                        ? "bg-bg-base text-fg-primary shadow-sm"
+                        : "text-fg-tertiary hover:text-fg-secondary"
+                    }`}
+                  >
+                    Auto-save
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSaveModeAndStore("manual")}
+                    className={`rounded px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] transition-colors ${
+                      saveMode === "manual"
+                        ? "bg-bg-base text-fg-primary shadow-sm"
+                        : "text-fg-tertiary hover:text-fg-secondary"
+                    }`}
+                  >
+                    Save manually
+                  </button>
+                </fieldset>
+                <span
+                  className="min-h-[1.25rem] min-w-[10rem] font-mono text-[10px] uppercase tracking-[0.1em] text-fg-tertiary"
+                  aria-live="polite"
+                >
+                  {globalSaveLabel ? (
+                    <span
+                      className={
+                        globalSave === "error" ? "text-accent" : undefined
+                      }
+                    >
+                      {globalSaveLabel}
+                    </span>
+                  ) : (
+                    <span className="invisible" aria-hidden>
+                      —
+                    </span>
+                  )}
+                </span>
+              </div>
+            )}
           </div>
           {passwordConfigured && (
             <button
@@ -369,8 +510,12 @@ export default function PitchHub({
               origin={origin}
               notes={loading ? "" : (notesByDeck[deck.id] ?? "")}
               onNotesChange={onNotesChange}
-              saveState={loading ? "idle" : (saveByDeck[deck.id] ?? "idle")}
+              onNotesBlur={onNotesBlur}
               notesReadOnly={persistence === "none"}
+              saveMode={saveMode}
+              isDirty={Boolean(dirtyDecks[deck.id])}
+              onSaveNow={onSaveNow}
+              isSaving={savingDeckId === deck.id}
             />
           ))}
         </section>
