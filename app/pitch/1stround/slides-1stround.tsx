@@ -10,8 +10,7 @@ import {
 // =====================================================================
 //  HINOKI — 1stROUND APPLICATION DECK (source of truth)
 //
-//  Copy and structure: edit this file first. Sync mobile-1stround.tsx in
-//  one pass after deck changes are complete — do not update mobile per edit.
+//  Copy and structure: edit this file first. Keep mobile-1stround.tsx in sync.
 //
 //  Non-dilutive validation funding application. Same Hinoki design
 //  language as the pre-seed deck (warm off-white background, dotted
@@ -594,7 +593,7 @@ function SolutionSlide() {
         loops.
       </p>
 
-      <div className="mt-5 max-w-[1640px] overflow-hidden rounded-[12px] border border-border">
+      <div className="mt-5 w-full min-w-0 max-w-[1640px] overflow-hidden rounded-[12px] border border-border">
         <ArcIntegrationCanvas compact highDpi />
       </div>
 

@@ -77,6 +77,7 @@ export function ArcIntegrationCanvas({
   compact?: boolean;
   highDpi?: boolean;
 }) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const T = useMemo<Tweaks>(
@@ -111,8 +112,17 @@ export function ArcIntegrationCanvas({
 
     function resize() {
       if (!canvas) return;
-      const rect = canvas.getBoundingClientRect();
-      const cssW = Math.max(1, Math.round(rect.width));
+      const container = containerRef.current;
+      // Measure the wrapper, not the canvas — inline canvas widths can shrink
+      // the flex parent and collapse the diagram when the deck is zoomed (non-FS).
+      const cssW = Math.max(
+        1,
+        Math.round(
+          container?.clientWidth ??
+            canvas.parentElement?.clientWidth ??
+            canvas.getBoundingClientRect().width,
+        ),
+      );
       const systemDpr = window.devicePixelRatio || 1;
       // Pitch slides are often zoomed < 1; a higher backing store keeps type/lines sharp.
       dpr = Math.min(
@@ -131,7 +141,7 @@ export function ArcIntegrationCanvas({
         : isMobile
           ? Math.max(620, Math.min(820, Math.round(W * 1.15)))
           : Math.max(520, Math.min(620, Math.round(W * 0.55)));
-      canvas.style.width = `${W}px`;
+      canvas.style.width = "100%";
       canvas.style.height = `${H}px`;
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
@@ -874,16 +884,25 @@ export function ArcIntegrationCanvas({
       render();
     }
 
-    resize();
-    render();
-    window.addEventListener("resize", handleResize);
+    let rafId = 0;
+    function scheduleResize() {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        rafId = requestAnimationFrame(handleResize);
+      });
+    }
+
+    scheduleResize();
+    window.addEventListener("resize", scheduleResize);
     const ro =
       typeof ResizeObserver !== "undefined"
-        ? new ResizeObserver(handleResize)
+        ? new ResizeObserver(scheduleResize)
         : null;
-    ro?.observe(canvas);
+    const observeTarget = containerRef.current ?? canvas;
+    ro?.observe(observeTarget);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", scheduleResize);
       ro?.disconnect();
     };
   }, [T, compact, highDpi]);
@@ -892,10 +911,10 @@ export function ArcIntegrationCanvas({
     "Diagram: Arc integration architecture. Existing controller (AI / Planner, Robot OS / PLC, Motion & Safety Layer) sends task-level control into the Motor Controller. Arc FPGA sits as a fast local reflex layer between Selected Sensor Input and Bounded Correction Output, feeding Motor Controller and reporting state back to Robot OS / PLC. Physical hardware: Sensor, Motor Controller, Actuator. Caption: The robot keeps its existing controller. Arc adds a faster reflex loop, while reporting state back to the main system.";
 
   return (
-    <div className="bg-bg-base">
+    <div ref={containerRef} className="w-full min-w-0 bg-bg-base">
       <canvas
         ref={canvasRef}
-        className="block w-full max-w-full"
+        className="block h-auto w-full max-w-full"
         role="img"
         aria-label={ariaLabel}
       />

@@ -10,8 +10,8 @@ import {
 // =====================================================================
 //  HINOKI — 1stROUND APPLICATION DECK (日本語)
 //
-//  Copy source: client-provided JA strings. Sync mobile-1stround-jp.tsx after
-//  desktop changes. English deck: ../1stround/slides-1stround.tsx
+//  Copy source: client-provided JA strings. Keep mobile-1stround-jp.tsx in sync.
+//  English deck: ../1stround/slides-1stround.tsx
 //
 //  Non-dilutive validation funding application. Same Hinoki design
 //  language as the pre-seed deck (warm off-white background, dotted
@@ -555,7 +555,7 @@ function SolutionSlide() {
         Arcは、身体が感覚から応答へ向かう高速な局所経路である脊髄反射弧から着想を得ています。ロボットは既存のコントローラを維持し、Arcが選択されたセンサー・アクチュエータループに高速なローカル応答経路を加えます。
       </p>
 
-      <div className="mt-5 max-w-[1640px] overflow-hidden rounded-[12px] border border-border">
+      <div className="mt-5 w-full min-w-0 max-w-[1640px] overflow-hidden rounded-[12px] border border-border">
         <ArcIntegrationCanvas compact highDpi />
       </div>
 

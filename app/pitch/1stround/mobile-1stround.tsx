@@ -1,5 +1,6 @@
-// Mobile fallback for /pitch/1stround — keep in sync with slides-1stround.tsx
-// (one pass after desktop deck changes are done; desktop is source of truth).
+// Mobile fallback for /pitch/1stround — synced with slides-1stround.tsx (desktop is source of truth).
+
+import React from "react";
 
 function Card({
   tag,
@@ -41,6 +42,36 @@ function SubLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+function EngineerQuote({ role, quote }: { role: string; quote: string }) {
+  return (
+    <div className="rounded-lg border border-border bg-bg-base/80 px-4 py-3">
+      <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-accent">
+        {role}
+      </div>
+      <p className="mt-2 text-[14px] leading-[1.55] text-fg-secondary">
+        &ldquo;{quote}&rdquo;
+      </p>
+    </div>
+  );
+}
+
+function AccentCallout({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="mt-4 rounded-lg border border-accent bg-accent-subtle p-4">
+      <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+        {label}
+      </div>
+      <div className="mt-2 text-[14px] leading-[1.55] text-fg-primary">{children}</div>
+    </div>
+  );
+}
+
 export default function MobileDeck1stRound() {
   return (
     <main className="min-h-dvh bg-bg-base px-5 pb-20 pt-10 text-fg-primary">
@@ -63,6 +94,12 @@ export default function MobileDeck1stRound() {
             without replacing the existing controller
           </span>
           .
+        </p>
+        <p className="mt-4 text-[15px] font-light italic leading-[1.55] text-fg-primary">
+          Robots have been given brains.{" "}
+          <span className="not-italic font-semibold">
+            Arc gives them a nervous system.
+          </span>
         </p>
         <ul className="mt-5 space-y-1.5 text-[14px] leading-[1.6] text-fg-secondary">
           <li className="flex gap-2">
@@ -98,7 +135,7 @@ export default function MobileDeck1stRound() {
 
       <div className="mx-auto mt-10 max-w-[720px] space-y-10">
         <Card
-          tag="01 · Problem"
+          tag="02 · Problem"
           title="Robots can sense and plan, but still fail in physical response moments."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -130,7 +167,7 @@ export default function MobileDeck1stRound() {
           </p>
         </Card>
 
-        <Card tag="02 · Discovery" title="What engineers are telling us.">
+        <Card tag="03 · Discovery" title="What engineers are telling us.">
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
             Customer discovery is narrowing Arc from a broad architecture
             thesis into a measurable first control-loop benchmark.
@@ -139,34 +176,59 @@ export default function MobileDeck1stRound() {
             items={[
               <>
                 <span className="font-semibold text-fg-primary">
-                  Latency matters
+                  Latency matters in specific physical moments.
                 </span>{" "}
-                in specific physical moments — engineers confirmed it can be a
-                bottleneck under tight real-time constraints.
+                Engineers confirmed latency can become a bottleneck under tight
+                real-time constraints — especially where response, precision, or
+                speed matter at the actuator.
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
-                  Physical variability creates instability
+                  Physical variability creates instability.
                 </span>{" "}
-                — surfaces, loads, slip, noise.
+                Changing surfaces, variable loads, wheel slip, noisy sensors,
+                and unpredictable environments create control challenges
+                planning loops alone do not resolve.
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
-                  Engineers want specificity
+                  Slip response is a measurable first wedge.
                 </span>{" "}
-                — latency of what, which loop, which robot, against which
-                baseline.
+                In tactile sensing and gripper control, the problem becomes
+                concrete — detect slip, respond faster, stabilize the object,
+                and compare against a conventional digital baseline.
               </>,
             ]}
           />
+          <SubLabel>Independent confirmation — engineer voices</SubLabel>
+          <div className="mt-3 space-y-3">
+            <EngineerQuote
+              role="AMR torque-control engineer"
+              quote="We work around wheel slip by switching the drive between torque and velocity modes — it's a compromise, not a fix. Closing the loop at the wheel would still help."
+            />
+            <EngineerQuote
+              role="Gripper / manipulation engineer"
+              quote="Slip shows up in the tactile stream before the grasp loop reacts — we bump grasp force after the part's already moving. Sensor-to-gripper latency keeps coming up."
+            />
+            <EngineerQuote
+              role="Bipedal humanoid researcher (TUM)"
+              quote="One slipped foothold and the gait is already behind — everything still goes through the same stack. There's no separate fast path for contact."
+            />
+            <EngineerQuote
+              role="Assistive robotics researcher"
+              quote="The delay looks fine on paper, but users compensate through the whole trial — intent and assist torque never feel in phase."
+            />
+          </div>
           <p className="mt-4 text-[15px] italic leading-[1.65] text-fg-primary">
-            This pushed Hinoki toward a specific first validation benchmark:
-            tactile slip detection and fast gripper response.
+            This pushed Hinoki toward a specific first validation benchmark:{" "}
+            <span className="not-italic font-semibold">
+              tactile slip detection and fast gripper response.
+            </span>
           </p>
         </Card>
 
         <Card
-          tag="03 · First Benchmark"
+          tag="04 · First Benchmark"
           title="Tactile slip detection and fast gripper response."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -177,27 +239,23 @@ export default function MobileDeck1stRound() {
             Tactile sensor → Arc local reflex layer → bounded correction →
             motor controller → gripper stabilizes
           </p>
-          <div className="mt-4 rounded-lg border border-accent bg-accent-subtle p-4">
-            <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
-              Discovery validation · XELA Robotics
-            </div>
-            <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
-              In discussion with{" "}
-              <span className="font-semibold">XELA Robotics</span>, tactile
-              sensing and gripper response were identified as a strong initial
-              validation direction.{" "}
-              <span className="font-semibold">
-                Finalizing the technical LOI with XELA.
-              </span>
-            </p>
-          </div>
+          <AccentCallout label="Discovery validation · Tactile-sensing partner">
+            Tactile sensing and gripper response identified as a strong initial
+            validation direction with a{" "}
+            <span className="font-semibold">Tokyo-based tactile-sensing leader</span>
+            .{" "}
+            <span className="font-semibold">
+              Finalizing technical LOI with CEO. Slip detection and fast gripper
+              response aligned as first validation benchmark.
+            </span>
+          </AccentCallout>
           <SubLabel>Why this benchmark</SubLabel>
           <BulletList
             items={[
               "Concrete, measurable, commercially relevant",
-              "Aligned with tactile sensing companies — XELA, FingerVision",
-              "Proves Arc in one loop without full robot redesign",
-              "Expands into broader manipulation and physical response",
+              "Aligned with tactile sensing partners in Japan",
+              "Proves Arc in one sensor-actuator loop without requiring full robot redesign",
+              "Expands naturally into broader robotic manipulation and physical response",
             ]}
           />
           <SubLabel>Metrics — grouped by what they prove</SubLabel>
@@ -230,12 +288,19 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="04 · Architecture"
-          title="Arc — a local reflex layer for robotic systems."
+          tag="05 · Architecture"
+          title={
+            <>
+              <span className="italic">Arc</span> — a local reflex layer for
+              robotic systems.
+            </>
+          }
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            The robot keeps its existing controller. Arc adds a faster local
-            response loop between selected sensors and actuators.
+            Inspired by the spinal reflex arc — the body&apos;s fast local
+            pathway from sensation to response. The robot keeps its existing
+            controller; Arc adds a faster local response loop in selected
+            sensor-actuator loops.
           </p>
           <div className="mt-4 rounded-lg border border-accent bg-accent-subtle px-4 py-3 text-[15px] font-semibold leading-[1.35] text-fg-primary">
             Not a replacement controller. A bounded local response layer.
@@ -259,7 +324,8 @@ export default function MobileDeck1stRound() {
             ]}
           />
           <p className="mt-4 text-[15px] leading-[1.65] text-fg-secondary">
-            Arc focuses on selected sensor-actuator loops where{" "}
+            Arc works alongside existing robotics stacks, focusing on selected
+            sensor-actuator loops where{" "}
             <span className="font-semibold text-fg-primary">
               fast local response, adaptation, or lower compute burden
             </span>{" "}
@@ -268,7 +334,7 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="05 · Customer Benefits"
+          tag="06 · Customer Benefits"
           title="What customers gain if Arc works."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -333,7 +399,7 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="06 · Status"
+          tag="07 · Status"
           title="Phase 1 proved the substrate runs. Phase 2 proves physical response."
         >
           <SubLabel>Phase 1 — completed</SubLabel>
@@ -365,7 +431,7 @@ export default function MobileDeck1stRound() {
           </p>
         </Card>
 
-        <Card tag="07 · FPGA Strategy" title="FPGA is Hinoki’s IP discovery engine.">
+        <Card tag="08 · FPGA Strategy" title="FPGA is Hinoki’s IP discovery engine.">
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
             We use FPGA to discover and validate the architecture before
             freezing it into silicon.
@@ -403,148 +469,144 @@ export default function MobileDeck1stRound() {
           </p>
         </Card>
 
-        <Card tag="08 · Traction" title="Early validation signals.">
+        <Card tag="09 · Traction" title="Early validation signals.">
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Customer discovery, investor momentum, and technical advisory
-            support are converging around the same validation path.
+            Customer discovery, investor momentum, and technical advisory support
+            are converging around the same validation path.
           </p>
-          <p className="mt-3 text-[14px] font-medium leading-[1.5] text-fg-primary">
-            Customer / Partner — discovery is narrowing on slip detection.
+          <SubLabel>Customer / Partner</SubLabel>
+          <AccentCallout label="Primary signal · Tokyo-based tactile sensing partner">
+            Finalizing technical LOI with CEO. Slip detection and fast gripper
+            response aligned as first validation benchmark.
+          </AccentCallout>
+          <BulletList
+            items={[
+              "Assistive robotics company — researcher conversation completed; CEO meeting scheduled",
+              "Cognitive robotics company — co-founder meeting being set around cognition vs physical execution",
+              "Vision-based tactile sensing company — warm route identified for partnership discussion",
+            ]}
+          />
+          <p className="mt-3 text-[14px] leading-[1.6] text-fg-secondary">
+            AMR, humanoid, quadruped, assistive, marine, and service robotics
+            engineers confirmed pain around latency, noisy input, variable loads,
+            wheel slip, and real-time response.
           </p>
-          <SubLabel>Completed</SubLabel>
+          <SubLabel>Investor / Program Momentum</SubLabel>
           <BulletList
             items={[
-              "Finalizing technical LOI with CEO",
-              "Slip detection & fast gripper response aligned as first validation benchmark",
+              "Antler Japan — Selected for Japan Residency, May 2026",
+              "Coreline / Atlas — First screening passed, in-person team interview being scheduled",
+              "Sony Innovation Fund — Positive response, materials shared with deep-tech team",
+              "Co-Capital / Founder Institute Japan — Active continued conversation",
+              "Spiral Capital — Warm relationship; open for future investment discussions",
+              "The Ventures Award 2026 — First-round screening passed",
             ]}
           />
-          <SubLabel>Scheduled / active</SubLabel>
+          <SubLabel>Technical Credibility</SubLabel>
           <BulletList
             items={[
-              "Forcesteed Robotics — co-founder meeting lined up",
-              "Cyberdyne — Prof. Sankai replied, meeting path opened",
-              "FingerVision — CEO outreach & warm technical route",
-            ]}
-          />
-          <SubLabel>Ongoing discovery</SubLabel>
-          <BulletList
-            items={[
-              "Engineer interviews across AMR, humanoid, quadruped, assistive, simulation, service robotics",
-            ]}
-          />
-          <SubLabel>Investor / Program</SubLabel>
-          <BulletList
-            items={[
-              "Selected for Antler Japan Residency",
-              "Coreline / Atlas VC — first screening passed, team interview being scheduled",
-              "Sony Innovation Fund — positive response, materials shared with deep-tech team",
-              "Co-Capital / Founder Institute Japan — active continued conversation",
-              "Spiral Capital — warm relationship; open for future investment discussions",
-              "The Ventures Award 2026 — first-round screening passed",
-            ]}
-          />
-          <SubLabel>Technical / Ecosystem</SubLabel>
-          <BulletList
-            items={[
-              "Phase 1 FPGA validation completed",
+              "Phase 1 FPGA reservoir validation completed on live sensor input",
               "6-week demo sprint underway for showcase at Antler Japan Residency",
-              "Early technical advisory board forming",
-              "Network across University of Tsukuba, Nagoya, U-Tokyo, AIST",
+              "Closed-loop tactile sensor + gripper benchmark planned",
+              "Verbal go-ahead from Physical HRI and Mechatronics PhD advisors",
+              "Neuromorphic Networks PhD expected from July",
+              "AIST senior robotics researcher discussion pending",
             ]}
           />
           <p className="mt-4 text-[13px] italic leading-[1.55] text-fg-tertiary">
-            Status language is intentionally precise — no commitments are
-            implied.
+            Status language is intentionally precise. No investment, commercial,
+            or partnership commitments are implied beyond the stated stage.
           </p>
         </Card>
 
         <Card
-          tag="09 · Market"
-          title={
-            <>
-              The first customer problem is slip response.
-              <br />
-              The platform opportunity is physical response across robotics.
-            </>
-          }
+          tag="10 · Market"
+          title="A measurable beachhead inside a platform-wide opportunity."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Every robotic system has sensor-actuator loops. Arc starts with one
-            narrow, measurable beachhead, then expands across robotics platforms
-            where sensor-actuator response is performance-critical.
+            Hinoki starts in a narrow, validated wedge and expands across
+            robotics platforms where sensor-actuator response is
+            performance-critical.
           </p>
-          <SubLabel>Beachhead → expansion path</SubLabel>
-          <BulletList
-            items={[
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Initial beachhead
-                </span>{" "}
-                — tactile sensing &amp; gripper response. Robotic grippers,
-                tactile sensors, industrial manipulation (first benchmark).
-              </>,
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Industrial &amp; collaborative robotics
-                </span>{" "}
-                — pick-and-place, force-controlled assembly, adaptive
-                grasping, collaborative manipulation.
-              </>,
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Collaborative robots
-                </span>{" "}
-                / mobile manipulators.
-              </>,
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Humanoids · assistive devices · drones · quadrupeds.
-                </span>
-              </>,
-            ]}
-          />
-          <div className="mt-4 rounded-lg border border-accent bg-accent-subtle p-4">
-            <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
-              Market sizing approach
+          <div className="mt-4 space-y-3">
+            <div className="rounded-lg border border-accent bg-accent-subtle p-4">
+              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+                Initial beachhead · $15B+
+              </div>
+              <p className="mt-2 text-[15px] font-medium text-fg-primary">
+                Tactile &amp; force sensing by 2030
+              </p>
+              <p className="mt-1 text-[14px] leading-[1.55] text-fg-secondary">
+                Robotic grippers, tactile sensors, industrial manipulation —
+                the first paid validation wedge for Arc.
+              </p>
             </div>
-            <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
-              Hinoki starts in a{" "}
-              <span className="font-semibold">narrow validation wedge</span> —
-              tactile / gripper control — then expands across robotics
-              platforms where sensor-actuator response is performance-critical.
-              The addressable opportunity scales with the number of platforms
-              that adopt a local physical-response layer.
-            </p>
+            <div className="rounded-lg border border-border bg-bg-base/60 p-4">
+              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-tertiary">
+                Serviceable market · $170B
+              </div>
+              <p className="mt-2 text-[15px] font-medium text-fg-primary">
+                Global robotics market by 2030
+              </p>
+              <p className="mt-1 text-[14px] leading-[1.55] text-fg-secondary">
+                Arc licenses the local response layer inside industrial and
+                service robotics platforms.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-bg-base/60 p-4">
+              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-tertiary">
+                Long-term opportunity · $165B
+              </div>
+              <p className="mt-2 text-[15px] font-medium text-fg-primary">
+                Humanoid robots by 2034 (50% CAGR)
+              </p>
+              <p className="mt-1 text-[14px] leading-[1.55] text-fg-secondary">
+                Cage-free human–robot collaboration is gated on real-time
+                physical intelligence — the layer Arc operates in.
+              </p>
+            </div>
           </div>
-          <SubLabel>Initial · expansion · business-model markets</SubLabel>
-          <BulletList
-            items={[
-              "Initial: tactile sensing, robotic gripping, industrial manipulation.",
-              "Expansion: industrial, collaborative, mobile robotics, humanoids, assistive devices.",
-              "Business model: architecture licensing embedded inside robotics platforms.",
-            ]}
-          />
+          <AccentCallout label="Japan strategic frame">
+            Japan faces a structural robotics opportunity at the intersection of
+            an aging society, manufacturing renaissance, and humanoid
+            leadership. METI targets approximately ¥10 trillion in robotics
+            industry impact by 2035. Hinoki contributes a layer Japan can own at
+            the architecture level — the local physical response layer every
+            robotic platform needs.
+          </AccentCallout>
+          <SubLabel>Beachhead → expansion path</SubLabel>
+          <p className="mt-2 text-[14px] leading-[1.6] text-fg-secondary">
+            Tactile slip &amp; gripper response → Industrial &amp; collaborative
+            → Mobile &amp; humanoids → Assistive · drones · quadrupeds
+          </p>
         </Card>
 
         <Card
-          tag="10 · Business Model"
+          tag="11 · Business Model"
           title="From validation to architecture licensing."
         >
+          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+            Hinoki captures value by{" "}
+            <span className="font-semibold text-fg-primary">
+              sitting inside robotics platforms
+            </span>{" "}
+            — not by building robots.
+          </p>
           <BulletList
             items={[
               <>
                 <span className="font-semibold text-fg-primary">
-                  Near term — Phase 1 · Validation / co-development:
+                  Near term — Phase 1 · Validation &amp; co-development:
                 </span>{" "}
-                non-dilutive grants, paid validation projects, joint benchmark
-                work.
+                non-dilutive grants, paid technical validation projects, joint
+                benchmark work with robotics companies.
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
                   Mid term — Phase 2 · Reference design licensing:
                 </span>{" "}
-                integration fees + reference design licensing, Arc control
-                module / embedded control layer.
+                integration fees + reference design licensing, Arc control module
+                / embedded control layer.
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
@@ -569,32 +631,38 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="11 · Positioning"
+          tag="12 · Positioning"
           title="Where Hinoki sits in the robotics stack."
         >
+          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+            The market is active, but the physical response layer between sensing
+            and actuation remains underdeveloped.
+          </p>
           <BulletList
             items={[
-              "AI / cognition / planning — Forcesteed, autonomy companies, VLA models",
-              "Robot OS / motion control — PID, MPC, PLC, existing controllers",
-              "Sensing — XELA, FingerVision, event-based sensors",
+              "Cognition — AI / planning. Cognitive robotics, autonomy companies, VLA models.",
+              "Control OS — Robot OS / motion control. PID, MPC, PLC, existing controllers.",
+              "Sensing — Tactile / vision / event-based sensing. Tactile partners, vision-based touch, event-based sensors.",
               <>
                 <span className="font-semibold text-fg-primary">
                   Hinoki · Arc — local reflex control
                 </span>{" "}
-                (sensor → Arc → bounded correction → motor controller). The
+                Sensor → Arc → bounded correction → motor controller. The
                 missing layer between sensing and actuation.
               </>,
-              "Motors, grippers, actuators, robot body",
+              "Hardware — Motors, grippers, actuators, robot body.",
             ]}
           />
-          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Sensors create data. Controllers execute tasks. Arc focuses on
-            the fast physical loop between sensing and action.
+          <p className="mt-3 text-[15px] italic leading-[1.65] text-fg-primary">
+            Sensors create data. Controllers execute tasks.{" "}
+            <span className="not-italic font-semibold">
+              Arc focuses on the fast physical loop between sensing and action.
+            </span>
           </p>
         </Card>
 
         <Card
-          tag="12 · Team"
+          tag="13 · Team"
           title={
             <>
               A founder team built on long-standing trust
@@ -608,25 +676,28 @@ export default function MobileDeck1stRound() {
               <span className="font-semibold text-fg-primary">
                 Salvatore Martone — Co-founder / CEO:
               </span>{" "}
-              team building, strategy, fundraising, customer discovery,
-              investor + robotics relationships. Biology background, U.
-              Tsukuba — brought the biological framing.
+              Biology graduate, University of Tsukuba. Co-architect of the Arc
+              thesis — brought the biological framing of physical intelligence
+              (spinal reflex arc as architectural inspiration). Leads strategy,
+              fundraising, customer discovery, and investor + robotics
+              relationships.
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
                 Bernardo Gatto — Co-founder / CTO:
               </span>{" "}
-              PhD engineer. Robotics, computer vision, embedded AI, hardware
-              integration. AIST · MEXT / JSPS. FPGA + reservoir computing
-              implementation. Built and validated Phase 1.
+              PhD engineer. Robotics, computer vision, embedded AI, and hardware
+              integration. AIST experience. MEXT / JSPS background. FPGA +
+              reservoir computing implementation. Built and validated Phase 1.
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
                 Mina Otsuka — Co-founder / Japan Market &amp; Ecosystem:
               </span>{" "}
-              Japan market strategy, ecosystem development, customer
-              discovery, corporate + research institution relationships.
-              Lifelong Tsukuba resident.
+              Japan market strategy, ecosystem development, customer discovery,
+              and corporate + research institution relationships. Japanese
+              corporate stakeholder management. Lifelong Tsukuba resident with
+              deep local ecosystem ties.
             </div>
           </div>
           <SubLabel>Founder connection</SubLabel>
@@ -662,53 +733,29 @@ export default function MobileDeck1stRound() {
           />
         </Card>
 
-        <Card tag="13 · Advisory" title="Early technical advisory board.">
-          <SubLabel>Current advisor commitments — verbal agreement received</SubLabel>
+        <Card tag="14 · Advisory" title="Early technical advisory board.">
+          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+            Hinoki is building with an advisor network across physical HRI,
+            mechatronics, neuromorphic networks, and intelligent robotics.
+          </p>
+          <SubLabel>Current advisor commitments</SubLabel>
           <BulletList
             items={[
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Denis Peña
-                </span>{" "}
-                — PhD Physical HRI, U. Tsukuba · Professor, PUCP. HRI,
-                assistive, validation context.
-              </>,
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Takayuki Miyamoto
-                </span>{" "}
-                — PhD Mechatronics, U. Tsukuba · Assoc. Prof., Nagoya
-                University. Mechatronics, human informatics, academic
-                validation path.
-              </>,
+              "Physical HRI advisor — PhD · U. Tsukuba · Professor, PUCP. Human-robot interaction, assistive systems, validation context.",
+              "Mechatronics advisor — PhD · U. Tsukuba · Associate Professor, Nagoya University. Mechatronics, human informatics, academic validation path.",
             ]}
           />
           <SubLabel>Upcoming &amp; pending advisor discussions</SubLabel>
           <BulletList
             items={[
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Cedric Caremel
-                </span>{" "}
-                <span className="text-fg-tertiary">· expected from July</span>{" "}
-                — PhD Neuromorphic Networks, U. Tokyo. Neuromorphic /
-                reservoir-adjacent technical support.
-              </>,
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Rafael Cisneros Limón
-                </span>{" "}
-                <span className="text-fg-tertiary">· pending discussion</span>{" "}
-                — PhD Intelligent Interaction / Robotics, U. Tsukuba · Senior
-                Researcher, AIST. AIST robotics ecosystem, robotics research
-                credibility.
-              </>,
+              "Neuromorphic networks advisor — expected from July. PhD · U. Tokyo. Neuromorphic / reservoir-adjacent technical support.",
+              "Intelligent robotics advisor — pending discussion. PhD · U. Tsukuba · Senior Researcher, AIST. AIST robotics ecosystem credibility.",
             ]}
           />
         </Card>
 
         <Card
-          tag="14 · 12-Month Plan"
+          tag="15 · 12-Month Plan"
           title="From discovery to hardware validation."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -718,7 +765,6 @@ export default function MobileDeck1stRound() {
           <SubLabel>0–3 months</SubLabel>
           <BulletList
             items={[
-              "Finalize XELA LOI / technical relationship",
               "Define slip-detection benchmark requirements",
               "Source tactile sensor, gripper, FPGA, actuator setup",
             ]}
@@ -734,7 +780,7 @@ export default function MobileDeck1stRound() {
           <SubLabel>6–9 months</SubLabel>
           <BulletList
             items={[
-              "Share validation data with XELA & partners",
+              "Share validation data with partners",
               "Refine Arc architecture from benchmark results",
               "Prepare patent / IP filing strategy",
             ]}
@@ -748,92 +794,72 @@ export default function MobileDeck1stRound() {
             ]}
           />
           <SubLabel>Use of funds</SubLabel>
-          <p className="mt-2 text-[14px] leading-[1.6] text-fg-secondary">
-            FPGA refinement &amp; embedded control testing · tactile sensor /
-            gripper / actuator setup · closed-loop benchmark rig · validation
-            dataset · engineering &amp; hardware integration · patent / IP
-            consultation · customer discovery &amp; partner development.
-          </p>
+          <BulletList
+            items={[
+              "FPGA refinement & embedded control testing",
+              "Tactile sensor / gripper / actuator setup",
+              "Closed-loop benchmark rig",
+              "Validation dataset creation",
+              "Engineering time & hardware integration",
+              "Patent / IP consultation",
+              "Customer discovery & partner development",
+              "Documentation & technical write-up",
+            ]}
+          />
         </Card>
 
         <Card
-          tag="15 · 5-Year Plan"
+          tag="16 · 5-Year Plan"
           title="Revenue and expenditure plan."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
             Directional plan — from validation, to paid pilots, to licensing.
           </p>
-          <div className="mt-4 rounded-lg border border-accent bg-accent-subtle p-4">
-            <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
-              Revenue assumptions
-            </div>
-            <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
-              <span className="font-semibold">Year 2</span> begins with paid
-              validation / co-development projects.{" "}
-              <span className="font-semibold">Years 3–5</span> shift toward
-              reference design licensing, integration fees, and embedded IP
-              royalties.{" "}
-              <span className="font-semibold">Year 5 ¥500M+</span> depends on
-              licensing adoption across robotics platforms — not on Hinoki
-              shipping product.
-            </p>
-          </div>
+          <AccentCallout label="Revenue assumptions">
+            <span className="font-semibold">Year 2</span> begins with paid
+            validation and co-development projects.{" "}
+            <span className="font-semibold">Years 3–5</span> shift toward
+            reference design licensing, integration fees, and embedded IP
+            royalties. <span className="font-semibold">Year 5 upside</span>{" "}
+            depends on licensing adoption across robotics platforms, not Hinoki
+            manufacturing or shipping robots. Operating revenue excludes grants
+            and VC investment.
+          </AccentCallout>
           <BulletList
             items={[
               <>
-                <span className="font-semibold text-fg-primary">
-                  Year 1 · ¥0–5M:
-                </span>{" "}
-                validation, grants, LOIs, benchmark dataset. Expenses:
-                hardware, engineering, IP, customer discovery.
+                <span className="font-semibold text-fg-primary">Year 1 · ¥0–5M:</span>{" "}
+                Validation, LOIs, benchmark dataset, grant funding support.
+                Expenses: hardware, engineering, IP consultation, customer
+                discovery.
               </>,
               <>
-                <span className="font-semibold text-fg-primary">
-                  Year 2 · ¥10–30M:
-                </span>{" "}
+                <span className="font-semibold text-fg-primary">Year 2 · ¥15–50M:</span>{" "}
                 1–3 paid validation / co-development projects.
               </>,
               <>
-                <span className="font-semibold text-fg-primary">
-                  Year 3 · ¥50–100M:
-                </span>{" "}
-                early reference design licensing, 3–6 partner projects.
+                <span className="font-semibold text-fg-primary">Year 3 · ¥80–200M:</span>{" "}
+                3–6 paid partner projects, early reference design licensing.
               </>,
               <>
-                <span className="font-semibold text-fg-primary">
-                  Year 4 · ¥150–300M:
-                </span>{" "}
-                platform licensing / repeat partner integrations.
+                <span className="font-semibold text-fg-primary">Year 4 · ¥300–700M:</span>{" "}
+                Platform licensing, integration fees, repeat partner
+                deployments.
               </>,
               <>
-                <span className="font-semibold text-fg-primary">
-                  Year 5 · ¥500M+:
-                </span>{" "}
-                embedded IP / royalty model, reference design adoption.
+                <span className="font-semibold text-fg-primary">Year 5 · ¥1B+:</span>{" "}
+                Embedded IP licensing, reference design adoption, per-platform /
+                per-unit royalties.
               </>,
             ]}
           />
           <SubLabel>Unit logic — directional</SubLabel>
           <BulletList
             items={[
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Paid validation projects:
-                </span>{" "}
-                ¥5–15M per project.
-              </>,
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Reference design / integration licensing:
-                </span>{" "}
-                ¥10–30M per partner.
-              </>,
-              <>
-                <span className="font-semibold text-fg-primary">
-                  Embedded IP royalties:
-                </span>{" "}
-                per-platform or per-unit basis.
-              </>,
+              "Paid validation / co-development — ¥5–15M per project",
+              "Reference design / integration licensing — ¥10–30M per partner",
+              "Platform licensing — ¥30–100M+ per partner depending on scope",
+              "Embedded IP royalties — per-platform or per-unit basis",
             ]}
           />
           <p className="mt-3 text-[14px] italic leading-[1.65] text-fg-tertiary">
@@ -842,20 +868,19 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="16 · Funding Purpose"
+          tag="17 · Funding Purpose"
           title="What 1stRound funding unlocks."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
             Non-dilutive validation funding that converts customer discovery
             into the first partner-ready benchmark dataset.
           </p>
-          <SubLabel>What 1stRound funding unlocks</SubLabel>
+          <SubLabel>What funding enables</SubLabel>
           <BulletList
             items={[
               "Build the closed-loop validation rig",
               "Benchmark Arc against a digital baseline",
               "Generate partner-ready validation data",
-              "Advance XELA LOI / technical relationship",
               "Prepare IP strategy & pilot pathway",
             ]}
           />
@@ -864,8 +889,7 @@ export default function MobileDeck1stRound() {
             closed-loop tactile sensing and gripper response benchmark,
             compare Arc against a conventional digital control baseline, and
             generate the dataset required for partner LOIs, technical
-            collaboration, patent strategy, and future licensing
-            conversations.
+            collaboration, patent strategy, and future licensing conversations.
           </p>
           <p className="mt-5 text-[15px] italic leading-[1.65] text-fg-primary">
             One measurable reflex loop becomes the foundation for a broader{" "}
@@ -873,6 +897,12 @@ export default function MobileDeck1stRound() {
               physical intelligence architecture
             </span>
             .
+          </p>
+          <p className="mt-4 text-[14px] leading-[1.6] text-fg-secondary">
+            We named the company{" "}
+            <span className="italic text-fg-primary">Hinoki</span> — after the
+            Japanese cypress, whose distributed structure mirrors the
+            architectural principle behind Arc.
           </p>
         </Card>
 
