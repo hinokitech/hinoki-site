@@ -1855,11 +1855,11 @@ function PlanQuarter({
   items: string[];
 }) {
   return (
-    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-5">
-      <div className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-6">
+      <div className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
         {label}
       </div>
-      <ul className="mt-3 space-y-2 text-[15px] leading-[1.5] text-fg-secondary">
+      <ul className="mt-3 space-y-2.5 text-[17px] leading-[1.52] text-fg-secondary">
         {items.map((it) => (
           <li key={it} className="flex gap-2">
             <span className="text-accent">·</span>
@@ -1875,15 +1875,15 @@ function PlanSlide() {
   return (
     <Slide align="start">
       <Eyebrow>12-Month Plan</Eyebrow>
-      <h2 className="text-[56px] font-light leading-[1.1] tracking-[-0.02em] text-fg-primary">
+      <h2 className="text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-fg-primary">
         From discovery to hardware validation.
       </h2>
-      <p className="mt-4 max-w-[1500px] text-[22px] font-light leading-[1.4] text-fg-secondary">
+      <p className="mt-4 max-w-[1500px] text-[24px] font-light leading-[1.4] text-fg-secondary">
         1stRound funding converts customer discovery into technical
         validation data.
       </p>
 
-      <div className="mt-10 grid max-w-[1640px] grid-cols-4 gap-4">
+      <div className="mt-9 grid max-w-[1640px] grid-cols-4 gap-5">
         <PlanQuarter
           label="0–3 months"
           items={[
@@ -1917,9 +1917,11 @@ function PlanSlide() {
         />
       </div>
 
-      <div className="mt-8 max-w-[1640px]">
-        <SectionLabel>Use of funds</SectionLabel>
-        <div className="mt-3 grid grid-cols-4 gap-x-6 gap-y-2 text-[16px] leading-[1.55] text-fg-secondary">
+      <div className="mt-10 max-w-[1640px]">
+        <div className="font-mono text-[14px] uppercase tracking-[0.16em] text-accent">
+          Use of funds
+        </div>
+        <div className="mt-3 grid grid-cols-4 gap-x-6 gap-y-2.5 text-[18px] leading-[1.52] text-fg-secondary">
           <div>· FPGA refinement &amp; embedded control testing</div>
           <div>· Tactile sensor / gripper / actuator setup</div>
           <div>· Closed-loop benchmark rig</div>
