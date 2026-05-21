@@ -989,11 +989,11 @@ function TractionCard({
         {label}
       </div>
       {headline ? (
-        <p className="mt-3 text-[19px] font-light leading-[1.3] tracking-[-0.01em] text-fg-primary">
+        <p className="mt-3 text-[21px] font-light leading-[1.3] tracking-[-0.01em] text-fg-primary">
           {headline}
         </p>
       ) : null}
-      <div className={`flex flex-1 flex-col gap-3.5 ${headline ? "mt-4" : "mt-4"}`}>
+      <div className={`flex flex-1 flex-col gap-3 ${headline ? "mt-4" : "mt-4"}`}>
         {children}
       </div>
     </div>
@@ -1009,7 +1009,7 @@ function TractionSection({
 }) {
   return (
     <section>
-      <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
+      <div className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
         {title}
       </div>
       <div className="mt-2">{children}</div>
@@ -1019,7 +1019,7 @@ function TractionSection({
 
 function TractionProse({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[13px] leading-[1.5] text-fg-primary">{children}</p>
+    <p className="text-[16px] leading-[1.5] text-fg-primary">{children}</p>
   );
 }
 
@@ -1037,7 +1037,7 @@ function TractionInvestorRow({
   logoMaxW?: number;
 }) {
   return (
-    <div className="grid grid-cols-[132px_minmax(0,1fr)] items-center gap-x-4 border-b border-border/70 py-[11px] last:border-b-0">
+    <div className="grid grid-cols-[132px_minmax(0,1fr)] items-center gap-x-4 border-b border-border/70 py-[8px] last:border-b-0">
       <div
         className="flex min-h-11 items-center justify-start"
         aria-hidden={!!logoSrc}
@@ -1050,12 +1050,12 @@ function TractionInvestorRow({
             style={{ maxHeight: logoMaxH, maxWidth: logoMaxW }}
           />
         ) : (
-          <span className="max-w-[132px] text-[11px] font-semibold leading-[1.25] tracking-[-0.01em] text-fg-primary">
+          <span className="max-w-[132px] text-[13px] font-semibold leading-[1.25] tracking-[-0.01em] text-fg-primary">
             {name}
           </span>
         )}
       </div>
-      <p className="text-[13px] leading-[1.4] text-fg-secondary">{status}</p>
+      <p className="text-[16px] leading-[1.4] text-fg-secondary">{status}</p>
     </div>
   );
 }
@@ -1065,10 +1065,10 @@ function CustomerPartnerTractionCard() {
     <TractionCard label="Customer / Partner">
       <TractionSection title="Primary signal">
         <div className="rounded-[8px] border border-accent bg-accent-subtle px-4 py-3">
-          <div className="text-[15px] font-semibold text-fg-primary">
+          <div className="text-[17px] font-semibold text-fg-primary">
             Tokyo-based tactile sensing partner
           </div>
-          <p className="mt-2 text-[13px] leading-[1.5] text-fg-primary">
+          <p className="mt-2 text-[16px] leading-[1.5] text-fg-primary">
             CEO meeting completed. Written go-ahead to draft non-binding
             technical LOI. Slip detection and fast gripper response aligned as
             first validation benchmark.
@@ -1077,7 +1077,7 @@ function CustomerPartnerTractionCard() {
       </TractionSection>
 
       <TractionSection title="Additional discovery">
-        <ul className="space-y-2.5 text-[13px] leading-[1.5] text-fg-primary">
+        <ul className="space-y-2.5 text-[16px] leading-[1.5] text-fg-primary">
           <li className="flex gap-2">
             <span className="shrink-0 text-accent">·</span>
             <span>
@@ -1169,7 +1169,7 @@ function TechnicalCredibilityTractionCard() {
       headline="Hardware validation and advisor network are forming around execution."
     >
       <TractionSection title="Hardware status">
-        <ul className="space-y-2 text-[13px] leading-[1.5] text-fg-primary">
+        <ul className="space-y-2 text-[16px] leading-[1.5] text-fg-primary">
           <li className="flex gap-2">
             <span className="shrink-0 text-accent">·</span>
             <span>
@@ -1190,14 +1190,14 @@ function TechnicalCredibilityTractionCard() {
         <TractionProse>
           Closed-loop tactile sensor + gripper benchmark planned.
         </TractionProse>
-        <p className="mt-2 text-[13px] leading-[1.5] text-fg-primary">
+        <p className="mt-2 text-[16px] leading-[1.5] text-fg-primary">
           Metrics: response time, energy per response, adaptation, signal
           robustness, baseline comparison.
         </p>
       </TractionSection>
 
       <TractionSection title="Advisor network">
-        <ul className="space-y-2 text-[13px] leading-[1.5] text-fg-primary">
+        <ul className="space-y-2 text-[16px] leading-[1.5] text-fg-primary">
           <li className="flex gap-2">
             <span className="shrink-0 text-accent">·</span>
             <span>
