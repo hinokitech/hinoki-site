@@ -595,21 +595,22 @@ export default function MobileDeck1stRoundJp() {
           <div className="mt-3 grid gap-3 text-[15px] leading-[1.6] text-fg-secondary">
             <div>
               <span className="font-semibold text-fg-primary">
-                Salvatore Martone — Co-founder / CEO:
+                Salvatore Martone — Co-founder / CEO · Commercial:
               </span>{" "}
-              筑波大学で生物学を学ぶ。Arcの事業仮説の共同設計者として、物理知能の生物学的フレーミング、特に脊髄反射弧をアーキテクチャの着想として持ち込んだ。事業戦略、資金調達、顧客発見、投資家およびロボティクス企業との関係構築をリード。
+              筑波大学（生物科学群）。Arc事業仮説の共同設計者として生物学的フレーミングを導入。日本企業の経営層（C-suite）向けに企業支援実務をゼロから構築。Hinokiの商業戦略および日本投資家関係を統括。
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
-                Bernardo Gatto — Co-founder / CTO:
+                Bernardo Gatto — Co-founder / CTO · Industry &amp; Technical:
               </span>{" "}
-              PhDエンジニア。ロボティクス、コンピュータビジョン、組込みAI、ハードウェア統合に専門性を持つ。AISTでの研究経験、MEXT / JSPSのバックグラウンドを有する。FPGAとリザバーコンピューティングの実装を担当し、Phase 1を構築・検証。
+              PhD（コンピュータビジョン）。Arc仮説の共同設計者としてFPGA上で実装。産業経験10年以上（ロボティクス・組込みAI・ハードウェア統合）。JSPS研究助成・MEXT奨学生・AISTつくば研究員経験。Phase
+              1を構築・検証。
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
                 Mina Otsuka — Co-founder / Japan Market &amp; Ecosystem:
               </span>{" "}
-              日本市場戦略、エコシステム開発、顧客発見、企業・研究機関との関係構築を担当。日本企業におけるステークホルダーマネジメントに強みを持ち、つくばに長く根ざした地域・研究エコシステムとの深い接点を有する。
+              日本語ネイティブ。日本有数の金融大手明治生命にてビジネス開発・顧客関係マネージャー。日本企業文化への深い理解。全国のロボティクスエンジニア・研究機関との関係構築を担当。
             </div>
           </div>
           <SubLabel>Founder connection</SubLabel>

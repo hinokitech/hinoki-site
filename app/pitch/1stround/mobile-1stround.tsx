@@ -674,30 +674,35 @@ export default function MobileDeck1stRound() {
           <div className="mt-3 grid gap-3 text-[15px] leading-[1.6] text-fg-secondary">
             <div>
               <span className="font-semibold text-fg-primary">
-                Salvatore Martone — Co-founder / CEO:
+                Salvatore Martone — Co-founder / CEO · Commercial:
               </span>{" "}
-              Biology graduate, University of Tsukuba. Co-architect of the Arc
-              thesis — brought the biological framing of physical intelligence
-              (spinal reflex arc as architectural inspiration). Leads strategy,
-              fundraising, customer discovery, and investor + robotics
-              relationships.
+              University of Tsukuba (College of Biological Sciences).
+              Co-architect of the Arc thesis — brought the biology
+              framing. Built a Japan-based enterprise practice from zero,
+              working with C-suite executives at major Japanese institutions.
+              Drives Hinoki&apos;s commercial strategy and Japan investor
+              relations.
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
-                Bernardo Gatto — Co-founder / CTO:
+                Bernardo Gatto — Co-founder / CTO · Industry &amp; Technical:
               </span>{" "}
-              PhD engineer. Robotics, computer vision, embedded AI, and hardware
-              integration. AIST experience. MEXT / JSPS background. FPGA +
-              reservoir computing implementation. Built and validated Phase 1.
+              PhD Computer Vision Engineer. Co-architect of the Arc thesis —
+              operationalized it on FPGA hardware. 10+ years of industry
+              experience in robotics,
+              embedded AI, and hardware integration. JSPS Research Grant
+              recipient · MEXT Scholar · former AIST Tsukuba researcher. Built
+              and validated Phase 1.
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
                 Mina Otsuka — Co-founder / Japan Market &amp; Ecosystem:
               </span>{" "}
-              Japan market strategy, ecosystem development, customer discovery,
-              and corporate + research institution relationships. Japanese
-              corporate stakeholder management. Lifelong Tsukuba resident with
-              deep local ecosystem ties.
+              Native Japanese fluency. Former Manager, business development and
+              client relations at Meiji Yasuda Life Insurance — one of
+              Japan&apos;s largest financial corporations. Deep understanding of
+              Japanese corporate culture. Building relationships with robotics
+              engineers and research institutions across Japan.
             </div>
           </div>
           <SubLabel>Founder connection</SubLabel>

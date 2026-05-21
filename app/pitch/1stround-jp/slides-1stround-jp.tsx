@@ -1525,33 +1525,68 @@ function TeamSlide() {
           objectPosition="center 30%"
           affiliation="筑波大学"
           name="Salvatore Martone"
-          role="Co-founder / CEO"
+          role="Co-founder / CEO · Commercial"
           body={
             <>
-              筑波大学で生物学を学ぶ。Arcの事業仮説の共同設計者として、物理知能の生物学的フレーミング、特に脊髄反射弧をアーキテクチャの着想として持ち込んだ。事業戦略、資金調達、顧客発見、投資家およびロボティクス企業との関係構築をリード。
+              筑波大学（生物科学群）。{" "}
+              <span className="font-semibold text-fg-primary">
+                Arc事業仮説の共同設計者
+              </span>
+              として生物学的フレーミングを導入。日本企業の
+              <span className="font-semibold text-fg-primary">
+                経営層（C-suite）
+              </span>
+              向けに企業支援実務をゼロから構築。Hinokiの
+              <span className="font-semibold text-fg-primary">
+                商業戦略および日本投資家関係
+              </span>
+              を統括。
             </>
           }
         />
         <FounderCard
           imageSrc="/team/bernardo.png"
-          affiliation="筑波大学"
+          affiliation="筑波大学・AISTつくば"
           name="Bernardo Gatto"
-          role="Co-founder / CTO"
+          role="Co-founder / CTO · Industry &amp; Technical"
           body={
             <>
-              PhDエンジニア。ロボティクス、コンピュータビジョン、組込みAI、ハードウェア統合に専門性を持つ。AISTでの研究経験、MEXT / JSPSのバックグラウンドを有する。FPGAとリザバーコンピューティングの実装を担当し、Phase 1を構築・検証。
+              <span className="font-semibold text-fg-primary">
+                PhD（コンピュータビジョン）
+              </span>
+              。{" "}
+              <span className="font-semibold text-fg-primary">
+                Arc仮説の共同設計者
+              </span>
+              としてFPGA上で実装。
+              <span className="font-semibold text-fg-primary">
+                産業経験10年以上
+              </span>
+              （ロボティクス・組込みAI・ハードウェア統合）。JSPS研究助成・MEXT奨学生・AISTつくば研究員経験。Phase
+              1を構築・検証。
             </>
           }
         />
         <FounderCard
           imageSrc="/team/mina.jpg"
           objectPosition="center 25%"
-          affiliation="昭和女子大学"
+          affiliation="明治生命・昭和女子大学"
           name="Mina Otsuka"
           role="Co-founder / Japan Market &amp; Ecosystem"
           body={
             <>
-              日本市場戦略、エコシステム開発、顧客発見、企業・研究機関との関係構築を担当。日本企業におけるステークホルダーマネジメントに強みを持ち、つくばに長く根ざした地域・研究エコシステムとの深い接点を有する。
+              <span className="font-semibold text-fg-primary">
+                日本語ネイティブ
+              </span>
+              。日本有数の金融大手
+              <span className="font-semibold text-fg-primary">明治生命</span>
+              にてビジネス開発・顧客関係
+              <span className="font-semibold text-fg-primary">マネージャー</span>
+              。日本企業文化への深い理解。全国の
+              <span className="font-semibold text-fg-primary">
+                ロボティクスエンジニア・研究機関
+              </span>
+              との関係構築を担当。
             </>
           }
         />

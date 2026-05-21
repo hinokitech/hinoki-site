@@ -1643,46 +1643,68 @@ function TeamSlide() {
           objectPosition="center 30%"
           affiliation="University of Tsukuba"
           name="Salvatore Martone"
-          role="Co-founder / CEO"
+          role="Co-founder / CEO · Commercial"
           body={
             <>
-              Biology graduate, University of Tsukuba.{" "}
+              University of Tsukuba (College of Biological Sciences).{" "}
               <span className="font-semibold text-fg-primary">
                 Co-architect of the Arc thesis
               </span>{" "}
-              — brought the biological framing of physical intelligence
-              (spinal reflex arc as architectural inspiration). Leads strategy,
-              fundraising, customer discovery, and investor + robotics company
-              relationships.
+              — brought the biology framing. Built a Japan-based enterprise
+              practice from zero, working with{" "}
+              <span className="font-semibold text-fg-primary">
+                C-suite executives at major Japanese institutions
+              </span>
+              . Drives Hinoki&apos;s commercial strategy and Japan investor
+              relations.
             </>
           }
         />
         <FounderCard
           imageSrc="/team/bernardo.png"
-          affiliation="University of Tsukuba"
+          affiliation="University of Tsukuba · AIST Tsukuba"
           name="Bernardo Gatto"
-          role="Co-founder / CTO"
+          role="Co-founder / CTO · Industry &amp; Technical"
           body={
             <>
-              PhD engineer. Robotics, computer vision, embedded AI, and
-              hardware integration. AIST experience. MEXT / JSPS background.
-              FPGA + reservoir computing implementation. Built and validated
-              Phase 1.
+              <span className="font-semibold text-fg-primary">
+                PhD Computer Vision Engineer
+              </span>
+              .{" "}
+              <span className="font-semibold text-fg-primary">
+                Co-architect of the Arc thesis
+              </span>{" "}
+              — operationalized it on FPGA hardware.{" "}
+              <span className="font-semibold text-fg-primary">
+                10+ years of industry experience
+              </span>{" "}
+              in robotics, embedded AI, and hardware integration. JSPS Research
+              Grant recipient · MEXT Scholar · former AIST Tsukuba researcher.
+              Built and validated Phase 1.
             </>
           }
         />
         <FounderCard
           imageSrc="/team/mina.jpg"
           objectPosition="center 25%"
-          affiliation="Showa Women's University"
+          affiliation="Meiji Yasuda Life Insurance · Showa Women's University"
           name="Mina Otsuka"
           role="Co-founder / Japan Market &amp; Ecosystem"
           body={
             <>
-              Japan market strategy, ecosystem development, customer
-              discovery, and corporate + research institution relationships.
-              Japanese corporate stakeholder management. Lifelong Tsukuba
-              resident with deep local ecosystem ties.
+              <span className="font-semibold text-fg-primary">
+                Native Japanese fluency
+              </span>
+              . Former{" "}
+              <span className="font-semibold text-fg-primary">Manager</span>,
+              business development and client relations at{" "}
+              <span className="font-semibold text-fg-primary">
+                Meiji Yasuda Life Insurance
+              </span>{" "}
+              — one of Japan&apos;s largest financial corporations. Deep
+              understanding of Japanese corporate culture. Building
+              relationships with robotics engineers and research institutions
+              across Japan.
             </>
           }
         />
