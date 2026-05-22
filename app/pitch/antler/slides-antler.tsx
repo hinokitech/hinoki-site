@@ -16,18 +16,19 @@ import {
 //  Main deck — no appendix. 13 slides, one dominant claim each.
 //
 //    01  Cover — Robots are getting brains. Arc gives them reflexes.
-//    02  Vision — Physical intelligence lives in the body.
+//    02  Vision — Robots will not truly enter our world until they can handle it with care.
 //    03  Problem — Scaling robots into the real world is hard.
 //    04  Solution — Arc adds the missing physical response layer.
 //    05  Why Now — Body-control bottleneck is becoming urgent.
-//    06  First Proof Point — Slip response is the first measurable wedge.
-//    07  Demand Validation — The market is pulling us toward the same loop.
+//    06  Demand Validation — The market is pulling us toward the same loop.
+//    07  First Proof Point — Slip response is the first measurable wedge.
 //    08  Defensibility — The first benchmark creates the moat.
 //    09  Competition — Stack is crowded. Response layer is open.
 //    10  Business Model — ARM-like licensing for robotic control.
 //    11  GTM — Account-based validation into OEM licensing.
-//    12  Team — Why Hinoki can win from Japan.
-//    13  Ask — Antler capital unlocks the benchmark that unlocks the next round.
+//    12  Unfair Advantage — Why Hinoki can win from Japan.
+//    13  Team — The founders and the chemistry behind Arc.
+//    14  Ask — Antler capital unlocks the benchmark that unlocks the next round.
 //
 //  Design intent: investment-conviction. Quieter than the 1stRound deck.
 //  One dominant claim per slide. Diagrams, flywheels, layer maps,
@@ -188,7 +189,7 @@ function CoverSlide() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-[80px] top-[140px] opacity-60"
+        className="pointer-events-none absolute right-[80px] -top-[16px] opacity-60"
       >
         <NeuralMotif className="h-auto w-[780px]" />
       </div>
@@ -203,26 +204,19 @@ function CoverSlide() {
 // =====================================================================
 //  02 · Vision
 // =====================================================================
-function BehaviorCard({
-  label,
+function VisionStatementCard({
   headline,
   body,
 }: {
-  label: string;
   headline: string;
   body: string;
 }) {
   return (
-    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-8">
-      <div className="font-mono text-[13px] uppercase tracking-[0.16em] text-accent">
-        {label}
-      </div>
-      <div className="mt-5 text-[26px] font-light leading-[1.22] tracking-[-0.01em] text-fg-primary">
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle px-8 py-9">
+      <div className="text-[28px] font-medium leading-[1.2] tracking-[-0.01em] text-fg-primary">
         {headline}
       </div>
-      <p className="mt-4 text-[17px] leading-[1.55] text-fg-secondary">
-        {body}
-      </p>
+      <p className="mt-5 text-[19px] leading-[1.5] text-fg-secondary">{body}</p>
     </div>
   );
 }
@@ -231,35 +225,34 @@ function VisionSlide() {
   return (
     <Slide align="start">
       <Eyebrow>Vision</Eyebrow>
-      <h2 className="text-[80px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
-        Physical intelligence doesn&rsquo;t live in the brain.
-        <br />
-        <span className="font-normal">It lives in the body.</span>
+      <h2 className="max-w-[1640px] text-[82px] font-light leading-[1.02] tracking-[-0.024em] text-fg-primary">
+        Robots will not truly enter our world until they can handle it with
+        care.
       </h2>
+      <p className="mt-6 max-w-[1500px] text-[26px] font-normal leading-[1.45] text-fg-secondary">
+        The long-term vision is a robot that can interact with the physical
+        world as naturally and safely as a living system.
+      </p>
 
-      <div className="mt-14 grid max-w-[1640px] grid-cols-3 gap-6">
-        <BehaviorCard
-          label="Response"
-          headline="A body that acts before the brain decides."
-          body="Touch something hot — your hand pulls back before you think. That is the loop Arc operationalizes."
+      <div className="mt-10 grid max-w-[1640px] grid-cols-3 gap-7">
+        <VisionStatementCard
+          headline="The future is not just smarter robots."
+          body="LLMs and foundation models are giving robots new ways to reason, plan, and understand instructions."
         />
-        <BehaviorCard
-          label="Adaptation"
-          headline="A body that learns from contact, instantly."
-          body="An animal walks across unfamiliar ground and adjusts in milliseconds. No replanning. No retraining."
+        <VisionStatementCard
+          headline="The missing layer is physical care."
+          body="A robot that can one day cradle a baby cannot only &ldquo;think&rdquo; correctly. Its body must feel contact, adjust pressure, respond to slip, and stabilize instantly."
         />
-        <BehaviorCard
-          label="Resilience"
-          headline="A body that keeps going when a part fails."
-          body="A damaged body redistributes movement. Intelligence in the substrate, not the central plan."
+        <VisionStatementCard
+          headline="Reflex-level intelligence is the next step."
+          body="Hinoki starts with the layer we can build and validate now: fast local response between sensing and action."
         />
       </div>
 
       <BottomBanner>
-        Hinoki is building the{" "}
-        <span className="font-semibold">physical intelligence infrastructure</span>{" "}
-        every robotic platform of the next decade will need — three behaviors,
-        one architecture.
+        Hinoki is bringing robotics one step closer to nature, starting with{" "}
+        <span className="font-semibold">reflex-level physical intelligence</span>{" "}
+        in the sensor-actuator loop.
       </BottomBanner>
 
       <SlideFooter pageLabel="02 · Vision" />
@@ -296,37 +289,38 @@ function ProblemSlide() {
       <h2 className="text-[72px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
         Robots work in controlled environments.
         <br />
-        Scaling them into the real world remains hard.
+        They break down when physical conditions change.
       </h2>
       <p className="mt-6 max-w-[1500px] text-[24px] font-normal leading-[1.5] text-fg-secondary">
-        The core issue is not perception alone. It is{" "}
+        The core issue is{" "}
         <span className="font-semibold text-fg-primary">
           physical generalization
-        </span>{" "}
-        — turning sensor data into reliable physical action when the world
-        changes.
+        </span>
+        : robots can sense and plan, but still struggle to turn changing
+        contact, force, slip, load, and vibration into reliable physical
+        action.
       </p>
 
       <div className="mt-12 grid max-w-[1640px] grid-cols-3 gap-6">
         <ProblemCard
           headline="Works in the lab, fails in the field."
-          body="Behavior that looks capable in structured settings breaks when object properties or operating conditions shift in production."
+          body="A behavior that works in simulation, testing, or a structured site can fail when object weight, surface, contact, or operating conditions change."
         />
         <ProblemCard
           headline="Too slow at the physical edge."
-          body="Slip, contact, imbalance, and force change occur faster than the perception-to-planning path can correct."
+          body="Slip, contact, imbalance, and force change happen faster than the full perception-to-planning loop can correct."
         />
         <ProblemCard
           headline="Hard to repeat across customers."
-          body="Each new site requires custom tuning, more field engineering, slower speeds, narrower use cases."
+          body="Each new site can require custom tuning, more field engineering, slower speeds, and narrower use cases."
         />
       </div>
 
       <BottomBanner>
-        For robotics companies, this is a{" "}
-        <span className="font-semibold">scaling problem</span>. Deployments
-        take longer, require more field engineering, run at lower speeds, and
-        become harder to repeat profitably across customers.
+        For robotics companies, this becomes a{" "}
+        <span className="font-semibold">scaling problem</span>. Real-world
+        variation increases deployment time, support cost, and reliability
+        risk, making each customer harder to serve profitably.
       </BottomBanner>
 
       <SlideFooter pageLabel="03 · Problem" />
@@ -547,7 +541,7 @@ function FirstProofPointSlide() {
         fastest credible path to prove the architecture.
       </BottomBanner>
 
-      <SlideFooter pageLabel="06 · First Proof Point" />
+      <SlideFooter pageLabel="07 · First Proof Point" />
     </Slide>
   );
 }
@@ -652,7 +646,7 @@ function DemandValidationSlide() {
         </span>
       </BottomBanner>
 
-      <SlideFooter pageLabel="07 · Demand Validation" />
+      <SlideFooter pageLabel="06 · Demand Validation" />
     </Slide>
   );
 }
@@ -851,7 +845,7 @@ function CompetitionSlide() {
             layer="Hinoki · Arc"
             focus="Local physical-response layer between sensing and actuation"
             players="FPGA-first robotics validation · Closed-loop benchmark · Bounded correction · Proprietary data · Tuning recipes · Reference design / embedded IP path"
-            view="Owns the missing layer between brains and bodies."
+            view="Closes the sensor-to-actuator loop locally and adaptively — where existing stacks bottleneck."
             emphasis
           />
         </div>
@@ -1096,16 +1090,37 @@ function GtmSlide() {
 }
 
 // =====================================================================
-//  12 · Team — Why Hinoki can win from Japan
+//  12 · Unfair Advantage — Why Hinoki can win from Japan
 // =====================================================================
-function AdvisorChip({
+function UnfairAdvantageCard({
+  label,
+  body,
+}: {
+  label: string;
+  body: React.ReactNode;
+}) {
+  return (
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-6">
+      <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
+        {label}
+      </div>
+      <p className="mt-3 text-[16px] leading-[1.5] text-fg-primary">{body}</p>
+    </div>
+  );
+}
+
+function AdvisorDeepCard({
   area,
-  status,
+  affiliation,
+  deRisks,
   variant = "pending",
+  status,
 }: {
   area: string;
-  status: string;
+  affiliation: string;
+  deRisks: string;
   variant?: "committed" | "expected" | "pending";
+  status: string;
 }) {
   const isCommitted = variant === "committed";
   const statusTone =
@@ -1114,162 +1129,315 @@ function AdvisorChip({
       : variant === "expected"
         ? "text-fg-secondary"
         : "text-fg-caption";
+
   return (
     <div
-      className={`flex min-w-[260px] flex-1 flex-col gap-1 rounded-[8px] border px-5 py-3 ${
+      className={`flex h-full flex-col rounded-[8px] p-6 ${
         isCommitted
-          ? "border-accent bg-accent-subtle"
-          : "border-border bg-bg-base"
+          ? "border-2 border-accent bg-accent-subtle"
+          : "border border-border bg-bg-subtle/70"
       }`}
     >
-      <div className="text-[16px] font-medium leading-[1.25] text-fg-primary">
-        {area}
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        {isCommitted ? (
+          <span className="rounded-[4px] border border-accent/40 bg-bg-base px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-accent">
+            Committed
+          </span>
+        ) : null}
+        <div
+          className={`font-mono text-[11px] uppercase tracking-[0.14em] ${statusTone}`}
+        >
+          {status}
+        </div>
       </div>
       <div
-        className={`font-mono text-[11px] uppercase tracking-[0.14em] ${statusTone}`}
+        className={`mt-3 font-medium leading-[1.22] tracking-[-0.005em] text-fg-primary ${
+          isCommitted ? "text-[22px]" : "text-[20px]"
+        }`}
       >
-        {status}
+        {area}
+      </div>
+      <p
+        className={`mt-1.5 text-[13px] leading-[1.45] ${
+          isCommitted ? "text-fg-secondary" : "text-fg-caption"
+        }`}
+      >
+        {affiliation}
+      </p>
+      <div className="mt-5">
+        <div className="font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+          De-risks
+        </div>
+        <p
+          className={`mt-1.5 text-[14px] leading-[1.5] ${
+            isCommitted
+              ? "font-medium text-fg-primary"
+              : "text-fg-secondary"
+          }`}
+        >
+          {deRisks}
+        </p>
       </div>
     </div>
   );
 }
 
-function AdvantagePill({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-full border border-border bg-bg-subtle px-4 py-2 text-[14px] leading-[1.3] text-fg-secondary">
-      {children}
-    </span>
-  );
-}
-
-function TeamSlide() {
+function UnfairAdvantageSlide() {
   return (
     <Slide align="start">
-      <Eyebrow>Team</Eyebrow>
+      <Eyebrow>Unfair Advantage</Eyebrow>
       <h2 className="text-[72px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
         Why Hinoki can win from Japan.
       </h2>
-      <p className="mt-5 max-w-[1500px] text-[22px] font-normal leading-[1.5] text-fg-secondary">
-        A Tsukuba-rooted team combining commercial execution, FPGA robotics
-        implementation, Japan operations, and a technical advisor network
-        across robotics and neuromorphic systems.
-      </p>
 
-      <div className="mt-10 grid max-w-[1640px] grid-cols-3 gap-5">
-        <FounderCard
-          imageSrc="/team/salvatore.jpg"
-          objectPosition="center 30%"
-          affiliation="University of Tsukuba"
-          name="Salvatore"
-          role="CEO · Commercial"
+      <div className="mt-10 grid max-w-[1640px] grid-cols-4 gap-4">
+        <UnfairAdvantageCard
+          label="Where"
           body={
             <>
-              Biology background, University of Tsukuba.{" "}
               <span className="font-semibold text-fg-primary">
-                Co-architect of the Arc thesis.
+                Tsukuba Science City launchpad
               </span>{" "}
-              Built a Japan-based enterprise practice from zero. Leads
-              commercial strategy, investor relations, and customer
-              development.
+              — one of two special economic zones in Japan designed for
+              deep-tech robotics development. Next to AIST and NIMS, inside
+              Japan&rsquo;s robotics research corridor.
             </>
           }
         />
-        <FounderCard
-          imageSrc="/team/bernardo.png"
-          affiliation="University of Tsukuba · AIST"
-          name="Bernardo"
-          role="CTO · Technical"
+        <UnfairAdvantageCard
+          label="When"
           body={
             <>
               <span className="font-semibold text-fg-primary">
-                PhD computer vision engineer.
+                Japan timing
               </span>{" "}
-              Robotics, embedded AI, FPGA / reservoir implementation. Former
-              AIST Tsukuba researcher. Built and validated Phase 1.
+              — aging society, labor shortage, manufacturing, elder care.
             </>
           }
         />
-        <FounderCard
-          imageSrc="/team/mina.jpg"
-          objectPosition="center 25%"
-          affiliation="Meiji Yasuda Life Insurance"
-          name="Mina"
-          role="COO · Japan Operations"
+        <UnfairAdvantageCard
+          label="Who"
           body={
             <>
               <span className="font-semibold text-fg-primary">
-                Native Japanese.
+                Researcher network
               </span>{" "}
-              Former manager at Meiji Yasuda Life Insurance. Japanese
-              corporate stakeholder management, operations, and Japan
-              ecosystem development.
+              — Physical HRI, Mechatronics, Neuromorphic Networks, AIST,
+              Tsukuba, Tokyo, Nagoya.
+            </>
+          }
+        />
+        <UnfairAdvantageCard
+          label="How"
+          body={
+            <>
+              <span className="font-semibold text-fg-primary">
+                FPGA-to-IP learning loop
+              </span>{" "}
+              — turn physical validation into defensible IP faster than
+              silicon-first incumbents.
             </>
           }
         />
       </div>
 
-      <div className="mt-6 max-w-[1640px] rounded-[8px] border border-border bg-bg-subtle/70 p-5">
+      <div className="mt-8 max-w-[1640px]">
         <div className="flex items-baseline justify-between">
           <SectionLabel>Technical advisor network</SectionLabel>
           <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-caption">
             Status as of May 2026
           </span>
         </div>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <AdvisorChip
+
+        <div className="mt-4 grid grid-cols-4 gap-4">
+          <AdvisorDeepCard
             variant="committed"
+            status="Verbal agreement received"
             area="Physical HRI"
-            status="Verbal agreement"
+            affiliation="PhD, University of Tsukuba · Professor, PUCP"
+            deRisks="Human-robot interaction, assistive robotics, and physical validation for human-proximate systems."
           />
-          <AdvisorChip
+          <AdvisorDeepCard
             variant="committed"
+            status="Verbal agreement received"
             area="Mechatronics"
-            status="Verbal agreement"
+            affiliation="PhD, University of Tsukuba · Associate Professor, Nagoya University"
+            deRisks="Sensor-actuator integration, mechatronics validation, and the path from architecture concept to hardware testing."
           />
-          <AdvisorChip
+          <AdvisorDeepCard
             variant="expected"
-            area="Neuromorphic Networks"
             status="Expected from July"
+            area="Neuromorphic Networks"
+            affiliation="PhD, University of Tokyo"
+            deRisks="Neuromorphic architecture, reservoir-adjacent design, and future IP development."
           />
-          <AdvisorChip
+          <AdvisorDeepCard
             variant="pending"
-            area="AIST Senior Robotics"
             status="Discussion pending"
+            area="AIST Senior Robotics"
+            affiliation="PhD, University of Tsukuba · Senior Researcher, AIST"
+            deRisks="Applied robotics perspective, AIST ecosystem access, and future validation partnerships."
           />
         </div>
       </div>
 
-      <div className="mt-5 max-w-[1640px] rounded-[8px] border border-border bg-bg-subtle/70 p-5">
-        <SectionLabel>Unfair advantage</SectionLabel>
-        <div className="mt-3 flex flex-wrap gap-2.5">
-          <AdvantagePill>Tsukuba Science City launchpad</AdvantagePill>
-          <AdvantagePill>
-            Japan timing — aging society, labor shortage, manufacturing,
-            elder care
-          </AdvantagePill>
-          <AdvantagePill>
-            Researcher network — Physical HRI, Mechatronics, Neuromorphic
-            Networks, AIST, Tsukuba, Tokyo, Nagoya
-          </AdvantagePill>
-          <AdvantagePill>FPGA-to-IP learning loop</AdvantagePill>
-        </div>
-      </div>
+      <BottomBanner>
+        Together this network supports four validation risks:{" "}
+        <span className="font-semibold">human-robot interaction</span>,{" "}
+        <span className="font-semibold">hardware integration</span>,{" "}
+        <span className="font-semibold">neuromorphic architecture</span>, and{" "}
+        <span className="font-semibold">Japan robotics ecosystem access</span>.
+      </BottomBanner>
 
-      <p className="mt-5 max-w-[1640px] text-[18px] font-light italic leading-[1.45] text-fg-secondary">
-        Salvatore and Bernardo have known each other for 8 years since the
-        University of Tsukuba. Mina has known the team for 4 years.{" "}
-        <span className="not-italic font-semibold text-fg-primary">
-          This team was not assembled for the accelerator.
-        </span>
-      </p>
-
-      <SlideFooter pageLabel="12 · Team" />
+      <SlideFooter pageLabel="12 · Unfair Advantage" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  13 · Ask — Antler capital unlocks the benchmark
+//  13 · Team — from 1stRound application deck
+// =====================================================================
+function TeamSlide() {
+  return (
+    <Slide align="start">
+      <Eyebrow>Team</Eyebrow>
+      <h2 className="text-[56px] font-light leading-[1.1] tracking-[-0.02em] text-fg-primary">
+        A founder team built on long-standing trust
+        <br />
+        and complementary roles.
+      </h2>
+
+      <div className="mt-10 grid max-w-[1640px] grid-cols-3 gap-6">
+        <FounderCard
+          imageSrc="/team/salvatore.jpg"
+          objectPosition="center 30%"
+          affiliation="University of Tsukuba"
+          name="Salvatore Martone"
+          role="Co-founder / CEO · Commercial"
+          body={
+            <>
+              University of Tsukuba (College of Biological Sciences).{" "}
+              <span className="font-semibold text-fg-primary">
+                Co-architect of the Arc thesis
+              </span>{" "}
+              — brought the biology framing. Built a Japan-based enterprise
+              practice from zero, working with{" "}
+              <span className="font-semibold text-fg-primary">
+                C-suite executives at major Japanese institutions
+              </span>
+              . Drives Hinoki&apos;s commercial strategy and investor
+              relations.
+            </>
+          }
+        />
+        <FounderCard
+          imageSrc="/team/bernardo.png"
+          affiliation="University of Tsukuba · AIST Tsukuba"
+          name="Bernardo Gatto"
+          role="Co-founder / CTO · Industry &amp; Technical"
+          body={
+            <>
+              <span className="font-semibold text-fg-primary">
+                PhD Computer Vision Engineer
+              </span>
+              .{" "}
+              <span className="font-semibold text-fg-primary">
+                Co-architect of the Arc thesis
+              </span>{" "}
+              — operationalized it on FPGA hardware.{" "}
+              <span className="font-semibold text-fg-primary">
+                10+ years of industry experience
+              </span>{" "}
+              in robotics, embedded AI, and hardware integration. JSPS Research
+              Grant recipient · MEXT Scholar · former AIST Tsukuba researcher.
+              Built and validated Phase 1.
+            </>
+          }
+        />
+        <FounderCard
+          imageSrc="/team/mina.jpg"
+          objectPosition="center 25%"
+          affiliation="Meiji Yasuda Life Insurance · Showa Women's University"
+          name="Mina Otsuka"
+          role="Co-founder / COO · Japan Operations"
+          body={
+            <>
+              <span className="font-semibold text-fg-primary">
+                Native Japanese fluency
+              </span>
+              . Former{" "}
+              <span className="font-semibold text-fg-primary">Manager</span>,
+              business development and client relations at{" "}
+              <span className="font-semibold text-fg-primary">
+                Meiji Yasuda Life Insurance
+              </span>{" "}
+              — one of Japan&apos;s largest financial corporations. Deep
+              understanding of Japanese corporate culture. Building
+              relationships with robotics engineers and research institutions
+              across Japan.
+            </>
+          }
+        />
+      </div>
+
+      <div className="mt-8 max-w-[1640px] rounded-[8px] border border-border bg-bg-subtle/70 p-6">
+        <div className="grid grid-cols-[200px_1fr] gap-6">
+          <div>
+            <SectionLabel>Founder connection</SectionLabel>
+          </div>
+          <ul className="space-y-2.5 text-[17px] leading-[1.55] text-fg-secondary">
+            <li className="flex gap-3">
+              <span className="text-accent">·</span>
+              <span>
+                <span className="font-semibold text-fg-primary">
+                  Salvatore and Bernardo
+                </span>{" "}
+                have known each other for{" "}
+                <span className="font-semibold text-fg-primary">8 years</span>{" "}
+                since their time at the University of Tsukuba.
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-accent">·</span>
+              <span>
+                <span className="font-semibold text-fg-primary">Mina</span> has
+                known the team for{" "}
+                <span className="font-semibold text-fg-primary">4 years</span>.
+                Lifelong Tsukuba resident.
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-accent">·</span>
+              <span>
+                The team is built on{" "}
+                <span className="font-semibold text-fg-primary">
+                  long-standing trust
+                </span>
+                .
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-accent">·</span>
+              <span>
+                <span className="font-semibold text-fg-primary">
+                  Shared mission:
+                </span>{" "}
+                build a Tsukuba-rooted deep-tech company contributing to Japan
+                and creating a place where Japanese and international
+                researchers can work together.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <SlideFooter pageLabel="13 · Team" />
+    </Slide>
+  );
+}
+
+// =====================================================================
+//  14 · Ask — Antler capital unlocks the benchmark
 // =====================================================================
 function MilestoneCard({
   range,
@@ -1300,24 +1468,61 @@ function MilestoneCard({
   );
 }
 
+function CapitalPipelineRow({
+  name,
+  status,
+  logoSrc,
+  logoMaxH = 26,
+  logoMaxW = 120,
+}: {
+  name: string;
+  status: string;
+  logoSrc?: string;
+  logoMaxH?: number;
+  logoMaxW?: number;
+}) {
+  return (
+    <div className="grid grid-cols-[148px_minmax(0,1fr)] items-center gap-x-4 border-b border-border/70 py-2.5 last:border-b-0">
+      <div
+        className="flex min-h-10 items-center justify-start"
+        aria-hidden={!!logoSrc}
+      >
+        {logoSrc ? (
+          <img
+            src={logoSrc}
+            alt=""
+            className="block w-auto object-contain object-left"
+            style={{ maxHeight: logoMaxH, maxWidth: logoMaxW }}
+          />
+        ) : (
+          <span className="max-w-[148px] text-[13px] font-semibold leading-[1.25] tracking-[-0.01em] text-fg-primary">
+            {name}
+          </span>
+        )}
+      </div>
+      <p className="text-[15px] leading-[1.45] text-fg-secondary">{status}</p>
+    </div>
+  );
+}
+
 function AskSlide() {
   return (
     <Slide align="start">
       <Eyebrow>Milestones / Ask</Eyebrow>
-      <h2 className="text-[68px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
+      <h2 className="text-[64px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
         Antler capital unlocks the benchmark
         <br />
         that unlocks the next round.
       </h2>
 
-      <div className="mt-14 grid max-w-[1640px] grid-cols-4 gap-5">
+      <div className="mt-10 grid max-w-[1640px] grid-cols-4 gap-5">
         <MilestoneCard
           range="Now → IC"
           emphasis
           body={
             <>
-              Finalize first technical LOI, define benchmark, continue demo
-              sprint.
+              Finalize multiple technical LOIs, define benchmark, continue
+              demo sprint.
             </>
           }
         />
@@ -1350,20 +1555,52 @@ function AskSlide() {
         />
       </div>
 
-      <p className="mt-14 max-w-[1500px] text-[30px] font-light italic leading-[1.35] tracking-[-0.015em] text-fg-primary">
+      <div className="mt-8 max-w-[1640px] rounded-[8px] border border-border bg-bg-subtle px-6 py-5">
+        <SectionLabel>Capital pipeline</SectionLabel>
+        <div className="mt-3 border-t border-border/70">
+          <CapitalPipelineRow
+            name="Coreline / Atlas"
+            logoSrc="/assets/coreline-logo.png"
+            logoMaxH={32}
+            logoMaxW={128}
+            status="Interviewing"
+          />
+          <CapitalPipelineRow
+            name="1stRound"
+            status="Applied · ¥10M non-dilutive validation funding"
+          />
+          <CapitalPipelineRow
+            name="Aichi DeepTech Launch PA"
+            status="Applied · ¥40M non-dilutive"
+          />
+          <CapitalPipelineRow
+            name="Sony Innovation Fund"
+            status="Active conversations with deep-tech team"
+          />
+          <CapitalPipelineRow
+            name="Spiral Capital"
+            logoSrc="/assets/spiral-capital-logo.png"
+            logoMaxH={36}
+            logoMaxW={128}
+            status="Warm conversations"
+          />
+        </div>
+      </div>
+
+      <p className="mt-8 max-w-[1500px] text-[26px] font-light italic leading-[1.35] tracking-[-0.015em] text-fg-primary">
         One measurable reflex loop becomes the foundation for{" "}
         <span className="not-italic font-semibold">
           physical intelligence infrastructure.
         </span>
       </p>
 
-      <SlideFooter pageLabel="13 · Ask" />
+      <SlideFooter pageLabel="14 · Ask" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  Ordered slide manifest — 13 main slides, no appendix.
+//  Ordered slide manifest — 14 main slides, no appendix.
 // =====================================================================
 export const SLIDES_ANTLER: Array<() => React.JSX.Element> = [
   CoverSlide,
@@ -1371,12 +1608,13 @@ export const SLIDES_ANTLER: Array<() => React.JSX.Element> = [
   ProblemSlide,
   SolutionSlide,
   WhyNowSlide,
-  FirstProofPointSlide,
   DemandValidationSlide,
+  FirstProofPointSlide,
   DefensibilitySlide,
   CompetitionSlide,
   BusinessModelSlide,
   GtmSlide,
+  UnfairAdvantageSlide,
   TeamSlide,
   AskSlide,
 ];
