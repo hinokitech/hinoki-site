@@ -24,9 +24,15 @@ function Card({
   );
 }
 
-function BulletList({ items }: { items: React.ReactNode[] }) {
+function BulletList({
+  items,
+  className = "space-y-2 text-[15px] leading-[1.6]",
+}: {
+  items: React.ReactNode[];
+  className?: string;
+}) {
   return (
-    <ul className="mt-4 list-disc space-y-2 pl-5 text-[15px] leading-[1.6] text-fg-secondary">
+    <ul className={`mt-4 list-disc pl-5 text-fg-secondary ${className}`}>
       {items.map((item, idx) => (
         <li key={idx}>{item}</li>
       ))}
@@ -42,13 +48,34 @@ function SubLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-function EngineerQuote({ role, quote }: { role: string; quote: string }) {
+function EngineerQuote({
+  role,
+  quote,
+  variant = "supporting",
+}: {
+  role: string;
+  quote: string;
+  variant?: "primary" | "supporting";
+}) {
+  if (variant === "primary") {
+    return (
+      <div className="rounded-lg border-2 border-accent bg-accent-subtle px-4 py-4">
+        <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+          {role}
+        </div>
+        <p className="mt-3 text-[16px] leading-[1.55] text-fg-primary">
+          &ldquo;{quote}&rdquo;
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-lg border border-border bg-bg-base/80 px-4 py-3">
       <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-accent">
         {role}
       </div>
-      <p className="mt-2 text-[14px] leading-[1.55] text-fg-secondary">
+      <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
         &ldquo;{quote}&rdquo;
       </p>
     </div>
@@ -128,7 +155,7 @@ export default function MobileDeck1stRound() {
             </span>
           </li>
         </ul>
-        <div className="mt-5 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
+        <div className="mt-5 font-mono text-[11px] tracking-[0.06em] text-fg-caption">
           1stRound application · May 2026
         </div>
       </header>
@@ -136,99 +163,255 @@ export default function MobileDeck1stRound() {
       <div className="mx-auto mt-10 max-w-[720px] space-y-10">
         <Card
           tag="02 · Problem"
-          title="Robots can sense and plan, but still fail in physical response moments."
+          title={
+            <>
+              Robots work in controlled environments.
+              <br />
+              Scaling into variable real-world conditions remains hard.
+            </>
+          }
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Robots are improving rapidly in perception, planning, and AI. But
-            real-world deployment still breaks down in the physical loop —
-            where sensor data must become immediate, reliable action.
-          </p>
-          <BulletList
-            items={[
-              "Object slip · unstable grasps",
-              "Noisy sensor input · load changes",
-              "Changing surfaces · torque / velocity control",
-              "Variable object handling · real-time precision",
-            ]}
-          />
-          <p className="mt-4 text-[15px] leading-[1.65] text-fg-secondary">
-            For robotics companies, this creates{" "}
-            <span className="font-semibold text-fg-primary">failed picks</span>
-            ,{" "}
+            Robots can perform well in demos, labs, simulations, and narrow
+            deployments, but performance often degrades when weight, contact,
+            payload, vibration, or environment changes.{" "}
             <span className="font-semibold text-fg-primary">
-              unstable handling
+              Contact-rich tasks are especially difficult: nonlinear dynamics and
+              small positional errors make physical interaction hard to
+              generalize.
             </span>
-            , slower deployment, ongoing retuning burden, and reduced
-            reliability in real-world environments.
           </p>
-          <p className="mt-4 text-[15px] leading-[1.65] text-fg-primary">
-            The bottleneck is not only intelligence. It is converting sensor
-            data into reliable physical action under real-world conditions.
+          <div className="mt-4 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-fg-primary">
+            What breaks when conditions change
+          </div>
+          <div className="mt-3 space-y-3">
+            <div className="rounded-lg border border-border bg-bg-base/60 p-4">
+              <p className="text-[15px] font-medium text-fg-primary">
+                Works in the lab, fails in the field
+              </p>
+              <p className="mt-2 text-[14px] leading-[1.55] text-fg-secondary">
+                Capable behavior in structured settings can fail when contact or
+                operating conditions shift in production.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-bg-base/60 p-4">
+              <p className="text-[15px] font-medium text-fg-primary">
+                Too slow at the physical edge
+              </p>
+              <p className="mt-2 text-[14px] leading-[1.55] text-fg-secondary">
+                Slip or force change can outpace the full perception-to-planning
+                path — the gap is response at the sensor-actuator loop.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-bg-base/60 p-4">
+              <p className="text-[15px] font-medium text-fg-primary">
+                Hard to repeat across customers
+              </p>
+              <p className="mt-2 text-[14px] leading-[1.55] text-fg-secondary">
+                Each site can mean custom tuning, more integration work, slower
+                speeds, and narrower use cases.
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 rounded-lg border border-border bg-bg-base/60 p-4">
+            <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-fg-primary">
+              Technical symptoms under the same umbrella
+            </div>
+            <p className="mt-2 text-[13px] leading-[1.55] text-fg-secondary">
+              Latency at the edge, sensor noise, poor physical adaptation,
+              integration burden, reliability risk, and power / compute load in
+              critical loops are not separate problems. They are symptoms of the
+              same physical generalization gap.
+            </p>
+          </div>
+          <p className="mt-4 text-[17px] leading-[1.6] text-fg-primary">
+            The core issue is not perception alone. It is{" "}
+            <span className="font-semibold">physical generalization</span>:
+            turning sensor data into reliable, adaptive physical action when the
+            world changes.
           </p>
+          <div className="mt-5 rounded-lg border-2 border-accent bg-accent-subtle p-5">
+            <p className="text-[17px] font-light leading-[1.45] text-fg-primary">
+              For robotics companies, this is a{" "}
+              <span className="font-semibold">scaling problem</span>. When robots
+              fail outside narrow operating conditions, deployments take longer,
+              require more field engineering, run at lower speeds, and become
+              harder to repeat profitably across customers.
+            </p>
+          </div>
         </Card>
 
-        <Card tag="03 · Discovery" title="What engineers are telling us.">
+        <Card
+          tag="03 · Solution"
+          title={
+            <>
+              <span className="italic">Arc</span> adds the missing physical
+              response layer.
+            </>
+          }
+        >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Customer discovery is narrowing Arc from a broad architecture
-            thesis into a measurable first control-loop benchmark.
+            A neuromorphic local control architecture that helps robots respond
+            inside selected sensor-actuator loops, while the existing controller
+            remains in charge.
+          </p>
+          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+            Robotics companies are improving perception, planning, and AI, but
+            many failures happen closer to the body of the robot. Arc sits
+            between selected sensors and actuators, turning changing physical
+            signals into bounded corrective action before the broader digital
+            stack needs to intervene.
           </p>
           <BulletList
             items={[
               <>
                 <span className="font-semibold text-fg-primary">
-                  Latency matters in specific physical moments.
+                  Local physical response.
                 </span>{" "}
-                Engineers confirmed latency can become a bottleneck under tight
-                real-time constraints — especially where response, precision, or
-                speed matter at the actuator.
+                Creates a faster path from sensor event to actuator correction
+                for control-critical loops such as slip, contact, force change,
+                or imbalance.
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Adaptive neuromorphic dynamics.
+                </span>{" "}
+                Uses reservoir computing to transform noisy, time-varying sensor
+                input into a dynamic internal state, targeting stable correction
+                under changing physical conditions.
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Built for practical deployment.
+                </span>{" "}
+                Works alongside existing controllers, starts with one measurable
+                loop, and uses FPGA-first validation to tune across sensors,
+                protocols, and robotic platforms.
+              </>,
+            ]}
+          />
+          <SubLabel>Today</SubLabel>
+          <p className="mt-2 text-[14px] leading-[1.6] text-fg-secondary">
+            Sensor data → perception / planning / control stack → actuator
+            response
+          </p>
+          <p className="mt-1 text-[13px] font-semibold leading-[1.5] text-fg-primary">
+            Physical events are routed through the broader digital stack
+          </p>
+          <SubLabel>With Arc</SubLabel>
+          <p className="mt-2 text-[14px] leading-[1.6] text-fg-secondary">
+            Sensor event → Arc local reflex layer → bounded correction →
+            actuator response
+          </p>
+          <p className="mt-1 text-[13px] font-semibold leading-[1.5] text-fg-primary">
+            Selected physical loops receive a faster local response path
+          </p>
+          <p className="mt-4 font-mono text-[11px] leading-[1.5] text-fg-caption">
+            The main controller remains in charge of perception, planning,
+            safety, and task logic.
+          </p>
+          <SubLabel>Why companies work with Hinoki</SubLabel>
+          <BulletList
+            items={[
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Test without full redesign.
+                </span>{" "}
+                Arc can be evaluated on one control-critical loop while the
+                existing controller remains in charge.
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Reduce deployment friction.
+                </span>{" "}
+                If validated, Arc can reduce failed actions, retuning burden,
+                field engineering, and reliability issues in variable
+                environments.
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Shape the benchmark early.
+                </span>{" "}
+                Partners can review validation data and influence where Arc is
+                tested against real robotics needs.
+              </>,
+            ]}
+          />
+          <div className="mt-5 rounded-lg border-2 border-accent bg-accent-subtle p-5">
+            <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
+              Bottom line
+            </div>
+            <p className="mt-2 text-[16px] font-light leading-[1.45] text-fg-primary">
+              Hinoki&apos;s strength is architectural: not another robot brain,
+              but a nervous-system-like control layer that can be validated in
+              one physical loop and then licensed across robotic systems.
+            </p>
+          </div>
+        </Card>
+
+        <Card tag="04 · Discovery" title="What engineers are telling us so far.">
+          <p className="mt-4 text-[15px] leading-[1.7] text-fg-secondary">
+            Customer discovery is narrowing Arc from a broad architecture
+            thesis into a measurable first control-loop benchmark.
+          </p>
+          <BulletList
+            className="space-y-2.5 text-[16px] leading-[1.62]"
+            items={[
+              <>
+                <span className="font-semibold text-fg-primary">
+                  Latency matters at the physical edge.
+                </span>{" "}
+                Engineers confirmed response time becomes critical when
+                precision, speed, or actuator timing matter.
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
                   Physical variability creates instability.
                 </span>{" "}
                 Changing surfaces, variable loads, wheel slip, noisy sensors,
-                and unpredictable environments create control challenges
-                planning loops alone do not resolve.
+                and unpredictable environments create practical control
+                challenges.
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
-                  Slip response is a measurable first wedge.
+                  Slip response is the first measurable wedge.
                 </span>{" "}
-                In tactile sensing and gripper control, the problem becomes
-                concrete — detect slip, respond faster, stabilize the object,
-                and compare against a conventional digital baseline.
+                In gripper control, the problem is concrete: detect slip,
+                respond faster, stabilize the object, and compare against
+                baseline.
               </>,
             ]}
           />
-          <SubLabel>Independent confirmation — engineer voices</SubLabel>
-          <div className="mt-3 space-y-3">
+          <div className="mt-5 space-y-4">
+            <EngineerQuote
+              variant="primary"
+              role="Gripper / manipulation engineer"
+              quote="Slip shows up in the tactile stream before the grasp loop reacts. We increase grasp force after the part is already moving. Sensor-to-gripper latency keeps coming up."
+            />
             <EngineerQuote
               role="AMR torque-control engineer"
-              quote="We work around wheel slip by switching the drive between torque and velocity modes — it's a compromise, not a fix. Closing the loop at the wheel would still help."
+              quote="Wheel slip forces tradeoffs between torque and velocity control. Closing the loop closer to the wheel would still help."
             />
             <EngineerQuote
-              role="Gripper / manipulation engineer"
-              quote="Slip shows up in the tactile stream before the grasp loop reacts — we bump grasp force after the part's already moving. Sensor-to-gripper latency keeps coming up."
-            />
-            <EngineerQuote
-              role="Bipedal humanoid researcher (TUM)"
-              quote="One slipped foothold and the gait is already behind — everything still goes through the same stack. There's no separate fast path for contact."
-            />
-            <EngineerQuote
-              role="Assistive robotics researcher"
-              quote="The delay looks fine on paper, but users compensate through the whole trial — intent and assist torque never feel in phase."
+              role="Bipedal humanoid researcher"
+              quote="One slipped foothold and the gait is already behind. There is no separate fast path for contact."
             />
           </div>
-          <p className="mt-4 text-[15px] italic leading-[1.65] text-fg-primary">
-            This pushed Hinoki toward a specific first validation benchmark:{" "}
-            <span className="not-italic font-semibold">
-              tactile slip detection and fast gripper response.
-            </span>
-          </p>
+          <div className="mt-6 rounded-lg border-2 border-accent bg-accent-subtle p-6">
+            <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
+              Bottom line
+            </div>
+            <p className="mt-2 text-[16px] font-light leading-[1.45] text-fg-primary">
+              This pushed Hinoki toward a specific first validation benchmark:{" "}
+              <span className="font-semibold">
+                tactile slip detection and fast gripper response.
+              </span>
+            </p>
+          </div>
         </Card>
 
         <Card
-          tag="04 · First Benchmark"
+          tag="05 · First Benchmark"
           title="Tactile slip detection and fast gripper response."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -288,7 +471,7 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="05 · Architecture"
+          tag="06 · Architecture"
           title={
             <>
               <span className="italic">Arc</span> — a local reflex layer for
@@ -297,10 +480,12 @@ export default function MobileDeck1stRound() {
           }
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Inspired by the spinal reflex arc — the body&apos;s fast local
-            pathway from sensation to response. The robot keeps its existing
-            controller; Arc adds a faster local response loop in selected
-            sensor-actuator loops.
+            <span className="font-semibold text-fg-primary">
+              Inspired by the spinal reflex arc
+            </span>{" "}
+            — the body&apos;s fast local pathway from sensation to response. The
+            robot keeps its existing controller; Arc adds a faster local response
+            loop in selected sensor-actuator loops.
           </p>
           <div className="mt-4 rounded-lg border border-accent bg-accent-subtle px-4 py-3 text-[15px] font-semibold leading-[1.35] text-fg-primary">
             Not a replacement controller. A bounded local response layer.
@@ -334,72 +519,88 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="06 · Customer Benefits"
-          title="What customers gain if Arc works."
+          tag="07 · Customer Benefits"
+          title={
+            <>
+              How <span className="italic">Arc</span> improves robotics
+              economics.
+            </>
+          }
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Arc turns sensor data into faster physical response —{" "}
-            <span className="font-semibold text-fg-primary">
-              without requiring a full robot redesign.
-            </span>
+            Arc is designed to improve selected physical control loops, helping
+            robotics companies reduce deployment cost, improve reliability, and
+            expand what their platforms can handle.
           </p>
           <BulletList
             items={[
               <>
                 <span className="font-semibold text-fg-primary">
-                  Faster physical response
+                  Reduce deployment cost
                 </span>{" "}
-                — react to slip, contact, force change, instability.
+                — local adaptation in selected control loops reduces field
+                engineering when objects, surfaces, payloads, or environments
+                change.{" "}
+                <span className="text-fg-tertiary">
+                  Business impact: less field engineering, shorter deployment
+                  cycles, better margins per customer.
+                </span>
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
-                  Better adaptation
+                  Increase reliability and uptime
                 </span>{" "}
-                — adjust locally to weight, surface, shape, noise.
+                — stabilize selected local loops before slip, unstable contact,
+                vibration, sensor noise, or load changes stop workflows.{" "}
+                <span className="text-fg-tertiary">
+                  Business impact: fewer failures, higher uptime, more
+                  repeatable customer deployments.
+                </span>
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
-                  Higher reliability
+                  Improve product capability
                 </span>{" "}
-                — fewer failed grasps, dropped objects, manual retuning.
+                — faster local response for contact, force, slip, imbalance,
+                and noisy input expands what platforms can handle.{" "}
+                <span className="text-fg-tertiary">
+                  Business impact: broader use cases, stronger product
+                  differentiation, higher customer value.
+                </span>
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
-                  Lower compute burden
+                  Lower compute and energy burden
                 </span>{" "}
-                — handle reflex-level response locally, not via CPU/GPU/cloud.
+                — selected reflex-level responses run locally on FPGA instead
+                of CPU, GPU, cloud, or heavy inference.{" "}
+                <span className="text-fg-tertiary">
+                  Business impact: more efficient embedded control, better fit
+                  for mobile, assistive, humanoid, and field robotics.
+                </span>
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
-                  Easier integration
+                  De-risk integration
                 </span>{" "}
-                — add Arc to one loop while the existing controller stays in
-                charge.
+                — test on one control-critical loop while the existing robot
+                controller stays in charge.{" "}
+                <span className="text-fg-tertiary">
+                  Business impact: lower adoption friction, clearer pilot path,
+                  easier partner evaluation.
+                </span>
               </>,
             ]}
           />
-          <p className="mt-4 text-[15px] leading-[1.65] text-fg-secondary">
-            For customers, this means{" "}
-            <span className="font-semibold text-fg-primary">
-              fewer failed operations
-            </span>
-            , less integration friction, and{" "}
-            <span className="font-semibold text-fg-primary">
-              more reliable deployment
-            </span>{" "}
-            in variable physical environments.
-          </p>
-          <p className="mt-4 text-[15px] italic leading-[1.65] text-fg-primary">
-            Arc helps robotics companies convert sensor data into faster, more
-            adaptive physical response —{" "}
-            <span className="not-italic font-semibold">
-              without replacing their existing controller.
-            </span>
-          </p>
+          <AccentCallout label="Bottom line">
+            Arc does not just make robots react faster. It is designed to make
+            robotics platforms easier to deploy, more reliable in the field,
+            and more profitable to scale.
+          </AccentCallout>
         </Card>
 
         <Card
-          tag="07 · Status"
+          tag="08 · Status"
           title="Phase 1 proved the substrate runs. Phase 2 proves physical response."
         >
           <SubLabel>Phase 1 — completed</SubLabel>
@@ -420,7 +621,7 @@ export default function MobileDeck1stRound() {
               "Generate validation dataset for partners and investors",
             ]}
           />
-          <p className="mt-3 text-[14px] italic leading-[1.65] text-fg-tertiary">
+          <p className="mt-3 text-[14px] italic leading-[1.65] text-fg-caption">
             Phase 2 benchmark targets — not yet proven:{" "}
             <span className="not-italic">Latency (sub-ms target)</span>,{" "}
             <span className="not-italic">Energy (lower per response)</span>,{" "}
@@ -431,19 +632,20 @@ export default function MobileDeck1stRound() {
           </p>
         </Card>
 
-        <Card tag="08 · FPGA Strategy" title="FPGA is Hinoki’s IP discovery engine.">
-          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+        <Card tag="09 · FPGA Strategy" title="FPGA is Hinoki’s IP discovery engine.">
+          <p className="mt-4 text-[16px] leading-[1.65] text-fg-secondary">
             We use FPGA to discover and validate the architecture before
             freezing it into silicon.
           </p>
           <SubLabel>IP discovery loop</SubLabel>
-          <p className="mt-2 text-[14px] leading-[1.6] text-fg-secondary">
+          <p className="mt-2 text-[15px] leading-[1.62] text-fg-secondary">
             FPGA validation → real sensor-actuator experiments → proprietary
             benchmark data → tuning know-how → patentable methods → reference
             design / ASIC / licensing
           </p>
           <SubLabel>What FPGA enables today</SubLabel>
           <BulletList
+            className="space-y-2.5 text-[16px] leading-[1.62]"
             items={[
               "Iterate architecture before locking into silicon",
               "Adapt to different sensors, protocols, and control loops",
@@ -452,24 +654,25 @@ export default function MobileDeck1stRound() {
           />
           <SubLabel>What FPGA unlocks downstream</SubLabel>
           <BulletList
+            className="space-y-2.5 text-[16px] leading-[1.62]"
             items={[
               "Collect proprietary benchmark data from real robotic systems",
               "Identify patentable control methods and tuning strategies",
               "Clear path to ASIC, reference design, or embedded IP",
             ]}
           />
-          <p className="mt-4 text-[15px] italic leading-[1.65] text-fg-primary">
+          <p className="mt-5 text-[16px] italic leading-[1.65] text-fg-primary">
             FPGA lets Hinoki learn the architecture before freezing the
             architecture.
           </p>
-          <p className="mt-3 text-[14px] leading-[1.65] text-fg-tertiary">
+          <p className="mt-4 text-[15px] leading-[1.65] text-fg-caption">
             FPGA is the validation and IP-discovery vehicle — not necessarily
             the final cost structure. ASIC, reference design, or embedded IP
             follow validation.
           </p>
         </Card>
 
-        <Card tag="09 · Traction" title="Early validation signals.">
+        <Card tag="10 · Traction" title="Early validation signals.">
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
             Customer discovery, investor momentum, and technical advisory support
             are converging around the same validation path.
@@ -513,14 +716,14 @@ export default function MobileDeck1stRound() {
               "AIST senior robotics researcher discussion pending",
             ]}
           />
-          <p className="mt-4 text-[13px] italic leading-[1.55] text-fg-tertiary">
+          <p className="mt-4 text-[13px] italic leading-[1.55] text-fg-caption">
             Status language is intentionally precise. No investment, commercial,
             or partnership commitments are implied beyond the stated stage.
           </p>
         </Card>
 
         <Card
-          tag="10 · Market"
+          tag="11 · Market"
           title="A measurable beachhead inside a platform-wide opportunity."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -542,7 +745,7 @@ export default function MobileDeck1stRound() {
               </p>
             </div>
             <div className="rounded-lg border border-border bg-bg-base/60 p-4">
-              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-tertiary">
+              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-caption">
                 Serviceable market · $170B
               </div>
               <p className="mt-2 text-[15px] font-medium text-fg-primary">
@@ -554,7 +757,7 @@ export default function MobileDeck1stRound() {
               </p>
             </div>
             <div className="rounded-lg border border-border bg-bg-base/60 p-4">
-              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-tertiary">
+              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-caption">
                 Long-term opportunity · $165B
               </div>
               <p className="mt-2 text-[15px] font-medium text-fg-primary">
@@ -582,7 +785,7 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="11 · Business Model"
+          tag="12 · Business Model"
           title="From validation to architecture licensing."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -631,7 +834,7 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="12 · Positioning"
+          tag="13 · Positioning"
           title="Where Hinoki sits in the robotics stack."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -662,7 +865,7 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="13 · Team"
+          tag="14 · Team"
           title={
             <>
               A founder team built on long-standing trust
@@ -680,7 +883,7 @@ export default function MobileDeck1stRound() {
               Co-architect of the Arc thesis — brought the biology
               framing. Built a Japan-based enterprise practice from zero,
               working with C-suite executives at major Japanese institutions.
-              Drives Hinoki&apos;s commercial strategy and Japan investor
+              Drives Hinoki&apos;s commercial strategy and investor
               relations.
             </div>
             <div>
@@ -696,7 +899,7 @@ export default function MobileDeck1stRound() {
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
-                Mina Otsuka — Co-founder / Japan Market &amp; Ecosystem:
+                Mina Otsuka — Co-founder / COO · Japan Operations:
               </span>{" "}
               Native Japanese fluency. Former Manager, business development and
               client relations at Meiji Yasuda Life Insurance — one of
@@ -738,29 +941,67 @@ export default function MobileDeck1stRound() {
           />
         </Card>
 
-        <Card tag="14 · Advisory" title="Early technical advisory board.">
+        <Card
+          tag="15 · Advisory"
+          title="Technical advisors de-risk execution."
+        >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Hinoki is building with an advisor network across physical HRI,
-            mechatronics, neuromorphic networks, and intelligent robotics.
+            Advisor support spans physical HRI, mechatronics, neuromorphic
+            architecture, and Japan&apos;s robotics research ecosystem.
           </p>
-          <SubLabel>Current advisor commitments</SubLabel>
+          <SubLabel>Committed · Physical HRI Advisor</SubLabel>
           <BulletList
             items={[
-              "Physical HRI advisor — PhD · U. Tsukuba · Professor, PUCP. Human-robot interaction, assistive systems, validation context.",
-              "Mechatronics advisor — PhD · U. Tsukuba · Associate Professor, Nagoya University. Mechatronics, human informatics, academic validation path.",
+              "Verbal agreement received · PhD, University of Tsukuba · Professor, PUCP",
+              <>
+                <span className="font-semibold text-fg-primary">De-risks:</span>{" "}
+                Human-robot interaction, assistive robotics, and physical
+                validation for human-proximate systems.
+              </>,
             ]}
           />
-          <SubLabel>Upcoming &amp; pending advisor discussions</SubLabel>
+          <SubLabel>Committed · Mechatronics Advisor</SubLabel>
           <BulletList
             items={[
-              "Neuromorphic networks advisor — expected from July. PhD · U. Tokyo. Neuromorphic / reservoir-adjacent technical support.",
-              "Intelligent robotics advisor — pending discussion. PhD · U. Tsukuba · Senior Researcher, AIST. AIST robotics ecosystem credibility.",
+              "Verbal agreement received · PhD, University of Tsukuba · Associate Professor, Nagoya University",
+              <>
+                <span className="font-semibold text-fg-primary">De-risks:</span>{" "}
+                Sensor-actuator integration, mechatronics validation, and the
+                transition from architecture concept to hardware testing.
+              </>,
             ]}
           />
+          <SubLabel>Neuromorphic Networks Advisor · Expected from July</SubLabel>
+          <BulletList
+            items={[
+              "PhD, University of Tokyo",
+              <>
+                <span className="font-semibold text-fg-primary">De-risks:</span>{" "}
+                Neuromorphic architecture, reservoir-adjacent design, and future
+                IP development.
+              </>,
+            ]}
+          />
+          <SubLabel>AIST Senior Robotics Researcher · Pending discussion</SubLabel>
+          <BulletList
+            items={[
+              "PhD, University of Tsukuba · Senior Researcher, AIST",
+              <>
+                <span className="font-semibold text-fg-primary">De-risks:</span>{" "}
+                Applied robotics perspective, AIST ecosystem access, and future
+                validation partnerships.
+              </>,
+            ]}
+          />
+          <AccentCallout label="Together">
+            This network supports four validation risks: human-robot
+            interaction, hardware integration, neuromorphic architecture, and
+            Japan robotics ecosystem access.
+          </AccentCallout>
         </Card>
 
         <Card
-          tag="15 · 12-Month Plan"
+          tag="16 · 12-Month Plan"
           title="From discovery to hardware validation."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -771,7 +1012,7 @@ export default function MobileDeck1stRound() {
           <BulletList
             items={[
               "Define slip-detection benchmark requirements",
-              "Source tactile sensor, gripper, FPGA, actuator setup",
+              "Source tactile sensor, gripper, FPGA, actuator setup — may include hardware from first LOI partner",
             ]}
           />
           <SubLabel>3–6 months</SubLabel>
@@ -814,7 +1055,7 @@ export default function MobileDeck1stRound() {
         </Card>
 
         <Card
-          tag="16 · 5-Year Plan"
+          tag="17 · 5-Year Plan"
           title="Revenue and expenditure plan."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -867,13 +1108,13 @@ export default function MobileDeck1stRound() {
               "Embedded IP royalties — per-platform or per-unit basis",
             ]}
           />
-          <p className="mt-3 text-[14px] italic leading-[1.65] text-fg-tertiary">
+          <p className="mt-3 text-[14px] italic leading-[1.65] text-fg-caption">
             Directional plan — not a precise financial forecast.
           </p>
         </Card>
 
         <Card
-          tag="17 · Funding Purpose"
+          tag="18 · Funding Purpose"
           title="What 1stRound funding unlocks."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -911,7 +1152,7 @@ export default function MobileDeck1stRound() {
           </p>
         </Card>
 
-        <div className="pt-4 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
+        <div className="pt-4 font-mono text-[11px] tracking-[0.06em] text-fg-caption">
           Full presenter deck is available on desktop.
         </div>
       </div>

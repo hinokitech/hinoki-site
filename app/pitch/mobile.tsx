@@ -449,7 +449,7 @@ export default function MobileDeck() {
             prosthetic markets projected to surpass $30B by 2032. Royalty-
             based IP licensing carries 90%+ gross margins.
           </p>
-          <p className="mt-3 text-[14px] italic leading-[1.6] text-fg-tertiary">
+          <p className="mt-3 text-[14px] italic leading-[1.6] text-fg-caption">
             Assistive market adoption lags robotics by 18–24 months on
             clinical validation cycles. Phase 3 wearable contribution is
             modeled with that delay.

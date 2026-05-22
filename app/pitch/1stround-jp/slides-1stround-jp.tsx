@@ -43,29 +43,32 @@ function ChipList({ items }: { items: string[] }) {
   );
 }
 
-function BenefitPillar({
+function RoboticsEconomicsCard({
   title,
   body,
-  outcome,
+  impact,
+  impactLabel = "Business impact",
 }: {
   title: string;
   body: string;
-  outcome: string;
+  impact: string;
+  impactLabel?: string;
 }) {
   return (
-    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-7">
-      <div className="text-[36px] font-light leading-[1.1] tracking-[-0.015em] text-accent">
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-5">
+      <div className="text-[20px] font-medium leading-[1.25] tracking-[-0.01em] text-fg-primary">
         {title}
       </div>
-      {/* Fixed min-height keeps outcome rows aligned across cards even when
-          body copy wraps to a different number of lines. */}
-      <div className="mt-5 min-h-[110px] text-[16px] leading-[1.6] text-fg-secondary">
+      <p className="mt-2.5 flex-1 text-[14px] leading-[1.5] text-fg-secondary">
         {body}
-      </div>
-      <div className="mt-auto pt-6">
-        <div className="border-l-[3px] border-accent pl-4 text-[18px] font-medium leading-[1.4] text-fg-primary">
-          {outcome}
+      </p>
+      <div className="mt-4 border-t border-border pt-3">
+        <div className="font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+          {impactLabel}
         </div>
+        <p className="mt-1.5 text-[15px] font-medium leading-[1.4] text-fg-primary">
+          {impact}
+        </p>
       </div>
     </div>
   );
@@ -109,7 +112,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 function MutedLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-fg-tertiary">
+    <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-fg-caption">
       {children}
     </div>
   );
@@ -130,7 +133,7 @@ function MetricGroup({
       <ul className="mt-2 space-y-1 text-[15px] leading-[1.5] text-fg-secondary">
         {items.map((it) => (
           <li key={it} className="flex gap-2">
-            <span className="text-fg-tertiary">·</span>
+            <span className="text-fg-caption">·</span>
             <span>{it}</span>
           </li>
         ))}
@@ -265,7 +268,7 @@ function TitleSlide() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-[80px] top-[120px] opacity-70"
+        className="pointer-events-none absolute right-[16px] top-[120px] opacity-70"
       >
         <NeuralMotif className="h-auto w-[780px]" />
       </div>
@@ -280,57 +283,277 @@ function TitleSlide() {
 // ---------------------------------------------------------------------
 //  02 · Problem
 // ---------------------------------------------------------------------
-function ProblemSlide() {
-  const examples = [
-    "物体のスリップ",
-    "不安定な把持",
-    "ノイズのあるセンサー入力",
-    "荷重変化",
-    "変化する床面・接触面",
-    "トルク制御／速度制御",
-    "多様な対象物の取り扱い",
-    "リアルタイム性が求められる精密動作",
-  ];
+function ProblemDriverCard({
+  headline,
+  body,
+}: {
+  headline: string;
+  body: string;
+}) {
   return (
-    <Slide>
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-6">
+      <div className="text-[19px] font-medium leading-[1.32] tracking-[-0.01em] text-fg-primary">
+        {headline}
+      </div>
+      <p className="mt-3 text-[15px] leading-[1.55] text-fg-secondary">{body}</p>
+    </div>
+  );
+}
+
+function ProblemSlide() {
+  return (
+    <Slide align="start">
       <Eyebrow>Problem</Eyebrow>
-      <h2 className="text-[72px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
-        ロボットは認識し、計画できるようになった。
+      <h2 className="text-[60px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
+        ロボットは制御された環境では動く。
         <br />
-        しかし、物理的な応答の瞬間でまだ失敗する。
+        しかし、変動する実環境へスケールすることは依然として難しい。
       </h2>
-      <p className="mt-10 max-w-[1500px] text-[24px] font-normal leading-[1.6] text-fg-secondary">
-        ロボットの認識、計画、AI能力は急速に進化しています。一方で、実環境での導入では、センサーデータを即時かつ信頼性のある物理行動へ変換する「物理ループ」に課題が残ります。
+      <p className="mt-5 max-w-[1640px] text-[20px] font-normal leading-[1.52] text-fg-secondary">
+        ロボットはデモ、ラボ、シミュレーション、狭い導入設定では十分に性能を発揮できるが、重量・接触・ペイロード・振動、環境の変化では性能がしばしば低下する。{" "}
+        <span className="font-semibold text-fg-primary">
+          接触を伴うタスクは特に難しく、非線形ダイナミクスと微小な位置ずれが物理相互作用の一般化を妨げる。
+        </span>
       </p>
 
-      <div className="mt-10 max-w-[1500px]">
-        <MutedLabel>現在、物理ループが破綻しやすい場面</MutedLabel>
-        <div className="mt-4">
-          <ChipList items={examples} />
+      <div className="mt-6 max-w-[1640px]">
+        <div className="font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-fg-primary">
+          条件が変わると何が破綻するか
+        </div>
+        <div className="mt-3 grid grid-cols-3 gap-5">
+          <ProblemDriverCard
+            headline="ラボでは動く、現場では失敗する"
+            body="構造化された環境で見える能力が、本番の対象物・接触・運用条件の変化で失敗し得る。"
+          />
+          <ProblemDriverCard
+            headline="物理エッジでの応答が遅い"
+            body="スリップ・接触・不均衡・力の変化は、認識から計画までの経路より速く起こり得る — 課題はセンサー・アクチュエータループでの応答である。"
+          />
+          <ProblemDriverCard
+            headline="顧客横断で再現しにくい"
+            body="新しい拠点ごとにカスタムチューニング、統合工数、低速運転、狭いユースケースが必要になり、反復可能な導入モデルにならない。"
+          />
         </div>
       </div>
 
-      <p className="mt-10 max-w-[1500px] text-[20px] leading-[1.6] text-fg-secondary">
-        ロボティクス企業にとって、これは
-        <span className="font-semibold text-fg-primary">ピッキング失敗</span>、
-        <span className="font-semibold text-fg-primary">不安定なハンドリング</span>、
-        <span className="font-semibold text-fg-primary">導入の遅れ</span>、継続的な再調整負担、実環境での信頼性低下につながります。
+      <div className="mt-5 max-w-[1640px] rounded-[8px] border border-border bg-bg-subtle/80 px-5 py-3.5">
+        <div className="font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-fg-primary">
+          同じ傘の下にある技術的症状
+        </div>
+        <p className="mt-2 text-[15px] leading-[1.5] text-fg-secondary">
+          エッジでのレイテンシ、センサノイズ、物理適応の不足、統合負荷、信頼性リスク、および重要ループにおける電力・計算負荷は、別個の問題ではない。いずれも同じ物理的一般化ギャップの症状である。
+        </p>
+      </div>
+
+      <p className="mt-5 max-w-[1640px] text-[24px] font-normal leading-[1.45] tracking-[-0.01em] text-fg-primary">
+        本質は認識だけではない。それは
+        <span className="font-semibold">物理的一般化</span>
+        である：世界が変化したとき、センサーデータを信頼できる適応的な物理行動へ変換すること。
       </p>
 
-      <p className="mt-8 max-w-[1500px] text-[26px] font-normal leading-[1.5] tracking-[-0.01em] text-fg-primary">
-        課題は「知能」だけではありません。{" "}
-        <span className="font-semibold">
-          センサーデータを、実環境で信頼できる物理行動へ変換すること
-        </span>
-        です。
-      </p>
+      <div className="mt-6 max-w-[1640px] rounded-[10px] border-2 border-accent bg-accent-subtle px-8 py-7">
+        <p className="text-[26px] font-light leading-[1.4] tracking-[-0.02em] text-fg-primary">
+          ロボティクス企業にとって、これは
+          <span className="font-semibold">スケールの問題</span>
+          である。狭い運用条件の外でロボットが失敗すると、導入は長期化し、現場エンジニアリングが増え、速度は低下し、顧客横断で収益性高く再現することが難しくなる。
+        </p>
+      </div>
+
       <SlideFooter pageLabel="02 · 課題" />
     </Slide>
   );
 }
 
+function SolutionPillarCard({
+  title,
+  body,
+}: {
+  title: string;
+  body: string;
+}) {
+  return (
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-5">
+      <div className="text-[18px] font-medium leading-[1.28] tracking-[-0.01em] text-fg-primary">
+        {title}
+      </div>
+      <p className="mt-2 text-[14px] leading-[1.5] text-fg-secondary">{body}</p>
+    </div>
+  );
+}
+
+function StackContrastStep({
+  label,
+  emphasis = false,
+}: {
+  label: string;
+  emphasis?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-[6px] border px-3 py-2 text-center text-[13px] font-medium leading-[1.32] ${
+        emphasis
+          ? "border-accent bg-accent-subtle text-fg-primary"
+          : "border-border bg-bg-base text-fg-primary"
+      }`}
+    >
+      {label}
+    </div>
+  );
+}
+
+function StackContrastArrow() {
+  return (
+    <span className="shrink-0 px-1 text-[18px] font-light leading-none text-fg-tertiary">
+      →
+    </span>
+  );
+}
+
+function ArcStackContrastPanel({
+  label,
+  steps,
+  caption,
+  accent = false,
+  captionBold = false,
+}: {
+  label: string;
+  steps: Array<{ label: string; emphasis?: boolean }>;
+  caption: string;
+  accent?: boolean;
+  captionBold?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-[8px] border p-4 ${
+        accent
+          ? "border-accent/50 bg-accent-subtle/70"
+          : "border-border bg-bg-subtle/80"
+      }`}
+    >
+      <div
+        className={`font-mono text-[12px] font-semibold uppercase tracking-[0.12em] ${
+          accent ? "text-accent" : "text-fg-primary"
+        }`}
+      >
+        {label}
+      </div>
+      <div className="mt-3 flex flex-wrap items-center gap-y-2">
+        {steps.map((step, index) => (
+          <React.Fragment key={step.label}>
+            {index > 0 ? <StackContrastArrow /> : null}
+            <StackContrastStep label={step.label} emphasis={step.emphasis} />
+          </React.Fragment>
+        ))}
+      </div>
+      <p
+        className={`mt-2.5 text-[13px] leading-[1.45] text-fg-caption ${
+          captionBold ? "font-semibold text-fg-primary" : ""
+        }`}
+      >
+        {caption}
+      </p>
+    </div>
+  );
+}
+
 // ---------------------------------------------------------------------
-//  03 · Discovery Signals
+//  03 · ソリューション — 物理応答レイヤー
+// ---------------------------------------------------------------------
+function PhysicalResponseSolutionSlide() {
+  return (
+    <Slide align="start">
+      <Eyebrow>ソリューション</Eyebrow>
+      <h2 className="max-w-[1640px] text-[48px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
+        <span className="italic">Arc</span>
+        は、不足している物理応答レイヤーを追加する。
+      </h2>
+      <p className="mt-3 max-w-[1640px] text-[18px] font-normal leading-[1.48] text-fg-secondary">
+        ニューロモーフィックなローカル制御アーキテクチャ。既存コントローラが主導権を持ったまま、選択したセンサー–アクチュエータループ内でロボットが応答できる。
+      </p>
+      <p className="mt-3 max-w-[1640px] text-[16px] leading-[1.55] text-fg-secondary">
+        ロボティクス企業は認識・計画・AIを改善しているが、多くの失敗はロボット本体に近い場所で起きる。Arcは選択したセンサーとアクチュエータの間に位置し、変化する物理信号を、より広いデジタルスタックが介入する前に有界な修正動作へ変換する。
+      </p>
+
+      <div className="mt-4 grid max-w-[1640px] grid-cols-3 gap-4">
+        <SolutionPillarCard
+          title="ローカル物理応答"
+          body="スリップ・接触・力の変化・不均衡など、制御クリティカルループにおいて、センサー事象からアクチュエータ補正へのより速い経路を作る。"
+        />
+        <SolutionPillarCard
+          title="適応的ニューロモーフィック動力学"
+          body="リザーバコンピューティングを用い、ノイズの多い時系列センサ入力を動的な内部状態へ変換し、変化する物理条件の下でも安定した補正を狙う。"
+        />
+        <SolutionPillarCard
+          title="実装可能な展開向け"
+          body="既存コントローラと併用し、一つの測定可能なループから始め、FPGAファーストの検証でセンサー・プロトコル・ロボットプラットフォームを横断調整する。"
+        />
+      </div>
+
+      <div className="mt-4 grid max-w-[1640px] grid-cols-2 gap-5">
+        <ArcStackContrastPanel
+          label="現状"
+          steps={[
+            { label: "センサーデータ" },
+            { label: "認識 / 計画 / 制御スタック" },
+            { label: "アクチュエータ応答" },
+          ]}
+          caption="物理事象は、より広いデジタルスタックを経由する"
+          captionBold
+        />
+        <ArcStackContrastPanel
+          label="Arc導入後"
+          accent
+          steps={[
+            { label: "センサー事象" },
+            { label: "Arcローカル反射層", emphasis: true },
+            { label: "有界補正", emphasis: true },
+            { label: "アクチュエータ応答" },
+          ]}
+          caption="選択した物理ループに、より速いローカル応答経路を与える"
+          captionBold
+        />
+      </div>
+
+      <p className="mt-3 max-w-[1640px] font-mono text-[13px] leading-[1.45] text-fg-caption">
+        メインコントローラは、認識・計画・安全性・タスクロジックを引き続き担当する。
+      </p>
+
+      <div className="mt-4 max-w-[1640px]">
+        <div className="font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-fg-primary">
+          企業がHinokiと組む理由
+        </div>
+        <div className="mt-3 grid grid-cols-3 gap-4">
+          <SolutionPillarCard
+            title="フル再設計なしで検証"
+            body="Arcは、既存コントローラが主導権を持ったまま、一つの制御クリティカルループで評価できる。"
+          />
+          <SolutionPillarCard
+            title="導入摩擦の低減"
+            body="検証が成功すれば、Arcは可変環境における動作失敗、再チューニング負荷、現場エンジニアリング、信頼性問題を減らせる。"
+          />
+          <SolutionPillarCard
+            title="早期にベンチマークを形成"
+            body="パートナーは検証データを確認し、Arcが実際のロボティクスニーズに対してどこでテストされるかに影響できる。"
+          />
+        </div>
+      </div>
+
+      <div className="mt-4 max-w-[1640px] rounded-[10px] border-2 border-accent bg-accent-subtle px-7 py-5">
+        <div className="font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-accent">
+          要点
+        </div>
+        <p className="mt-2 text-[21px] font-light leading-[1.42] tracking-[-0.015em] text-fg-primary">
+          Hinokiの強みはアーキテクチャにある。別のロボット脳ではなく、一つの物理ループで検証でき、ロボットシステム横断でライセンスできる神経系のような制御層である。
+        </p>
+      </div>
+
+      <SlideFooter pageLabel="03 · ソリューション" />
+    </Slide>
+  );
+}
+
+// ---------------------------------------------------------------------
+//  04 · Discovery Signals
 // ---------------------------------------------------------------------
 function DiscoveryCard({
   label,
@@ -342,18 +565,14 @@ function DiscoveryCard({
   body: string;
 }) {
   return (
-    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-5">
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-7">
       <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
         {label}
       </div>
-      {/* Fixed min-height so bodies align across the row even when
-          headlines wrap to a different number of lines. */}
-      <div className="mt-3 min-h-[64px] text-[22px] font-light leading-[1.2] tracking-[-0.01em] text-fg-primary">
+      <div className="mt-4 min-h-[64px] text-[24px] font-medium leading-[1.24] tracking-[-0.015em] text-fg-primary">
         {headline}
       </div>
-      <div className="mt-3 text-[15px] leading-[1.55] text-fg-secondary">
-        {body}
-      </div>
+      <div className="mt-3 text-[16px] leading-[1.58] text-fg-secondary">{body}</div>
     </div>
   );
 }
@@ -361,20 +580,33 @@ function DiscoveryCard({
 function EngineerQuote({
   role,
   quote,
+  variant = "supporting",
 }: {
   role: string;
   quote: string;
+  variant?: "primary" | "supporting";
 }) {
-  return (
-    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle px-5 py-5">
-      <div className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent leading-[1.35]">
-        {role}
-      </div>
-      <div className="mt-2.5 flex flex-1 items-center">
-        <p className="text-[16px] leading-[1.58] text-fg-secondary">
+  if (variant === "primary") {
+    return (
+      <div className="rounded-[10px] border-2 border-accent bg-accent-subtle px-10 py-8">
+        <div className="font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-accent">
+          {role}
+        </div>
+        <p className="mt-5 text-[19px] leading-[1.55] text-fg-primary">
           &ldquo;{quote}&rdquo;
         </p>
       </div>
+    );
+  }
+
+  return (
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle px-6 py-5">
+      <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent leading-[1.35]">
+        {role}
+      </div>
+      <p className="mt-3 text-[15px] leading-[1.55] text-fg-primary">
+        &ldquo;{quote}&rdquo;
+      </p>
     </div>
   );
 }
@@ -384,60 +616,63 @@ function DiscoverySlide() {
     <Slide align="start">
       <Eyebrow>Discovery</Eyebrow>
       <h2 className="text-[60px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
-        エンジニアから見えてきたこと
+        エンジニアから、これまでに聞こえてきたこと
       </h2>
-      <p className="mt-4 max-w-[1500px] text-[22px] font-normal leading-[1.5] text-fg-secondary">
+      <p className="mt-6 max-w-[1500px] text-[22px] font-normal leading-[1.5] text-fg-secondary">
         顧客ヒアリングを通じて、Arcは広いアーキテクチャ仮説から、測定可能な最初の制御ループ・ベンチマークへと絞り込まれています。
       </p>
 
-      <div className="mt-6 grid max-w-[1640px] grid-cols-3 gap-5">
-        <DiscoveryCard
-          label="Signal 01"
-          headline="レイテンシは、特定の物理的瞬間で重要になる。"
-          body="エンジニアからは、応答性、精度、アクチュエータ側の速度が重要となる場面では、レイテンシがボトルネックになり得るとの声がありました。"
-        />
-        <DiscoveryCard
-          label="Signal 02"
-          headline="物理環境の変化が不安定性を生む。"
-          body="変化する床面、荷重変化、車輪スリップ、ノイズのあるセンサー、予測しにくい環境は、計画ループだけでは解決しにくい制御課題を生みます。"
-        />
-        <DiscoveryCard
-          label="Signal 03"
-          headline="スリップ応答は、測定可能な最初の入り口になる。"
-          body="触覚センシングとグリッパー制御では、課題が具体化します。スリップを検知し、より速く応答し、対象物を安定させ、従来のデジタル制御ベースラインと比較できます。"
-        />
-      </div>
+      <div className="mt-8 flex min-h-0 flex-1 w-full max-w-[1640px] flex-col gap-8">
+        <div className="grid grid-cols-3 gap-6">
+          <DiscoveryCard
+            label="Signal 01"
+            headline="レイテンシは物理エッジで重要になる。"
+            body="エンジニアから、精度・速度・アクチュエータタイミングが重要な場面では応答時間がクリティカルになるとの確認があった。"
+          />
+          <DiscoveryCard
+            label="Signal 02"
+            headline="物理的変動が不安定性を生む。"
+            body="変化する床面、荷重変化、車輪スリップ、ノイズのあるセンサー、予測しにくい環境が、実用的な制御課題を生む。"
+          />
+          <DiscoveryCard
+            label="Signal 03"
+            headline="スリップ応答が最初の測定可能な入り口。"
+            body="グリッパー制御では課題が具体化する。スリップを検知し、より速く応答し、対象物を安定させ、ベースラインと比較する。"
+          />
+        </div>
 
-      <div className="mt-5 flex min-h-0 flex-1 flex-col max-w-[1640px]">
-        <MutedLabel>Independent confirmation — engineer voices</MutedLabel>
-        <div className="mt-3 grid flex-1 grid-cols-4 items-stretch gap-4">
+        <EngineerQuote
+          variant="primary"
+          role="グリッパー／マニピュレーションエンジニア"
+          quote="スリップは触覚データ上では先に見えているが、把持ループの応答が遅れる。部品が動き始めてから把持力を上げることになる。センサーからグリッパーまでの遅延は繰り返し課題になる。"
+        />
+
+        <div className="grid grid-cols-2 gap-6">
           <EngineerQuote
             role="AMRトルク制御エンジニア"
-            quote="車輪スリップには、トルク制御と速度制御を切り替えることで対応してきたが、それは妥協であり根本解決ではない。車輪側でループを閉じられれば、まだ改善余地がある。"
-          />
-          <EngineerQuote
-            role="グリッパー／マニピュレーションエンジニア"
-            quote="スリップは触覚データ上では先に見えているが、把持ループの応答が遅れる。部品が動き始めてから把持力を上げることになる。センサーからグリッパーまでの遅延は繰り返し課題になる。"
+            quote="車輪スリップはトルク制御と速度制御のトレードオフを強いる。車輪に近い場所でループを閉じられれば、依然として有効だ。"
           />
           <EngineerQuote
             role="二足歩行ヒューマノイド研究者"
-            quote="一度足場が滑ると、歩容制御はすでに遅れている。今も同じ制御スタックを通っており、接触に対する独立した高速経路がない。"
+            quote="一度足場が滑ると、歩容はすでに遅れている。接触のための独立した高速経路がない。"
           />
-          <EngineerQuote
-            role="支援ロボティクス研究者"
-            quote="数値上の遅延は問題なさそうに見えても、実際にはユーザーが試行全体を通じて補正している。意図とアシストトルクが同じタイミングで動いている感覚にならない。"
-          />
+        </div>
+
+        <div className="mt-auto rounded-[10px] border-2 border-accent bg-accent-subtle px-8 py-7">
+          <div className="font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-accent">
+            要点
+          </div>
+          <p className="mt-3 text-[21px] font-light leading-[1.42] tracking-[-0.015em] text-fg-primary">
+            これにより、Hinokiは最初の検証ベンチマークを
+            <span className="font-semibold">
+              「触覚スリップ検知と高速グリッパー応答」
+            </span>
+            に絞った。
+          </p>
         </div>
       </div>
 
-      <p className="mt-4 w-full max-w-[1640px] text-[22px] font-light italic leading-[1.45] text-fg-primary">
-        これらの発見により、Hinokiは最初の検証ベンチマークを「
-        <span className="not-italic font-semibold">
-          触覚スリップ検知と高速グリッパー応答
-        </span>
-        」に絞りました。
-      </p>
-      <SlideFooter pageLabel="03 · 顧客発見" />
+      <SlideFooter pageLabel="04 · 顧客発見" />
     </Slide>
   );
 }
@@ -536,7 +771,7 @@ function BenchmarkSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="04 · ベンチマーク" />
+      <SlideFooter pageLabel="05 · ベンチマーク" />
     </Slide>
   );
 }
@@ -552,7 +787,9 @@ function SolutionSlide() {
         <span className="italic">Arc</span>：ロボットシステムのためのローカル反射層
       </h2>
       <p className="mt-2 max-w-[1500px] text-[20px] font-light leading-[1.45] text-fg-secondary">
-        Arcは、身体が感覚から応答へ向かう高速な局所経路である脊髄反射弧から着想を得ています。ロボットは既存のコントローラを維持し、Arcが選択されたセンサー・アクチュエータループに高速なローカル応答経路を加えます。
+        Arcは、身体が感覚から応答へ向かう高速な局所経路である
+        <span className="font-semibold text-fg-primary">脊髄反射弧から着想を得ています</span>
+        。ロボットは既存のコントローラを維持し、Arcが選択されたセンサー・アクチュエータループに高速なローカル応答経路を加えます。
       </p>
 
       <div className="mt-5 w-full min-w-0 max-w-[1640px] overflow-hidden rounded-[12px] border border-border">
@@ -574,19 +811,19 @@ function SolutionSlide() {
         </div>
         <div className="text-[16px] leading-[1.5] text-fg-secondary">
           <div className="flex gap-3">
-            <span className="font-mono text-[13px] uppercase tracking-[0.1em] text-fg-tertiary">
+            <span className="font-mono text-[13px] uppercase tracking-[0.1em] text-fg-caption">
               Task-level control
             </span>
             <span>既存コントローラ → モーターコントローラ</span>
           </div>
           <div className="mt-1 flex gap-3">
-            <span className="font-mono text-[13px] uppercase tracking-[0.1em] text-fg-tertiary">
+            <span className="font-mono text-[13px] uppercase tracking-[0.1em] text-fg-caption">
               Bounded correction
             </span>
             <span>Arc → モーターコントローラ</span>
           </div>
           <div className="mt-1 flex gap-3">
-            <span className="font-mono text-[13px] uppercase tracking-[0.1em] text-fg-tertiary">
+            <span className="font-mono text-[13px] uppercase tracking-[0.1em] text-fg-caption">
               State feedback
             </span>
             <span>Arc → メインコントローラ</span>
@@ -594,77 +831,72 @@ function SolutionSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="05 · アーキテクチャ" />
+      <SlideFooter pageLabel="06 · アーキテクチャ" />
     </Slide>
   );
 }
 
 // ---------------------------------------------------------------------
-//  06 · Customer Benefits
+//  07 · Customer Benefits
 // ---------------------------------------------------------------------
 function BenefitsSlide() {
   return (
     <Slide align="start">
       <Eyebrow>Customer Benefits</Eyebrow>
-      <h2 className="text-[56px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
-        <span className="italic">Arc</span>が改善を目指すもの
+      <h2 className="text-[56px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
+        <span className="italic">Arc</span>はロボティクスの経済性をどう改善するか
       </h2>
-      <p className="mt-5 max-w-[1500px] text-[22px] font-normal leading-[1.5] text-fg-secondary">
-        Arcは、既存のコントローラを置き換えることなく、1つの重要な制御ループに追加され、センサーデータを
-        <span className="font-semibold text-fg-primary">より高速な物理応答</span>
-        へ変換します。
+      <p className="mt-4 max-w-[1500px] text-[21px] font-normal leading-[1.5] text-fg-secondary">
+        Arcは選択した物理制御ループの改善を目指し、ロボティクス企業が導入コストを下げ、信頼性を高め、プラットフォームの対応範囲を広げることを支援します。
       </p>
 
-      <div className="mt-8 grid max-w-[1640px] grid-cols-3 gap-5">
-        <BenefitPillar
-          title="Physical Response"
-          body="接触、力の変化、スリップ、バランス崩れに対し、認識・計画ループが完了する前に応答することを目指します。Arcは、選択されたセンサーとアクチュエータの間でローカルに動作します。"
-          outcome="人の近くで動くロボットの安全性向上。把持失敗や過補正の低減。"
-        />
-        <BenefitPillar
-          title="Physical Adaptation"
-          body="重量、表面、形状、センサーノイズ、動きの変化に対し、制御ループ内のセンサーフィードバックを使ってローカルに調整します。タスクごとの再調整負担の低減を目指します。"
-          outcome="変化する実環境条件に対する安定したハンドリング。"
-        />
-        <BenefitPillar
-          title="Physical Resilience"
-          body="ノイズのあるセンサー、荷重変化、振動、部分的なハードウェア劣化に対し、システム全体が介入する前に、選択されたローカルループで安定化を図ります。"
-          outcome="現場での稼働率向上。計算負荷と統合負担の低減。"
-        />
-      </div>
+      <div className="mt-6 flex max-w-[1640px] flex-1 flex-col gap-4">
+        <div className="grid grid-cols-3 gap-4">
+          <RoboticsEconomicsCard
+            title="導入コストの低減"
+            body="オブジェクト、表面、ペイロード、環境が変わると、ロボットは現場ごとのチューニングを必要とすることが多い。Arcは選択した制御ループ内のローカル適応を狙い、現場で信頼性高く動かすためのエンジニアリング負担を減らします。"
+            impact="現場エンジニアリングの削減、導入サイクルの短縮、顧客あたりのマージン改善。"
+            impactLabel="ビジネスインパクト"
+          />
+          <RoboticsEconomicsCard
+            title="信頼性と稼働率の向上"
+            body="スリップ、不安定な接触、振動、センサノイズ、荷重変化などの物理的失敗は、ワークフローを止め、信頼を損ない、人の介入を招く。Arcは、より広いシステムが介入する前に、選択したローカルループを安定させるよう設計されています。"
+            impact="失敗の低減、稼働率向上、顧客横断で再現しやすい導入。"
+            impactLabel="ビジネスインパクト"
+          />
+          <RoboticsEconomicsCard
+            title="製品能力の向上"
+            body="ロボティクス企業がより多様なタスクへ広がるには、物理的変化への応答が必要。Arcは、接触、力、スリップ、不均衡、ノイズ入力に対するより速いローカル応答層を追加します。"
+            impact="より広いユースケース、強い製品差別化、高い顧客価値。"
+            impactLabel="ビジネスインパクト"
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <RoboticsEconomicsCard
+            title="計算・エネルギー負荷の低減"
+            body="すべての物理事象をCPU、GPU、クラウド、重い推論で処理する必要はない。ArcはFPGA上で選択した反射レベルの応答をローカルに処理し、低レイテンシと低エネルギーでの修正を狙います。"
+            impact="より効率的な組込み制御、モバイル、支援、ヒューマノイド、現場ロボティクスへの適合。"
+            impactLabel="ビジネスインパクト"
+          />
+          <RoboticsEconomicsCard
+            title="統合リスクの低減"
+            body="Arcは代替コントローラではない。既存のロボットコントローラが主導権を持ったまま、一つの制御クリティカルループで試せます。"
+            impact="導入摩擦の低減、明確なパイロット経路、パートナー評価のしやすさ。"
+            impactLabel="ビジネスインパクト"
+          />
+        </div>
 
-      <div className="mt-6 max-w-[1640px] rounded-[8px] border border-accent bg-accent-subtle px-6 py-5">
-        <div className="grid grid-cols-[260px_1fr] items-start gap-6">
-          <div>
-            <div className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">
-              Architectural property
-            </div>
-            <div className="mt-1.5 text-[20px] font-light leading-[1.2] tracking-[-0.01em] text-fg-primary">
-              Local by design
-            </div>
+        <div className="mt-auto rounded-[10px] border-2 border-accent bg-accent-subtle px-7 py-5">
+          <div className="font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-accent">
+            Bottom line
           </div>
-          <p className="text-[17px] leading-[1.55] text-fg-primary">
-            3つの柱すべてにおいて、ArcはFPGA上で反射ループをローカルに処理します。
-            <span className="font-semibold">
-              すべてのイベントをCPU、GPU、クラウド推論へ送る必要を減らし、
-            </span>
-            高次コントローラは認識、計画、学習を担い続けます。
-            <span className="font-semibold">
-              これにより、選択された反射レベルの応答において、計算負荷と電力負荷の低減を目指します。
-            </span>
+          <p className="mt-2 text-[22px] font-light leading-[1.4] tracking-[-0.015em] text-fg-primary">
+            Arcはロボットをより速く反応させるだけではない。ロボティクスプラットフォームをより導入しやすく、現場でより信頼でき、より収益性高くスケールできるよう設計されている。
           </p>
         </div>
       </div>
 
-      <p className="mt-6 max-w-[1640px] text-[20px] leading-[1.55] text-fg-secondary">
-        これらの改善により、Arcは既存ロボットの全面再設計なしに、
-        <span className="font-semibold text-fg-primary">より高速な物理応答</span>、
-        <span className="font-semibold text-fg-primary">変化条件への適応</span>、
-        <span className="font-semibold text-fg-primary">現場での信頼性向上</span>
-        を実現することを目指します。
-      </p>
-
-      <SlideFooter pageLabel="06 · 顧客価値" />
+      <SlideFooter pageLabel="07 · 顧客価値" />
     </Slide>
   );
 }
@@ -701,7 +933,7 @@ function StatusSlide() {
 
       <div className="mt-12 grid max-w-[1640px] grid-cols-2 gap-10">
         <div className="rounded-[8px] border border-border bg-bg-subtle p-7">
-          <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-fg-tertiary">
+          <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-fg-caption">
             Phase 1 — completed
           </div>
           <div className="mt-4 text-[26px] font-light leading-[1.3] tracking-[-0.01em] text-fg-primary">
@@ -773,7 +1005,7 @@ function StatusSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="07 · ステータス" />
+      <SlideFooter pageLabel="08 · ステータス" />
     </Slide>
   );
 }
@@ -792,16 +1024,16 @@ function FpgaLoopStep({
 }) {
   return (
     <div
-      className={`flex h-[132px] flex-1 flex-col justify-between rounded-[8px] border px-4 py-3 ${
+      className={`flex h-[156px] min-w-[148px] flex-1 flex-col justify-between rounded-[8px] border px-5 py-4 ${
         emphasis
           ? "border-accent bg-accent-subtle"
           : "border-border bg-bg-subtle"
       }`}
     >
-      <div className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">
+      <div className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
         Step {String(index).padStart(2, "0")}
       </div>
-      <div className="text-[17px] leading-[1.3] text-fg-primary">{label}</div>
+      <div className="text-[18px] leading-[1.34] text-fg-primary">{label}</div>
     </div>
   );
 }
@@ -813,73 +1045,81 @@ function FpgaSlide() {
       <h2 className="text-[64px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
         FPGAは、HinokiのIP発見エンジンです。
       </h2>
-      <p className="mt-6 max-w-[1500px] text-[24px] font-light leading-[1.45] text-fg-secondary">
+      <p className="mt-6 max-w-[1500px] text-[26px] font-light leading-[1.45] text-fg-secondary">
         私たちは、アーキテクチャをシリコンへ固定する前に、FPGAを用いて発見・検証します。
       </p>
 
-      <div className="mt-12 max-w-[1640px]">
-        <MutedLabel>IP discovery loop</MutedLabel>
-        <div className="mt-4 flex flex-wrap items-stretch gap-2">
-          <FpgaLoopStep index={1} label="FPGA検証" emphasis />
-          <FlowArrow />
-          <FpgaLoopStep index={2} label="実センサー・アクチュエータ実験" />
-          <FlowArrow />
-          <FpgaLoopStep index={3} label="独自ベンチマークデータ" />
-          <FlowArrow />
-          <FpgaLoopStep index={4} label="チューニング・ノウハウ" />
-          <FlowArrow />
-          <FpgaLoopStep index={5} label="特許化可能な手法" />
-          <FlowArrow />
-          <FpgaLoopStep index={6} label="リファレンスデザイン／ASIC／ライセンス" />
+      <div className="mt-8 flex min-h-0 flex-1 w-full max-w-[1640px] flex-col gap-10">
+        <div>
+          <div className="font-mono text-[14px] font-semibold uppercase tracking-[0.12em] text-fg-caption">
+            IP discovery loop
+          </div>
+          <div className="mt-5 flex flex-wrap items-stretch gap-3">
+            <FpgaLoopStep index={1} label="FPGA検証" emphasis />
+            <FlowArrow />
+            <FpgaLoopStep index={2} label="実センサー・アクチュエータ実験" />
+            <FlowArrow />
+            <FpgaLoopStep index={3} label="独自ベンチマークデータ" />
+            <FlowArrow />
+            <FpgaLoopStep index={4} label="チューニング・ノウハウ" />
+            <FlowArrow />
+            <FpgaLoopStep index={5} label="特許化可能な手法" />
+            <FlowArrow />
+            <FpgaLoopStep index={6} label="リファレンスデザイン／ASIC／ライセンス" />
+          </div>
         </div>
+
+        <div className="grid grid-cols-2 gap-x-14 gap-y-8">
+          <div>
+            <div className="font-mono text-[15px] uppercase tracking-[0.16em] text-accent">
+              What FPGA enables today
+            </div>
+            <ul className="mt-5 space-y-3.5 text-[19px] leading-[1.55] text-fg-secondary">
+              <li className="flex gap-3">
+                <span className="text-accent">·</span>
+                <span>シリコンへ固定する前にアーキテクチャを反復可能</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent">·</span>
+                <span>異なるセンサー、プロトコル、制御ループへ適応可能</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent">·</span>
+                <span>将来のライセンスパートナー向け統合レシピを構築可能</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <div className="font-mono text-[15px] uppercase tracking-[0.16em] text-accent">
+              What FPGA unlocks downstream
+            </div>
+            <ul className="mt-5 space-y-3.5 text-[19px] leading-[1.55] text-fg-secondary">
+              <li className="flex gap-3">
+                <span className="text-accent">·</span>
+                <span>実ロボットシステムから独自ベンチマークデータを収集</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent">·</span>
+                <span>特許化可能な制御手法とチューニング戦略を特定</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent">·</span>
+                <span>ASIC、リファレンスデザイン、組込みIPへの明確な展開経路</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <p className="mt-auto max-w-[1500px] text-[23px] font-light italic leading-[1.45] text-fg-primary">
+          FPGAにより、Hinokiはアーキテクチャを固定する前に学習できます。
+        </p>
       </div>
 
-      <div className="mt-12 grid max-w-[1640px] grid-cols-2 gap-x-12 gap-y-6">
-        <div>
-          <SectionLabel>What FPGA enables today</SectionLabel>
-          <ul className="mt-4 space-y-2.5 text-[18px] leading-[1.5] text-fg-secondary">
-            <li className="flex gap-3">
-              <span className="text-accent">·</span>
-              <span>シリコンへ固定する前にアーキテクチャを反復可能</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-accent">·</span>
-              <span>異なるセンサー、プロトコル、制御ループへ適応可能</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-accent">·</span>
-              <span>将来のライセンスパートナー向け統合レシピを構築可能</span>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <SectionLabel>What FPGA unlocks downstream</SectionLabel>
-          <ul className="mt-4 space-y-2.5 text-[18px] leading-[1.5] text-fg-secondary">
-            <li className="flex gap-3">
-              <span className="text-accent">·</span>
-              <span>実ロボットシステムから独自ベンチマークデータを収集</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-accent">·</span>
-              <span>特許化可能な制御手法とチューニング戦略を特定</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-accent">·</span>
-              <span>ASIC、リファレンスデザイン、組込みIPへの明確な展開経路</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <p className="mt-10 max-w-[1500px] text-[20px] font-light italic leading-[1.45] text-fg-primary">
-        FPGAにより、Hinokiはアーキテクチャを固定する前に学習できます。
-      </p>
-
-      <p className="absolute bottom-[110px] left-[140px] right-[140px] text-[13px] leading-[1.5] text-fg-tertiary">
+      <p className="absolute bottom-[110px] left-[140px] right-[140px] text-[15px] leading-[1.55] text-fg-caption">
         FPGAは検証とIP発見のための手段であり、必ずしも最終的なコスト構造ではありません。検証後、ASIC、リファレンスデザイン、または組込みIPへ展開します。
       </p>
 
-      <SlideFooter pageLabel="08 · FPGA" />
+      <SlideFooter pageLabel="09 · FPGA" />
     </Slide>
   );
 }
@@ -1134,11 +1374,11 @@ function TractionSlide() {
         <TechnicalCredibilityTractionCard />
       </div>
 
-      <p className="mt-5 max-w-[1640px] text-[12px] italic leading-[1.5] text-fg-tertiary">
+      <p className="mt-5 max-w-[1640px] text-[12px] italic leading-[1.5] text-fg-caption">
         ステータス表現は意図的に正確にしています。ここに記載された段階を超える投資、商業契約、パートナーシップ上のコミットメントを示すものではありません。
       </p>
 
-      <SlideFooter pageLabel="09 · トラクション" />
+      <SlideFooter pageLabel="10 · トラクション" />
     </Slide>
   );
 }
@@ -1171,7 +1411,7 @@ function MarketTier({
     >
       <div
         className={`font-mono text-[11px] uppercase tracking-[0.16em] ${
-          emphasis ? "text-accent" : "text-fg-tertiary"
+          emphasis ? "text-accent" : "text-fg-caption"
         }`}
       >
         {tier}
@@ -1185,7 +1425,7 @@ function MarketTier({
       <div className="mt-2 text-[14px] leading-[1.5] text-fg-secondary">
         {body}
       </div>
-      <div className="mt-auto pt-3 text-[11px] leading-[1.4] text-fg-tertiary">
+      <div className="mt-auto pt-3 text-[11px] leading-[1.4] text-fg-caption">
         {footnote}
       </div>
     </div>
@@ -1256,11 +1496,11 @@ function MarketSlide() {
         </div>
       </div>
 
-      <p className="mt-4 max-w-[1640px] text-[11px] leading-[1.45] text-fg-tertiary">
+      <p className="mt-4 max-w-[1640px] text-[11px] leading-[1.45] text-fg-caption">
         ¹ 触覚・力覚センサー市場予測；業界アナリスト集計。² IFR World Robotics・Statista グローバルロボティクス市場（2024→2030）。³ Goldman Sachs Research ヒューマノイド市場 2024–2035；McKinsey。⁴ METI ロボット政策ビジョン（2024改訂）— 2035年までの産業インパクト目標。
       </p>
 
-      <SlideFooter pageLabel="10 · 市場" />
+      <SlideFooter pageLabel="11 · 市場" />
     </Slide>
   );
 }
@@ -1346,7 +1586,7 @@ function BusinessModelSlide() {
         <div className="grid grid-cols-[220px_1fr] gap-6">
           <div>
             <SectionLabel>Cost structure</SectionLabel>
-            <div className="mt-2 text-[13px] leading-[1.5] text-fg-tertiary">
+            <div className="mt-2 text-[13px] leading-[1.5] text-fg-caption">
               主な費用項目
             </div>
           </div>
@@ -1386,7 +1626,7 @@ function BusinessModelSlide() {
         </span>
       </p>
 
-      <SlideFooter pageLabel="11 · ビジネスモデル" />
+      <SlideFooter pageLabel="12 · ビジネスモデル" />
     </Slide>
   );
 }
@@ -1419,7 +1659,7 @@ function StackLayer({
         className={`font-mono uppercase ${
           emphasis
             ? "text-[14px] font-semibold tracking-[0.16em] text-accent"
-            : "text-[12px] tracking-[0.14em] text-fg-tertiary"
+            : "text-[12px] tracking-[0.14em] text-fg-caption"
         }`}
       >
         {layer}
@@ -1442,7 +1682,7 @@ function StackLayer({
       </div>
       <div
         className={`italic leading-[1.5] ${
-          emphasis ? "text-[14px] text-fg-primary" : "text-[14px] text-fg-tertiary"
+          emphasis ? "text-[14px] text-fg-primary" : "text-[14px] text-fg-caption"
         }`}
       >
         {examples}
@@ -1503,7 +1743,7 @@ function PositioningSlide() {
         </span>
       </p>
 
-      <SlideFooter pageLabel="12 · ポジショニング" />
+      <SlideFooter pageLabel="13 · ポジショニング" />
     </Slide>
   );
 }
@@ -1538,7 +1778,7 @@ function TeamSlide() {
               </span>
               向けに企業支援実務をゼロから構築。Hinokiの
               <span className="font-semibold text-fg-primary">
-                商業戦略および日本投資家関係
+                商業戦略および投資家関係
               </span>
               を統括。
             </>
@@ -1572,7 +1812,7 @@ function TeamSlide() {
           objectPosition="center 25%"
           affiliation="明治生命・昭和女子大学"
           name="Mina Otsuka"
-          role="Co-founder / Japan Market &amp; Ecosystem"
+          role="Co-founder / COO · Japan Operations"
           body={
             <>
               <span className="font-semibold text-fg-primary">
@@ -1639,7 +1879,7 @@ function TeamSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="13 · チーム" />
+      <SlideFooter pageLabel="14 · チーム" />
     </Slide>
   );
 }
@@ -1649,37 +1889,75 @@ function TeamSlide() {
 // ---------------------------------------------------------------------
 function AdvisorCard({
   status,
-  statusTone = "confirmed",
-  name,
-  credentials,
-  value,
+  variant = "pending",
+  area,
+  background,
+  deRisks,
+  deRisksLabel = "De-risks",
+  committedLabel = "Committed",
 }: {
   status: string;
-  statusTone?: "confirmed" | "expected" | "pending";
-  name: string;
-  credentials: string;
-  value: string;
+  variant?: "committed" | "expected" | "pending";
+  area: string;
+  background: string;
+  deRisks: string;
+  deRisksLabel?: string;
+  committedLabel?: string;
 }) {
-  const tone =
-    statusTone === "confirmed"
-      ? "text-accent"
-      : statusTone === "expected"
-        ? "text-fg-primary"
-        : "text-fg-tertiary";
+  const isCommitted = variant === "committed";
+  const statusTone = isCommitted
+    ? "text-accent"
+    : variant === "expected"
+      ? "text-fg-secondary"
+      : "text-fg-caption";
+
   return (
-    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-6">
-      <div className={`font-mono text-[12px] uppercase tracking-[0.14em] ${tone}`}>
-        {status}
+    <div
+      className={`flex h-full flex-col rounded-[8px] p-6 ${
+        isCommitted
+          ? "border-2 border-accent bg-accent-subtle"
+          : "border border-border bg-bg-subtle/70"
+      }`}
+    >
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        {isCommitted ? (
+          <span className="rounded-[4px] border border-accent/40 bg-bg-base px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-accent">
+            {committedLabel}
+          </span>
+        ) : null}
+        <div
+          className={`font-mono text-[11px] uppercase tracking-[0.12em] ${statusTone}`}
+        >
+          {status}
+        </div>
       </div>
-      <div className="mt-3 text-[22px] font-medium leading-[1.25] text-fg-primary">
-        {name}
+      <div
+        className={`mt-4 font-medium leading-[1.25] tracking-[-0.01em] text-fg-primary ${
+          isCommitted ? "text-[22px]" : "text-[18px] text-fg-primary/90"
+        }`}
+      >
+        {area}
       </div>
-      <div className="mt-2 text-[15px] leading-[1.5] text-fg-secondary">
-        {credentials}
-      </div>
-      <div className="mt-4 border-t border-border pt-3 text-[14px] leading-[1.5] text-fg-tertiary">
-        <span className="font-mono uppercase tracking-[0.1em]">Value · </span>
-        {value}
+      <p
+        className={`mt-2 text-[14px] leading-[1.5] ${
+          isCommitted ? "text-fg-secondary" : "text-fg-caption"
+        }`}
+      >
+        {background}
+      </p>
+      <div className="mt-5 flex-1">
+        <div className="font-mono text-[11px] uppercase tracking-[0.1em] text-accent">
+          {deRisksLabel}
+        </div>
+        <p
+          className={`mt-2 text-[15px] leading-[1.5] ${
+            isCommitted
+              ? "font-medium text-fg-primary"
+              : "text-fg-secondary"
+          }`}
+        >
+          {deRisks}
+        </p>
       </div>
     </div>
   );
@@ -1689,54 +1967,66 @@ function AdvisorsSlide() {
   return (
     <Slide align="start">
       <Eyebrow>Advisory</Eyebrow>
-      <h2 className="text-[56px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
-        初期技術アドバイザリーボード
+      <h2 className="text-[52px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
+        技術アドバイザーは実行リスクを下げる
       </h2>
-      <p className="mt-6 max-w-[1500px] text-[22px] font-normal leading-[1.55] text-fg-secondary">
-        Hinokiは、Physical HRI、メカトロニクス、ニューロモルフィックネットワーク、知能ロボティクス領域のアドバイザー体制を構築しています。
+      <p className="mt-4 max-w-[1500px] text-[21px] font-normal leading-[1.5] text-fg-secondary">
+        アドバイザー支援は、Physical HRI、メカトロニクス、ニューロモルフィックアーキテクチャ、日本のロボティクス研究エコシステムにわたる。
       </p>
 
-      <div className="mt-10 max-w-[1640px]">
-        <SectionLabel>Current advisor commitments</SectionLabel>
-        <div className="mt-4 grid grid-cols-2 gap-5">
+      <div className="mt-6 flex max-w-[1640px] flex-1 flex-col gap-5">
+        <div className="grid grid-cols-2 gap-5">
           <AdvisorCard
+            variant="committed"
             status="Verbal agreement received"
-            statusTone="confirmed"
-            name="Physical HRI Advisor"
-            credentials="PhD · University of Tsukuba · Professor, PUCP"
-            value="ヒューマンロボットインタラクション、支援システム、身体的インタラクション、ロボティクス検証文脈。"
+            area="Physical HRI Advisor"
+            background="PhD, University of Tsukuba · Professor, PUCP"
+            deRisks="ヒューマンロボットインタラクション、支援ロボティクス、ヒト近接システムの物理検証。"
+            deRisksLabel="低減するリスク"
+            committedLabel="確定"
           />
           <AdvisorCard
+            variant="committed"
             status="Verbal agreement received"
-            statusTone="confirmed"
-            name="Mechatronics Advisor"
-            credentials="PhD · University of Tsukuba · Associate Professor, Nagoya University"
-            value="メカトロニクス、ヒューマンインフォマティクス、ロボットシステム、学術的検証パス。"
+            area="Mechatronics Advisor"
+            background="PhD, University of Tsukuba · Associate Professor, Nagoya University"
+            deRisks="センサー・アクチュエータ統合、メカトロニクス検証、アーキテクチャ概念からハードウェア試験への移行。"
+            deRisksLabel="低減するリスク"
+            committedLabel="確定"
           />
         </div>
-      </div>
-
-      <div className="mt-7 max-w-[1640px]">
-        <SectionLabel>Upcoming &amp; pending advisor discussions</SectionLabel>
-        <div className="mt-4 grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-2 gap-4">
           <AdvisorCard
+            variant="expected"
             status="Expected from July"
-            statusTone="expected"
-            name="Neuromorphic Networks Advisor"
-            credentials="PhD · University of Tokyo"
-            value="ニューロモルフィックアーキテクチャ、リザバー関連の技術支援。"
+            area="Neuromorphic Networks Advisor"
+            background="PhD, University of Tokyo"
+            deRisks="ニューロモルフィックアーキテクチャ、リザバー関連設計、将来のIP開発。"
+            deRisksLabel="低減するリスク"
           />
           <AdvisorCard
+            variant="pending"
             status="Pending discussion"
-            statusTone="pending"
-            name="AIST Robotics Researcher"
-            credentials="PhD · University of Tsukuba · Senior Researcher, AIST"
-            value="AISTロボティクスエコシステム、知能インタラクション、ロボティクス研究の信頼性。"
+            area="AIST Senior Robotics Researcher"
+            background="PhD, University of Tsukuba · Senior Researcher, AIST"
+            deRisks="応用ロボティクスの視点、AISTエコシステムへのアクセス、将来の検証パートナーシップ。"
+            deRisksLabel="低減するリスク"
           />
+        </div>
+
+        <div className="mt-auto rounded-[10px] border-2 border-accent bg-accent-subtle px-7 py-4">
+          <p className="text-[18px] font-light leading-[1.45] tracking-[-0.015em] text-fg-primary">
+            このネットワークは、
+            <span className="font-semibold">ヒューマンロボットインタラクション</span>、
+            <span className="font-semibold">ハードウェア統合</span>、
+            <span className="font-semibold">ニューロモルフィックアーキテクチャ</span>、
+            <span className="font-semibold">日本ロボティクスエコシステムへのアクセス</span>
+            という4つの検証リスクを支援します。
+          </p>
         </div>
       </div>
 
-      <SlideFooter pageLabel="14 · アドバイザリー" />
+      <SlideFooter pageLabel="15 · アドバイザリー" />
     </Slide>
   );
 }
@@ -1752,14 +2042,14 @@ function PlanQuarter({
   items: string[];
 }) {
   return (
-    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-6">
-      <div className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
+    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-7">
+      <div className="font-mono text-[14px] uppercase tracking-[0.14em] text-accent">
         {label}
       </div>
-      <ul className="mt-3 space-y-2.5 text-[17px] leading-[1.52] text-fg-secondary">
+      <ul className="mt-5 flex-1 space-y-4 text-[19px] leading-[1.55] text-fg-secondary">
         {items.map((it) => (
-          <li key={it} className="flex gap-2">
-            <span className="text-accent">·</span>
+          <li key={it} className="flex gap-3">
+            <span className="mt-1 shrink-0 text-accent">·</span>
             <span>{it}</span>
           </li>
         ))}
@@ -1775,16 +2065,17 @@ function PlanSlide() {
       <h2 className="text-[56px] font-light leading-[1.12] tracking-[-0.02em] text-fg-primary">
         顧客発見からハードウェア検証へ。
       </h2>
-      <p className="mt-4 max-w-[1500px] text-[24px] font-light leading-[1.45] text-fg-secondary">
+      <p className="mt-5 max-w-[1500px] text-[26px] font-light leading-[1.45] text-fg-secondary">
         1stRound資金により、顧客発見を技術検証データへ変換します。
       </p>
 
-      <div className="mt-9 grid max-w-[1640px] grid-cols-4 gap-5">
+      <div className="mt-8 flex max-w-[1640px] flex-1 flex-col gap-8">
+        <div className="grid flex-1 grid-cols-4 gap-6">
         <PlanQuarter
           label="0〜3か月"
           items={[
             "スリップ検知ベンチマーク要件の定義",
-            "触覚センサー、グリッパー、FPGA、アクチュエータ構成の調達",
+            "触覚センサー、グリッパー、FPGA、アクチュエータ構成の調達 — 初回LOIパートナーからのハードウェア調達も検討",
           ]}
         />
         <PlanQuarter
@@ -1811,25 +2102,28 @@ function PlanSlide() {
             "ベンチマークデータをもとにエンジェル／VCラウンドを準備",
           ]}
         />
+        </div>
+
+        <div className="max-w-[1640px]">
+          <div className="font-mono text-[15px] uppercase tracking-[0.16em] text-accent">
+            Use of funds
+          </div>
+          <div className="mt-4 grid grid-cols-4 gap-x-8 gap-y-3.5 text-[20px] leading-[1.55] text-fg-secondary">
+            <div>· FPGA改良および組込み制御テスト</div>
+            <div>· 触覚センサー／グリッパー／アクチュエータ構成</div>
+            <div>· 閉ループベンチマーク装置</div>
+            <div>· 検証データセット作成</div>
+            <div>· エンジニアリングおよびハードウェア統合</div>
+            <div>· 特許／IP相談</div>
+            <div>· 顧客発見およびパートナー開発</div>
+            <div className="text-[19px] text-fg-caption">
+              · 技術ドキュメント作成
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="mt-10 max-w-[1640px]">
-        <div className="font-mono text-[14px] uppercase tracking-[0.16em] text-accent">
-          Use of funds
-        </div>
-        <div className="mt-3 grid grid-cols-4 gap-x-6 gap-y-2.5 text-[18px] leading-[1.52] text-fg-secondary">
-          <div>· FPGA改良および組込み制御テスト</div>
-          <div>· 触覚センサー／グリッパー／アクチュエータ構成</div>
-          <div>· 閉ループベンチマーク装置</div>
-          <div>· 検証データセット作成</div>
-          <div>· エンジニアリングおよびハードウェア統合</div>
-          <div>· 特許／IP相談</div>
-          <div>· 顧客発見およびパートナー開発</div>
-          <div className="text-fg-tertiary">· 技術ドキュメント作成</div>
-        </div>
-      </div>
-
-      <SlideFooter pageLabel="15 · 12ヶ月計画" />
+      <SlideFooter pageLabel="16 · 12ヶ月計画" />
     </Slide>
   );
 }
@@ -1858,7 +2152,7 @@ function YearRow({
     >
       <div
         className={`font-mono text-[16px] uppercase tracking-[0.12em] ${
-          emphasis ? "text-accent" : "text-fg-tertiary"
+          emphasis ? "text-accent" : "text-fg-caption"
         }`}
       >
         {year}
@@ -1869,7 +2163,7 @@ function YearRow({
       <div className="text-[17px] leading-[1.5] text-fg-secondary">
         {focus}
       </div>
-      <div className="text-[15px] leading-[1.5] text-fg-tertiary">
+      <div className="text-[15px] leading-[1.5] text-fg-caption">
         {expenses}
       </div>
     </div>
@@ -1905,7 +2199,7 @@ function FinancialSlide() {
       </div>
 
       <div className="mt-5 max-w-[1640px]">
-        <div className="grid grid-cols-[110px_200px_1.4fr_1.2fr] gap-5 border-b border-border-strong pb-2 font-mono text-[12px] uppercase tracking-[0.14em] text-fg-tertiary">
+        <div className="grid grid-cols-[110px_200px_1.4fr_1.2fr] gap-5 border-b border-border-strong pb-2 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-fg-primary">
           <div>Year</div>
           <div>Operating revenue</div>
           <div>Focus</div>
@@ -1982,11 +2276,11 @@ function FinancialSlide() {
         </div>
       </div>
 
-      <p className="mt-5 max-w-[1640px] text-[12px] italic leading-[1.5] text-fg-tertiary">
+      <p className="mt-5 max-w-[1640px] text-[12px] italic leading-[1.5] text-fg-caption">
         これは方向性を示す計画であり、精密な財務予測ではありません。売上は、Phase 2検証の成功、パートナー転換、ライセンス採用に依存します。助成金およびVC資金は営業収益に含めません。
       </p>
 
-      <SlideFooter pageLabel="16 · 5年計画" />
+      <SlideFooter pageLabel="17 · 5年計画" />
     </Slide>
   );
 }
@@ -2054,7 +2348,7 @@ function ClosingSlide() {
           </div>
         </div>
 
-        <SlideFooter pageLabel="17 · 資金使途" />
+        <SlideFooter pageLabel="18 · 資金使途" />
       </div>
     </Slide>
   );
@@ -2066,6 +2360,7 @@ function ClosingSlide() {
 export const SLIDES_1STROUND_JP: Array<() => React.JSX.Element> = [
   TitleSlide,
   ProblemSlide,
+  PhysicalResponseSolutionSlide,
   DiscoverySlide,
   BenchmarkSlide,
   SolutionSlide,

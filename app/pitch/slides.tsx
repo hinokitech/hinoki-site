@@ -21,7 +21,7 @@ import React from "react";
 //    H3:        56-64px
 //    Lead body: 30px, 1.55 leading
 //    Body:      24-26px, 1.6 leading
-//    Caption:   16-18px, fg-tertiary
+//    Caption:   16-18px, fg-caption (supporting lines); fg-tertiary for chrome only
 //
 //  Layout: ~140px side margins, content typically capped ≤ 1640px wide.
 // =====================================================================
@@ -234,7 +234,7 @@ export function SolutionSlide() {
 
       <div className="mt-14 space-y-10">
         <div>
-          <div className="mb-3 font-mono text-[14px] uppercase tracking-[0.12em] text-fg-tertiary">
+          <div className="mb-3 font-mono text-[14px] uppercase tracking-[0.12em] text-fg-caption">
             Today&rsquo;s digital control stack
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -250,7 +250,7 @@ export function SolutionSlide() {
             <StackArrow />
             <StackBox>Actuator</StackBox>
           </div>
-          <div className="mt-3 text-[18px] text-fg-tertiary">
+          <div className="mt-3 text-[18px] text-fg-caption">
             Discrete · memory-heavy · inference layered above control
           </div>
         </div>
@@ -268,7 +268,7 @@ export function SolutionSlide() {
             <StackArrow />
             <StackBox>Actuator</StackBox>
           </div>
-          <div className="mt-3 text-[18px] text-fg-tertiary">
+          <div className="mt-3 text-[18px] text-fg-caption">
             Continuous · embedded · sub-millisecond response
           </div>
         </div>
@@ -384,13 +384,13 @@ export function ProductSlide() {
           </p>
         </div>
         <div className="space-y-4 self-start">
-          <div className="mb-3 font-mono text-[14px] uppercase tracking-[0.12em] text-fg-tertiary">
+          <div className="mb-3 font-mono text-[14px] uppercase tracking-[0.12em] text-fg-caption">
             What&rsquo;s validated today
           </div>
           <ProofRow label="Reservoir computer running on FPGA hardware" />
           <ProofRow label="Live sensor stream validated on hardware" />
           <ProofRow label="Real-time classification + motion tracking confirmed" />
-          <p className="mt-5 text-[16px] italic leading-[1.5] text-fg-tertiary">
+          <p className="mt-5 text-[16px] italic leading-[1.5] text-fg-caption">
             Bench available for technical due diligence.
           </p>
         </div>
@@ -419,7 +419,7 @@ export function TechnologySlide() {
 
       <div className="mt-12 grid max-w-[1640px] grid-cols-2 gap-10">
         <div className="rounded-[8px] border border-border bg-bg-subtle p-8">
-          <div className="mb-3 font-mono text-[14px] uppercase tracking-[0.12em] text-fg-tertiary">
+          <div className="mb-3 font-mono text-[14px] uppercase tracking-[0.12em] text-fg-caption">
             Silicon-first (TDK)
           </div>
           <div className="space-y-2 text-[22px] leading-[1.5] text-fg-primary">
@@ -471,7 +471,7 @@ export function MarketTier({
         {label}
       </div>
       {note && (
-        <div className="mt-2 text-[18px] leading-[1.4] text-fg-tertiary">
+        <div className="mt-2 text-[18px] leading-[1.4] text-fg-caption">
           {note}
         </div>
       )}
@@ -515,7 +515,7 @@ export function MarketSlide() {
         to commercial deployment. Cage-free human–robot collaboration is gated
         on real-time physical intelligence — the layer Arc operates in.
       </p>
-      <div className="absolute bottom-[110px] left-[140px] right-[140px] font-mono text-[12px] leading-[1.5] tracking-[0.04em] text-fg-tertiary">
+      <div className="absolute bottom-[110px] left-[140px] right-[140px] font-mono text-[12px] leading-[1.5] tracking-[0.04em] text-fg-caption">
         ¹ IFR World Robotics &amp; industry analyst aggregates. ² IFR / Statista
         global robotics market. ³ Goldman Sachs Research, Humanoid Robot Market
         2024–2035. McKinsey Global Institute, Embodied AI safety research 2024.
@@ -637,7 +637,7 @@ export function CompetitionSlide() {
         Where we sit in the landscape.
       </h2>
       <div className="mt-12 max-w-[1640px]">
-        <div className="grid grid-cols-[1.1fr_1.2fr_1.3fr_1.6fr] gap-6 border-b border-border-strong py-3 font-mono text-[13px] uppercase tracking-[0.12em] text-fg-tertiary">
+        <div className="grid grid-cols-[1.1fr_1.2fr_1.3fr_1.6fr] gap-6 border-b border-border-strong py-3 font-mono text-[13px] uppercase tracking-[0.12em] text-fg-caption">
           <div>Approach</div>
           <div>Focus</div>
           <div>Architecture</div>
@@ -704,7 +704,7 @@ export function PhaseCard({
       <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
         {phase}
       </div>
-      <div className="mt-1 font-mono text-[13px] tracking-[0.06em] text-fg-tertiary">
+      <div className="mt-1 font-mono text-[13px] tracking-[0.06em] text-fg-caption">
         {range}
       </div>
       <div className="mt-5 text-[24px] font-medium leading-[1.3] text-fg-primary">
@@ -966,7 +966,7 @@ export function FounderCard({
         )}
       </div>
       {affiliation ? (
-        <div className="mt-5 text-[13px] font-medium leading-[1.3] text-fg-tertiary">
+        <div className="mt-5 text-[13px] font-medium leading-[1.3] text-fg-caption">
           {affiliation}
         </div>
       ) : null}
@@ -1057,7 +1057,7 @@ export function RevenuePhase({
       <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
         {phase}
       </div>
-      <div className="mt-1 font-mono text-[12px] tracking-[0.06em] text-fg-tertiary">
+      <div className="mt-1 font-mono text-[12px] tracking-[0.06em] text-fg-caption">
         {range}
       </div>
       <div className="mt-5 text-[24px] font-medium leading-[1.3] text-fg-primary">
@@ -1070,7 +1070,7 @@ export function RevenuePhase({
         <div className="text-[36px] font-light leading-[1.0] tracking-[-0.02em] text-fg-primary">
           {revenue}
         </div>
-        <div className="mt-2 font-mono text-[12px] uppercase tracking-[0.1em] text-fg-tertiary">
+        <div className="mt-2 font-mono text-[12px] uppercase tracking-[0.1em] text-fg-caption">
           {revenueLabel}
         </div>
       </div>
@@ -1128,7 +1128,7 @@ export function FinancialModelSlide() {
           are projected to surpass $30B by 2032. Royalty-based IP licensing
           carries 90%+ gross margins.
         </p>
-        <p className="text-[17px] italic leading-[1.6] text-fg-tertiary">
+        <p className="text-[17px] italic leading-[1.6] text-fg-caption">
           Assistive market adoption lags robotics by 18–24 months on clinical
           validation cycles. Phase 3 wearable contribution is modeled with
           that delay.

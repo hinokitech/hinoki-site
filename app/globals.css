@@ -29,6 +29,8 @@
   --color-fg-primary: #252830;
   --color-fg-secondary: #5a5e6b;
   --color-fg-tertiary: #9099a8;
+  /* Subordinate copy — diagram captions, footnotes; darker than tertiary for legibility */
+  --color-fg-caption: #78808f;
   --color-fg-inverse: #f4f1ed;
 
   /* ── Accent — warm orange, use sparingly ───────────────── */

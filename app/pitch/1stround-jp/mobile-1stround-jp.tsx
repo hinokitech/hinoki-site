@@ -24,9 +24,15 @@ function Card({
   );
 }
 
-function BulletList({ items }: { items: React.ReactNode[] }) {
+function BulletList({
+  items,
+  className = "space-y-2 text-[15px] leading-[1.6]",
+}: {
+  items: React.ReactNode[];
+  className?: string;
+}) {
   return (
-    <ul className="mt-4 list-disc space-y-2 pl-5 text-[15px] leading-[1.6] text-fg-secondary">
+    <ul className={`mt-4 list-disc pl-5 text-fg-secondary ${className}`}>
       {items.map((item, idx) => (
         <li key={idx}>{item}</li>
       ))}
@@ -42,13 +48,34 @@ function SubLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-function EngineerQuote({ role, quote }: { role: string; quote: string }) {
+function EngineerQuote({
+  role,
+  quote,
+  variant = "supporting",
+}: {
+  role: string;
+  quote: string;
+  variant?: "primary" | "supporting";
+}) {
+  if (variant === "primary") {
+    return (
+      <div className="rounded-lg border-2 border-accent bg-accent-subtle px-4 py-4">
+        <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+          {role}
+        </div>
+        <p className="mt-3 text-[16px] leading-[1.55] text-fg-primary">
+          &ldquo;{quote}&rdquo;
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-lg border border-border bg-bg-base/80 px-4 py-3">
       <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-accent">
         {role}
       </div>
-      <p className="mt-2 text-[14px] leading-[1.55] text-fg-secondary">
+      <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
         &ldquo;{quote}&rdquo;
       </p>
     </div>
@@ -117,7 +144,7 @@ export default function MobileDeck1stRoundJp() {
             <span>最初の検証ベンチマーク：触覚スリップ検知と高速グリッパー応答</span>
           </li>
         </ul>
-        <div className="mt-5 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
+        <div className="mt-5 font-mono text-[11px] tracking-[0.06em] text-fg-caption">
           1stRound application・2026年5月
         </div>
       </header>
@@ -125,95 +152,216 @@ export default function MobileDeck1stRoundJp() {
       <div className="mx-auto mt-10 max-w-[720px] space-y-10">
         <Card
           tag="02 · 課題"
-          title="ロボットは認識し、計画できるようになった。しかし、物理的な応答の瞬間でまだ失敗する。"
+          title={
+            <>
+              ロボットは制御された環境では動く。
+              <br />
+              変動する実環境へスケールすることは依然として難しい。
+            </>
+          }
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            ロボットの認識、計画、AI能力は急速に進化しています。一方で、実環境での導入では、センサーデータを即時かつ信頼性のある物理行動へ変換する「物理ループ」に課題が残ります。
-          </p>
-          <SubLabel>現在、物理ループが破綻しやすい場面</SubLabel>
-          <BulletList
-            items={[
-              "物体のスリップ",
-              "不安定な把持",
-              "ノイズのあるセンサー入力",
-              "荷重変化",
-              "変化する床面・接触面",
-              "トルク制御／速度制御",
-              "多様な対象物の取り扱い",
-              "リアルタイム性が求められる精密動作",
-            ]}
-          />
-          <p className="mt-4 text-[15px] leading-[1.65] text-fg-secondary">
-            ロボティクス企業にとって、これは
-            <span className="font-semibold text-fg-primary">ピッキング失敗</span>、
-            <span className="font-semibold text-fg-primary">不安定なハンドリング</span>、
-            <span className="font-semibold text-fg-primary">導入の遅れ</span>、継続的な再調整負担、実環境での信頼性低下につながります。
-          </p>
-          <p className="mt-4 text-[15px] leading-[1.65] text-fg-primary">
-            課題は「知能」だけではありません。{" "}
-            <span className="font-semibold">
-              センサーデータを、実環境で信頼できる物理行動へ変換すること
+            ロボットはデモ、ラボ、シミュレーション、狭い導入設定では十分に性能を発揮できるが、重量・接触・ペイロード・振動、環境の変化では性能がしばしば低下する。{" "}
+            <span className="font-semibold text-fg-primary">
+              接触を伴うタスクは特に難しく、非線形ダイナミクスと微小な位置ずれが物理相互作用の一般化を妨げる。
             </span>
-            です。
           </p>
+          <div className="mt-4 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-fg-primary">
+            条件が変わると何が破綻するか
+          </div>
+          <div className="mt-3 space-y-3">
+            <div className="rounded-lg border border-border bg-bg-base/60 p-4">
+              <p className="text-[15px] font-medium text-fg-primary">
+                ラボでは動く、現場では失敗する
+              </p>
+              <p className="mt-2 text-[14px] leading-[1.55] text-fg-secondary">
+                構造化された環境での能力が、本番の接触・運用条件の変化で失敗し得る。
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-bg-base/60 p-4">
+              <p className="text-[15px] font-medium text-fg-primary">
+                物理エッジでの応答が遅い
+              </p>
+              <p className="mt-2 text-[14px] leading-[1.55] text-fg-secondary">
+                スリップや力の変化が、認識から計画までの経路より速く起こり得る。
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-bg-base/60 p-4">
+              <p className="text-[15px] font-medium text-fg-primary">
+                顧客横断で再現しにくい
+              </p>
+              <p className="mt-2 text-[14px] leading-[1.55] text-fg-secondary">
+                拠点ごとにチューニング・統合・低速運転が必要になり、反復可能な導入にならない。
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 rounded-lg border border-border bg-bg-base/60 p-4">
+            <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-fg-primary">
+              同じ傘の下にある技術的症状
+            </div>
+            <p className="mt-2 text-[13px] leading-[1.55] text-fg-secondary">
+              エッジでのレイテンシ、センサノイズ、物理適応の不足、統合負荷、信頼性リスク、および重要ループにおける電力・計算負荷は、別個の問題ではない。いずれも同じ物理的一般化ギャップの症状である。
+            </p>
+          </div>
+          <p className="mt-4 text-[17px] leading-[1.6] text-fg-primary">
+            本質は認識だけではない。それは
+            <span className="font-semibold">物理的一般化</span>
+            である：世界が変化したとき、センサーデータを信頼できる適応的な物理行動へ変換すること。
+          </p>
+          <div className="mt-5 rounded-lg border-2 border-accent bg-accent-subtle p-5">
+            <p className="text-[17px] font-light leading-[1.45] text-fg-primary">
+              ロボティクス企業にとって、これは
+              <span className="font-semibold">スケールの問題</span>
+              である。狭い運用条件の外でロボットが失敗すると、導入は長期化し、現場エンジニアリングが増え、速度は低下し、顧客横断で収益性高く再現することが難しくなる。
+            </p>
+          </div>
         </Card>
 
-        <Card tag="03 · 顧客発見" title="エンジニアから見えてきたこと">
+        <Card
+          tag="03 · ソリューション"
+          title={
+            <>
+              <span className="italic">Arc</span>
+              は、不足している物理応答レイヤーを追加する。
+            </>
+          }
+        >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+            ニューロモーフィックなローカル制御アーキテクチャ。既存コントローラが主導権を持ったまま、選択したセンサー–アクチュエータループ内でロボットが応答できる。
+          </p>
+          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+            ロボティクス企業は認識・計画・AIを改善しているが、多くの失敗はロボット本体に近い場所で起きる。Arcは選択したセンサーとアクチュエータの間に位置し、変化する物理信号を、より広いデジタルスタックが介入する前に有界な修正動作へ変換する。
+          </p>
+          <BulletList
+            items={[
+              <>
+                <span className="font-semibold text-fg-primary">
+                  ローカル物理応答。
+                </span>{" "}
+                スリップ・接触・力の変化・不均衡など、制御クリティカルループにおいて、センサー事象からアクチュエータ補正へのより速い経路を作る。
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  適応的ニューロモーフィック動力学。
+                </span>{" "}
+                リザーバコンピューティングを用い、ノイズの多い時系列センサ入力を動的な内部状態へ変換し、変化する物理条件の下でも安定した補正を狙う。
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  実装可能な展開向け。
+                </span>{" "}
+                既存コントローラと併用し、一つの測定可能なループから始め、FPGAファーストの検証でセンサー・プロトコル・ロボットプラットフォームを横断調整する。
+              </>,
+            ]}
+          />
+          <SubLabel>現状</SubLabel>
+          <p className="mt-2 text-[14px] leading-[1.6] text-fg-secondary">
+            センサーデータ → 認識 / 計画 / 制御スタック → アクチュエータ応答
+          </p>
+          <p className="mt-1 text-[13px] font-semibold leading-[1.5] text-fg-primary">
+            物理事象は、より広いデジタルスタックを経由する
+          </p>
+          <SubLabel>Arc導入後</SubLabel>
+          <p className="mt-2 text-[14px] leading-[1.6] text-fg-secondary">
+            センサー事象 → Arcローカル反射層 → 有界補正 → アクチュエータ応答
+          </p>
+          <p className="mt-1 text-[13px] font-semibold leading-[1.5] text-fg-primary">
+            選択した物理ループに、より速いローカル応答経路を与える
+          </p>
+          <p className="mt-4 font-mono text-[11px] leading-[1.5] text-fg-caption">
+            メインコントローラは、認識・計画・安全性・タスクロジックを引き続き担当する。
+          </p>
+          <SubLabel>企業がHinokiと組む理由</SubLabel>
+          <BulletList
+            items={[
+              <>
+                <span className="font-semibold text-fg-primary">
+                  フル再設計なしで検証。
+                </span>{" "}
+                Arcは、既存コントローラが主導権を持ったまま、一つの制御クリティカルループで評価できる。
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  導入摩擦の低減。
+                </span>{" "}
+                検証が成功すれば、Arcは可変環境における動作失敗、再チューニング負荷、現場エンジニアリング、信頼性問題を減らせる。
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">
+                  早期にベンチマークを形成。
+                </span>{" "}
+                パートナーは検証データを確認し、Arcが実際のロボティクスニーズに対してどこでテストされるかに影響できる。
+              </>,
+            ]}
+          />
+          <div className="mt-5 rounded-lg border-2 border-accent bg-accent-subtle p-5">
+            <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
+              要点
+            </div>
+            <p className="mt-2 text-[16px] font-light leading-[1.45] text-fg-primary">
+              Hinokiの強みはアーキテクチャにある。別のロボット脳ではなく、一つの物理ループで検証でき、ロボットシステム横断でライセンスできる神経系のような制御層である。
+            </p>
+          </div>
+        </Card>
+
+        <Card tag="04 · 顧客発見" title="エンジニアから、これまでに聞こえてきたこと">
+          <p className="mt-4 text-[15px] leading-[1.7] text-fg-secondary">
             顧客ヒアリングを通じて、Arcは広いアーキテクチャ仮説から、測定可能な最初の制御ループ・ベンチマークへと絞り込まれています。
           </p>
           <BulletList
+            className="space-y-2.5 text-[16px] leading-[1.62]"
             items={[
               <>
                 <span className="font-semibold text-fg-primary">
-                  レイテンシは、特定の物理的瞬間で重要になる。
+                  レイテンシは物理エッジで重要になる。
                 </span>{" "}
-                エンジニアからは、応答性、精度、アクチュエータ側の速度が重要となる場面では、レイテンシがボトルネックになり得るとの声がありました。
+                エンジニアから、精度・速度・アクチュエータタイミングが重要な場面では応答時間がクリティカルになるとの確認があった。
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
-                  物理環境の変化が不安定性を生む。
+                  物理的変動が不安定性を生む。
                 </span>{" "}
-                変化する床面、荷重変化、車輪スリップ、ノイズのあるセンサー、予測しにくい環境は、計画ループだけでは解決しにくい制御課題を生みます。
+                変化する床面、荷重変化、車輪スリップ、ノイズのあるセンサー、予測しにくい環境が、実用的な制御課題を生む。
               </>,
               <>
                 <span className="font-semibold text-fg-primary">
-                  スリップ応答は、測定可能な最初の入り口になる。
+                  スリップ応答が最初の測定可能な入り口。
                 </span>{" "}
-                触覚センシングとグリッパー制御では、課題が具体化します。スリップを検知し、より速く応答し、対象物を安定させ、従来のデジタル制御ベースラインと比較できます。
+                グリッパー制御では課題が具体化する。スリップを検知し、より速く応答し、対象物を安定させ、ベースラインと比較する。
               </>,
             ]}
           />
-          <SubLabel>Independent confirmation — engineer voices</SubLabel>
-          <div className="mt-3 space-y-3">
+          <div className="mt-5 space-y-4">
             <EngineerQuote
-              role="AMRトルク制御エンジニア"
-              quote="車輪スリップには、トルク制御と速度制御を切り替えることで対応してきたが、それは妥協であり根本解決ではない。車輪側でループを閉じられれば、まだ改善余地がある。"
-            />
-            <EngineerQuote
+              variant="primary"
               role="グリッパー／マニピュレーションエンジニア"
               quote="スリップは触覚データ上では先に見えているが、把持ループの応答が遅れる。部品が動き始めてから把持力を上げることになる。センサーからグリッパーまでの遅延は繰り返し課題になる。"
             />
             <EngineerQuote
-              role="二足歩行ヒューマノイド研究者"
-              quote="一度足場が滑ると、歩容制御はすでに遅れている。今も同じ制御スタックを通っており、接触に対する独立した高速経路がない。"
+              role="AMRトルク制御エンジニア"
+              quote="車輪スリップはトルク制御と速度制御のトレードオフを強いる。車輪に近い場所でループを閉じられれば、依然として有効だ。"
             />
             <EngineerQuote
-              role="支援ロボティクス研究者"
-              quote="数値上の遅延は問題なさそうに見えても、実際にはユーザーが試行全体を通じて補正している。意図とアシストトルクが同じタイミングで動いている感覚にならない。"
+              role="二足歩行ヒューマノイド研究者"
+              quote="一度足場が滑ると、歩容はすでに遅れている。接触のための独立した高速経路がない。"
             />
           </div>
-          <p className="mt-4 text-[15px] italic leading-[1.65] text-fg-primary">
-            これらの発見により、Hinokiは最初の検証ベンチマークを「
-            <span className="not-italic font-semibold">
-              触覚スリップ検知と高速グリッパー応答
-            </span>
-            」に絞りました。
-          </p>
+          <div className="mt-6 rounded-lg border-2 border-accent bg-accent-subtle p-6">
+            <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
+              要点
+            </div>
+            <p className="mt-2 text-[16px] font-light leading-[1.45] text-fg-primary">
+              これにより、Hinokiは最初の検証ベンチマークを
+              <span className="font-semibold">
+                「触覚スリップ検知と高速グリッパー応答」
+              </span>
+              に絞った。
+            </p>
+          </div>
         </Card>
 
         <Card
-          tag="04 · ベンチマーク"
+          tag="05 · ベンチマーク"
           title="触覚スリップ検知と高速グリッパー応答"
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -259,7 +407,7 @@ export default function MobileDeck1stRoundJp() {
         </Card>
 
         <Card
-          tag="05 · アーキテクチャ"
+          tag="06 · アーキテクチャ"
           title={
             <>
               <span className="italic">Arc</span>
@@ -268,7 +416,9 @@ export default function MobileDeck1stRoundJp() {
           }
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Arcは、身体が感覚から応答へ向かう高速な局所経路である脊髄反射弧から着想を得ています。ロボットは既存のコントローラを維持し、Arcが選択されたセンサー・アクチュエータループに高速なローカル応答経路を加えます。
+            Arcは、身体が感覚から応答へ向かう高速な局所経路である
+            <span className="font-semibold text-fg-primary">脊髄反射弧から着想を得ています</span>
+            。ロボットは既存のコントローラを維持し、Arcが選択されたセンサー・アクチュエータループに高速なローカル応答経路を加えます。
           </p>
           <div className="mt-4 rounded-lg border border-accent bg-accent-subtle px-4 py-3 text-[15px] font-semibold leading-[1.35] text-fg-primary">
             置き換え型コントローラではありません。有界なローカル応答層です。
@@ -299,52 +449,62 @@ export default function MobileDeck1stRoundJp() {
         </Card>
 
         <Card
-          tag="06 · 顧客価値"
+          tag="07 · 顧客価値"
           title={
             <>
-              <span className="italic">Arc</span>が改善を目指すもの
+              <span className="italic">Arc</span>はロボティクスの経済性をどう改善するか
             </>
           }
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Arcは、既存のコントローラを置き換えることなく、1つの重要な制御ループに追加され、センサーデータを
-            <span className="font-semibold text-fg-primary">より高速な物理応答</span>
-            へ変換します。
+            Arcは選択した物理制御ループの改善を目指し、ロボティクス企業が導入コストを下げ、信頼性を高め、プラットフォームの対応範囲を広げることを支援します。
           </p>
           <BulletList
             items={[
               <>
-                <span className="font-semibold text-fg-primary">Physical Response</span>{" "}
-                — 接触、力の変化、スリップ、バランス崩れに対し、認識・計画ループが完了する前に応答することを目指します。
+                <span className="font-semibold text-fg-primary">導入コストの低減</span>{" "}
+                — 選択した制御ループ内のローカル適応により、現場ごとのチューニング負担を減らします。{" "}
+                <span className="text-fg-tertiary">
+                  ビジネスインパクト: 現場エンジニアリングの削減、導入サイクルの短縮、顧客あたりのマージン改善。
+                </span>
               </>,
               <>
-                <span className="font-semibold text-fg-primary">Physical Adaptation</span>{" "}
-                — 重量、表面、形状、センサーノイズ、動きの変化に対し、制御ループ内のセンサーフィードバックを使ってローカルに調整します。
+                <span className="font-semibold text-fg-primary">信頼性と稼働率の向上</span>{" "}
+                — スリップ、不安定な接触、振動、センサノイズ、荷重変化などを、より広いシステムが介入する前に安定化します。{" "}
+                <span className="text-fg-tertiary">
+                  ビジネスインパクト: 失敗の低減、稼働率向上、顧客横断で再現しやすい導入。
+                </span>
               </>,
               <>
-                <span className="font-semibold text-fg-primary">Physical Resilience</span>{" "}
-                — ノイズのあるセンサー、荷重変化、振動、部分的なハードウェア劣化に対し、選択されたローカルループで安定化を図ります。
+                <span className="font-semibold text-fg-primary">製品能力の向上</span>{" "}
+                — 接触、力、スリップ、不均衡、ノイズ入力に対するより速いローカル応答層を追加します。{" "}
+                <span className="text-fg-tertiary">
+                  ビジネスインパクト: より広いユースケース、強い製品差別化、高い顧客価値。
+                </span>
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">計算・エネルギー負荷の低減</span>{" "}
+                — 選択した反射レベルの応答をFPGA上でローカルに処理し、CPU、GPU、クラウド、重い推論への依存を減らします。{" "}
+                <span className="text-fg-tertiary">
+                  ビジネスインパクト: より効率的な組込み制御、モバイル、支援、ヒューマノイド、現場ロボティクスへの適合。
+                </span>
+              </>,
+              <>
+                <span className="font-semibold text-fg-primary">統合リスクの低減</span>{" "}
+                — 既存のロボットコントローラが主導権を持ったまま、一つの制御クリティカルループで試せます。{" "}
+                <span className="text-fg-tertiary">
+                  ビジネスインパクト: 導入摩擦の低減、明確なパイロット経路、パートナー評価のしやすさ。
+                </span>
               </>,
             ]}
           />
-          <AccentCallout label="Architectural property · Local by design">
-            3つの柱すべてにおいて、ArcはFPGA上で反射ループをローカルに処理します。
-            <span className="font-semibold">
-              すべてのイベントをCPU、GPU、クラウド推論へ送る必要を減らし、
-            </span>
-            高次コントローラは認識、計画、学習を担い続けます。
+          <AccentCallout label="Bottom line">
+            Arcはロボットをより速く反応させるだけではない。ロボティクスプラットフォームをより導入しやすく、現場でより信頼でき、より収益性高くスケールできるよう設計されている。
           </AccentCallout>
-          <p className="mt-4 text-[15px] leading-[1.65] text-fg-secondary">
-            これらの改善により、Arcは既存ロボットの全面再設計なしに、
-            <span className="font-semibold text-fg-primary">より高速な物理応答</span>、
-            <span className="font-semibold text-fg-primary">変化条件への適応</span>、
-            <span className="font-semibold text-fg-primary">現場での信頼性向上</span>
-            を実現することを目指します。
-          </p>
         </Card>
 
         <Card
-          tag="07 · ステータス"
+          tag="08 · ステータス"
           title="Phase 1では、基盤が実ハードウェア上で動作することを示しました。Phase 2では、物理応答を検証します。"
         >
           <SubLabel>Phase 1 — completed</SubLabel>
@@ -365,7 +525,7 @@ export default function MobileDeck1stRoundJp() {
               "パートナーおよび投資家向けの検証データセットを作成",
             ]}
           />
-          <p className="mt-3 text-[14px] italic leading-[1.65] text-fg-tertiary">
+          <p className="mt-3 text-[14px] italic leading-[1.65] text-fg-caption">
             Phase 2 benchmark targets — not yet proven:{" "}
             <span className="not-italic">Latency</span>（アクチュエータ側でのサブミリ秒応答を目標）、{" "}
             <span className="not-italic">Energy</span>（ベースラインより低い1回の補正応答あたりのエネルギーを目標）、{" "}
@@ -373,16 +533,17 @@ export default function MobileDeck1stRoundJp() {
           </p>
         </Card>
 
-        <Card tag="08 · FPGA" title="FPGAは、HinokiのIP発見エンジンです。">
-          <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
+        <Card tag="09 · FPGA" title="FPGAは、HinokiのIP発見エンジンです。">
+          <p className="mt-4 text-[16px] leading-[1.65] text-fg-secondary">
             私たちは、アーキテクチャをシリコンへ固定する前に、FPGAを用いて発見・検証します。
           </p>
           <SubLabel>IP discovery loop</SubLabel>
-          <p className="mt-2 text-[14px] leading-[1.6] text-fg-secondary">
+          <p className="mt-2 text-[15px] leading-[1.62] text-fg-secondary">
             FPGA検証 → 実センサー・アクチュエータ実験 → 独自ベンチマークデータ → チューニング・ノウハウ → 特許化可能な手法 → リファレンスデザイン／ASIC／ライセンス
           </p>
           <SubLabel>What FPGA enables today</SubLabel>
           <BulletList
+            className="space-y-2.5 text-[16px] leading-[1.62]"
             items={[
               "シリコンへ固定する前にアーキテクチャを反復可能",
               "異なるセンサー、プロトコル、制御ループへ適応可能",
@@ -391,21 +552,22 @@ export default function MobileDeck1stRoundJp() {
           />
           <SubLabel>What FPGA unlocks downstream</SubLabel>
           <BulletList
+            className="space-y-2.5 text-[16px] leading-[1.62]"
             items={[
               "実ロボットシステムから独自ベンチマークデータを収集",
               "特許化可能な制御手法とチューニング戦略を特定",
               "ASIC、リファレンスデザイン、組込みIPへの明確な展開経路",
             ]}
           />
-          <p className="mt-4 text-[15px] italic leading-[1.65] text-fg-primary">
+          <p className="mt-5 text-[16px] italic leading-[1.65] text-fg-primary">
             FPGAにより、Hinokiはアーキテクチャを固定する前に学習できます。
           </p>
-          <p className="mt-3 text-[14px] leading-[1.65] text-fg-tertiary">
+          <p className="mt-4 text-[15px] leading-[1.65] text-fg-caption">
             FPGAは検証とIP発見のための手段であり、必ずしも最終的なコスト構造ではありません。検証後、ASIC、リファレンスデザイン、または組込みIPへ展開します。
           </p>
         </Card>
 
-        <Card tag="09 · トラクション" title="初期検証シグナル">
+        <Card tag="10 · トラクション" title="初期検証シグナル">
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
             顧客発見、投資家・プログラム面での進展、技術アドバイザー体制が、同じ検証パスに向けて収束しています。
           </p>
@@ -452,13 +614,13 @@ export default function MobileDeck1stRoundJp() {
               "AISTシニアロボティクス研究者と協議中",
             ]}
           />
-          <p className="mt-4 text-[13px] italic leading-[1.55] text-fg-tertiary">
+          <p className="mt-4 text-[13px] italic leading-[1.55] text-fg-caption">
             ステータス表現は意図的に正確にしています。ここに記載された段階を超える投資、商業契約、パートナーシップ上のコミットメントを示すものではありません。
           </p>
         </Card>
 
         <Card
-          tag="10 · 市場"
+          tag="11 · 市場"
           title="測定可能な最初の市場から、プラットフォーム全体の機会へ。"
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -477,7 +639,7 @@ export default function MobileDeck1stRoundJp() {
               </p>
             </div>
             <div className="rounded-lg border border-border bg-bg-base/60 p-4">
-              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-tertiary">
+              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-caption">
                 Serviceable market · $170B
               </div>
               <p className="mt-2 text-[15px] font-medium text-fg-primary">
@@ -488,7 +650,7 @@ export default function MobileDeck1stRoundJp() {
               </p>
             </div>
             <div className="rounded-lg border border-border bg-bg-base/60 p-4">
-              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-tertiary">
+              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-caption">
                 Long-term opportunity · $165B
               </div>
               <p className="mt-2 text-[15px] font-medium text-fg-primary">
@@ -515,7 +677,7 @@ export default function MobileDeck1stRoundJp() {
         </Card>
 
         <Card
-          tag="11 · ビジネスモデル"
+          tag="12 · ビジネスモデル"
           title="検証から、アーキテクチャライセンスへ。"
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -560,7 +722,7 @@ export default function MobileDeck1stRoundJp() {
         </Card>
 
         <Card
-          tag="12 · ポジショニング"
+          tag="13 · ポジショニング"
           title="Hinokiはロボティクススタックのどこに位置するのか。"
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -589,7 +751,7 @@ export default function MobileDeck1stRoundJp() {
         </Card>
 
         <Card
-          tag="13 · チーム"
+          tag="14 · チーム"
           title="長期的な信頼関係と補完的な役割に基づく創業チーム"
         >
           <div className="mt-3 grid gap-3 text-[15px] leading-[1.6] text-fg-secondary">
@@ -597,7 +759,7 @@ export default function MobileDeck1stRoundJp() {
               <span className="font-semibold text-fg-primary">
                 Salvatore Martone — Co-founder / CEO · Commercial:
               </span>{" "}
-              筑波大学（生物科学群）。Arc事業仮説の共同設計者として生物学的フレーミングを導入。日本企業の経営層（C-suite）向けに企業支援実務をゼロから構築。Hinokiの商業戦略および日本投資家関係を統括。
+              筑波大学（生物科学群）。Arc事業仮説の共同設計者として生物学的フレーミングを導入。日本企業の経営層（C-suite）向けに企業支援実務をゼロから構築。Hinokiの商業戦略および投資家関係を統括。
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
@@ -608,7 +770,7 @@ export default function MobileDeck1stRoundJp() {
             </div>
             <div>
               <span className="font-semibold text-fg-primary">
-                Mina Otsuka — Co-founder / Japan Market &amp; Ecosystem:
+                Mina Otsuka — Co-founder / COO · Japan Operations:
               </span>{" "}
               日本語ネイティブ。日本有数の金融大手明治生命にてビジネス開発・顧客関係マネージャー。日本企業文化への深い理解。全国のロボティクスエンジニア・研究機関との関係構築を担当。
             </div>
@@ -641,28 +803,60 @@ export default function MobileDeck1stRoundJp() {
           />
         </Card>
 
-        <Card tag="14 · アドバイザリー" title="初期技術アドバイザリーボード">
+        <Card
+          tag="15 · アドバイザリー"
+          title="技術アドバイザーは実行リスクを下げる"
+        >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
-            Hinokiは、Physical HRI、メカトロニクス、ニューロモルフィックネットワーク、知能ロボティクス領域のアドバイザー体制を構築しています。
+            アドバイザー支援は、Physical HRI、メカトロニクス、ニューロモルフィックアーキテクチャ、日本のロボティクス研究エコシステムにわたる。
           </p>
-          <SubLabel>Current advisor commitments</SubLabel>
+          <SubLabel>確定 · Physical HRI Advisor</SubLabel>
           <BulletList
             items={[
-              "Physical HRI Advisor — PhD · University of Tsukuba · Professor, PUCP。ヒューマンロボットインタラクション、支援システム、身体的インタラクション、ロボティクス検証文脈。",
-              "Mechatronics Advisor — PhD · University of Tsukuba · Associate Professor, Nagoya University。メカトロニクス、ヒューマンインフォマティクス、ロボットシステム、学術的検証パス。",
+              "Verbal agreement received · PhD, University of Tsukuba · Professor, PUCP",
+              <>
+                <span className="font-semibold text-fg-primary">低減するリスク:</span>{" "}
+                ヒューマンロボットインタラクション、支援ロボティクス、ヒト近接システムの物理検証。
+              </>,
             ]}
           />
-          <SubLabel>Upcoming &amp; pending advisor discussions</SubLabel>
+          <SubLabel>確定 · Mechatronics Advisor</SubLabel>
           <BulletList
             items={[
-              "Neuromorphic Networks Advisor — Expected from July。PhD · University of Tokyo。ニューロモルフィックアーキテクチャ、リザバー関連の技術支援。",
-              "AIST Robotics Researcher — Pending discussion。PhD · University of Tsukuba · Senior Researcher, AIST。AISTロボティクスエコシステム、知能インタラクション、ロボティクス研究の信頼性。",
+              "Verbal agreement received · PhD, University of Tsukuba · Associate Professor, Nagoya University",
+              <>
+                <span className="font-semibold text-fg-primary">低減するリスク:</span>{" "}
+                センサー・アクチュエータ統合、メカトロニクス検証、アーキテクチャ概念からハードウェア試験への移行。
+              </>,
             ]}
           />
+          <SubLabel>Neuromorphic Networks Advisor · Expected from July</SubLabel>
+          <BulletList
+            items={[
+              "PhD, University of Tokyo",
+              <>
+                <span className="font-semibold text-fg-primary">低減するリスク:</span>{" "}
+                ニューロモルフィックアーキテクチャ、リザバー関連設計、将来のIP開発。
+              </>,
+            ]}
+          />
+          <SubLabel>AIST Senior Robotics Researcher · Pending discussion</SubLabel>
+          <BulletList
+            items={[
+              "PhD, University of Tsukuba · Senior Researcher, AIST",
+              <>
+                <span className="font-semibold text-fg-primary">低減するリスク:</span>{" "}
+                応用ロボティクスの視点、AISTエコシステムへのアクセス、将来の検証パートナーシップ。
+              </>,
+            ]}
+          />
+          <AccentCallout label="Together">
+            このネットワークは、ヒューマンロボットインタラクション、ハードウェア統合、ニューロモルフィックアーキテクチャ、日本ロボティクスエコシステムへのアクセスという4つの検証リスクを支援します。
+          </AccentCallout>
         </Card>
 
         <Card
-          tag="15 · 12ヶ月計画"
+          tag="16 · 12ヶ月計画"
           title="顧客発見からハードウェア検証へ。"
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -672,7 +866,7 @@ export default function MobileDeck1stRoundJp() {
           <BulletList
             items={[
               "スリップ検知ベンチマーク要件の定義",
-              "触覚センサー、グリッパー、FPGA、アクチュエータ構成の調達",
+              "触覚センサー、グリッパー、FPGA、アクチュエータ構成の調達 — 初回LOIパートナーからのハードウェア調達も検討",
             ]}
           />
           <SubLabel>3〜6か月</SubLabel>
@@ -715,7 +909,7 @@ export default function MobileDeck1stRoundJp() {
         </Card>
 
         <Card
-          tag="16 · 5年計画"
+          tag="17 · 5年計画"
           title="売上・支出計画"
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -762,13 +956,13 @@ export default function MobileDeck1stRoundJp() {
               "組込みIPロイヤリティ — プラットフォーム単位またはユニット単位",
             ]}
           />
-          <p className="mt-3 text-[14px] italic leading-[1.65] text-fg-tertiary">
+          <p className="mt-3 text-[14px] italic leading-[1.65] text-fg-caption">
             これは方向性を示す計画であり、精密な財務予測ではありません。売上は、Phase 2検証の成功、パートナー転換、ライセンス採用に依存します。
           </p>
         </Card>
 
         <Card
-          tag="17 · 資金使途"
+          tag="18 · 資金使途"
           title="1stRound資金で実現すること"
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -798,7 +992,7 @@ export default function MobileDeck1stRoundJp() {
           </p>
         </Card>
 
-        <div className="pt-4 font-mono text-[11px] tracking-[0.06em] text-fg-tertiary">
+        <div className="pt-4 font-mono text-[11px] tracking-[0.06em] text-fg-caption">
           プレゼンター用の全スライドはデスクトップ表示でご覧いただけます。
         </div>
       </div>
