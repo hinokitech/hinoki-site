@@ -20,7 +20,7 @@ import {
 //
 //  Main deck — 15 IC slides + 2 appendix (Vision, Defensibility).
 //
-//    01  Cover — Robots are getting brains. Arc gives them reflexes.
+//    01  Cover — Robots have brains. Arc gives them reflexes.
 //    02  Problem — Scaling robots into the real world is hard.
 //    03  Solution — Arc adds the missing physical response layer companies need.
 //    04  Architecture — Arc local reflex layer for robotic systems.
@@ -183,18 +183,14 @@ function CoverSlide() {
     <Slide>
       <HeroTag>Hinoki Technologies</HeroTag>
       <h1 className="text-[120px] font-light leading-[1.0] tracking-[-0.028em] text-fg-primary">
-        Robots are getting brains.
+        Robots have brains,
         <br />
         <span className="italic">Arc</span> gives them reflexes.
       </h1>
       <p className="mt-14 max-w-[1180px] text-[30px] font-normal leading-[1.45] text-fg-secondary">
-        Hinoki is building the{" "}
-        <span className="font-semibold text-fg-primary">
-          physical response layer
-        </span>{" "}
-        robots have been missing — a neuromorphic local control architecture
-        that turns sensor data into fast, adaptive physical action, without
-        replacing the existing controller.
+        Inspired by the nervous system&rsquo;s reflex arc,{" "}
+        <span className="italic">Arc</span> brings fast local response into
+        robotics, helping robots react, adapt, and stabilize.
       </p>
 
       <div
