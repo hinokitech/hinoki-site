@@ -1,7 +1,7 @@
 // Mobile fallback for /pitch/antler — synced with slides-antler.tsx (desktop is source of truth).
 // Slide order follows Antler's expected pitch structure:
-//   Cover · Problem · Solution · Validation · Why Now · Business Model ·
-//   Market Size · Competition · GTM · Vision · Team · Ask
+//   Cover · Vision · Problem · Solution · Validation · Why Now ·
+//   Business Model · Market Size · Competition · GTM · Team · Ask
 
 import React from "react";
 
@@ -108,7 +108,39 @@ export default function MobileDeckAntler() {
 
       <div className="mx-auto mt-10 max-w-[720px] space-y-10">
         <Card
-          tag="02 · Problem"
+          tag="02 · Vision"
+          title={
+            <>
+              Physical intelligence doesn&rsquo;t live in the brain.
+              <br />
+              It lives in the body.
+            </>
+          }
+        >
+          <SubLabel>Response</SubLabel>
+          <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
+            A body that acts before the brain decides. Touch something hot —
+            your hand pulls back before you think.
+          </p>
+          <SubLabel>Adaptation</SubLabel>
+          <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
+            A body that learns from contact, instantly. No replanning. No
+            retraining.
+          </p>
+          <SubLabel>Resilience</SubLabel>
+          <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
+            A body that keeps going when a part fails. Intelligence in the
+            substrate, not the central plan.
+          </p>
+          <AccentCallout>
+            Hinoki is building the physical intelligence infrastructure every
+            robotic platform of the next decade will need — three behaviors,
+            one architecture.
+          </AccentCallout>
+        </Card>
+
+        <Card
+          tag="03 · Problem"
           title={
             <>
               Robots can think.
@@ -136,7 +168,7 @@ export default function MobileDeckAntler() {
         </Card>
 
         <Card
-          tag="03 · Solution"
+          tag="04 · Solution"
           title="Arc — the missing physical response layer."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -166,7 +198,7 @@ export default function MobileDeckAntler() {
         </Card>
 
         <Card
-          tag="04 · Demand Validation"
+          tag="05 · Demand Validation"
           title="The market is pulling us toward the same first loop."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -202,7 +234,7 @@ export default function MobileDeckAntler() {
         </Card>
 
         <Card
-          tag="05 · Why Now"
+          tag="06 · Why Now"
           title="The body-control bottleneck is becoming urgent."
         >
           <BulletList
@@ -220,7 +252,7 @@ export default function MobileDeckAntler() {
         </Card>
 
         <Card
-          tag="06 · Business Model"
+          tag="07 · Business Model"
           title="ARM for robotics."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -254,7 +286,7 @@ export default function MobileDeckAntler() {
           </AccentCallout>
         </Card>
 
-        <Card tag="07 · Market Size" title="Every platform that moves.">
+        <Card tag="08 · Market Size" title="Every platform that moves.">
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
             Arc starts in a measurable wedge and expands across the robotics
             platforms where physical response is performance-critical.
@@ -283,7 +315,7 @@ export default function MobileDeckAntler() {
         </Card>
 
         <Card
-          tag="08 · Competition"
+          tag="09 · Competition"
           title="The physical response layer is uncrowded."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -306,7 +338,7 @@ export default function MobileDeckAntler() {
         </Card>
 
         <Card
-          tag="09 · Go-to-Market"
+          tag="10 · Go-to-Market"
           title="Japan first. By design, not default."
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
@@ -330,38 +362,6 @@ export default function MobileDeckAntler() {
               "NEDO grant pathway targeted post-benchmark to extend non-dilutive runway",
             ]}
           />
-        </Card>
-
-        <Card
-          tag="10 · Vision"
-          title={
-            <>
-              Physical intelligence doesn&rsquo;t live in the brain.
-              <br />
-              It lives in the body.
-            </>
-          }
-        >
-          <SubLabel>Response</SubLabel>
-          <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
-            A body that acts before the brain decides. Touch something hot —
-            your hand pulls back before you think.
-          </p>
-          <SubLabel>Adaptation</SubLabel>
-          <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
-            A body that learns from contact, instantly. No replanning. No
-            retraining.
-          </p>
-          <SubLabel>Resilience</SubLabel>
-          <p className="mt-2 text-[14px] leading-[1.55] text-fg-primary">
-            A body that keeps going when a part fails. Intelligence in the
-            substrate, not the central plan.
-          </p>
-          <AccentCallout>
-            Hinoki is building the physical intelligence infrastructure every
-            robotic platform of the next decade will need — three behaviors,
-            one architecture.
-          </AccentCallout>
         </Card>
 
         <Card tag="11 · Team" title="Biology meets hardware AI.">

@@ -10,19 +10,20 @@ import {
 //  HINOKI — ANTLER IC DECK (source of truth)
 //
 //  Investment-conviction deck for Antler Japan Pre-IC / IC.
-//  Keep mobile-antler.tsx in sync when editing copy here.
+//  English only — no Japanese variant for now.
+//  Do not update mobile-antler.tsx unless explicitly requested.
 //
 //  Slide order follows Antler's expected pitch structure:
 //    1  Cover
-//    2  Problem               ★★★
-//    3  Solution              ★★
-//    4  Demand Validation     ★★
-//    5  Why Now               ★★
-//    6  Business Model        ★
-//    7  Market Size           ★
-//    8  Competition           ★
-//    9  Go-to-Market
-//   10  Vision                ★★★
+//    2  Vision                ★★★
+//    3  Problem               ★★★
+//    4  Solution              ★★
+//    5  Demand Validation     ★★
+//    6  Why Now               ★★
+//    7  Business Model        ★
+//    8  Market Size           ★
+//    9  Competition           ★
+//   10  Go-to-Market
 //   11  Team                  ★★★
 //   12  Milestones / Ask
 //
@@ -234,7 +235,7 @@ function ProblemSlide() {
         profitably across customers.
       </BottomBanner>
 
-      <SlideFooter pageLabel="02 · Problem" />
+      <SlideFooter pageLabel="03 · Problem" />
     </Slide>
   );
 }
@@ -307,7 +308,7 @@ function SolutionSlide() {
         robotic systems.
       </BottomBanner>
 
-      <SlideFooter pageLabel="03 · Solution" />
+      <SlideFooter pageLabel="04 · Solution" />
     </Slide>
   );
 }
@@ -416,7 +417,7 @@ function ValidationSlide() {
         </span>
       </BottomBanner>
 
-      <SlideFooter pageLabel="04 · Demand Validation" />
+      <SlideFooter pageLabel="05 · Demand Validation" />
     </Slide>
   );
 }
@@ -503,7 +504,7 @@ function WhyNowSlide() {
         </span>
       </BottomBanner>
 
-      <SlideFooter pageLabel="05 · Why Now" />
+      <SlideFooter pageLabel="06 · Why Now" />
     </Slide>
   );
 }
@@ -616,7 +617,7 @@ function BusinessModelSlide() {
         </span>
       </p>
 
-      <SlideFooter pageLabel="06 · Business Model" />
+      <SlideFooter pageLabel="07 · Business Model" />
     </Slide>
   );
 }
@@ -720,7 +721,7 @@ function MarketSlide() {
         McKinsey Global Institute, Embodied AI safety research 2024.
       </p>
 
-      <SlideFooter pageLabel="07 · Market Size" />
+      <SlideFooter pageLabel="08 · Market Size" />
     </Slide>
   );
 }
@@ -811,7 +812,7 @@ function CompetitionSlide() {
         </span>
       </p>
 
-      <SlideFooter pageLabel="08 · Competition" />
+      <SlideFooter pageLabel="09 · Competition" />
     </Slide>
   );
 }
@@ -895,7 +896,7 @@ function GtmSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="09 · Go-to-Market" />
+      <SlideFooter pageLabel="10 · Go-to-Market" />
     </Slide>
   );
 }
@@ -962,7 +963,7 @@ function VisionSlide() {
         one architecture.
       </BottomBanner>
 
-      <SlideFooter pageLabel="10 · Vision" />
+      <SlideFooter pageLabel="02 · Vision" />
     </Slide>
   );
 }
@@ -1165,6 +1166,7 @@ function MilestonesSlide() {
 // =====================================================================
 export const SLIDES_ANTLER: Array<() => React.JSX.Element> = [
   CoverSlide,
+  VisionSlide,
   ProblemSlide,
   SolutionSlide,
   ValidationSlide,
@@ -1173,7 +1175,6 @@ export const SLIDES_ANTLER: Array<() => React.JSX.Element> = [
   MarketSlide,
   CompetitionSlide,
   GtmSlide,
-  VisionSlide,
   TeamSlide,
   MilestonesSlide,
 ];
