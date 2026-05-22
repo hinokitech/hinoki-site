@@ -634,7 +634,11 @@ function EngineerQuote({
   );
 }
 
-function DiscoverySlide() {
+export function DiscoverySlide({
+  pageLabel = "04 · Discovery",
+}: {
+  pageLabel?: string;
+}) {
   return (
     <Slide align="start">
       <Eyebrow>Discovery</Eyebrow>
@@ -695,7 +699,7 @@ function DiscoverySlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="04 · Discovery" />
+      <SlideFooter pageLabel={pageLabel} />
     </Slide>
   );
 }
@@ -703,7 +707,11 @@ function DiscoverySlide() {
 // ---------------------------------------------------------------------
 //  04 · First Validation Benchmark
 // ---------------------------------------------------------------------
-function BenchmarkSlide() {
+export function BenchmarkSlide({
+  pageLabel = "05 · First Benchmark",
+}: {
+  pageLabel?: string;
+}) {
   return (
     <Slide align="start">
       <Eyebrow>First Benchmark</Eyebrow>
@@ -815,7 +823,7 @@ function BenchmarkSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="05 · First Benchmark" />
+      <SlideFooter pageLabel={pageLabel} />
     </Slide>
   );
 }
@@ -823,7 +831,11 @@ function BenchmarkSlide() {
 // ---------------------------------------------------------------------
 //  05 · Solution / Arc Architecture
 // ---------------------------------------------------------------------
-function SolutionSlide() {
+export function ArcArchitectureSlide({
+  pageLabel = "06 · Architecture",
+}: {
+  pageLabel?: string;
+}) {
   return (
     <Slide align="start">
       <Eyebrow>Architecture</Eyebrow>
@@ -880,7 +892,7 @@ function SolutionSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="06 · Architecture" />
+      <SlideFooter pageLabel={pageLabel} />
     </Slide>
   );
 }
@@ -1527,7 +1539,13 @@ function MarketTier({
   );
 }
 
-function MarketSlide() {
+export function MarketSlide({
+  pageLabel = "11 · Market",
+  plainJapanFrame = false,
+}: {
+  pageLabel?: string;
+  plainJapanFrame?: boolean;
+}) {
   return (
     <Slide align="start">
       <Eyebrow>Market</Eyebrow>
@@ -1565,7 +1583,13 @@ function MarketSlide() {
       </div>
 
       {/* Japan strategic anchor — explicitly for university reviewers */}
-      <div className="mt-5 max-w-[1640px] rounded-[8px] border border-accent bg-accent-subtle px-6 py-4">
+      <div
+        className={`mt-5 max-w-[1640px] ${
+          plainJapanFrame
+            ? "border-l-2 border-accent/40 pl-5"
+            : "rounded-[8px] border border-accent bg-accent-subtle px-6 py-4"
+        }`}
+      >
         <div className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">
           Japan strategic frame
         </div>
@@ -1607,7 +1631,7 @@ function MarketSlide() {
         impact target by 2035.
       </p>
 
-      <SlideFooter pageLabel="11 · Market" />
+      <SlideFooter pageLabel={pageLabel} />
     </Slide>
   );
 }
@@ -2491,7 +2515,7 @@ export const SLIDES_1STROUND: Array<() => React.JSX.Element> = [
   PhysicalResponseSolutionSlide,
   DiscoverySlide,
   BenchmarkSlide,
-  SolutionSlide,
+  ArcArchitectureSlide,
   BenefitsSlide,
   StatusSlide,
   FpgaSlide,
