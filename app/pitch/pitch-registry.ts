@@ -55,6 +55,20 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
       },
     ],
   },
+  {
+    id: "antler",
+    title: "Antler IC Deck",
+    description:
+      "12-slide investment-conviction deck for Antler Japan Pre-IC / IC.",
+    audience: "Antler Japan Pre-IC / IC",
+    locales: [
+      {
+        lang: "en",
+        label: "English",
+        path: "/pitch/antler",
+      },
+    ],
+  },
 ];
 
 /** Deck ids that were merged or renamed — notes API may still receive these once. */
