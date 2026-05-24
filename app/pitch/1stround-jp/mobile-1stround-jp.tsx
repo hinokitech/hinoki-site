@@ -772,7 +772,7 @@ export default function MobileDeck1stRoundJp() {
               <span className="font-semibold text-fg-primary">
                 Mina Otsuka — Co-founder / COO · Japan Operations:
               </span>{" "}
-              日本語ネイティブ。日本有数の金融大手明治生命にてビジネス開発・顧客関係マネージャー。日本企業文化への深い理解。全国のロボティクスエンジニア・研究機関との関係構築を担当。
+              日本語ネイティブ。日本有数の金融大手明治安田生命にてビジネス開発・顧客関係マネージャー。日本企業文化への深い理解。全国のロボティクスエンジニア・研究機関との関係構築を担当。
             </div>
           </div>
           <SubLabel>Founder connection</SubLabel>

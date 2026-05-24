@@ -143,8 +143,8 @@ function MetricGroup({
 }
 
 // ---------------------------------------------------------------------
-//  Neural motif — borrowed from the website hero. Static SVG so the
-//  motion is preserved on screen but the deck PDF/print stays calm.
+//  Neural motif — live version aligned with the website hero (signal
+//  pulses + breathing nodes). Animations pause for print / reduced motion.
 // ---------------------------------------------------------------------
 function NeuralMotif({ className }: { className?: string }) {
   return (
@@ -160,22 +160,69 @@ function NeuralMotif({ className }: { className?: string }) {
         .hn-node-1st {
           transform-box: fill-box;
           transform-origin: center;
-          animation: hn-breathe-1st 2.6s ease-in-out infinite;
+          animation: hn-breathe-1st 2s ease-in-out infinite;
           will-change: transform, opacity;
+        }
+        .hn-halo-1st {
+          transform-box: fill-box;
+          transform-origin: center;
+          animation: hn-halo-1st 2.6s ease-in-out infinite;
         }
         @keyframes hn-breathe-1st {
           0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.12); }
+          50% { transform: scale(1.15); }
+        }
+        @keyframes hn-halo-1st {
+          0%, 100% { transform: scale(1); opacity: 0.1; }
+          50% { transform: scale(1.18); opacity: 0.16; }
+        }
+        .hn-signal-1st {
+          filter: drop-shadow(0 0 6px rgba(232, 98, 42, 0.55));
+        }
+        @media (prefers-reduced-motion: reduce), print {
+          .hn-node-1st,
+          .hn-halo-1st {
+            animation: none !important;
+          }
+          .hn-signal-1st animate,
+          .hn-signal-1st animateMotion {
+            display: none;
+          }
         }
       `}</style>
-      <path d="M60 200 C120 140, 200 260, 300 180 S460 120, 520 160" stroke="#E8622A" strokeWidth="1" opacity="0.3" />
-      <path d="M40 240 C110 170, 220 300, 330 210 S490 150, 540 200" stroke="#C42B2B" strokeWidth="1" opacity="0.2" />
-      <path d="M80 160 C150 100, 260 240, 360 150 S500 90, 550 120" stroke="#E8622A" strokeWidth="0.8" opacity="0.2" />
-      <path d="M30 280 C100 200, 210 340, 310 240" stroke="#E8622A" strokeWidth="0.8" opacity="0.15" />
 
-      <circle cx="60" cy="200" r="28" fill="#E8622A" opacity="0.08" />
-      <circle cx="60" cy="200" r="16" fill="#E8622A" opacity="0.12" />
-      <circle className="hn-node-1st" cx="60" cy="200" r="7" fill="#E8622A" opacity="0.9" />
+      <path
+        id="hnp1-1st"
+        d="M60 200 C120 140, 200 260, 300 180 S460 120, 520 160"
+        stroke="#E8622A"
+        strokeWidth="1"
+        opacity="0.3"
+      />
+      <path
+        id="hnp2-1st"
+        d="M40 240 C110 170, 220 300, 330 210 S490 150, 540 200"
+        stroke="#C42B2B"
+        strokeWidth="1"
+        opacity="0.2"
+      />
+      <path
+        id="hnp3-1st"
+        d="M80 160 C150 100, 260 240, 360 150 S500 90, 550 120"
+        stroke="#E8622A"
+        strokeWidth="0.8"
+        opacity="0.2"
+      />
+      <path
+        id="hnp4-1st"
+        d="M30 280 C100 200, 210 340, 310 240"
+        stroke="#E8622A"
+        strokeWidth="0.8"
+        opacity="0.15"
+      />
+
+      <circle className="hn-halo-1st" cx="60" cy="200" r="28" fill="#E8622A" opacity="0.08" />
+      <circle className="hn-halo-1st" style={{ animationDelay: "-400ms" }} cx="60" cy="200" r="16" fill="#E8622A" opacity="0.12" />
+      <circle className="hn-node-1st" style={{ animationDelay: "0ms" }} cx="60" cy="200" r="7" fill="#E8622A" opacity="0.9" />
 
       <circle cx="190" cy="155" r="20" fill="#C42B2B" opacity="0.08" />
       <circle cx="190" cy="155" r="10" fill="#C42B2B" opacity="0.12" />
@@ -194,6 +241,34 @@ function NeuralMotif({ className }: { className?: string }) {
 
       <circle cx="500" cy="175" r="12" fill="#E8622A" opacity="0.07" />
       <circle className="hn-node-1st" style={{ animationDelay: "-1910ms" }} cx="500" cy="175" r="4" fill="#E8622A" opacity="0.7" />
+
+      <g className="hn-signal-1st" opacity="0.95">
+        <circle r="3.25" fill="#E8622A">
+          <animateMotion dur="6.4s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1">
+            <mpath href="#hnp1-1st" />
+          </animateMotion>
+          <animate attributeName="opacity" dur="6.4s" repeatCount="indefinite" values="0;0.9;0" keyTimes="0;0.12;1" />
+        </circle>
+        <circle r="2.75" fill="#E8622A" opacity="0">
+          <animateMotion dur="7.2s" begin="-2.1s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1">
+            <mpath href="#hnp2-1st" />
+          </animateMotion>
+          <animate attributeName="opacity" dur="7.2s" begin="-2.1s" repeatCount="indefinite" values="0;0.85;0" keyTimes="0;0.12;1" />
+        </circle>
+        <circle r="2.5" fill="#E8622A" opacity="0">
+          <animateMotion dur="5.8s" begin="-1.3s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1">
+            <mpath href="#hnp3-1st" />
+          </animateMotion>
+          <animate attributeName="opacity" dur="5.8s" begin="-1.3s" repeatCount="indefinite" values="0;0.8;0" keyTimes="0;0.12;1" />
+        </circle>
+      </g>
+
+      <circle cx="300" cy="185" r="6" fill="#E8622A" opacity="0">
+        <animate attributeName="opacity" dur="6.4s" repeatCount="indefinite" values="0;0;0.35;0" keyTimes="0;0.74;0.78;1" />
+      </circle>
+      <circle cx="420" cy="140" r="4.5" fill="#C42B2B" opacity="0">
+        <animate attributeName="opacity" dur="6.4s" repeatCount="indefinite" values="0;0;0.28;0" keyTimes="0;0.86;0.90;1" />
+      </circle>
 
       <line x1="60" y1="200" x2="130" y2="260" stroke="#E8622A" strokeWidth="0.8" opacity="0.25" />
       <line x1="60" y1="200" x2="190" y2="155" stroke="#C42B2B" strokeWidth="0.8" opacity="0.2" />
@@ -222,21 +297,18 @@ function TitleSlide() {
         <span>Hinoki Technologies</span>
       </div>
       <h1 className="text-[88px] font-light leading-[1.08] tracking-[-0.025em] text-fg-primary">
-        ロボットシステムのための
-        <br />
-        物理知能
+        ロボットに「物理知能」を実装する
       </h1>
       <p className="mt-12 max-w-[1180px] text-[28px] font-normal leading-[1.55] text-fg-secondary">
         <span className="italic font-semibold text-fg-primary">Arc</span>
-        は、既存のロボットコントローラを置き換えるのではなく、センサーデータを
-        <span className="font-semibold text-fg-primary">より高速な物理応答</span>
-        へ変換するニューロモルフィック・ローカル制御層です。
+        は、既存のロボットコントローラを置き換えるものではありません。
+        センサーデータを、より高速で信頼性の高い物理応答へと変換する「ニューロモルフィックなローカル制御層」です。
       </p>
 
       <p className="mt-4 max-w-[1180px] text-[20px] font-light italic leading-[1.5] text-fg-primary">
-        ロボットには「脳」が与えられてきました。{" "}
+        これまでロボットには「脳（認識・計画）」が与えられてきました。{" "}
         <span className="not-italic font-semibold">
-          Arcは、そこに「神経系」を加えます。
+          Arcはそこに、「神経系（即時的な物理応答）」を加えます。
         </span>
       </p>
 
@@ -268,9 +340,9 @@ function TitleSlide() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-[16px] top-[120px] opacity-70"
+        className="pointer-events-none absolute left-[1340px] top-[80px] w-[580px] opacity-70"
       >
-        <NeuralMotif className="h-auto w-[780px]" />
+        <NeuralMotif className="h-auto w-full" />
       </div>
 
       <div className="absolute bottom-[80px] left-[140px] font-mono text-[16px] tracking-[0.08em] text-fg-tertiary">
@@ -305,24 +377,24 @@ function ProblemSlide() {
     <Slide align="start">
       <Eyebrow>Problem</Eyebrow>
       <h2 className="text-[60px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
-        ロボットは制御された環境では動く。
+        ロボットは制御された環境では動作する。
         <br />
-        しかし、変動する実環境へスケールすることは依然として難しい。
+        しかし、変化する実環境では十分に機能しない。
       </h2>
       <p className="mt-5 max-w-[1640px] text-[20px] font-normal leading-[1.52] text-fg-secondary">
-        ロボットはデモ、ラボ、シミュレーション、狭い導入設定では十分に性能を発揮できるが、重量・接触・ペイロード・振動、環境の変化では性能がしばしば低下する。{" "}
-        <span className="font-semibold text-fg-primary">
-          接触を伴うタスクは特に難しく、非線形ダイナミクスと微小な位置ずれが物理相互作用の一般化を妨げる。
-        </span>
+        ラボやシミュレーション、限定された条件下では高い性能を発揮できる一方で、
+        実際の現場では、重量・接触・振動・環境変化などによって性能が大きく低下する。
+        特に接触を伴うタスクでは、
+        非線形な物理ダイナミクスやわずかな位置ずれが、安定した動作を難しくする。
       </p>
 
       <div className="mt-6 max-w-[1640px]">
         <div className="font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-fg-primary">
-          条件が変わると何が破綻するか
+          なぜ現場で失敗するのか
         </div>
         <div className="mt-3 grid grid-cols-3 gap-5">
           <ProblemDriverCard
-            headline="ラボでは動く、現場では失敗する"
+            headline="ラボでは動くが、現場では再現できない"
             body="構造化された環境で見える能力が、本番の対象物・接触・運用条件の変化で失敗し得る。"
           />
           <ProblemDriverCard
@@ -330,7 +402,7 @@ function ProblemSlide() {
             body="スリップ・接触・不均衡・力の変化は、認識から計画までの経路より速く起こり得る — 課題はセンサー・アクチュエータループでの応答である。"
           />
           <ProblemDriverCard
-            headline="顧客横断で再現しにくい"
+            headline="顧客ごとにチューニングが必要になり、スケールしない"
             body="新しい拠点ごとにカスタムチューニング、統合工数、低速運転、狭いユースケースが必要になり、反復可能な導入モデルにならない。"
           />
         </div>
@@ -465,13 +537,17 @@ function PhysicalResponseSolutionSlide() {
       <Eyebrow>ソリューション</Eyebrow>
       <h2 className="max-w-[1640px] text-[48px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
         <span className="italic">Arc</span>
-        は、不足している物理応答レイヤーを追加する。
+        は、不足している「物理応答レイヤー」を追加する。
       </h2>
       <p className="mt-3 max-w-[1640px] text-[18px] font-normal leading-[1.48] text-fg-secondary">
-        ニューロモーフィックなローカル制御アーキテクチャ。既存コントローラが主導権を持ったまま、選択したセンサー–アクチュエータループ内でロボットが応答できる。
+        Arcは、ニューロモルフィックなローカル制御アーキテクチャとして、
+        既存のコントローラを維持したまま、特定のセンサー–アクチュエータループにおいて高速な応答を可能にする。
       </p>
       <p className="mt-3 max-w-[1640px] text-[16px] leading-[1.55] text-fg-secondary">
-        ロボティクス企業は認識・計画・AIを改善しているが、多くの失敗はロボット本体に近い場所で起きる。Arcは選択したセンサーとアクチュエータの間に位置し、変化する物理信号を、より広いデジタルスタックが介入する前に有界な修正動作へ変換する。
+        ロボティクス企業はこれまで、認識・計画・AIの高度化に注力してきた。
+        しかし実際の失敗の多くは、ロボットの身体に近いレイヤーで発生している。
+        Arcは、センサーとアクチュエータの間に配置され、
+        物理的な変化を、上位システムが介入する前に即時的な補正動作へ変換する。
       </p>
 
       <div className="mt-4 grid max-w-[1640px] grid-cols-3 gap-4">
@@ -543,7 +619,8 @@ function PhysicalResponseSolutionSlide() {
           要点
         </div>
         <p className="mt-2 text-[21px] font-light leading-[1.42] tracking-[-0.015em] text-fg-primary">
-          Hinokiの強みはアーキテクチャにある。別のロボット脳ではなく、一つの物理ループで検証でき、ロボットシステム横断でライセンスできる神経系のような制御層である。
+          Arcは「新しい脳」ではなく、
+          ロボットに欠けていた「神経系」を提供する。
         </p>
       </div>
 
@@ -616,10 +693,11 @@ function DiscoverySlide() {
     <Slide align="start">
       <Eyebrow>Discovery</Eyebrow>
       <h2 className="text-[60px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
-        エンジニアから、これまでに聞こえてきたこと
+        顧客ヒアリングから得られた示唆
       </h2>
       <p className="mt-6 max-w-[1500px] text-[22px] font-normal leading-[1.5] text-fg-secondary">
-        顧客ヒアリングを通じて、Arcは広いアーキテクチャ仮説から、測定可能な最初の制御ループ・ベンチマークへと絞り込まれています。
+        私たちはエンジニアへのヒアリングを通じて、
+        Arcの構想を「測定可能な最初の検証課題」へと絞り込みました。
       </p>
 
       <div className="mt-8 flex min-h-0 flex-1 w-full max-w-[1640px] flex-col gap-8">
@@ -685,10 +763,11 @@ function BenchmarkSlide() {
     <Slide align="start">
       <Eyebrow>First Benchmark</Eyebrow>
       <h2 className="text-[56px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
-        触覚スリップ検知と高速グリッパー応答
+        最初の検証：スリップ検知と高速グリッパー応答
       </h2>
       <p className="mt-4 text-[24px] font-light leading-[1.45] text-fg-secondary">
-        スリップ検知は最初のベンチマークであり、最終市場ではありません。
+        これは最終プロダクトではなく、
+        Arcの有効性を検証するための最初のステップです。
       </p>
 
       <div className="mt-10 max-w-[1640px]">
@@ -784,12 +863,11 @@ function SolutionSlide() {
     <Slide align="start">
       <Eyebrow>Architecture</Eyebrow>
       <h2 className="text-[48px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
-        <span className="italic">Arc</span>：ロボットシステムのためのローカル反射層
+        <span className="italic">Arc</span>：ロボットのためのローカル反射層
       </h2>
       <p className="mt-2 max-w-[1500px] text-[20px] font-light leading-[1.45] text-fg-secondary">
-        Arcは、身体が感覚から応答へ向かう高速な局所経路である
-        <span className="font-semibold text-fg-primary">脊髄反射弧から着想を得ています</span>
-        。ロボットは既存のコントローラを維持し、Arcが選択されたセンサー・アクチュエータループに高速なローカル応答経路を加えます。
+        Arcは、生体の反射神経に着想を得た、
+        高速なローカル応答経路を提供します。
       </p>
 
       <div className="mt-5 w-full min-w-0 max-w-[1640px] overflow-hidden rounded-[12px] border border-border">
@@ -853,19 +931,19 @@ function BenefitsSlide() {
       <div className="mt-6 flex max-w-[1640px] flex-1 flex-col gap-4">
         <div className="grid grid-cols-3 gap-4">
           <RoboticsEconomicsCard
-            title="導入コストの低減"
+            title="導入コストの削減"
             body="オブジェクト、表面、ペイロード、環境が変わると、ロボットは現場ごとのチューニングを必要とすることが多い。Arcは選択した制御ループ内のローカル適応を狙い、現場で信頼性高く動かすためのエンジニアリング負担を減らします。"
             impact="現場エンジニアリングの削減、導入サイクルの短縮、顧客あたりのマージン改善。"
             impactLabel="ビジネスインパクト"
           />
           <RoboticsEconomicsCard
-            title="信頼性と稼働率の向上"
+            title="信頼性の向上"
             body="スリップ、不安定な接触、振動、センサノイズ、荷重変化などの物理的失敗は、ワークフローを止め、信頼を損ない、人の介入を招く。Arcは、より広いシステムが介入する前に、選択したローカルループを安定させるよう設計されています。"
             impact="失敗の低減、稼働率向上、顧客横断で再現しやすい導入。"
             impactLabel="ビジネスインパクト"
           />
           <RoboticsEconomicsCard
-            title="製品能力の向上"
+            title="対応可能なタスクの拡張"
             body="ロボティクス企業がより多様なタスクへ広がるには、物理的変化への応答が必要。Arcは、接触、力、スリップ、不均衡、ノイズ入力に対するより速いローカル応答層を追加します。"
             impact="より広いユースケース、強い製品差別化、高い顧客価値。"
             impactLabel="ビジネスインパクト"
@@ -873,7 +951,7 @@ function BenefitsSlide() {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <RoboticsEconomicsCard
-            title="計算・エネルギー負荷の低減"
+            title="計算・エネルギー効率の改善"
             body="すべての物理事象をCPU、GPU、クラウド、重い推論で処理する必要はない。ArcはFPGA上で選択した反射レベルの応答をローカルに処理し、低レイテンシと低エネルギーでの修正を狙います。"
             impact="より効率的な組込み制御、モバイル、支援、ヒューマノイド、現場ロボティクスへの適合。"
             impactLabel="ビジネスインパクト"
@@ -928,7 +1006,7 @@ function StatusSlide() {
       <h2 className="text-[56px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
         Phase 1では、基盤が実ハードウェア上で動作することを示しました。
         <br />
-        Phase 2では、物理応答を検証します。
+        Phase 2（次のステップ）：閉ループ構築、スリップ検知と応答検証、ベースライン比較
       </h2>
 
       <div className="mt-12 grid max-w-[1640px] grid-cols-2 gap-10">
@@ -957,10 +1035,10 @@ function StatusSlide() {
 
         <div className="rounded-[8px] border border-accent bg-accent-subtle p-7">
           <div className="font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
-            Phase 2 — next, 1stRound funds this
+            Phase 2（次のステップ）
           </div>
           <div className="mt-4 text-[26px] font-light leading-[1.3] tracking-[-0.01em] text-fg-primary">
-            実アクチュエータで閉ループを構築
+            閉ループ構築、スリップ検知と応答検証、ベースライン比較
           </div>
           <ul className="mt-5 space-y-3 text-[18px] leading-[1.55] text-fg-primary">
             <li className="flex gap-3">
@@ -974,14 +1052,6 @@ function StatusSlide() {
             <li className="flex gap-3">
               <span className="text-accent">→</span>
               <span>従来のデジタル制御ベースラインとの比較</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-accent">→</span>
-              <span>応答時間、1回の応答あたりのエネルギー、適応性、安定性を測定</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-accent">→</span>
-              <span>パートナーおよび投資家向けの検証データセットを作成</span>
             </li>
           </ul>
         </div>
@@ -1043,10 +1113,11 @@ function FpgaSlide() {
     <Slide align="start">
       <Eyebrow>FPGA Strategy</Eyebrow>
       <h2 className="text-[64px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
-        FPGAは、HinokiのIP発見エンジンです。
+        FPGAを活用した検証とIP構築
       </h2>
       <p className="mt-6 max-w-[1500px] text-[26px] font-light leading-[1.45] text-fg-secondary">
-        私たちは、アーキテクチャをシリコンへ固定する前に、FPGAを用いて発見・検証します。
+        私たちは、アーキテクチャを固定する前に、
+        FPGA上で検証と改良を繰り返します。
       </p>
 
       <div className="mt-8 flex min-h-0 flex-1 w-full max-w-[1640px] flex-col gap-10">
@@ -1216,13 +1287,13 @@ function TractionInvestorRow({
 function CustomerPartnerTractionCard() {
   return (
     <TractionCard label="Customer / Partner">
-      <TractionSection title="Primary signal">
+      <TractionSection title="現在の進展">
         <div className="rounded-[8px] border border-accent bg-accent-subtle px-4 py-3">
-          <div className="text-[17px] font-semibold text-fg-primary">
-            東京拠点の触覚センシングパートナー
-          </div>
+          <p className="text-[16px] leading-[1.5] text-fg-primary">
+            東京の触覚センシング企業とLOIを進行中
+          </p>
           <p className="mt-2 text-[16px] leading-[1.5] text-fg-primary">
-            CEOとの技術LOIを最終化中。スリップ検知と高速グリッパー応答を、最初の検証ベンチマークとして合意。
+            スリップ検知を最初の検証テーマとして合意
           </p>
         </div>
       </TractionSection>
@@ -1437,7 +1508,7 @@ function MarketSlide() {
     <Slide align="start">
       <Eyebrow>Market</Eyebrow>
       <h2 className="text-[48px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
-        測定可能な最初の市場から、プラットフォーム全体の機会へ。
+        初期の検証市場から、ロボティクス全体へと展開していきます。
       </h2>
       <p className="mt-3 max-w-[1500px] text-[20px] font-normal leading-[1.5] text-fg-secondary">
         Hinokiは、狭く検証可能なウェッジから開始し、センサー・アクチュエータ応答が重要となるロボティクスプラットフォーム全体へ展開します。
@@ -1542,7 +1613,7 @@ function BusinessModelSlide() {
     <Slide align="start">
       <Eyebrow>Business Model</Eyebrow>
       <h2 className="text-[56px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
-        検証から、アーキテクチャライセンスへ。
+        検証から始め、最終的にライセンス展開へ
       </h2>
       <p className="mt-5 max-w-[1500px] text-[22px] font-light leading-[1.45] text-fg-secondary">
         Hinokiはロボットを製造するのではなく、
@@ -1736,10 +1807,11 @@ function PositioningSlide() {
         />
       </div>
 
-      <p className="mt-8 max-w-[1500px] text-[22px] font-light italic leading-[1.45] text-fg-primary">
-        センサーはデータを作ります。コントローラはタスクを実行します。{" "}
-        <span className="not-italic font-semibold">
-          Arcは、センシングと行動の間にある高速な物理ループに焦点を当てます。
+      <p className="mt-8 max-w-[1500px] text-[22px] font-light leading-[1.45] text-fg-primary">
+        <span className="font-semibold">Arcの位置づけ</span>
+        <br />
+        <span className="italic text-fg-secondary">
+          センサー → Arc → コントローラ → アクチュエータ
         </span>
       </p>
 
@@ -1810,7 +1882,7 @@ function TeamSlide() {
         <FounderCard
           imageSrc="/team/mina.jpg"
           objectPosition="center 25%"
-          affiliation="明治生命・昭和女子大学"
+          affiliation="明治安田生命・昭和女子大学"
           name="Mina Otsuka"
           role="Co-founder / COO · Japan Operations"
           body={
@@ -1819,7 +1891,7 @@ function TeamSlide() {
                 日本語ネイティブ
               </span>
               。日本有数の金融大手
-              <span className="font-semibold text-fg-primary">明治生命</span>
+              <span className="font-semibold text-fg-primary">明治安田生命</span>
               にてビジネス開発・顧客関係
               <span className="font-semibold text-fg-primary">マネージャー</span>
               。日本企業文化への深い理解。全国の
@@ -2066,7 +2138,7 @@ function PlanSlide() {
         顧客発見からハードウェア検証へ。
       </h2>
       <p className="mt-5 max-w-[1500px] text-[26px] font-light leading-[1.45] text-fg-secondary">
-        1stRound資金により、顧客発見を技術検証データへ変換します。
+        1stRoundの資金を使い、顧客発見を実証可能な技術データへと変換していきます。
       </p>
 
       <div className="mt-8 flex max-w-[1640px] flex-1 flex-col gap-8">
@@ -2186,12 +2258,9 @@ function FinancialSlide() {
           Revenue assumptions
         </div>
         <p className="mt-2 text-[17px] leading-[1.55] text-fg-primary">
-          <span className="font-semibold">Year 2</span>
-          から有償検証および共同開発プロジェクトを開始する想定です。
-          <span className="font-semibold">Year 3〜5</span>
-          では、リファレンスデザインライセンス、統合フィー、組込みIPロイヤリティへ移行します。
-          <span className="font-semibold">Year 5</span>
-          の上振れは、Hinokiがロボットを製造・出荷することではなく、ロボティクスプラットフォームへのライセンス採用に依存します。
+          Year 2から有償検証・共同開発を開始し、
+          Year 3〜5でリファレンスデザインや統合ライセンス、組込みIPのロイヤリティモデルへと移行します。
+          当社の成長は、ロボットの製造ではなく、ロボティクスプラットフォームへのライセンス展開へ移ります。
         </p>
         <p className="mt-2 text-[15px] leading-[1.5] text-fg-secondary">
           営業収益には、助成金およびVC投資は含めません。
@@ -2331,7 +2400,10 @@ function ClosingSlide() {
 
           <div className="mt-14 max-w-[1500px] space-y-10">
             <p className="text-[19px] leading-[1.6] text-fg-secondary">
-              Hinokiは、触覚センシングとグリッパー応答の閉ループベンチマークを構築し、Arcを従来のデジタル制御ベースラインと比較し、パートナーLOI、技術協業、特許戦略、将来のライセンス協議に必要な検証データを作成するため、非希薄化の検証資金を求めています。
+              Hinokiは、触覚とグリッパーの閉ループベンチマークを構築し、
+              Arcの性能を従来制御と比較・実証します。
+              この検証データをもとに、パートナー連携・特許・ライセンス展開へとつなげていきます。
+              現在、そのための非希薄化資金を求めています。
             </p>
 
             <p className="text-[26px] font-light italic leading-[1.38] tracking-[-0.01em] text-fg-primary">
