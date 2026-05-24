@@ -59,13 +59,27 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
     id: "antler",
     title: "Antler IC Deck",
     description:
-      "12-slide investment-conviction deck for Antler Japan Pre-IC / IC.",
+      "15-slide investment-conviction deck for Antler Japan Pre-IC / IC (frozen snapshot).",
     audience: "Antler Japan Pre-IC / IC",
     locales: [
       {
         lang: "en",
         label: "English",
         path: "/pitch/antler",
+      },
+    ],
+  },
+  {
+    id: "antler-v2",
+    title: "Antler IC Deck · v2",
+    description:
+      "Working copy — 16 main slides + 2 appendix. Iterate here without changing the frozen Antler deck.",
+    audience: "Antler Japan Pre-IC / IC",
+    locales: [
+      {
+        lang: "en",
+        label: "English",
+        path: "/pitch/antler-v2",
       },
     ],
   },
