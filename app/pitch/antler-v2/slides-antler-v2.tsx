@@ -1,5 +1,11 @@
 import React from "react";
 import humanoidRobotSrc from "../../../public/assets/humanoid-robot.png";
+import bottleneck1DeploymentSrc from "../../../public/assets/bottleneck-1-deployment.png";
+import bottleneck2CustomDeploymentSrc from "../../../public/assets/bottleneck-2-custom-deployment.png";
+import bottleneck3LatencySrc from "../../../public/assets/bottleneck-3-latency.png";
+import whyNowHumanEnvironmentsSrc from "../../../public/assets/why-now-human-environments.png";
+import architectureNervousSystemReflexSrc from "../../../public/assets/architecture-nervous-system-reflex.png";
+import competitionStackMapV3Src from "../../../public/assets/competition-stack-map-v3.png";
 import {
   Slide,
   Eyebrow,
@@ -8,8 +14,6 @@ import {
 } from "../slides";
 import {
   ArcArchitectureSlide as FirstRoundArchitectureSlide,
-  BenchmarkSlide as FirstRoundBenchmarkSlide,
-  MarketSlide as FirstRoundMarketSlide,
 } from "../1stround/slides-1stround";
 
 // =====================================================================
@@ -20,28 +24,29 @@ import {
 //  English only — no Japanese variant for now.
 //  Do not update mobile unless explicitly requested.
 //
-//  Main deck — 16 IC slides + 2 appendix (Vision, Defensibility).
+//  Main deck — 19 IC slides.
 //
 //    01  Cover — Robots have brains. Arc gives them reflexes.
 //    02  Hook — Have you seen me today?
-//    03  Problem — Scaling robots into the real world is hard.
-//    04  Solution — Arc adds the missing physical response layer companies need.
-//    05  Architecture — Arc local reflex layer for robotic systems.
-//    06  Discovery — What engineers are telling us so far.
-//    07  First Benchmark — Tactile slip detection and fast gripper response.
-//    08  Why Now — 2025 robotics funding reached roughly $28B to $41B globally.
-//    09  Business Model — ARM-like licensing for robotic control.
-//    10  Market — A measurable beachhead inside a platform-wide opportunity.
-//    11  Competition — Stack is crowded. Response layer is open.
-//    12  GTM — Account-based validation into OEM licensing.
-//    13  Unfair Advantage — Why Hinoki can win from Japan.
-//    14  Team — The founders and the chemistry behind Arc.
-//    15  Ask — Antler capital unlocks the benchmark that unlocks the next round.
-//    16  Thank You
+//    03  Problem — Real-world deployment is still hard.
+//    04  Problem — Every deployment becomes custom work.
+//    05  Problem — The body still reacts too slowly.
+//    06  Why Now — Human environments demand trustworthy, efficient bodies.
+//    07  Solution — Arc gives robots a faster physical response layer.
+//    08  Architecture — The next robotics architecture looks more like a nervous system.
+//    09  Integration — Arc local reflex layer (technical diagram).
+//    10  Discovery — What engineers are telling us so far.
+//    11  Business Model + Moat — The first loop becomes the business.
+//    12  Market — A measurable wedge inside a platform-wide opportunity.
+//    13  Competition — Fragmented reflex layer (stack map v3 image).
+//    14  GTM — Account-based validation into OEM licensing.
+//    15  Unfair Advantage — Why Hinoki can win from Japan.
+//    16  Technical Network — Advisor network that de-risks validation.
+//    17  Team — The founders and the chemistry behind Arc.
+//    18  Ask — Antler capital unlocks the benchmark that unlocks the next round.
+//    19  Thank You
 //
-//  Appendix:
-//    A1  Vision — A piece of Hinoki architecture in every robotic system.
-//    A2  Defensibility — The first benchmark creates the moat.
+//  Appendix slides archived in slides-antler-v2-appendix.tsx (not in live deck).
 //
 //  Design intent: investment-conviction. Quieter than the 1stRound deck.
 //  One dominant claim per slide. Diagrams, flywheels, layer maps,
@@ -220,13 +225,13 @@ function HaveYouSeenMeSlide() {
         <h2 className="text-[108px] font-light leading-[1.02] tracking-[-0.028em] text-fg-primary">
           Have you seen me today?
         </h2>
-        <div className="flex h-[760px] items-center justify-center overflow-hidden rounded-[12px] border border-border bg-bg-subtle">
+        <div className="flex h-[760px] items-center justify-center">
           <img
             src={humanoidRobotSrc.src}
             alt="Humanoid robot"
             width={humanoidRobotSrc.width}
             height={humanoidRobotSrc.height}
-            className="h-full w-full object-contain object-center"
+            className="max-h-full max-w-full object-contain object-center"
           />
         </div>
       </div>
@@ -237,57 +242,222 @@ function HaveYouSeenMeSlide() {
 }
 
 // =====================================================================
-//  Appendix · A1 — Vision
+//  03 · Problem — Real-world deployment is still hard
 // =====================================================================
-function VisionSlide() {
+function Bottleneck1Slide() {
   return (
     <Slide align="start">
-      <Eyebrow>Vision</Eyebrow>
-      <h2 className="max-w-[1640px] text-[72px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
-        Hinoki&rsquo;s vision is to have a piece of our architecture play a
-        role in every robotic system.
-      </h2>
-      <p className="mt-6 max-w-[1500px] text-[26px] font-normal leading-[1.45] text-fg-secondary">
-        Achieved through novelty, discipline, and technical execution.
-      </p>
+      <Eyebrow>Problem</Eyebrow>
+      <div className="grid flex-1 grid-cols-[minmax(0,1fr)_minmax(0,620px)] items-stretch gap-12">
+        <div className="flex min-h-0 flex-col">
+          <h2 className="max-w-[900px] text-[72px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+            Real-world deployment is still hard.
+          </h2>
+          <p className="mt-6 font-mono text-[26px] leading-[1.45] tracking-[0.02em] text-fg-secondary">
+            ADRA, 2025; euRobotics, 2024.
+          </p>
 
-      <div className="mt-14 max-w-[1500px] space-y-10">
-        <div className="border-l-2 border-accent/40 pl-5">
-          <p className="text-[32px] font-normal leading-[1.35] tracking-[-0.01em] text-fg-primary">
-            Novelty
-          </p>
-          <p className="mt-3 text-[22px] leading-[1.5] text-fg-secondary">
-            A physical intelligence layer — not another robot brain — that
-            closes the sensor-to-actuator loop locally and adaptively.
-          </p>
+          <div className="mt-8 flex flex-1 flex-col py-4">
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                Works in demos.
+              </p>
+            </div>
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                Breaks in messy environments.
+              </p>
+            </div>
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                Costs too much to repeat.
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="border-l-2 border-accent/40 pl-5">
-          <p className="text-[32px] font-normal leading-[1.35] tracking-[-0.01em] text-fg-primary">
-            Discipline
-          </p>
-          <p className="mt-3 text-[22px] leading-[1.5] text-fg-secondary">
-            One credible benchmark at a time. Prove the architecture in a
-            bounded physical loop before licensing it across platforms.
-          </p>
-        </div>
-        <div className="border-l-2 border-accent/40 pl-5">
-          <p className="text-[32px] font-normal leading-[1.35] tracking-[-0.01em] text-fg-primary">
-            Technical execution
-          </p>
-          <p className="mt-3 text-[22px] leading-[1.5] text-fg-secondary">
-            FPGA-first validation, empirical discovery, and integration paths
-            that let partners evaluate Arc without redesigning the whole stack.
-          </p>
+
+        <div className="flex items-center justify-center">
+          <img
+            src={bottleneck1DeploymentSrc.src}
+            alt="Controlled demo environment versus messy real-world deployment"
+            width={bottleneck1DeploymentSrc.width}
+            height={bottleneck1DeploymentSrc.height}
+            className="max-h-full max-w-full object-contain object-center"
+          />
         </div>
       </div>
 
-      <BottomBanner>
-        We believe a robot can one day cradle a baby — the ultimate test of
-        sensors and actuators functioning as a{" "}
-        <span className="font-semibold">unified system</span>.
-      </BottomBanner>
+      <SlideFooter pageLabel="03 · Problem" />
+    </Slide>
+  );
+}
 
-      <SlideFooter pageLabel="A1 · Vision" />
+// =====================================================================
+//  04 · Problem — Every deployment becomes custom work
+// =====================================================================
+function Bottleneck2Slide() {
+  return (
+    <Slide align="start">
+      <Eyebrow>Problem</Eyebrow>
+      <div className="grid flex-1 grid-cols-[minmax(0,1fr)_minmax(0,620px)] items-stretch gap-12">
+        <div className="flex min-h-0 flex-col">
+          <h2 className="max-w-[900px] text-[72px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+            Every deployment becomes custom work.
+          </h2>
+          <p className="mt-6 font-mono text-[24px] leading-[1.45] tracking-[0.02em] text-fg-secondary">
+            McKinsey, Unlocking the industrial potential of robotics and
+            automation, 2023.
+          </p>
+
+          <div className="mt-8 flex flex-1 flex-col py-4">
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                More tuning.
+              </p>
+            </div>
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                More field engineering.
+              </p>
+            </div>
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                More support cost.
+              </p>
+            </div>
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                Slower scale.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center">
+          <img
+            src={bottleneck2CustomDeploymentSrc.src}
+            alt="Same robot deployed with different custom integration at each site"
+            width={bottleneck2CustomDeploymentSrc.width}
+            height={bottleneck2CustomDeploymentSrc.height}
+            className="max-h-full max-w-full object-contain object-center"
+          />
+        </div>
+      </div>
+
+      <SlideFooter pageLabel="04 · Problem" />
+    </Slide>
+  );
+}
+
+// =====================================================================
+//  05 · Problem — The body still reacts too slowly
+// =====================================================================
+function Bottleneck3Slide() {
+  return (
+    <Slide align="start">
+      <Eyebrow>Problem</Eyebrow>
+      <div className="grid flex-1 grid-cols-[minmax(0,1fr)_minmax(0,620px)] items-stretch gap-12">
+        <div className="flex min-h-0 flex-col">
+          <h2 className="max-w-[900px] text-[72px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+            The body still reacts too slowly.
+          </h2>
+          <p className="mt-6 font-mono text-[26px] leading-[1.45] tracking-[0.02em] text-fg-secondary">
+            ADRA, AI-powered Robotics Strategy for Europe, 2025.
+          </p>
+
+          <div className="mt-8 flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col py-4">
+              <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+                <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                  Slips.
+                </p>
+              </div>
+              <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+                <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                  Shifts.
+                </p>
+              </div>
+              <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+                <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                  Vibration.
+                </p>
+              </div>
+              <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+                <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                  Contact loss.
+                </p>
+              </div>
+            </div>
+
+            <p className="pb-2 text-[36px] font-light leading-[1.35] tracking-[-0.015em] text-fg-secondary">
+              Today&rsquo;s stack often responds too late.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center">
+          <img
+            src={bottleneck3LatencySrc.src}
+            alt="Slow control stack lag versus slipping gripper contact event"
+            width={bottleneck3LatencySrc.width}
+            height={bottleneck3LatencySrc.height}
+            className="max-h-full max-w-full object-contain object-center"
+          />
+        </div>
+      </div>
+
+      <SlideFooter pageLabel="05 · Problem" />
+    </Slide>
+  );
+}
+
+// =====================================================================
+//  06 · Why Now — Human environments demand trustworthy, efficient bodies
+// =====================================================================
+function WhyNowBodiesSlide() {
+  return (
+    <Slide align="start">
+      <Eyebrow>Why Now</Eyebrow>
+      <div className="grid flex-1 grid-cols-[minmax(0,1fr)_minmax(0,620px)] items-stretch gap-12">
+        <div className="flex min-h-0 flex-col">
+          <h2 className="max-w-[900px] text-[72px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+            Human environments demand trustworthy, efficient bodies.
+          </h2>
+          <p className="mt-6 font-mono text-[24px] leading-[1.45] tracking-[0.02em] text-fg-secondary">
+            ADRA, 2025; Bain, 2025; Nature Scientific Reports, 2025.
+          </p>
+
+          <div className="mt-8 flex flex-1 flex-col py-4">
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                Safe around people.
+              </p>
+            </div>
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                Fast under contact.
+              </p>
+            </div>
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                Efficient enough to work all day.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center">
+          <img
+            src={whyNowHumanEnvironmentsSrc.src}
+            alt="Robot working safely near people with responsive contact in a human environment"
+            width={whyNowHumanEnvironmentsSrc.width}
+            height={whyNowHumanEnvironmentsSrc.height}
+            className="max-h-full max-w-full object-contain object-center"
+          />
+        </div>
+      </div>
+
+      <SlideFooter pageLabel="06 · Why Now" />
     </Slide>
   );
 }
@@ -362,128 +532,136 @@ function ProblemSlide() {
         physical conditions, customer sites, and real-world environments.
       </BottomBanner>
 
-      <SlideFooter pageLabel="03 · Problem" />
+      <SlideFooter pageLabel="07 · Problem" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  04 · Solution
+//  07 · Solution
 // =====================================================================
+function SolutionBenefit({
+  headline,
+  body,
+}: {
+  headline: string;
+  body: string;
+}) {
+  return (
+    <div className="flex flex-1 flex-col justify-center border-l-2 border-accent pl-7">
+      <p className="text-[34px] font-medium leading-[1.2] tracking-[-0.01em] text-fg-primary">
+        {headline}
+      </p>
+      <p className="mt-3 text-[22px] leading-[1.5] text-fg-secondary">{body}</p>
+    </div>
+  );
+}
+
 function SolutionSlide() {
   return (
     <Slide align="start">
       <Eyebrow>Solution</Eyebrow>
-      <h2 className="max-w-[1640px] text-[72px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
-        <span className="italic">Arc</span> adds the missing physical response
-        layer companies need.
+      <h2 className="max-w-[1640px] text-[80px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
+        <span className="italic">Arc</span> gives robots a faster physical
+        response layer.
       </h2>
-      <p className="mt-6 max-w-[1500px] text-[26px] font-normal leading-[1.45] text-fg-secondary">
-        A neuromorphic local control architecture that helps robots respond
-        inside selected sensor-actuator loops, solving the generalization
-        problem.
+      <p className="mt-6 max-w-[1500px] text-[28px] font-normal leading-[1.45] text-fg-secondary">
+        <span className="italic">Arc</span> is a local control layer that sits
+        between selected sensors and actuators, helping robots respond, adapt,
+        and stabilize while the main controller stays in charge.
       </p>
 
-      <div className="mt-10 grid max-w-[1640px] grid-cols-2 gap-x-10 gap-y-7">
-        <ContrastListItem
-          variant="solution"
-          headline="Faster deployment cycles"
-          body="Arc can be evaluated on one control-critical loop without redesigning the full stack, reducing tuning and field engineering per site."
+      <div className="mt-10 flex max-w-[1640px] flex-1 flex-col py-2">
+        <SolutionBenefit
+          headline="Faster response"
+          body="Arc creates a shorter path from physical event to corrective action."
         />
-        <ContrastListItem
-          variant="solution"
-          headline="Less manual intervention"
-          body="Local response to slip, contact, load, and vibration changes reduces reset, supervision, and human correction in the field."
+        <SolutionBenefit
+          headline="Better adaptation"
+          body="Arc helps the robot respond to changing contact, slip, load, and motion in real time."
         />
-        <ContrastListItem
-          variant="solution"
-          headline="Higher operating speeds"
-          body="Faster physical correction at the edge lets teams run with tighter safety margins and less speed compensation."
-        />
-        <ContrastListItem
-          variant="solution"
-          headline="Fewer failed actions"
-          body="Bounded corrective action in the sensor-actuator loop reduces dropped objects, unstable handling, slip, and force-control failures."
-        />
-        <ContrastListItem
-          variant="solution"
-          headline="Easier customer repeatability"
-          body="A validated local response layer can transfer across customers, object types, and physical setups with less custom retuning."
-        />
-        <ContrastListItem
-          variant="solution"
-          headline="Stronger deployment economics"
-          body="Lower support cost, shorter integration, and higher reliability improve the economics of each deployment."
+        <SolutionBenefit
+          headline="Easier deployment"
+          body="Arc is designed to improve repeatability across customers without requiring a full robot redesign."
         />
       </div>
 
-      <BottomBanner>
-        For robotics companies, this is how Arc solves the{" "}
-        <span className="font-semibold">scaling problem</span>: local physical
-        response that helps robots work reliably across changing physical
-        conditions, customer sites, and real-world environments.
-      </BottomBanner>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[60px] top-[340px] z-0 opacity-60"
+      >
+        <NeuralMotif className="h-auto w-[780px]" />
+      </div>
 
-      <SlideFooter pageLabel="04 · Solution" />
+      <SlideFooter pageLabel="07 · Solution" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  04 · Architecture (1stRound slide 6)
+//  08 · Architecture
 // =====================================================================
 function AntlerArchitectureSlide() {
-  return <FirstRoundArchitectureSlide pageLabel="05 · Architecture" />;
-}
-
-// =====================================================================
-//  06 · Why Now
-// =====================================================================
-function WhyNowSlide() {
   return (
     <Slide align="start">
-      <Eyebrow>Why Now</Eyebrow>
-      <h2 className="max-w-[1640px] text-[72px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
-        2025 robotics funding reached roughly $28B to $41B globally.
-      </h2>
-      <p className="mt-6 max-w-[1500px] text-[24px] font-normal leading-[1.5] text-fg-secondary">
-        AI is accelerating robot reasoning, but real deployment still depends
-        on whether robots can physically respond when the world changes.
-      </p>
+      <Eyebrow>Architecture</Eyebrow>
+      <div className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_minmax(0,680px)] items-stretch gap-12">
+        <div className="flex min-h-0 flex-col">
+          <h2 className="max-w-[880px] text-[68px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+            The next robotics architecture looks more like a nervous system.
+          </h2>
+          <p className="mt-5 max-w-[860px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
+            The physical world is continuous, noisy, and changing. Robots need
+            an architecture that can respond the same way.
+          </p>
 
-      <div className="mt-14 max-w-[1500px] space-y-10">
-        <p className="text-[32px] font-normal leading-[1.4] tracking-[-0.01em] text-fg-primary">
-          AI is advancing the robot brain and increasing capability at lightning
-          pace.
-        </p>
-        <p className="text-[32px] font-normal leading-[1.4] tracking-[-0.01em] text-fg-primary">
-          Richer sensors are being developed rapidly, exposing the gap
-          between sense and reaction.
-        </p>
-        <p className="text-[32px] font-normal leading-[1.4] tracking-[-0.01em] text-fg-primary">
-          Reservoir computing has a new application window due to edge AI, the
-          advanced sensors available, and practical path for application
-          (robotic response loops).
+          <div className="mt-8 flex flex-1 flex-col py-2">
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[40px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                Continuous.
+              </p>
+            </div>
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[40px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                Adaptive.
+              </p>
+            </div>
+            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+              <p className="text-[40px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+                Local.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center overflow-hidden rounded-[8px]">
+          <img
+            src={architectureNervousSystemReflexSrc.src}
+            alt="Human nervous system reflex arc mirrored by robot local sensor-to-actuator response loop"
+            width={architectureNervousSystemReflexSrc.width}
+            height={architectureNervousSystemReflexSrc.height}
+            className="max-h-full w-full object-cover object-center"
+          />
+        </div>
+      </div>
+
+      <div className="mt-auto max-w-[1640px] rounded-[10px] border-2 border-accent px-8 py-6">
+        <p className="text-[26px] font-light leading-[1.35] tracking-[-0.015em] text-fg-primary">
+          <span className="italic">Arc</span> brings neuromorphic response into
+          robotics, starting with the reflex layer between sensing and action.
         </p>
       </div>
 
-      <BottomBanner>
-        The world is building better robot brains. Hinoki is building the{" "}
-        <span className="font-semibold">
-          response layer that helps those robots work in the real world.
-        </span>
-      </BottomBanner>
-
-      <SlideFooter pageLabel="08 · Why Now" />
+      <SlideFooter pageLabel="08 · Architecture" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  07 · First Benchmark (1stRound slide 5)
+//  09 · Integration — Arc local reflex layer (technical diagram)
 // =====================================================================
-function AntlerBenchmarkSlide() {
-  return <FirstRoundBenchmarkSlide pageLabel="07 · First Benchmark" />;
+function AntlerArcDiagramSlide() {
+  return <FirstRoundArchitectureSlide pageLabel="09 · Integration" />;
 }
 
 // =====================================================================
@@ -549,84 +727,45 @@ function FirstProofPointSlide() {
 }
 
 // =====================================================================
-//  05 · Discovery
+//  10 · Discovery
 // =====================================================================
-function DiscoveryQuoteLine({
-  role,
-  quote,
-  emphasis = false,
-}: {
-  role: string;
-  quote: string;
-  emphasis?: boolean;
-}) {
-  return (
-    <div
-      className={`border-l-2 pl-5 ${
-        emphasis ? "border-accent" : "border-accent/40"
-      }`}
-    >
-      <div className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">
-        {role}
-      </div>
-      <p className="mt-2 text-[18px] leading-[1.55] text-fg-primary">
-        &ldquo;{quote}&rdquo;
-      </p>
-    </div>
-  );
-}
-
 function DiscoverySlide() {
   return (
     <Slide align="start">
       <Eyebrow>Discovery</Eyebrow>
-      <h2 className="max-w-[1640px] text-[68px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
+      <h2 className="max-w-[1640px] text-[80px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
         What engineers are telling us so far.
       </h2>
-      <p className="mt-6 max-w-[1500px] text-[24px] font-normal leading-[1.5] text-fg-secondary">
-        Customer discovery is narrowing Arc from a broad architecture thesis
-        into a measurable first control-loop benchmark.
+      <p className="mt-6 max-w-[1500px] text-[28px] font-normal leading-[1.45] text-fg-secondary">
+        Discovery is narrowing Arc to one first measurable control loop.
       </p>
 
-      <div className="mt-10 max-w-[1500px] space-y-8">
-        <ContrastListItem
-          headline="Latency matters at the physical edge."
-          body="Engineers confirmed response time becomes critical when precision, speed, or actuator timing matter."
-        />
-        <ContrastListItem
-          headline="Physical variability creates instability."
-          body="Changing surfaces, variable loads, wheel slip, noisy sensors, and unpredictable environments create practical control challenges."
-        />
-        <ContrastListItem
-          headline="Slip response is the first measurable wedge."
-          body="In gripper control, the problem is concrete: detect slip, respond faster, stabilize the object, and compare against baseline."
-        />
+      <div className="mt-10 flex max-w-[1640px] flex-1 flex-col py-4">
+        <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+          <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+            Latency matters at the physical edge.
+          </p>
+        </div>
+        <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+          <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+            Slip shows up before the control loop reacts.
+          </p>
+        </div>
+        <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
+          <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
+            Gripper control is the clearest first wedge.
+          </p>
+        </div>
       </div>
 
-      <div className="mt-10 max-w-[1500px] space-y-6">
-        <DiscoveryQuoteLine
-          emphasis
-          role="Gripper / manipulation engineer"
-          quote="Slip shows up in the tactile stream before the grasp loop reacts. We increase grasp force after the part is already moving. Sensor-to-gripper latency keeps coming up."
-        />
-        <DiscoveryQuoteLine
-          role="AMR torque-control engineer"
-          quote="Wheel slip forces tradeoffs between torque and velocity control. Closing the loop closer to the wheel would still help."
-        />
-        <DiscoveryQuoteLine
-          role="Bipedal humanoid researcher"
-          quote="One slipped foothold and the gait is already behind. There is no separate fast path for contact."
-        />
-      </div>
-
-      <BottomBanner>
-        This pushed Hinoki toward a specific first validation benchmark:{" "}
-        <span className="font-semibold">
+      <p className="max-w-[1640px] text-[32px] font-light leading-[1.35] tracking-[-0.015em] text-fg-secondary">
+        Our validation:{" "}
+        <span className="font-semibold text-fg-primary">
           tactile slip detection and fast gripper response.
         </span>
-      </BottomBanner>
+      </p>
 
-      <SlideFooter pageLabel="06 · Discovery" />
+      <SlideFooter pageLabel="10 · Discovery" />
     </Slide>
   );
 }
@@ -736,257 +875,207 @@ function DemandValidationSlide() {
   );
 }
 
-// =====================================================================
-//  Appendix · A2 — Defensibility
-// =====================================================================
-function FlywheelNode({
-  label,
-  emphasis = false,
-}: {
-  label: string;
-  emphasis?: boolean;
-}) {
-  return (
-    <div
-      className={`flex h-[88px] min-w-[180px] flex-1 items-center justify-center rounded-[8px] border px-4 text-center text-[16px] font-medium leading-[1.3] ${
-        emphasis
-          ? "border-accent bg-accent-subtle text-fg-primary"
-          : "border-border bg-bg-subtle text-fg-primary"
-      }`}
-    >
-      {label}
-    </div>
-  );
-}
-
-function DefensibilitySlide() {
-  return (
-    <Slide align="start">
-      <Eyebrow>Defensibility</Eyebrow>
-      <h2 className="text-[76px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
-        The first benchmark creates the moat.
-      </h2>
-
-      <div className="mt-12 max-w-[1640px]">
-        <MutedLabel>Defensibility flywheel</MutedLabel>
-        <div className="mt-4 flex flex-wrap items-center gap-y-3">
-          <FlywheelNode label="Closed-loop benchmark" emphasis />
-          <FlowArrow />
-          <FlywheelNode label="Proprietary physical-response data" />
-          <FlowArrow />
-          <FlywheelNode label="Tuning know-how" />
-          <FlowArrow />
-          <FlywheelNode label="Integration recipes" />
-          <FlowArrow />
-          <FlywheelNode label="Patentable control methods" />
-          <FlowArrow />
-          <FlywheelNode label="Reference design / embedded IP" />
-        </div>
-      </div>
-
-      <div className="mt-10 grid max-w-[1640px] grid-cols-2 gap-6">
-        <div className="rounded-[8px] border border-border bg-bg-subtle p-7">
-          <MutedLabel>Silicon-first</MutedLabel>
-          <ul className="mt-4 space-y-2 text-[19px] leading-[1.45] text-fg-primary">
-            <li>· Architecture frozen at tape-out</li>
-            <li>· Multi-year iteration</li>
-            <li>· Capital-intensive</li>
-          </ul>
-        </div>
-        <div className="rounded-[8px] border-2 border-accent bg-accent-subtle p-7">
-          <SectionLabel>FPGA-first</SectionLabel>
-          <ul className="mt-4 space-y-2 text-[19px] leading-[1.45] text-fg-primary">
-            <li>· Architecture iterable weekly</li>
-            <li>· Empirical topology discovery</li>
-            <li>· Capital-efficient validation</li>
-          </ul>
-        </div>
-      </div>
-
-      <BottomBanner>
-        The first benchmark creates more than proof. It creates{" "}
-        <span className="font-semibold">
-          proprietary data, IP, and integration know-how.
-        </span>
-      </BottomBanner>
-
-      <p className="mt-6 max-w-[1500px] text-[18px] font-light italic leading-[1.4] tracking-[-0.005em] text-fg-secondary">
-        The incumbents bet on the answer.{" "}
-        <span className="not-italic font-semibold text-fg-primary">
-          We bet on the question.
-        </span>
-      </p>
-
-      <SlideFooter pageLabel="A2 · Defensibility" />
-    </Slide>
-  );
-}
 
 // =====================================================================
-//  09 · Competition — Layer map
+//  13 · Competition — stack map (v3 image)
 // =====================================================================
-function LayerRow({
-  layer,
-  focus,
-  players,
-  view,
-  emphasis = false,
-}: {
-  layer: string;
-  focus: string;
-  players: string;
-  view: string;
-  emphasis?: boolean;
-}) {
-  return (
-    <div
-      className={`grid grid-cols-[220px_1fr_1fr_1.1fr] items-start gap-6 rounded-[8px] border px-6 py-4 ${
-        emphasis
-          ? "border-2 border-accent bg-accent-subtle"
-          : "border-border bg-bg-subtle"
-      }`}
-    >
-      <div
-        className={`font-mono uppercase ${
-          emphasis
-            ? "text-[13px] font-semibold tracking-[0.16em] text-accent"
-            : "text-[12px] tracking-[0.14em] text-fg-caption"
-        }`}
-      >
-        {layer}
-      </div>
-      <div
-        className={`leading-[1.3] ${
-          emphasis
-            ? "text-[17px] font-semibold text-fg-primary"
-            : "text-[16px] font-medium text-fg-primary"
-        }`}
-      >
-        {focus}
-      </div>
-      <div className="text-[14px] italic leading-[1.45] text-fg-caption">
-        {players}
-      </div>
-      <div
-        className={`leading-[1.45] ${
-          emphasis ? "text-[15px] text-fg-primary" : "text-[14px] text-fg-secondary"
-        }`}
-      >
-        {view}
-      </div>
-    </div>
-  );
-}
-
-function CompetitionSlide() {
+function CompetitionStackSlide() {
   return (
     <Slide align="start">
       <Eyebrow>Competition</Eyebrow>
-      <h2 className="text-[60px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
-        The robotics stack is crowded.
-        <br />
-        The physical response layer is still open.
-      </h2>
 
-      <div className="mt-8 max-w-[1640px]">
-        <div className="grid grid-cols-[220px_1fr_1fr_1.1fr] gap-6 border-b border-border-strong pb-3 font-mono text-[12px] uppercase tracking-[0.12em] text-fg-caption">
-          <div>Layer</div>
-          <div>Focus</div>
-          <div>Representative players</div>
-          <div>Hinoki view</div>
+      <div className="grid max-w-[1640px] shrink-0 grid-cols-[minmax(0,1fr)_minmax(0,500px)] items-end gap-x-10">
+        <h2 className="text-[56px] font-light leading-[1.06] tracking-[-0.022em] text-fg-primary">
+          The robotics stack is crowded.
+          <br />
+          The reflex layer is fragmented — not empty.
+        </h2>
+        <p className="pb-0.5 text-[20px] leading-[1.42] text-fg-secondary">
+          Customers patch reflex together through internal control teams,
+          motor-control infrastructure, and neuromorphic hardware.{" "}
+          <span className="italic">Arc</span> packages that adaptive layer
+          into a dedicated, licensable architecture.
+        </p>
+      </div>
+
+      <div className="mt-3 min-h-0 flex-1">
+        <img
+          src={competitionStackMapV3Src.src}
+          alt="Competition stack map showing fragmented reflex layer substitutes around Hinoki Arc"
+          width={competitionStackMapV3Src.width}
+          height={competitionStackMapV3Src.height}
+          className="h-full w-full object-contain object-center"
+        />
+      </div>
+
+      <div className="mt-3 max-w-[1640px] shrink-0 border-t border-border pt-3">
+        <p className="mb-1.5 max-w-[1200px] text-[16px] font-semibold leading-[1.5] text-fg-primary">
+          Reflex is fragmented today.{" "}
+          <span className="italic">Arc</span> packages it — without replacing
+          the brain, sensor, or motor stack.
+        </p>
+        <p className="max-w-[1640px] text-[20px] font-light leading-[1.4] tracking-[-0.01em] text-fg-secondary">
+          Nobody productizes the adaptive reflex layer as a dedicated,
+          licensable architecture. That is what Hinoki is building.
+        </p>
+      </div>
+
+      <SlideFooter pageLabel="13 · Competition" />
+    </Slide>
+  );
+}
+
+
+// =====================================================================
+//  12 · Market
+// =====================================================================
+const MARKET_TIERS = [
+  {
+    title: "Start",
+    body: "Tactile manipulation and gripper control.",
+    detail: "$15B+ tactile & force sensing beachhead by 2030",
+    source: "Industry analyst aggregates",
+  },
+  {
+    title: "Scale",
+    body: "Industrial and collaborative robotics.",
+    detail: "$170B global robotics market by 2030",
+    source: "IFR World Robotics · Statista",
+  },
+  {
+    title: "Own",
+    body: "Humanoids, mobile, assistive, and beyond.",
+    detail: "$165B humanoid robots by 2034",
+    source: "Goldman Sachs Research · McKinsey",
+  },
+] as const;
+
+function MarketTierRow({
+  title,
+  body,
+  detail,
+  source,
+  step,
+}: {
+  title: string;
+  body: string;
+  detail: string;
+  source: string;
+  step: 0 | 1 | 2;
+}) {
+  const titleClass =
+    step === 0
+      ? "text-[58px] font-light text-fg-primary"
+      : step === 1
+        ? "text-[72px] font-normal text-fg-primary"
+        : "text-[88px] font-medium text-accent";
+
+  return (
+    <div className="grid grid-cols-[minmax(0,440px)_1fr] items-baseline gap-x-20 py-5">
+      <h3 className={`leading-[0.95] tracking-[-0.025em] ${titleClass}`}>
+        {title}
+      </h3>
+      <div className="pb-1">
+        <p className="text-[28px] leading-[1.45] text-fg-secondary">{body}</p>
+        <p className="mt-2 font-mono text-[22px] font-semibold leading-[1.4] tracking-[0.04em] text-fg-caption">
+          {detail}
+          <span className="text-[14px] font-normal"> · {source}</span>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function AntlerMarketSlide() {
+  return (
+    <Slide align="start">
+      <Eyebrow>Market</Eyebrow>
+      <h2 className="max-w-[1640px] text-[80px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
+        A measurable wedge inside a platform-wide opportunity.
+      </h2>
+      <p className="mt-6 max-w-[1500px] text-[28px] font-normal leading-[1.45] text-fg-secondary">
+        Hinoki starts where one reflex loop can be validated — then expands
+        across every platform where physical response is performance-critical.
+      </p>
+
+      <div className="mt-8 flex min-h-0 flex-1 flex-col">
+        <div className="flex flex-col divide-y divide-border/60">
+          {MARKET_TIERS.map((tier, index) => (
+            <MarketTierRow
+              key={tier.title}
+              {...tier}
+              step={index as 0 | 1 | 2}
+            />
+          ))}
         </div>
-        <div className="mt-3 flex flex-col gap-2.5">
-          <LayerRow
-            layer="Robot brains"
-            focus="Cognition, reasoning, policies, planning"
-            players="Google DeepMind Gemini Robotics · Physical Intelligence · Skild AI · Covariant"
-            view="Complementary. The brain decides what should happen."
-          />
-          <LayerRow
-            layer="Sensing input"
-            focus="Force, slip, contact, motion data"
-            players="XELA Robotics · FingerVision · Prophesee"
-            view="Partners first. Potential substitutes if they move into control."
-          />
-          <LayerRow
-            layer="Deployment / Robot OS"
-            focus="Programming, simulation, path planning, vision-guided adaptation"
-            players="Intrinsic · Wandelbots · Realtime Robotics · Micropsi"
-            view="Adjacent. These improve deployment workflows."
-          />
-          <LayerRow
-            layer="Neuromorphic / Edge AI"
-            focus="Low-power edge intelligence and chips"
-            players="TDK · Innatera · SynSense · BrainChip"
-            view="Technically adjacent. Not focused on closed-loop robotic physical response."
-          />
-          <LayerRow
-            layer="OEM internal teams"
-            focus="Internal control development"
-            players="Robot OEMs and industrial equipment manufacturers"
-            view="The most real substitute. Arc becomes the specialized licensable layer OEMs can test in one loop."
-          />
-          <LayerRow
-            layer="Hinoki · Arc"
-            focus="Local physical-response layer between sensing and actuation"
-            players="FPGA-first robotics validation · Closed-loop benchmark · Bounded correction · Proprietary data · Tuning recipes · Reference design / embedded IP path"
-            view="Closes the sensor-to-actuator loop locally and adaptively — where existing stacks bottleneck."
-            emphasis
-          />
+
+        <div className="mt-auto max-w-[1640px] shrink-0 border-t border-border pt-5">
+          <p className="mb-3 max-w-[1200px] text-[16px] font-semibold leading-[1.5] text-fg-primary">
+            Slip is the entry point. Physical response is the category.
+          </p>
+          <p className="max-w-[1640px] text-[24px] font-light leading-[1.4] tracking-[-0.01em] text-fg-secondary">
+            We are not sizing Hinoki on slip detection. We are sizing it on the
+            licensable control layer inside robotic platforms.
+          </p>
         </div>
       </div>
 
-      <SlideFooter pageLabel="11 · Competition" />
+      <SlideFooter pageLabel="12 · Market" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  10 · Market (1stRound slide 11)
+//  11 · Business Model + Moat
 // =====================================================================
-function AntlerMarketSlide() {
-  return <FirstRoundMarketSlide pageLabel="10 · Market" plainJapanFrame />;
-}
+const BUSINESS_MODEL_PHASES = [
+  {
+    title: "Prove it",
+    body: "Paid validation with robotics partners.",
+    pricing: "¥5–15M per project",
+  },
+  {
+    title: "Package it",
+    body: "Reference design for repeatable integration.",
+    pricing: "¥10–30M per partner",
+  },
+  {
+    title: "Embed it",
+    body: "Licensing and royalties inside robotics platforms.",
+    pricing: "¥30–100M+ per partner / per-platform royalties",
+  },
+] as const;
 
-// =====================================================================
-//  11 · Business Model
-// =====================================================================
-function PhaseCard({
-  phase,
+function BusinessModelPhaseRow({
   title,
   body,
+  pricing,
+  step,
 }: {
-  phase: string;
   title: string;
   body: string;
+  pricing: string;
+  step: 0 | 1 | 2;
 }) {
-  return (
-    <div className="flex h-full flex-col rounded-[8px] border border-border bg-bg-subtle p-7">
-      <div className="font-mono text-[13px] uppercase tracking-[0.16em] text-accent">
-        {phase}
-      </div>
-      <div className="mt-4 text-[24px] font-medium leading-[1.25] tracking-[-0.005em] text-fg-primary">
-        {title}
-      </div>
-      <p className="mt-3 text-[16px] leading-[1.55] text-fg-secondary">
-        {body}
-      </p>
-    </div>
-  );
-}
+  const titleClass =
+    step === 0
+      ? "text-[58px] font-light text-fg-primary"
+      : step === 1
+        ? "text-[72px] font-normal text-fg-primary"
+        : "text-[88px] font-medium text-accent";
 
-function UnitLine({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
   return (
-    <div className="grid grid-cols-[1.4fr_1fr] items-baseline gap-6 border-b border-border/70 py-3 last:border-b-0">
-      <div className="text-[17px] leading-[1.45] text-fg-primary">{label}</div>
-      <div className="font-mono text-[16px] tracking-[0.04em] text-fg-secondary">
-        {value}
+    <div className="grid grid-cols-[minmax(0,440px)_1fr] items-baseline gap-x-20 py-5">
+      <h3
+        className={`leading-[0.95] tracking-[-0.025em] ${titleClass}`}
+      >
+        {title}
+      </h3>
+      <div className="pb-1">
+        <p className="text-[28px] leading-[1.45] text-fg-secondary">{body}</p>
+        <p className="mt-2 font-mono text-[22px] font-semibold leading-[1.4] tracking-[0.04em] text-fg-caption">
+          {pricing}
+        </p>
       </div>
     </div>
   );
@@ -995,106 +1084,94 @@ function UnitLine({
 function BusinessModelSlide() {
   return (
     <Slide align="start">
-      <Eyebrow>Business Model</Eyebrow>
-      <h2 className="text-[88px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
-        ARM-like licensing for robotic control.
+      <Eyebrow>Business Model + Moat</Eyebrow>
+      <h2 className="max-w-[1640px] text-[80px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
+        The first loop becomes the business.
       </h2>
-      <p className="mt-6 max-w-[1500px] text-[24px] font-normal leading-[1.5] text-fg-secondary">
-        We do not build robots.{" "}
-        <span className="font-semibold text-fg-primary">
-          We license the architecture layer that helps them physically respond.
-        </span>
+      <p className="mt-6 max-w-[1500px] text-[28px] font-normal leading-[1.45] text-fg-secondary">
+        Start with one measurable reflex loop. Turn it into data, IP, reference
+        designs, and embedded royalties.
       </p>
 
-      <div className="mt-12 grid max-w-[1640px] grid-cols-3 gap-5">
-        <PhaseCard
-          phase="Phase 1"
-          title="Paid validation & co-development"
-          body="Creates early revenue, proprietary data, and reference customers."
-        />
-        <PhaseCard
-          phase="Phase 2"
-          title="Reference design licensing"
-          body="Annual license fees for platform partners integrating Arc."
-        />
-        <PhaseCard
-          phase="Phase 3"
-          title="Embedded IP royalties"
-          body="Per-platform or per-unit royalties as Arc becomes embedded in partner systems."
-        />
-      </div>
+      <div className="mt-8 flex min-h-0 flex-1 flex-col">
+        <div className="flex flex-col divide-y divide-border/60">
+          {BUSINESS_MODEL_PHASES.map((phase, index) => (
+            <BusinessModelPhaseRow
+              key={phase.title}
+              {...phase}
+              step={index as 0 | 1 | 2}
+            />
+          ))}
+        </div>
 
-      <div className="mt-8 max-w-[1640px] rounded-[8px] border border-border bg-bg-subtle px-7 py-5">
-        <MutedLabel>Unit logic</MutedLabel>
-        <div className="mt-2 grid grid-cols-2 gap-x-12">
-          <UnitLine
-            label="Paid validation / co-development"
-            value="¥5–15M per project"
-          />
-          <UnitLine
-            label="Reference design / integration"
-            value="¥10–30M per partner"
-          />
-          <UnitLine
-            label="Platform license"
-            value="¥30–100M+ per partner"
-          />
-          <UnitLine
-            label="Embedded IP royalties"
-            value="per-platform / per-unit"
-          />
+        <div className="mt-auto max-w-[1640px] shrink-0 border-t border-border pt-5">
+          <p className="mb-3 max-w-[1200px] text-[16px] font-semibold leading-[1.5] text-fg-primary">
+            Each partner loop compounds the moat: proprietary validation data,
+            tuning know-how, integration playbook, and embedded IP.
+          </p>
+          <p className="max-w-[1640px] text-[24px] font-light leading-[1.4] tracking-[-0.01em] text-fg-secondary">
+            We are not selling engineering hours. We are building a licensable
+            physical-response control layer that becomes more valuable, and
+            harder to displace, once embedded in robotic platforms.
+          </p>
         </div>
       </div>
 
-      <p className="mt-8 max-w-[1500px] text-[24px] font-light italic leading-[1.4] tracking-[-0.01em] text-fg-secondary">
-        Co-development is the entry path.{" "}
-        <span className="not-italic font-semibold text-fg-primary">
-          Licensing is the business model.
-        </span>
-      </p>
-
-      <SlideFooter pageLabel="09 · Business Model" />
+      <SlideFooter pageLabel="11 · Business Model + Moat" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  11 · GTM — Account-based validation into OEM licensing
+//  14 · GTM — account-based validation into OEM licensing
 // =====================================================================
-function GtmStep({
-  index,
+const GTM_PHASES = [
+  {
+    title: "Select",
+    body: "3–5 strategic accounts in Japan — OEMs, industrial makers, SIers.",
+    detail: "One account, one wedge loop",
+  },
+  {
+    title: "Prove",
+    body: "4–8 week PoC on a measurable reflex loop.",
+    detail: "Latency · stability · integration difficulty",
+  },
+  {
+    title: "Embed",
+    body: "Paid co-development → reference design → embedded IP in OEM platforms.",
+    detail: "Co-dev fees → integration package → embed license",
+  },
+] as const;
+
+function GtmPhaseRow({
   title,
   body,
-  emphasis = false,
+  detail,
+  step,
 }: {
-  index: string;
   title: string;
-  body: React.ReactNode;
-  emphasis?: boolean;
+  body: string;
+  detail: string;
+  step: 0 | 1 | 2;
 }) {
+  const titleClass =
+    step === 0
+      ? "text-[58px] font-light text-fg-primary"
+      : step === 1
+        ? "text-[72px] font-normal text-fg-primary"
+        : "text-[88px] font-medium text-accent";
+
   return (
-    <div
-      className={`flex h-full flex-col rounded-[8px] border p-6 ${
-        emphasis
-          ? "border-2 border-accent bg-accent-subtle"
-          : "border-border bg-bg-subtle"
-      }`}
-    >
-      <div className="flex items-baseline gap-3">
-        <span
-          className={`font-mono text-[28px] font-light leading-none ${
-            emphasis ? "text-accent" : "text-fg-tertiary"
-          }`}
-        >
-          {index}
-        </span>
-        <div className="text-[20px] font-medium leading-[1.25] text-fg-primary">
-          {title}
-        </div>
+    <div className="grid grid-cols-[minmax(0,440px)_1fr] items-baseline gap-x-20 py-5">
+      <h3 className={`leading-[0.95] tracking-[-0.025em] ${titleClass}`}>
+        {title}
+      </h3>
+      <div className="pb-1">
+        <p className="text-[28px] leading-[1.45] text-fg-secondary">{body}</p>
+        <p className="mt-2 font-mono text-[22px] font-semibold leading-[1.4] tracking-[0.04em] text-fg-caption">
+          {detail}
+        </p>
       </div>
-      <p className="mt-4 text-[15px] leading-[1.55] text-fg-secondary">
-        {body}
-      </p>
     </div>
   );
 }
@@ -1103,98 +1180,135 @@ function GtmSlide() {
   return (
     <Slide align="start">
       <Eyebrow>Go-to-Market</Eyebrow>
-      <h2 className="text-[64px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
-        Account-based validation into OEM licensing.
+      <h2 className="max-w-[1640px] text-[80px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
+        We validate with a few accounts,
+        <br />
+        then earn embed rights.
       </h2>
-      <p className="mt-5 max-w-[1500px] text-[22px] font-normal leading-[1.5] text-fg-secondary">
-        Hinoki&rsquo;s first motion is not broad sales. It is{" "}
-        <span className="font-semibold text-fg-primary">
-          deep technical validation with a small number of strategic robotics
-          partners
-        </span>{" "}
-        — Japan enterprise adoption is relationship-driven and account-based.
+      <p className="mt-6 max-w-[1500px] text-[28px] font-normal leading-[1.45] text-fg-secondary">
+        Deep technical validation with strategic robotics partners — not broad
+        sales or one-off consulting.
       </p>
 
-      <div className="mt-10 grid max-w-[1640px] grid-cols-4 gap-4">
-        <GtmStep
-          index="01"
-          title="Pick the right accounts"
-          body={
-            <>
-              Target 3–5 strategic accounts in Japan across{" "}
-              <span className="font-semibold text-fg-primary">
-                robot OEMs, industrial equipment makers, SIers, R&amp;D
-                divisions, and service robotics
-              </span>
-              .
-            </>
-          }
-        />
-        <GtmStep
-          index="02"
-          title="Define one measurable loop"
-          body="For each account, identify one control-critical loop where physical response matters: slip response, contact stability, load shift, noisy input, force / torque instability, energy per correction."
-        />
-        <GtmStep
-          index="03"
-          title="Run a 4–8 week technical PoC"
-          body="Compare Arc against a conventional digital baseline using agreed KPIs: response latency, energy per response, grasp / motion stability, signal robustness, failed-action reduction, integration difficulty."
-        />
-        <GtmStep
-          index="04"
-          title="Convert successful validation"
-          emphasis
-          body="Move from technical validation into paid co-development, reference design licensing, OEM integration discussion, or embedded IP pathway."
-        />
-      </div>
+      <div className="mt-8 flex min-h-0 flex-1 flex-col">
+        <div className="flex flex-col divide-y divide-border/60">
+          {GTM_PHASES.map((phase, index) => (
+            <GtmPhaseRow
+              key={phase.title}
+              {...phase}
+              step={index as 0 | 1 | 2}
+            />
+          ))}
+        </div>
 
-      <div className="mt-8 max-w-[1640px]">
-        <MutedLabel>Japan enterprise adoption pattern</MutedLabel>
-        <div className="mt-4 flex flex-wrap items-center gap-y-3">
-          <FlowBox label="PoC" size="sm" emphasis />
-          <FlowArrow />
-          <FlowBox label="Evaluation" size="sm" />
-          <FlowArrow />
-          <FlowBox label="Small-scale deployment" size="sm" />
-          <FlowArrow />
-          <FlowBox label="Expansion" size="sm" />
+        <div className="mt-auto max-w-[1640px] shrink-0 border-t border-border pt-5">
+          <p className="mb-3 max-w-[1200px] text-[16px] font-semibold leading-[1.5] text-fg-primary">
+            The first customer motion creates benchmark data, reference
+            customers, and embed leverage.
+          </p>
+          <p className="max-w-[1640px] text-[24px] font-light leading-[1.4] tracking-[-0.01em] text-fg-secondary">
+            We are not building a services business. We are earning the right to
+            embed.
+          </p>
         </div>
       </div>
 
-      <BottomBanner>
-        The first customer motion creates more than revenue. It creates{" "}
-        <span className="font-semibold">
-          benchmark data, reference customers, integration know-how, and
-          licensing leverage.
-        </span>
-      </BottomBanner>
-
-      <SlideFooter pageLabel="12 · Go-to-Market" />
+      <SlideFooter pageLabel="14 · Go-to-Market" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  12 · Unfair Advantage — Why Hinoki can win from Japan
+//  15 · Unfair Advantage — Why Hinoki can win from Japan
 // =====================================================================
-function AdvantageLine({
-  label,
+const ADVANTAGE_PHASES = [
+  {
+    title: "Where",
+    body: "Tsukuba Science City launchpad — one of two special economic zones for deep-tech robotics. Next to AIST and NIMS.",
+    detail: "Japan robotics research corridor",
+  },
+  {
+    title: "When",
+    body: "Japan timing — aging society, labor shortage, manufacturing, elder care.",
+    detail: "Demand now, not someday",
+  },
+  {
+    title: "Who",
+    body: "Researcher network across Physical HRI, Mechatronics, Neuromorphic Networks, and AIST.",
+    detail: "Tsukuba · Tokyo · Nagoya",
+  },
+  {
+    title: "How",
+    body: "FPGA-to-IP learning loop — turn physical validation into defensible IP faster than silicon-first incumbents.",
+    detail: "Validate before you tape out",
+  },
+] as const;
+
+const ADVISOR_NETWORK = [
+  {
+    area: "Physical HRI",
+    affiliation: "PhD, University of Tsukuba · Professor, PUCP",
+    deRisks: "Human-robot interaction and physical validation for human-proximate systems.",
+    status: "Verbal agreement",
+    emphasis: true,
+  },
+  {
+    area: "Mechatronics",
+    affiliation: "PhD, University of Tsukuba · Associate Professor, Nagoya University",
+    deRisks: "Sensor-actuator integration and path from architecture to hardware testing.",
+    status: "Verbal agreement",
+    emphasis: true,
+  },
+  {
+    area: "Neuromorphic Networks",
+    affiliation: "PhD, University of Tokyo",
+    deRisks: "Neuromorphic architecture, reservoir-adjacent design, and future IP.",
+    status: "Expected July",
+    emphasis: false,
+  },
+  {
+    area: "AIST Senior Robotics",
+    affiliation: "PhD, University of Tsukuba · Senior Researcher, AIST",
+    deRisks: "Applied robotics perspective and AIST ecosystem access.",
+    status: "In discussion",
+    emphasis: false,
+  },
+] as const;
+
+function AdvantagePhaseRow({
+  title,
   body,
+  detail,
+  step,
 }: {
-  label: string;
-  body: React.ReactNode;
+  title: string;
+  body: string;
+  detail: string;
+  step: 0 | 1 | 2 | 3;
 }) {
+  const titleClass = [
+    "text-[52px] font-light text-fg-primary",
+    "text-[60px] font-normal text-fg-primary",
+    "text-[68px] font-normal text-fg-primary",
+    "text-[76px] font-medium text-accent",
+  ][step];
+
   return (
-    <div className="border-l-2 border-accent/40 pl-5">
-      <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
-        {label}
+    <div className="grid grid-cols-[minmax(0,440px)_1fr] items-baseline gap-x-20 py-4">
+      <h3 className={`leading-[0.95] tracking-[-0.025em] ${titleClass}`}>
+        {title}
+      </h3>
+      <div className="pb-0.5">
+        <p className="text-[26px] leading-[1.45] text-fg-secondary">{body}</p>
+        <p className="mt-2 font-mono text-[20px] font-semibold leading-[1.4] tracking-[0.04em] text-fg-caption">
+          {detail}
+        </p>
       </div>
-      <p className="mt-2 text-[17px] leading-[1.5] text-fg-primary">{body}</p>
     </div>
   );
 }
 
-function AdvisorRow({
+function AdvisorNetworkRow({
   area,
   affiliation,
   deRisks,
@@ -1209,25 +1323,33 @@ function AdvisorRow({
 }) {
   return (
     <div
-      className={`grid grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_minmax(0,1.5fr)_minmax(0,0.95fr)] items-start gap-x-6 border-t border-border/70 px-5 py-4 first:border-t-0 ${
-        emphasis ? "bg-accent-subtle/40" : ""
+      className={`grid grid-cols-[minmax(0,260px)_1fr_minmax(0,168px)] items-start gap-x-12 border-l-[3px] py-5 pl-6 ${
+        emphasis ? "border-l-accent" : "border-l-border/80"
       }`}
     >
-      <div className="text-[18px] font-medium leading-[1.25] text-fg-primary">
-        {area}
+      <div className="pt-0.5">
+        <p className="text-[30px] font-medium leading-[1.15] tracking-[-0.015em] text-fg-primary">
+          {area}
+        </p>
       </div>
-      <div className="text-[14px] leading-[1.45] text-fg-secondary">
-        {affiliation}
+      <div className="min-w-0">
+        <p className="text-[22px] font-medium leading-[1.35] text-fg-primary">
+          {affiliation}
+        </p>
+        <p className="mt-2 text-[20px] leading-[1.45] text-fg-secondary">
+          {deRisks}
+        </p>
       </div>
-      <div className="text-[14px] leading-[1.45] text-fg-secondary">
-        {deRisks}
-      </div>
-      <div
-        className={`font-mono text-[11px] uppercase leading-[1.35] tracking-[0.12em] ${
-          emphasis ? "text-accent" : "text-fg-caption"
-        }`}
-      >
-        {status}
+      <div className="flex justify-end pt-1">
+        <span
+          className={`inline-block rounded-full px-3 py-1.5 text-center font-mono text-[12px] uppercase leading-[1.3] tracking-[0.08em] ${
+            emphasis
+              ? "bg-accent/12 text-accent"
+              : "bg-bg-subtle text-fg-caption"
+          }`}
+        >
+          {status}
+        </span>
       </div>
     </div>
   );
@@ -1237,111 +1359,89 @@ function UnfairAdvantageSlide() {
   return (
     <Slide align="start">
       <Eyebrow>Unfair Advantage</Eyebrow>
-      <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
+      <h2 className="max-w-[1640px] text-[80px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
         Why Hinoki can win from Japan.
       </h2>
-
-      <div className="mt-8 grid max-w-[1640px] grid-cols-2 gap-x-10 gap-y-6">
-        <AdvantageLine
-          label="Where"
-          body={
-            <>
-              <span className="font-semibold">Tsukuba Science City launchpad</span>{" "}
-              — one of two special economic zones in Japan designed for
-              deep-tech robotics development. Next to AIST and NIMS, inside
-              Japan&rsquo;s robotics research corridor.
-            </>
-          }
-        />
-        <AdvantageLine
-          label="When"
-          body={
-            <>
-              <span className="font-semibold">Japan timing</span> — aging
-              society, labor shortage, manufacturing, elder care.
-            </>
-          }
-        />
-        <AdvantageLine
-          label="Who"
-          body={
-            <>
-              <span className="font-semibold">Researcher network</span> —
-              Physical HRI, Mechatronics, Neuromorphic Networks, AIST,
-              Tsukuba, Tokyo, Nagoya.
-            </>
-          }
-        />
-        <AdvantageLine
-          label="How"
-          body={
-            <>
-              <span className="font-semibold">FPGA-to-IP learning loop</span>{" "}
-              — turn physical validation into defensible IP faster than
-              silicon-first incumbents.
-            </>
-          }
-        />
-      </div>
-
-      <div className="mt-8 max-w-[1640px]">
-        <div className="flex items-baseline justify-between">
-          <SectionLabel>Technical advisor network</SectionLabel>
-          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-caption">
-            Status as of May 2026
-          </span>
-        </div>
-
-        <div className="mt-3 overflow-hidden rounded-[8px] border border-border bg-bg-subtle/50">
-          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_minmax(0,1.5fr)_minmax(0,0.95fr)] gap-x-6 border-b border-border/70 px-5 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-fg-caption">
-            <div>Area</div>
-            <div>Affiliation</div>
-            <div>De-risks</div>
-            <div>Status</div>
-          </div>
-          <AdvisorRow
-            emphasis
-            area="Physical HRI"
-            affiliation="PhD, University of Tsukuba · Professor, PUCP"
-            deRisks="Human-robot interaction, assistive robotics, and physical validation for human-proximate systems."
-            status="Verbal agreement received"
-          />
-          <AdvisorRow
-            emphasis
-            area="Mechatronics"
-            affiliation="PhD, University of Tsukuba · Associate Professor, Nagoya University"
-            deRisks="Sensor-actuator integration, mechatronics validation, and the path from architecture concept to hardware testing."
-            status="Verbal agreement received"
-          />
-          <AdvisorRow
-            area="Neuromorphic Networks"
-            affiliation="PhD, University of Tokyo"
-            deRisks="Neuromorphic architecture, reservoir-adjacent design, and future IP development."
-            status="Expected from July"
-          />
-          <AdvisorRow
-            area="AIST Senior Robotics"
-            affiliation="PhD, University of Tsukuba · Senior Researcher, AIST"
-            deRisks="Applied robotics perspective, AIST ecosystem access, and future validation partnerships."
-            status="Discussion pending"
-          />
-        </div>
-      </div>
-
-      <p className="mt-6 max-w-[1640px] text-[20px] font-normal leading-[1.5] text-fg-secondary">
-        Together this network supports four validation risks: human-robot
-        interaction, hardware integration, neuromorphic architecture, and Japan
-        robotics ecosystem access.
+      <p className="mt-6 max-w-[1500px] text-[28px] font-normal leading-[1.45] text-fg-secondary">
+        Location, timing, network, and execution — four structural advantages
+        competitors cannot copy by moving headquarters.
       </p>
 
-      <SlideFooter pageLabel="13 · Unfair Advantage" />
+      <div className="mt-8 flex min-h-0 flex-1 flex-col">
+        <div className="flex flex-col divide-y divide-border/60">
+          {ADVANTAGE_PHASES.map((phase, index) => (
+            <AdvantagePhaseRow
+              key={phase.title}
+              {...phase}
+              step={index as 0 | 1 | 2 | 3}
+            />
+          ))}
+        </div>
+      </div>
+
+      <SlideFooter pageLabel="15 · Unfair Advantage" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  13 · Team — from 1stRound application deck
+//  16 · Technical Network — advisor network that de-risks validation
 // =====================================================================
+function TechnicalNetworkSlide() {
+  return (
+    <Slide align="start">
+      <Eyebrow>Technical Network</Eyebrow>
+      <h2 className="max-w-[1640px] text-[72px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
+        A researcher network that de-risks validation.
+      </h2>
+      <p className="mt-5 max-w-[1500px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
+        Four advisors covering human-robot interaction, mechatronics,
+        neuromorphic architecture, and Japan&rsquo;s national robotics
+        ecosystem.{" "}
+        <span className="font-mono text-[18px] tracking-[0.06em] text-fg-caption">
+          Status · May 2026
+        </span>
+      </p>
+
+      <div className="mt-6 flex min-h-0 flex-1 flex-col">
+        <div className="flex flex-col divide-y divide-border/60">
+          {ADVISOR_NETWORK.map((advisor) => (
+            <AdvisorNetworkRow key={advisor.area} {...advisor} />
+          ))}
+        </div>
+
+        <div className="mt-auto max-w-[1640px] shrink-0 border-t border-border pt-4">
+          <p className="max-w-[1640px] text-[22px] font-light leading-[1.4] tracking-[-0.01em] text-fg-secondary">
+            <span className="font-semibold text-fg-primary">
+              Two verbal agreements secured.
+            </span>{" "}
+            Two more in active discussion — each covering a distinct technical
+            risk on the path to embedded <span className="italic">Arc</span> IP.
+          </p>
+        </div>
+      </div>
+
+      <SlideFooter pageLabel="16 · Technical Network" />
+    </Slide>
+  );
+}
+
+// =====================================================================
+//  17 · Team — from 1stRound application deck
+// =====================================================================
+function FounderBullets({ items }: { items: React.ReactNode[] }) {
+  return (
+    <ul className="space-y-2 text-[16px] leading-[1.5] text-fg-secondary">
+      {items.map((item, index) => (
+        <li key={index} className="flex gap-2.5">
+          <span className="shrink-0 text-accent">·</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function TeamSlide() {
   return (
     <Slide align="start">
@@ -1360,19 +1460,29 @@ function TeamSlide() {
           name="Salvatore Martone"
           role="Co-founder / CEO · Commercial"
           body={
-            <>
-              University of Tsukuba (College of Biological Sciences).{" "}
-              <span className="font-semibold text-fg-primary">
-                Co-architect of the Arc thesis
-              </span>{" "}
-              — brought the biology framing. Built a Japan-based enterprise
-              practice from zero, working with{" "}
-              <span className="font-semibold text-fg-primary">
-                C-suite executives at major Japanese institutions
-              </span>
-              . Drives Hinoki&apos;s commercial strategy and investor
-              relations.
-            </>
+            <FounderBullets
+              items={[
+                <>
+                  Former biology researcher, University of Tsukuba.
+                </>,
+                <>
+                  <span className="font-semibold text-fg-primary">
+                    Co-architect of the Arc thesis
+                  </span>{" "}
+                  — brought the biology framing.
+                </>,
+                <>
+                  Built and scaled a Japan enterprise desk from zero to{" "}
+                  <span className="font-semibold text-fg-primary">
+                    ¥50M+ annual profit
+                  </span>
+                  .
+                </>,
+                <>
+                  C-suite client relationships at major Japanese institutions.
+                </>,
+              ]}
+            />
           }
         />
         <FounderCard
@@ -1381,22 +1491,27 @@ function TeamSlide() {
           name="Bernardo Gatto"
           role="Co-founder / CTO · Industry &amp; Technical"
           body={
-            <>
-              <span className="font-semibold text-fg-primary">
-                PhD Computer Vision Engineer
-              </span>
-              .{" "}
-              <span className="font-semibold text-fg-primary">
-                Co-architect of the Arc thesis
-              </span>{" "}
-              — operationalized it on FPGA hardware.{" "}
-              <span className="font-semibold text-fg-primary">
-                10+ years of industry experience
-              </span>{" "}
-              in robotics, embedded AI, and hardware integration. JSPS Research
-              Grant recipient · MEXT Scholar · former AIST Tsukuba researcher.
-              Built and validated Phase 1.
-            </>
+            <FounderBullets
+              items={[
+                <>
+                  PhD computer vision engineer · former AIST Tsukuba
+                  researcher.
+                </>,
+                <>
+                  <span className="font-semibold text-fg-primary">
+                    Co-architect of the Arc thesis
+                  </span>{" "}
+                  — operationalized it on FPGA hardware.
+                </>,
+                <>
+                  <span className="font-semibold text-fg-primary">
+                    10+ years
+                  </span>{" "}
+                  in robotics, embedded AI, and hardware integration.
+                </>,
+                <>Built and validated Phase 1.</>,
+              ]}
+            />
           }
         />
         <FounderCard
@@ -1406,26 +1521,37 @@ function TeamSlide() {
           name="Mina Otsuka"
           role="Co-founder / COO · Japan Operations"
           body={
-            <>
-              <span className="font-semibold text-fg-primary">
-                Native Japanese fluency
-              </span>
-              . Former{" "}
-              <span className="font-semibold text-fg-primary">Manager</span>,
-              business development and client relations at{" "}
-              <span className="font-semibold text-fg-primary">
-                Meiji Yasuda Life Insurance
-              </span>{" "}
-              — one of Japan&apos;s largest financial corporations. Deep
-              understanding of Japanese corporate culture. Building
-              relationships with robotics engineers and research institutions
-              across Japan.
-            </>
+            <FounderBullets
+              items={[
+                <>
+                  Native Japanese · lifelong Tsukuba resident.
+                </>,
+                <>
+                  Former manager, business development at{" "}
+                  <span className="font-semibold text-fg-primary">
+                    Meiji Yasuda Life Insurance
+                  </span>
+                  .
+                </>,
+                <>
+                  Deep experience navigating Japanese corporate culture and
+                  stakeholder relationships.
+                </>,
+                <>
+                  Owns Japan-side business development, fundraising, and
+                  partnerships —{" "}
+                  <span className="font-semibold text-fg-primary">
+                    everything the team cannot run in English alone
+                  </span>
+                  .
+                </>,
+              ]}
+            />
           }
         />
       </div>
 
-      <div className="mt-8 max-w-[1640px] rounded-[8px] border border-border bg-bg-subtle/70 p-6">
+      <div className="mt-8 max-w-[1640px] border-t border-border pt-6">
         <div className="grid grid-cols-[200px_1fr] gap-6">
           <div>
             <SectionLabel>Founder connection</SectionLabel>
@@ -1437,88 +1563,117 @@ function TeamSlide() {
                 <span className="font-semibold text-fg-primary">
                   Salvatore and Bernardo
                 </span>{" "}
-                have known each other for{" "}
+                —{" "}
                 <span className="font-semibold text-fg-primary">8 years</span>{" "}
-                since their time at the University of Tsukuba.
+                since University of Tsukuba.
               </span>
             </li>
             <li className="flex gap-3">
               <span className="text-accent">·</span>
               <span>
-                <span className="font-semibold text-fg-primary">Mina</span> has
-                known the team for{" "}
-                <span className="font-semibold text-fg-primary">4 years</span>.
-                Lifelong Tsukuba resident.
+                <span className="font-semibold text-fg-primary">Mina</span> —{" "}
+                <span className="font-semibold text-fg-primary">4 years</span>{" "}
+                with the team · lifelong Tsukuba resident.
               </span>
             </li>
             <li className="flex gap-3">
               <span className="text-accent">·</span>
               <span>
-                The team is built on{" "}
-                <span className="font-semibold text-fg-primary">
-                  long-standing trust
-                </span>
-                .
-              </span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-accent">·</span>
-              <span>
-                <span className="font-semibold text-fg-primary">
-                  Shared mission:
-                </span>{" "}
-                build a Tsukuba-rooted deep-tech company contributing to Japan
-                and creating a place where Japanese and international
-                researchers can work together.
+                Shared mission: build a Tsukuba-rooted deep-tech company in
+                Japan — a place where Japanese and international researchers
+                work together.
               </span>
             </li>
           </ul>
         </div>
       </div>
 
-      <SlideFooter pageLabel="14 · Team" />
+      <SlideFooter pageLabel="17 · Team" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  14 · Ask — Antler capital unlocks the benchmark
+//  18 · Ask — Antler capital unlocks the benchmark
 // =====================================================================
-function MilestoneCard({
+const ASK_MILESTONES = [
+  {
+    range: "Now → IC",
+    body: "Finalize multiple technical LOIs, define benchmark, continue demo sprint.",
+  },
+  {
+    range: "0–3 months",
+    body: "Build closed-loop tactile-to-actuation validation rig. Run Arc vs. conventional baseline.",
+  },
+  {
+    range: "3–6 months",
+    body: "Share validation data with partners. Secure 1–2 deeper partner pilot paths. Prepare initial IP filing.",
+  },
+  {
+    range: "6–9 months",
+    body: "Raise from professional investors using benchmark data, LOIs, and IP strategy.",
+  },
+] as const;
+
+const CAPITAL_PIPELINE = [
+  {
+    name: "Coreline / Atlas",
+    logoSrc: "/assets/coreline-logo.png",
+    status: "Interviewing",
+  },
+  {
+    name: "1stRound",
+    status: "Applied · ¥10M non-dilutive validation funding",
+  },
+  {
+    name: "Aichi DeepTech Launch PA",
+    status: "Applied · ¥40M non-dilutive",
+  },
+  {
+    name: "Sony Innovation Fund",
+    status: "Active conversations with deep-tech team",
+  },
+  {
+    name: "Spiral Capital",
+    logoSrc: "/assets/spiral-capital-logo.png",
+    status: "Warm conversations",
+  },
+] as const;
+
+function AskMilestonePhaseRow({
   range,
   body,
-  emphasis = false,
+  step,
 }: {
   range: string;
-  body: React.ReactNode;
-  emphasis?: boolean;
+  body: string;
+  step: 0 | 1 | 2 | 3;
 }) {
+  const titleClass = [
+    "text-[52px] font-light text-fg-primary",
+    "text-[58px] font-normal text-fg-primary",
+    "text-[66px] font-normal text-fg-primary",
+    "text-[76px] font-medium text-accent",
+  ][step];
+
   return (
-    <div
-      className={`flex h-full flex-col rounded-[8px] border p-7 ${
-        emphasis
-          ? "border-2 border-accent bg-accent-subtle"
-          : "border-border bg-bg-subtle"
-      }`}
-    >
-      <div
-        className={`font-mono text-[13px] uppercase tracking-[0.16em] ${
-          emphasis ? "text-accent" : "text-fg-caption"
-        }`}
-      >
+    <div className="grid grid-cols-[minmax(0,440px)_1fr] items-baseline gap-x-16 py-3">
+      <h3 className={`leading-[0.95] tracking-[-0.025em] ${titleClass}`}>
         {range}
-      </div>
-      <p className="mt-5 text-[19px] leading-[1.5] text-fg-primary">{body}</p>
+      </h3>
+      <p className="pb-0.5 text-[24px] leading-[1.45] text-fg-secondary">
+        {body}
+      </p>
     </div>
   );
 }
 
-function CapitalPipelineRow({
+function CapitalPipelineTile({
   name,
   status,
   logoSrc,
-  logoMaxH = 26,
-  logoMaxW = 120,
+  logoMaxH = 44,
+  logoMaxW = 160,
 }: {
   name: string;
   status: string;
@@ -1527,11 +1682,8 @@ function CapitalPipelineRow({
   logoMaxW?: number;
 }) {
   return (
-    <div className="grid grid-cols-[148px_minmax(0,1fr)] items-center gap-x-4 border-b border-border/70 py-2.5 last:border-b-0">
-      <div
-        className="flex min-h-10 items-center justify-start"
-        aria-hidden={!!logoSrc}
-      >
+    <div className="flex min-h-[132px] flex-col justify-between px-5 py-4">
+      <div className="flex min-h-[52px] items-center">
         {logoSrc ? (
           <img
             src={logoSrc}
@@ -1540,12 +1692,12 @@ function CapitalPipelineRow({
             style={{ maxHeight: logoMaxH, maxWidth: logoMaxW }}
           />
         ) : (
-          <span className="max-w-[148px] text-[13px] font-semibold leading-[1.25] tracking-[-0.01em] text-fg-primary">
+          <span className="text-[18px] font-semibold leading-[1.25] tracking-[-0.01em] text-fg-primary">
             {name}
           </span>
         )}
       </div>
-      <p className="text-[15px] leading-[1.45] text-fg-secondary">{status}</p>
+      <p className="mt-3 text-[14px] leading-[1.4] text-fg-secondary">{status}</p>
     </div>
   );
 }
@@ -1554,92 +1706,48 @@ function AskSlide() {
   return (
     <Slide align="start">
       <Eyebrow>Milestones / Ask</Eyebrow>
-      <h2 className="text-[64px] font-light leading-[1.05] tracking-[-0.02em] text-fg-primary">
+      <h2 className="max-w-[1640px] text-[80px] font-light leading-[1.04] tracking-[-0.022em] text-fg-primary">
         Antler capital unlocks the benchmark
         <br />
         that unlocks the next round.
       </h2>
+      <p className="mt-6 max-w-[1500px] text-[28px] font-normal leading-[1.45] text-fg-secondary">
+        One investment milestone path — from IC through validation to the
+        professional raise.
+      </p>
 
-      <div className="mt-10 grid max-w-[1640px] grid-cols-4 gap-5">
-        <MilestoneCard
-          range="Now → IC"
-          emphasis
-          body={
-            <>
-              Finalize multiple technical LOIs, define benchmark, continue
-              demo sprint.
-            </>
-          }
-        />
-        <MilestoneCard
-          range="0–3 months"
-          body={
-            <>
-              Build closed-loop tactile-to-actuation validation rig. Run Arc
-              vs. conventional baseline.
-            </>
-          }
-        />
-        <MilestoneCard
-          range="3–6 months"
-          body={
-            <>
-              Share validation data with partners. Secure 1–2 deeper partner
-              pilot paths. Prepare initial IP filing.
-            </>
-          }
-        />
-        <MilestoneCard
-          range="6–9 months"
-          body={
-            <>
-              Raise from professional investors using benchmark data, LOIs,
-              and IP strategy.
-            </>
-          }
-        />
-      </div>
+      <div className="mt-6 flex min-h-0 flex-1 flex-col">
+        <div className="flex flex-col divide-y divide-border/60">
+          {ASK_MILESTONES.map((milestone, index) => (
+            <AskMilestonePhaseRow
+              key={milestone.range}
+              range={milestone.range}
+              body={milestone.body}
+              step={index as 0 | 1 | 2 | 3}
+            />
+          ))}
+        </div>
 
-      <div className="mt-8 max-w-[1640px] rounded-[8px] border border-border bg-bg-subtle px-6 py-5">
-        <SectionLabel>Capital pipeline</SectionLabel>
-        <div className="mt-3 border-t border-border/70">
-          <CapitalPipelineRow
-            name="Coreline / Atlas"
-            logoSrc="/assets/coreline-logo.png"
-            logoMaxH={32}
-            logoMaxW={128}
-            status="Interviewing"
-          />
-          <CapitalPipelineRow
-            name="1stRound"
-            status="Applied · ¥10M non-dilutive validation funding"
-          />
-          <CapitalPipelineRow
-            name="Aichi DeepTech Launch PA"
-            status="Applied · ¥40M non-dilutive"
-          />
-          <CapitalPipelineRow
-            name="Sony Innovation Fund"
-            status="Active conversations with deep-tech team"
-          />
-          <CapitalPipelineRow
-            name="Spiral Capital"
-            logoSrc="/assets/spiral-capital-logo.png"
-            logoMaxH={36}
-            logoMaxW={128}
-            status="Warm conversations"
-          />
+        <div className="mt-auto max-w-[1640px] shrink-0 pt-5">
+          <SectionLabel>Capital pipeline</SectionLabel>
+          <div className="mt-4 grid grid-cols-5 divide-x divide-border/70 overflow-hidden rounded-[12px] border border-border bg-bg-subtle/45">
+            {CAPITAL_PIPELINE.map((entry) => (
+              <CapitalPipelineTile key={entry.name} {...entry} />
+            ))}
+          </div>
+
+          <div className="mt-5">
+            <p className="max-w-[1500px] text-[24px] font-light italic leading-[1.35] tracking-[-0.015em] text-fg-primary">
+              One measurable reflex loop becomes the foundation for{" "}
+              <span className="not-italic font-semibold">
+                physical intelligence infrastructure.
+              </span>
+            </p>
+          </div>
         </div>
       </div>
 
-      <p className="mt-8 max-w-[1500px] text-[26px] font-light italic leading-[1.35] tracking-[-0.015em] text-fg-primary">
-        One measurable reflex loop becomes the foundation for{" "}
-        <span className="not-italic font-semibold">
-          physical intelligence infrastructure.
-        </span>
-      </p>
-
-      <SlideFooter pageLabel="15 · Ask" />
+      <SlideFooter pageLabel="18 · Ask" />
     </Slide>
   );
 }
@@ -1664,44 +1772,42 @@ function ThankYouSlide() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-[80px] -top-[16px] opacity-60"
+        className="pointer-events-none absolute right-[80px] top-[24px] opacity-60"
       >
         <NeuralMotif className="h-auto w-[780px]" />
       </div>
 
-      <SlideFooter pageLabel="16 · Thank You" />
+      <SlideFooter pageLabel="19 · Thank You" />
     </Slide>
   );
 }
 
 // =====================================================================
-//  Ordered slide manifest — 16 main + 2 appendix.
+//  Ordered slide manifest — 19 main slides.
+//  Appendix: slides-antler-v2-appendix.tsx
 // =====================================================================
 export const SLIDES_ANTLER_V2_MAIN: Array<() => React.JSX.Element> = [
   CoverSlide,
   HaveYouSeenMeSlide,
-  ProblemSlide,
+  Bottleneck1Slide,
+  Bottleneck2Slide,
+  Bottleneck3Slide,
+  WhyNowBodiesSlide,
   SolutionSlide,
   AntlerArchitectureSlide,
+  AntlerArcDiagramSlide,
   DiscoverySlide,
-  AntlerBenchmarkSlide,
-  WhyNowSlide,
   BusinessModelSlide,
   AntlerMarketSlide,
-  CompetitionSlide,
+  CompetitionStackSlide,
   GtmSlide,
   UnfairAdvantageSlide,
+  TechnicalNetworkSlide,
   TeamSlide,
   AskSlide,
   ThankYouSlide,
 ];
 
-export const APPENDIX_SLIDES_ANTLER_V2: Array<() => React.JSX.Element> = [
-  VisionSlide,
-  DefensibilitySlide,
-];
+export const SLIDES_ANTLER_V2 = SLIDES_ANTLER_V2_MAIN;
 
-export const SLIDES_ANTLER_V2: Array<() => React.JSX.Element> = [
-  ...SLIDES_ANTLER_V2_MAIN,
-  ...APPENDIX_SLIDES_ANTLER_V2,
-];
+export { APPENDIX_SLIDES_ANTLER_V2 } from "./slides-antler-v2-appendix";
