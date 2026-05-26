@@ -119,13 +119,13 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             className={`reveal mb-5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "0ms" }}
           >
-            ARC BY HINOKI · PHYSICAL INTELLIGENCE FOR ROBOTICS
+            ARC BY HINOKI · REACTION INTELLIGENCE FOR ROBOTICS
           </div>
           <h1
             className={`reveal mb-6 text-[36px] font-light leading-[1.1] tracking-[-0.025em] text-fg-primary md:text-[52px] ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "216ms" }}
           >
-            The physical intelligence
+            The reaction intelligence
             <br />
             robots have been missing.
           </h1>
@@ -1194,7 +1194,7 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
             </span>
           </div>
           <div className="text-[12px] text-fg-secondary">
-            Arc — Physical Intelligence
+            Arc — Reaction Intelligence
           </div>
           <div className="text-[12px] text-fg-secondary">Tsukuba, Japan</div>
         </div>
