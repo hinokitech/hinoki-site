@@ -963,7 +963,7 @@ export default function MobileDeck1stRoundJp() {
 
         <Card
           tag="18 · 資金使途"
-          title="1stRound資金で実現すること"
+          title="資金調達が実現すること"
         >
           <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">
             顧客発見を、最初のパートナー向けベンチマークデータセットへ変換するための非希薄化検証資金です。

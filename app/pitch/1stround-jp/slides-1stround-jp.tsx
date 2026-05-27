@@ -2379,7 +2379,7 @@ function ClosingSlide() {
         <div className="shrink-0">
           <Eyebrow>Funding Purpose</Eyebrow>
           <h2 className="max-w-[1400px] text-[52px] font-light leading-[1.08] tracking-[-0.02em] text-fg-primary">
-            1stRound資金で実現すること
+            資金調達が実現すること
           </h2>
           <p className="mt-5 max-w-[1400px] text-[22px] font-light leading-[1.45] tracking-[-0.01em] text-fg-secondary">
             顧客発見を、最初のパートナー向けベンチマークデータセットへ変換するための非希薄化検証資金です。
