@@ -28,7 +28,7 @@ import { CaseStudy03HighVolumeAutomationSlide } from "./case-study-03-high-volum
 import { CaseStudy03HinokiSolutionSlide } from "./case-study-03-hinoki-solution-slide";
 
 // =====================================================================
-//  HINOKI — ANTLER IC DECK V2 (source of truth)
+//  HINOKI — ANTLER IC DECK V3 (source of truth)
 //
 //  Working copy for the next Antler IC iteration.
 //  Frozen reference deck: app/pitch/antler/slides-antler.tsx (/pitch/antler)
@@ -68,7 +68,7 @@ import { CaseStudy03HinokiSolutionSlide } from "./case-study-03-hinoki-solution-
 //    29  Ask — Antler capital unlocks the benchmark that unlocks the next round.
 //    30  Thank You
 //
-//  Appendix slides archived in slides-antler-v2-appendix.tsx (not in live deck).
+//  Appendix slides archived in slides-antler-v3-appendix.tsx (not in live deck).
 //
 //  Design intent: investment-conviction. Quieter than the 1stRound deck.
 //  One dominant claim per slide. Diagrams, flywheels, layer maps,
@@ -1560,9 +1560,9 @@ function ThankYouSlide() {
 
 // =====================================================================
 //  Ordered slide manifest — 30 main slides.
-//  Appendix: slides-antler-v2-appendix.tsx
+//  Appendix: slides-antler-v3-appendix.tsx
 // =====================================================================
-export const SLIDES_ANTLER_V2_MAIN: Array<() => React.JSX.Element> = [
+export const SLIDES_ANTLER_V3_MAIN: Array<() => React.JSX.Element> = [
   CoverSlide,
   HaveYouSeenMeSlide,
   Bottleneck1Slide,
@@ -1595,6 +1595,6 @@ export const SLIDES_ANTLER_V2_MAIN: Array<() => React.JSX.Element> = [
   ThankYouSlide,
 ];
 
-export const SLIDES_ANTLER_V2 = SLIDES_ANTLER_V2_MAIN;
+export const SLIDES_ANTLER_V3 = SLIDES_ANTLER_V3_MAIN;
 
-export { APPENDIX_SLIDES_ANTLER_V2 } from "./slides-antler-v2-appendix";
+export { APPENDIX_SLIDES_ANTLER_V3 } from "./slides-antler-v3-appendix";

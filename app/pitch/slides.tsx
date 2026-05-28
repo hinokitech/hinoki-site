@@ -29,16 +29,21 @@ import React from "react";
 export function Slide({
   children,
   align = "center",
+  dense = false,
 }: {
   children: React.ReactNode;
   /** `start` reserves extra bottom space for `SlideFooter` on dense slides. */
   align?: "center" | "start";
+  /** Tighter vertical chrome — use when a slide stacks multiple content blocks. */
+  dense?: boolean;
 }) {
   return (
     <div
       className={`relative flex h-full w-full flex-col px-[140px] ${
         align === "start"
-          ? "justify-start pt-[72px] pb-[188px]"
+          ? dense
+            ? "justify-start pt-[56px] pb-[148px]"
+            : "justify-start pt-[72px] pb-[188px]"
           : "justify-center py-[100px]"
       }`}
     >
@@ -47,9 +52,17 @@ export function Slide({
   );
 }
 
-export function Eyebrow({ children }: { children: React.ReactNode }) {
+export function Eyebrow({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="mb-8 text-[20px] font-semibold uppercase tracking-[0.18em] text-accent">
+    <div
+      className={`mb-8 text-[20px] font-semibold uppercase tracking-[0.18em] text-accent ${className}`}
+    >
       {children}
     </div>
   );
@@ -61,6 +74,27 @@ export function SlideFooter({ pageLabel }: { pageLabel: string }) {
       <span>HINOKI · ARC</span>
       <span>{pageLabel}</span>
     </div>
+  );
+}
+
+/** Compact academic / source line — sits just above the slide footer. */
+export function SlideCitation({
+  children,
+  size = "compact",
+}: {
+  children: React.ReactNode;
+  size?: "compact" | "large";
+}) {
+  return (
+    <p
+      className={`absolute left-[140px] right-[140px] z-[2] font-mono tracking-[0.02em] ${
+        size === "large"
+          ? "bottom-[98px] text-[16px] leading-[1.42] text-fg-secondary"
+          : "bottom-[88px] text-[11px] leading-[1.4] text-fg-caption"
+      }`}
+    >
+      {children}
+    </p>
   );
 }
 
