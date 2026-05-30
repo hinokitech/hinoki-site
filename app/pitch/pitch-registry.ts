@@ -111,6 +111,20 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
       },
     ],
   },
+  {
+    id: "coreline",
+    title: "Coreline Deck",
+    description:
+      "Working copy branched from Antler IC v4 — tailor here for Coreline / Atlas application.",
+    audience: "Coreline / Atlas",
+    locales: [
+      {
+        lang: "en",
+        label: "English",
+        path: "/pitch/coreline",
+      },
+    ],
+  },
 ];
 
 /** Deck ids that were merged or renamed — notes API may still receive these once. */
