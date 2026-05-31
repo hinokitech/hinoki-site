@@ -1334,7 +1334,7 @@ function TeamSlide() {
 const CAPITAL_PIPELINE_GROUPS = [
   {
     label: "Active",
-    items: "Sony Innovation Fund",
+    items: "Antler Japan",
   },
   {
     label: "Applied",
@@ -1343,7 +1343,7 @@ const CAPITAL_PIPELINE_GROUPS = [
   },
   {
     label: "Warm",
-    items: "Spiral Capital",
+    items: "Sony Innovation Fund · Spiral Capital",
   },
 ] as const;
 

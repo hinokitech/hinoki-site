@@ -48,7 +48,7 @@ export function CaseStudy01HinokiSolutionSlide() {
             Arc closes the blind window.
           </h2>
 
-          <div className="mt-10 flex flex-1 flex-col justify-center gap-9">
+          <div className="mt-0 flex flex-1 flex-col justify-center gap-8 -translate-y-6">
             <SolutionRow label="What Arc does">
               Tactile data routes straight into the{" "}
               <span className="italic">Arc</span> local substrate, off the host
