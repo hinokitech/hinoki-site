@@ -115,13 +115,27 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
     id: "coreline",
     title: "Coreline Deck",
     description:
-      "Working copy branched from Antler IC v4 — tailor here for Coreline / Atlas application.",
+      "Initial Coreline/Atlas branch from Antler IC v4 — frozen snapshot.",
     audience: "Coreline / Atlas",
     locales: [
       {
         lang: "en",
         label: "English",
         path: "/pitch/coreline",
+      },
+    ],
+  },
+  {
+    id: "coreline-v2",
+    title: "Coreline Deck · v2",
+    description:
+      "Current working copy — problem chain, FPGA strategy, arc status, ask pipeline, and modeled performance labels.",
+    audience: "Coreline / Atlas",
+    locales: [
+      {
+        lang: "en",
+        label: "English",
+        path: "/pitch/coreline-v2",
       },
     ],
   },
