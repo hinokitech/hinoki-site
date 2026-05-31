@@ -63,13 +63,13 @@ function Nav() {
         <a href="#" className="flex items-center gap-[10px]">
           <img
             src="/assets/logo-hinoki-tree.png"
-            alt="Hinoki"
+            alt="Hinoki Technologies"
             width={34}
             height={34}
             className="block h-[34px] w-[34px] object-contain"
           />
           <span className="text-[16px] font-semibold tracking-[-0.01em] text-fg-primary">
-            Hinoki
+            Hinoki Technologies
           </span>
         </a>
 
