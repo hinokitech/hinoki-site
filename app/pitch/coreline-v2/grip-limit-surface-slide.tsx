@@ -1,7 +1,8 @@
 import React from "react";
 import gripLimitContactPatchSrc from "../../../public/assets/grip-limit-contact-patch.png";
 import gripLimitRelaxationTimelineSrc from "../../../public/assets/grip-limit-relaxation-timeline.png";
-import { Slide, Eyebrow, SlideFooter, SlideCitation } from "../slides";
+import { Slide, Eyebrow, SlideCitation } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 export function GripLimitSurfaceSlide() {
   return (

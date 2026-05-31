@@ -1,5 +1,6 @@
 import React from "react";
-import { Slide, Eyebrow, SlideFooter } from "../slides";
+import { Slide, Eyebrow } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 const PROGRESS_DOT_COUNT = 4;
 
@@ -73,7 +74,7 @@ const ARC_STATUS_LANES = [
     title: "Concept",
     status: "Defined",
     filled: 3,
-    body: "Bounded reaction intelligence — edge neuromorphic computing — between sensor and actuator. The architecture is set; the open work is proving it physically.",
+    body: "Bounded reaction intelligence — edge neuromorphic computing — between sensor and actuator. The architecture is set; the open work is proving it physically for customers.",
   },
   {
     number: "02",

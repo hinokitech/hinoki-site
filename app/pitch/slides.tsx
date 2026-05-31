@@ -68,10 +68,17 @@ export function Eyebrow({
   );
 }
 
-export function SlideFooter({ pageLabel }: { pageLabel: string }) {
+export function SlideFooter({
+  pageLabel,
+  confidential,
+}: {
+  pageLabel: string;
+  confidential?: string;
+}) {
   return (
     <div className="absolute bottom-[60px] left-[140px] right-[140px] flex items-center justify-between font-mono text-[14px] tracking-[0.08em] text-fg-tertiary">
       <span>HINOKI · ARC</span>
+      {confidential ? <span>{confidential}</span> : <span aria-hidden="true" />}
       <span>{pageLabel}</span>
     </div>
   );

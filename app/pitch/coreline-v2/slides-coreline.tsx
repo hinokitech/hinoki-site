@@ -1,17 +1,17 @@
 import React from "react";
 import humanoidRobotSrc from "../../../public/assets/humanoid-robot.png";
-import bottleneck1DeploymentSrc from "../../../public/assets/bottleneck-1-deployment.png";
-import bottleneck2CustomDeploymentSrc from "../../../public/assets/bottleneck-2-custom-deployment.png";
-import bottleneck3LatencySrc from "../../../public/assets/bottleneck-3-latency.png";
+import bottleneck5LateStackSrc from "../../../public/assets/bottleneck-5-late-stack.png";
+import bottleneck3ContactPhysicsSrc from "../../../public/assets/bottleneck-3-contact-physics.png";
+import bottleneck4SensePlanActStackSrc from "../../../public/assets/bottleneck-4-sense-plan-act-stack.png";
 import whyNowHumanEnvironmentsSrc from "../../../public/assets/why-now-human-environments.png";
 import architectureNervousSystemReflexSrc from "../../../public/assets/architecture-nervous-system-reflex.png";
 import steveUrkelSrc from "../../../public/assets/steve-urkel.jpg";
 import {
   Slide,
   Eyebrow,
-  SlideFooter,
   FounderCard,
 } from "../slides";
+import { SlideFooter } from "./slide-footer";
 import {
   ArcArchitectureSlide as FirstRoundArchitectureSlide,
 } from "../1stround/slides-1stround";
@@ -43,11 +43,11 @@ import { CaseStudy03HinokiSolutionSlide } from "./case-study-03-hinoki-solution-
 //    03  Problem — A slip/contact event closes in ~15 ms.
 //    04  Problem — Today's sense-plan-act stack needs 30–50 ms.
 //    05  Problem — It reacts after the failure.
-//    06  Why Now — Human environments demand trustworthy, efficient bodies.
+//    06  Why Now — Robots joining society; two costs of slow physical reaction.
 //    07  Solution — Arc gives robots a faster physical response layer.
 //    08  Architecture — The next robotics architecture looks more like a nervous system.
 //    09  Integration — Arc local reflex layer (technical diagram).
-//    10  Lets Get GEEKY! — Steve Urkel hook slide.
+//    10  Let's Get GEEKY! — Steve Urkel hook slide.
 //    11  Latency — The Von Neumann Latency Gauntlet.
 //    12  Performance — The Control-Loop Arbitrage Matrix.
 //    13  Physics — The Physics of the Grip Limit Surface.
@@ -61,7 +61,7 @@ import { CaseStudy03HinokiSolutionSlide } from "./case-study-03-hinoki-solution-
 //    21  Discovery — What engineers are telling us so far.
 //    22  Market — Start → Scale with funding → Mature (TAM ladder).
 //    23  Business Model + Moat — The first loop becomes the business.
-//    24  FPGA Strategy — FPGA now. Licensed silicon later.
+//    24  FPGA Strategy — FPGA now. Silicon later.
 //    25  GTM — Bottom-up substrate embed; Japan account universe.
 //    26  Competition — Reaction intelligence is fragmented; nobody owns the layer.
 //    27  Unfair Advantage — Why Hinoki can win from Japan.
@@ -234,8 +234,10 @@ function CoverSlide() {
       </div>
 
       <div className="absolute bottom-[80px] left-[140px] font-mono text-[16px] tracking-[0.08em] text-fg-tertiary">
-        Antler Japan · Pre-IC / IC · May 2026 · hinokitech.com
+        Pre-seed · May 2026 · hinokitech.com
       </div>
+
+      <SlideFooter pageLabel="01 · Cover" />
     </Slide>
   );
 }
@@ -294,10 +296,10 @@ function Bottleneck1Slide() {
 
         <div className="flex items-center justify-center">
           <img
-            src={bottleneck3LatencySrc.src}
-            alt="Slip and contact-loss event closing within a fifteen millisecond physical window"
-            width={bottleneck3LatencySrc.width}
-            height={bottleneck3LatencySrc.height}
+            src={bottleneck3ContactPhysicsSrc.src}
+            alt="Macro contact interface showing stick region collapse and contact loss within a fifteen millisecond physical window"
+            width={bottleneck3ContactPhysicsSrc.width}
+            height={bottleneck3ContactPhysicsSrc.height}
             className="max-h-full max-w-full object-contain object-center"
           />
         </div>
@@ -336,10 +338,10 @@ function Bottleneck2Slide() {
 
         <div className="flex items-center justify-center">
           <img
-            src={bottleneck3LatencySrc.src}
-            alt="Slow sense-plan-act stack lag versus slipping gripper contact event"
-            width={bottleneck3LatencySrc.width}
-            height={bottleneck3LatencySrc.height}
+            src={bottleneck4SensePlanActStackSrc.src}
+            alt="Conventional sense-plan-act stack from sensor input through perception, planning, and control to actuator output, totaling thirty to fifty milliseconds"
+            width={bottleneck4SensePlanActStackSrc.width}
+            height={bottleneck4SensePlanActStackSrc.height}
             className="max-h-full max-w-full object-contain object-center"
           />
         </div>
@@ -363,28 +365,14 @@ function Bottleneck3Slide() {
             It reacts after the failure.
           </h2>
           <p className="mt-6 max-w-[900px] text-[28px] font-light leading-[1.45] tracking-[-0.015em] text-fg-primary/90">
-            Closing that window locally is what we built and validated on FPGA.
+            Closing that window locally is what we&rsquo;re building — the
+            neuromorphic core is already validated on FPGA.
           </p>
 
-          <div className="mt-8 flex flex-1 flex-col gap-6">
+          <div className="mt-8 flex flex-1 flex-col py-4">
             <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
               <p className="text-[32px] font-light leading-[1.25] tracking-[-0.015em] text-fg-secondary">
                 ~15 ms event → 30–50 ms stack → correction lands too late.
-              </p>
-            </div>
-
-            <div className="max-w-[900px] rounded-[10px] border border-border bg-bg-subtle px-6 py-5">
-              <p className="font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-accent">
-                Why Hinoki
-              </p>
-              <p className="mt-2 text-[22px] font-semibold leading-[1.35] text-fg-primary">
-                Bernardo Gatto · Co-founder / CTO
-              </p>
-              <p className="mt-2 text-[20px] leading-[1.45] text-fg-primary/90">
-                Co-architect of the <span className="italic">Arc</span> thesis —
-                operationalized Phase 1 on FPGA hardware: ran live image
-                classification on a neuromorphic core in silicon. Closing the
-                sensor-to-actuator loop is the Phase 2 build.
               </p>
             </div>
           </div>
@@ -392,10 +380,10 @@ function Bottleneck3Slide() {
 
         <div className="flex items-center justify-center">
           <img
-            src={bottleneck1DeploymentSrc.src}
-            alt="Robot failure in the field after the control stack responds too late"
-            width={bottleneck1DeploymentSrc.width}
-            height={bottleneck1DeploymentSrc.height}
+            src={bottleneck5LateStackSrc.src}
+            alt="Gripper contact window closes in fifteen milliseconds while sense-plan-act stack correction returns at forty-five milliseconds, too late"
+            width={bottleneck5LateStackSrc.width}
+            height={bottleneck5LateStackSrc.height}
             className="max-h-full max-w-full object-contain object-center"
           />
         </div>
@@ -407,8 +395,32 @@ function Bottleneck3Slide() {
 }
 
 // =====================================================================
-//  06 · Why Now — Human environments demand trustworthy, efficient bodies
+//  06 · Why Now — Robots joining society; two costs of slow physical reaction
 // =====================================================================
+function WhyNowCostBlock({
+  label,
+  body,
+  source,
+}: {
+  label: string;
+  body: React.ReactNode;
+  source: string;
+}) {
+  return (
+    <div className="border-l-2 border-accent/40 pl-7">
+      <p className="font-mono text-[17px] font-semibold uppercase tracking-[0.12em] text-accent">
+        {label}
+      </p>
+      <p className="mt-3 text-[26px] font-light leading-[1.45] tracking-[-0.01em] text-fg-primary">
+        {body}
+      </p>
+      <p className="mt-2 font-mono text-[16px] leading-[1.4] tracking-[0.02em] text-fg-caption">
+        {source}
+      </p>
+    </div>
+  );
+}
+
 function WhyNowBodiesSlide() {
   return (
     <Slide align="start">
@@ -416,18 +428,44 @@ function WhyNowBodiesSlide() {
       <div className="grid flex-1 grid-cols-[minmax(0,1fr)_minmax(0,620px)] items-stretch gap-12">
         <div className="flex min-h-0 flex-col">
           <h2 className="max-w-[900px] text-[72px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            Robots are entering human environments.
+            Robots are joining society — on the line and beside us.
           </h2>
-          <p className="mt-6 font-mono text-[24px] leading-[1.45] tracking-[0.02em] text-fg-secondary">
-            ADRA, 2025; Bain, 2025; Nature Scientific Reports, 2025.
+          <p className="mt-6 max-w-[900px] text-[28px] font-light leading-[1.45] tracking-[-0.015em] text-fg-secondary">
+            The same slow physical reaction shows up as two costs.
           </p>
 
-          <div className="mt-8 flex flex-1 flex-col py-4">
-            <div className="flex flex-1 items-center border-l-2 border-accent/40 pl-7">
-              <p className="text-[42px] font-light leading-[1.15] tracking-[-0.015em] text-fg-primary">
-                Safe. Fast. All-day efficient.
-              </p>
-            </div>
+          <div className="mt-8 flex flex-1 flex-col justify-center gap-8 py-4">
+            <WhyNowCostBlock
+              label="Throughput · on the line"
+              body={
+                <>
+                  Micro-slips and contact failures drive{" "}
+                  <span className="font-semibold text-accent">~44%</span> of line
+                  stops. Downtime runs{" "}
+                  <span className="font-semibold text-accent">$22,000/min</span> —
+                  roughly{" "}
+                  <span className="font-semibold text-accent">$50B/year</span>{" "}
+                  industry-wide.
+                </>
+              }
+              source="Siemens & Senseye; Vanson Bourne"
+            />
+            <WhyNowCostBlock
+              label="Safety · beside people"
+              body={
+                <>
+                  The same slip that drops a part becomes a hazard next to a
+                  person — which is why{" "}
+                  <span className="font-semibold text-accent">~20,000</span>{" "}
+                  humanoids have shipped but only{" "}
+                  <span className="font-semibold text-accent">~2,500</span> actually
+                  work, delaying a{" "}
+                  <span className="font-semibold text-accent">$300B–$750B</span>{" "}
+                  market.
+                </>
+              }
+              source="McKinsey"
+            />
           </div>
         </div>
 
@@ -646,18 +684,24 @@ function AntlerArchitectureSlide() {
 //  09 · Integration — Arc local reflex layer (technical diagram)
 // =====================================================================
 function AntlerArcDiagramSlide() {
-  return <FirstRoundArchitectureSlide pageLabel="09 · Integration" />;
+  return (
+    <FirstRoundArchitectureSlide
+      pageLabel="09 · Integration"
+      callout="Not a replacement controller. A bounded local reaction layer."
+      confidential="Confidential - Not for Redistribution"
+    />
+  );
 }
 
 // =====================================================================
-//  10 · Lets Get GEEKY!
+//  10 · Let's Get GEEKY!
 // =====================================================================
 function LetsGetGeekySlide() {
   return (
     <Slide align="start">
       <div className="grid flex-1 grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] items-center gap-14">
         <h2 className="text-[108px] font-light leading-[1.02] tracking-[-0.028em] text-fg-primary">
-          Lets Get GEEKY!
+          Let&rsquo;s Get GEEKY!
         </h2>
         <div className="flex h-[820px] items-center justify-center overflow-visible">
           <img
@@ -670,7 +714,7 @@ function LetsGetGeekySlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="10 · Lets Get GEEKY!" />
+      <SlideFooter pageLabel="10 · Let's Get GEEKY!" />
     </Slide>
   );
 }
@@ -1161,15 +1205,17 @@ function TeamSlide() {
                   — brought the biology framing.
                 </>,
                 <>
+                  C-suite client management experience at major Global and
+                  Japanese institutions.
+                </>,
+                <>
                   Built and scaled a Japan enterprise desk from zero to{" "}
                   <span className="font-semibold text-fg-primary">
                     ¥50M+ annual profit
                   </span>
                   .
                 </>,
-                <>
-                  C-suite client relationships at major Japanese institutions.
-                </>,
+                <>Team building expertise.</>,
               ]}
             />
           }
@@ -1269,7 +1315,7 @@ function TeamSlide() {
               <span className="text-accent">·</span>
               <span>
                 Shared mission: build a Tsukuba-rooted deep-tech company — a
-                place where Japanese and international researchers work
+                place where Japanese and international experts work
                 together.
               </span>
             </li>
@@ -1285,21 +1331,6 @@ function TeamSlide() {
 // =====================================================================
 //  18 · Ask — Antler capital unlocks the benchmark
 // =====================================================================
-const ASK_MILESTONES = [
-  {
-    range: "0–3 months",
-    body: "Closed-loop validation rig live. Arc validation vs. conventional baseline with reproducible sub-millisecond data. Initial IP filing in.",
-  },
-  {
-    range: "3–6 months",
-    body: "Validation data in hand with 1–2 Japanese gripper OEMs. First paid pilot secured.",
-  },
-  {
-    range: "6–9 months",
-    body: "Raise professional seed on validation data, paid pilot traction, and IP position.",
-  },
-] as const;
-
 const CAPITAL_PIPELINE_GROUPS = [
   {
     label: "Active",
@@ -1329,31 +1360,6 @@ const LOI_PIPELINE_GROUPS = [
   },
 ] as const;
 
-function AskMilestonePhaseRow({
-  range,
-  body,
-  accent = false,
-}: {
-  range: string;
-  body: string;
-  accent?: boolean;
-}) {
-  return (
-    <div className="grid grid-cols-[minmax(0,440px)_1fr] items-baseline gap-x-16 py-3">
-      <h3
-        className={`text-[58px] font-normal leading-[0.95] tracking-[-0.025em] ${
-          accent ? "text-accent" : "text-fg-primary"
-        }`}
-      >
-        {range}
-      </h3>
-      <p className="pb-0.5 text-[24px] leading-[1.45] text-fg-secondary">
-        {body}
-      </p>
-    </div>
-  );
-}
-
 function CapitalPipelineRow({
   label,
   items,
@@ -1362,11 +1368,11 @@ function CapitalPipelineRow({
   items: string;
 }) {
   return (
-    <div className="grid grid-cols-[minmax(0,160px)_1fr] items-baseline gap-x-8 py-2">
-      <p className="font-mono text-[15px] font-semibold uppercase tracking-[0.12em] text-accent">
+    <div className="grid grid-cols-[minmax(0,160px)_1fr] items-baseline gap-x-10 py-4">
+      <p className="font-mono text-[17px] font-semibold uppercase tracking-[0.12em] text-accent">
         {label}
       </p>
-      <p className="text-[20px] leading-[1.45] text-fg-secondary">{items}</p>
+      <p className="text-[24px] leading-[1.45] text-fg-secondary">{items}</p>
     </div>
   );
 }
@@ -1380,10 +1386,10 @@ function AskPipelineColumn({
 }) {
   return (
     <div>
-      <div className="font-mono text-[18px] font-semibold uppercase tracking-[0.14em] text-accent">
+      <div className="font-mono text-[22px] font-semibold uppercase tracking-[0.14em] text-accent">
         {title}
       </div>
-      <div className="mt-3 flex flex-col divide-y divide-border/60">
+      <div className="mt-5 flex flex-col divide-y divide-border/60">
         {rows.map((row) => (
           <CapitalPipelineRow key={row.label} {...row} />
         ))}
@@ -1395,35 +1401,21 @@ function AskPipelineColumn({
 function AskSlide() {
   return (
     <Slide align="start" dense>
-      <Eyebrow className="!mb-5">Milestones / Ask</Eyebrow>
-      <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.06] tracking-[-0.022em] text-fg-primary">
+      <Eyebrow className="!mb-5">Ask</Eyebrow>
+      <h2 className="max-w-[1640px] text-[72px] font-light leading-[1.06] tracking-[-0.022em] text-fg-primary">
         Early capital unlocks the validation that unlocks the next round.
       </h2>
-      <p className="mt-5 max-w-[1500px] text-[28px] font-light leading-[1.45] tracking-[-0.015em] text-fg-secondary">
-        One investment milestone path — validation to the professional raise.
-      </p>
 
-      <div className="mt-6 flex min-h-0 flex-1 flex-col">
-        <div className="flex flex-col divide-y divide-border/60">
-          {ASK_MILESTONES.map((milestone, index) => (
-            <AskMilestonePhaseRow
-              key={milestone.range}
-              range={milestone.range}
-              body={milestone.body}
-              accent={index === ASK_MILESTONES.length - 1}
-            />
-          ))}
-        </div>
-
-        <div className="mt-6 max-w-[1640px] shrink-0 rounded-[10px] border-2 border-accent bg-accent-subtle px-10 py-6">
-          <p className="text-[24px] font-light leading-[1.45] tracking-[-0.015em] text-fg-primary">
+      <div className="mt-12 flex min-h-0 flex-1 flex-col justify-center gap-14">
+        <div className="max-w-[1640px] shrink-0 rounded-[10px] border-2 border-accent bg-accent-subtle px-12 py-9">
+          <p className="text-[28px] font-light leading-[1.45] tracking-[-0.015em] text-fg-primary">
             <span className="font-semibold text-accent">The Ask:</span> Pre-seed /
             seed stacked with ~¥50M non-dilutive in pipeline · combined runway to
             validation milestone.
           </p>
         </div>
 
-        <div className="mt-6 grid max-w-[1640px] shrink-0 grid-cols-2 gap-x-16">
+        <div className="grid max-w-[1640px] shrink-0 grid-cols-2 gap-x-20">
           <AskPipelineColumn
             title="Capital pipeline"
             rows={CAPITAL_PIPELINE_GROUPS}

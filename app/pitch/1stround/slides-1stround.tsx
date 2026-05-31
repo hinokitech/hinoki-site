@@ -833,8 +833,12 @@ export function BenchmarkSlide({
 // ---------------------------------------------------------------------
 export function ArcArchitectureSlide({
   pageLabel = "06 · Architecture",
+  callout = "Not a replacement controller. A bounded local response layer.",
+  confidential,
 }: {
   pageLabel?: string;
+  callout?: string;
+  confidential?: string;
 }) {
   return (
     <Slide align="start">
@@ -859,7 +863,7 @@ export function ArcArchitectureSlide({
       <div className="mt-5 grid max-w-[1640px] grid-cols-[1.2fr_1fr] gap-x-10">
         <div>
           <div className="inline-block rounded-[8px] border border-accent bg-accent-subtle px-4 py-2 text-[18px] font-semibold leading-[1.25] text-fg-primary">
-            Not a replacement controller. A bounded local response layer.
+            {callout}
           </div>
           <p className="mt-3 text-[17px] leading-[1.5] text-fg-secondary">
             Arc works alongside existing robotics stacks, focusing on selected
@@ -892,7 +896,7 @@ export function ArcArchitectureSlide({
         </div>
       </div>
 
-      <SlideFooter pageLabel={pageLabel} />
+      <SlideFooter pageLabel={pageLabel} confidential={confidential} />
     </Slide>
   );
 }

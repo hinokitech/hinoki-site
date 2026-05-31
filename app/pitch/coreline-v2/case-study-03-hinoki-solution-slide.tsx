@@ -1,6 +1,7 @@
 import React from "react";
 import caseStudy03SolutionSrc from "../../../public/assets/case-study-03-hinoki-solution.png";
-import { Slide, Eyebrow, SlideFooter } from "../slides";
+import { Slide, Eyebrow } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 function SolutionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -52,7 +53,7 @@ export function CaseStudy03HinokiSolutionSlide() {
               Logic mapped onto the chip, no memory fetches — Arc detects the
               micro-slips in{" "}
               <span className="font-semibold text-accent">&lt;1.0 ms · modeled</span>, on{" "}
-              <span className="font-semibold text-accent">0.14 mJ · modeled</span>.
+              <span className="font-semibold text-accent">&lt;0.20 mJ · modeled</span>.
             </SolutionRow>
 
             <SolutionRow label="Result">

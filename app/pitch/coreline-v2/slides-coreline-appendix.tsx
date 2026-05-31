@@ -1,6 +1,7 @@
 import React from "react";
 import competitionPositioningMapSrc from "../../../public/assets/competition-positioning-map.png";
-import { Slide, Eyebrow, SlideFooter } from "../slides";
+import { Slide, Eyebrow } from "../slides";
+import { SlideFooter } from "./slide-footer";
 import { BenchmarkSlide as FirstRoundBenchmarkSlide } from "../1stround/slides-1stround";
 
 // =====================================================================

@@ -1,5 +1,6 @@
 import React from "react";
-import { Slide, Eyebrow, SlideFooter } from "../slides";
+import { Slide, Eyebrow } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 const FRAGMENTED_LAYERS = [
   {

@@ -1,6 +1,7 @@
 import React from "react";
 import caseStudy02SolutionSrc from "../../../public/assets/case-study-02-hinoki-solution.png";
-import { Slide, Eyebrow, SlideFooter } from "../slides";
+import { Slide, Eyebrow } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 function SolutionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -52,7 +53,7 @@ export function CaseStudy02HinokiSolutionSlide() {
               Reaction intelligence that drops into existing grippers and sensors —
               no robot redesign. Caps contact force and arrests slips locally,
               in{" "}
-              <span className="font-semibold text-accent">&lt;0.5 ms · modeled</span>.
+              <span className="font-semibold text-accent">&lt;1.0 ms · modeled</span>.
             </SolutionRow>
 
             <SolutionRow label="Result">

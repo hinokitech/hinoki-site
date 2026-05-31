@@ -1,6 +1,7 @@
 import React from "react";
 import caseStudy01SolutionSrc from "../../../public/assets/case-study-01-hinoki-solution.png";
-import { Slide, Eyebrow, SlideFooter } from "../slides";
+import { Slide, Eyebrow } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 function SolutionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -49,9 +50,10 @@ export function CaseStudy01HinokiSolutionSlide() {
 
           <div className="mt-10 flex flex-1 flex-col justify-center gap-9">
             <SolutionRow label="What Arc does">
-              Tactile data routes straight into Arc&rsquo;s local chip, off
-              the host bus.               A reflex loop corrects the slip in{" "}
-              <span className="font-semibold text-accent">&lt;0.5 ms · modeled</span>
+              Tactile data routes straight into the{" "}
+              <span className="italic">Arc</span> local substrate, off the host
+              bus. A reflex loop corrects the slip in{" "}
+              <span className="font-semibold text-accent">&lt;1.0 ms · modeled</span>
               {" — "}
               before the brain sees it.
             </SolutionRow>

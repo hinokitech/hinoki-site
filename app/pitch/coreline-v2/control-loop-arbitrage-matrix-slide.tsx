@@ -1,6 +1,7 @@
 import React from "react";
 import controlLoopArbitrageMatrixSrc from "../../../public/assets/control-loop-arbitrage-matrix.png";
-import { Slide, Eyebrow, SlideFooter, SlideCitation } from "../slides";
+import { Slide, Eyebrow, SlideCitation } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 export function ControlLoopArbitrageMatrixSlide() {
   return (

@@ -1,6 +1,7 @@
 import React from "react";
 import caseStudy02PilotPurgatorySrc from "../../../public/assets/case-study-02-pilot-purgatory.png";
-import { Slide, Eyebrow, SlideFooter, SlideCitation } from "../slides";
+import { Slide, Eyebrow, SlideCitation } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 function CaseStudyLabel({ children }: { children: React.ReactNode }) {
   return (

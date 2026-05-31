@@ -1,6 +1,7 @@
 import React from "react";
 import vonNeumannLatencyGauntletSrc from "../../../public/assets/von-neumann-latency-gauntlet.png";
-import { Slide, Eyebrow, SlideFooter, SlideCitation } from "../slides";
+import { Slide, Eyebrow, SlideCitation } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 export function VonNeumannLatencyGauntletSlide() {
   return (

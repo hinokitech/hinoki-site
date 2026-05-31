@@ -1,6 +1,7 @@
 import React from "react";
 import caseStudiesRobotProfessorSrc from "../../../public/assets/case-studies-robot-professor.png";
-import { Slide, SlideFooter } from "../slides";
+import { Slide } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 export function CaseStudiesSlide() {
   return (

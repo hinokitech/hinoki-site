@@ -1,6 +1,7 @@
 import React from "react";
 import caseStudy01HumanoidSrc from "../../../public/assets/case-study-01-humanoid-parcel-sorting.png";
-import { Slide, Eyebrow, SlideFooter, SlideCitation } from "../slides";
+import { Slide, Eyebrow, SlideCitation } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 function CaseStudyLabel({ children }: { children: React.ReactNode }) {
   return (

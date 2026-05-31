@@ -1,5 +1,6 @@
 import React from "react";
-import { Slide, Eyebrow, SlideFooter } from "../slides";
+import { Slide, Eyebrow } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 const BUSINESS_PHASES = [
   {
@@ -11,11 +12,11 @@ const BUSINESS_PHASES = [
         <span className="font-semibold text-accent">¥10–30M</span>
         {" · "}
         <span className="italic">Arc</span>
-        {" validated on a partner\u2019s gripper · 4–8 weeks · benchmark data + joint IP filing"}
+        {" validated on a partner\u2019s gripper · 4–8 weeks · bench data + joint IP filing"}
       </>
     ),
     product:
-      "Arc is a neuromorphic reflex core on FPGA with a trained software readout, run on a partner\u2019s gripper for the closed-loop benchmark.",
+      "Arc is a neuromorphic reaction core on FPGA with a trained software readout, run on a partner\u2019s gripper for the closed-loop benchmark.",
     step: 0 as const,
   },
   {
@@ -69,11 +70,7 @@ function BusinessPhaseRow({
   ][step];
 
   return (
-    <div
-      className={`flex flex-1 flex-col justify-center border-l-2 border-accent/50 pl-7${
-        step === 0 ? " mt-10" : ""
-      }`}
-    >
+    <div className="flex flex-1 flex-col justify-center border-l-2 border-accent/50 pl-7">
       <p className="font-mono text-[15px] font-semibold uppercase tracking-[0.12em] text-fg-caption">
         {horizon}
       </p>

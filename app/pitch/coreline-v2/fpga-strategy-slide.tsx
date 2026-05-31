@@ -1,10 +1,11 @@
 import React from "react";
-import { Slide, Eyebrow, SlideFooter } from "../slides";
+import { Slide, Eyebrow } from "../slides";
+import { SlideFooter } from "./slide-footer";
 
 const PRODUCT_PATH = [
   {
     horizon: "Near term",
-    body: "Arc is a neuromorphic reflex core on FPGA with a trained software readout, run on a partner\u2019s gripper for the closed-loop benchmark.",
+    body: "Arc is a neuromorphic reaction core on FPGA with a trained software readout, run on a partner\u2019s gripper for the closed-loop benchmark.",
   },
   {
     horizon: "Mid term",
@@ -40,7 +41,7 @@ export function FpgaStrategySlide() {
     <Slide align="start">
       <Eyebrow className="!mb-5">FPGA Strategy</Eyebrow>
       <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.06] tracking-[-0.022em] text-fg-primary">
-        FPGA now. Licensed silicon later.
+        FPGA now. Silicon later.
       </h2>
       <p className="mt-5 max-w-[1500px] text-[28px] font-light leading-[1.45] tracking-[-0.015em] text-fg-secondary">
         Programmable hardware validates edge neuromorphic computing before we
