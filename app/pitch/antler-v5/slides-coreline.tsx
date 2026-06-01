@@ -32,7 +32,7 @@ import { CaseStudy03HinokiSolutionSlide } from "./case-study-03-hinoki-solution-
 //  HINOKI — CORELINE DECK (source of truth)
 //
 //  Working copy branched from Antler IC v4 (app/pitch/antler-v4).
-//  Tailor slides here for Antler Japan IC (v5 working copy).
+//  Tailor slides here for Antler IC (v5 working copy).
 //  English only — no Japanese variant for now.
 //  Do not update mobile unless explicitly requested.
 //
@@ -234,7 +234,7 @@ function CoverSlide() {
       </div>
 
       <div className="absolute bottom-[80px] left-[140px] font-mono text-[16px] tracking-[0.08em] text-fg-tertiary">
-        For Antler Japan IC · Pre-seed · June 2026 · hinokitech.com
+        For Antler IC · Pre-seed · June 2026 · hinokitech.com
       </div>
 
       <SlideFooter pageLabel="01 · Cover" />
@@ -928,7 +928,7 @@ function DemandValidationSlide() {
         </ProofArea>
 
         <ProofArea label="Capital / ecosystem">
-          <ProofItem>Antler Japan Residency 2026</ProofItem>
+          <ProofItem>Antler Residency 2026</ProofItem>
           <ProofItem>Coreline / Atlas — first screening passed</ProofItem>
           <ProofItem>
             Sony Innovation Fund — materials shared with deep-tech team
@@ -1336,7 +1336,7 @@ function TeamSlide() {
 const CAPITAL_PIPELINE_GROUPS = [
   {
     label: "Active",
-    items: "Antler Japan · Coreline Japan",
+    items: "Antler · Coreline Japan",
   },
   {
     label: "Applied",
@@ -1443,7 +1443,7 @@ function ThankYouSlide() {
       </h1>
       <p className="mt-10 max-w-[900px] text-[28px] font-normal leading-[1.5] text-fg-secondary">
         We would welcome the opportunity to build the first continuous reflex
-        loop for Japan and globally with Antler Japan.
+        loop for Japan and globally with Antler.
       </p>
       <p className="mt-8 font-mono text-[20px] tracking-[0.08em] text-fg-tertiary">
         hinokitech.com
