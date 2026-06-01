@@ -101,13 +101,27 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
     id: "antler-v4",
     title: "Antler IC Deck · v4",
     description:
-      "Current working copy — 30-slide IC deck with case studies, business model, market, GTM, and ask.",
+      "IC deck snapshot — frozen for reference; iterate on v5.",
     audience: "Antler Japan Pre-IC / IC",
     locales: [
       {
         lang: "en",
         label: "English",
         path: "/pitch/antler-v4",
+      },
+    ],
+  },
+  {
+    id: "antler-v5",
+    title: "Antler IC Deck · v5",
+    description:
+      "Current working copy — problem chain visuals, FPGA strategy, arc status, IC ask pipeline, and modeled performance labels.",
+    audience: "Antler Japan Pre-IC / IC",
+    locales: [
+      {
+        lang: "en",
+        label: "English",
+        path: "/pitch/antler-v5",
       },
     ],
   },
