@@ -31,9 +31,9 @@ const notoSansJp = Noto_Sans_JP({
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://hinokitech.com";
 
-const SITE_TITLE = "Hinoki — Physical intelligence for robotics";
+const SITE_TITLE = "Hinoki — Reaction intelligence for robotics";
 const SITE_DESCRIPTION =
-  "Arc by Hinoki is the architecture layer that gives robots physical intelligence. Sub-millisecond, adaptive, zero inference. Hardware validation underway.";
+  "Arc by Hinoki is the architecture layer that gives robots reaction intelligence. Sub-millisecond, adaptive, zero inference. Hardware validation underway.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   applicationName: "Hinoki",
   keywords: [
-    "physical intelligence",
+    "reaction intelligence",
     "robotics",
     "reflex control",
     "humanoid robotics",

@@ -4,7 +4,7 @@ import { join } from "node:path";
 
 export const runtime = "nodejs";
 
-export const alt = "Hinoki — Physical intelligence for robotics";
+export const alt = "Hinoki — Reaction intelligence for robotics";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -73,7 +73,7 @@ export default async function OpenGraphImage() {
               lineHeight: 1.04,
             }}
           >
-            <div style={{ display: "flex" }}>Physical intelligence</div>
+            <div style={{ display: "flex" }}>Reaction intelligence</div>
             <div style={{ display: "flex" }}>for robotics.</div>
           </div>
           <div
