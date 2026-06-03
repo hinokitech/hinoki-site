@@ -95,7 +95,7 @@ const ARC_STATUS_LANES = [
     title: "Customer traction",
     status: "Discovery and LOIs",
     filled: 2,
-    body: "The LOIs matter because they validate that customers face this problem and want the solution — not revenue, but demand. LOI\u2019s signed with a Tokyo tactile-sensing partner and an elder-care robotics company deploying in Europe and Japan.",
+    body: "The LOIs matter because they validate that customers face this problem and want the solution. LOIs with XELA, a Tokyo tactile-sensing partner, and Sophara Robotics, an elder-care robotics company deploying in Europe and Japan.",
   },
 ] as const;
 
@@ -106,7 +106,7 @@ const ARC_STATUS_NEXT_STEPS = [
   },
   {
     range: "3–6 mo",
-    body: "Validation data in hand with 1–2 Japanese gripper OEMs; first paid pilot secured.",
+    body: "Validation data in hand with 1–2 Japanese tactile sensor OEMs; first paid pilot secured.",
   },
   {
     range: "6–9 mo",

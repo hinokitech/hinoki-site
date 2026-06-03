@@ -64,11 +64,11 @@ import { CaseStudy03HinokiSolutionSlide } from "./case-study-03-hinoki-solution-
 //    23  Business Model + Moat — The first loop becomes the business.
 //    24  The Prize — Why this is a billion-dollar company.
 //    25  GTM — Bottom-up substrate embed; Japan account universe.
-//    26  FPGA Strategy — FPGA now. Silicon later.
-//    27  Competition — Reaction intelligence is fragmented; nobody owns the layer.
-//    28  Unfair Advantage — Why Hinoki can win from Japan.
-//    29  Technical Network — Advisor network that de-risks validation.
-//    30  Team — The founders and the chemistry behind Arc.
+//    26  Competition — Reaction intelligence is fragmented; nobody owns the layer.
+//    27  Unfair Advantage — Why Hinoki can win from Japan.
+//    28  Technical Network — Advisor network that de-risks validation.
+//    29  Team — The founders and the chemistry behind Arc.
+//    30  FPGA Strategy — FPGA now. Silicon later.
 //    31  Where Arc is today — Architecture validated; numbers modeled, not measured.
 //    32  Ask — Early capital unlocks the validation that unlocks the next round.
 //    33  Thank You
@@ -1114,7 +1114,7 @@ function UnfairAdvantageSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="28 · Unfair Advantage" />
+      <SlideFooter pageLabel="27 · Unfair Advantage" />
     </Slide>
   );
 }
@@ -1156,7 +1156,7 @@ function TechnicalNetworkSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="29 · Technical Network" />
+      <SlideFooter pageLabel="28 · Technical Network" />
     </Slide>
   );
 }
@@ -1211,13 +1211,6 @@ function TeamSlide() {
                   extensive experience in stakeholder management and sales
                   cycles.
                 </>,
-                <>
-                  Built and scaled a desk from zero to{" "}
-                  <span className="font-semibold text-fg-primary">
-                    ¥50M+ annual profit
-                  </span>
-                  .
-                </>,
                 <>Team building expertise.</>,
               ]}
             />
@@ -1248,7 +1241,6 @@ function TeamSlide() {
                   </span>{" "}
                   in robotics, embedded AI, and hardware integration.
                 </>,
-                <>Led Phase 1 hardware validation.</>,
               ]}
             />
           }
@@ -1327,7 +1319,7 @@ function TeamSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="30 · Team" />
+      <SlideFooter pageLabel="29 · Team" />
     </Slide>
   );
 }
@@ -1353,9 +1345,9 @@ const CAPITAL_PIPELINE_GROUPS = [
 
 const LOI_PIPELINE_GROUPS = [
   {
-    label: "Gripper OEM",
+    label: "Tactile sensor OEM",
     items:
-      "Prominent Japanese gripper manufacturer · slip-to-grip response",
+      "Prominent Japanese tactile-sensing partner · slip-to-grip response — opens the door to their 4 partner gripper partnerships",
   },
   {
     label: "Elder care",
@@ -1493,11 +1485,11 @@ export const SLIDES_CORELINE_MAIN: Array<() => React.JSX.Element> = [
   BusinessModelSlide,
   PrizeSlide,
   GtmSlide,
-  FpgaStrategySlide,
   CompetitionSlide,
   UnfairAdvantageSlide,
   TechnicalNetworkSlide,
   TeamSlide,
+  FpgaStrategySlide,
   ArcStatusSlide,
   AskSlide,
   ThankYouSlide,

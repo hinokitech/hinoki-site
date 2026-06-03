@@ -8,7 +8,7 @@ const BUSINESS_COLUMNS = [
     title: "Prove",
     horizon: "Year 0–1",
     sell: "A paid validation pilot",
-    buyer: "Integrators & gripper OEMs",
+    buyer: "Integrators & tactile sensor OEMs",
     value: (
       <>
         <span className="font-semibold text-accent">¥10–30M</span> per project
@@ -22,7 +22,7 @@ const BUSINESS_COLUMNS = [
     title: "Ship",
     horizon: "Year 2–3",
     sell: "A reference design + integration",
-    buyer: "Gripper OEMs",
+    buyer: "Tactile sensor OEMs",
     value: (
       <>
         <span className="font-semibold text-accent">¥20–80M</span> per partner/yr

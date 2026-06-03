@@ -100,7 +100,7 @@ export function FpgaStrategySlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="26 · FPGA Strategy" />
+      <SlideFooter pageLabel="30 · FPGA Strategy" />
     </Slide>
   );
 }

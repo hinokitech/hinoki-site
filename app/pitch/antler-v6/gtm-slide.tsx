@@ -5,7 +5,7 @@ import { SlideFooter } from "./slide-footer";
 
 const GTM_TIERS = [
   {
-    tier: "Gripper OEMs",
+    tier: "Tactile sensor OEMs",
     horizon: "Year 0–1",
     reach: "50+ companies",
     win: <span className="font-semibold text-accent">8–10</span>,

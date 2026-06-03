@@ -88,7 +88,7 @@ export function CompetitionSlide() {
         </p>
       </div>
 
-      <SlideFooter pageLabel="27 · Competition" />
+      <SlideFooter pageLabel="26 · Competition" />
     </Slide>
   );
 }
