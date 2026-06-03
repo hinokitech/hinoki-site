@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 520" fill="none" role="img" aria-label="Localized reflex layer performance comparison matrix">
+  <defs>
+    <style>
+      .bg { fill: #1c1f26; }
+      .rule { stroke: rgba(247, 244, 239, 0.14); stroke-width: 1; }
+      .hdr {
+        fill: #f7f4ef;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .metric {
+        fill: #f7f4ef;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+      }
+      .std {
+        fill: rgba(247, 244, 239, 0.88);
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+      }
+      .arc {
+        fill: #e8622a;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 17px;
+        font-weight: 600;
+      }
+      .adv-main {
+        fill: #f7f4ef;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 17px;
+        font-weight: 600;
+      }
+      .adv-sub {
+        fill: rgba(247, 244, 239, 0.62);
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        font-style: italic;
+      }
+      .note {
+        fill: rgba(247, 244, 239, 0.72);
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        font-style: italic;
+      }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1640" height="520" rx="12" />
+
+  <text class="hdr" x="40" y="52">Phase / Metric</text>
+  <text class="hdr" x="430" y="52">Standard edge CPU / GPU stack</text>
+  <text class="hdr" x="820" y="52">Arc localized fabric target</text>
+  <text class="hdr" x="1180" y="52">The bare-metal advantage</text>
+  <line class="rule" x1="40" y1="72" x2="1600" y2="72" />
+
+  <text class="metric" x="40" y="118">1. Core Compute Speed</text>
+  <text class="note" x="40" y="142">(Raw ESN Matrix Math)</text>
+  <text class="std" x="430" y="132">2.0 to 5.0 ms</text>
+  <text class="arc" x="820" y="124">&lt; 0.05 ms</text>
+  <text class="note" x="820" y="148">(50 &#181;s)</text>
+  <text class="adv-main" x="1180" y="124">100&#215; Faster Compute</text>
+  <text class="adv-sub" x="1180" y="148">(UltraScale+ execution)</text>
+  <line class="rule" x1="40" y1="172" x2="1600" y2="172" />
+
+  <text class="metric" x="40" y="218">2. System / OS Overhead</text>
+  <text class="note" x="40" y="242">(Drivers, Kernels, Thread Queues)</text>
+  <text class="std" x="430" y="232">18.0 to 35.0 ms</text>
+  <text class="arc" x="820" y="224">0.00 ms</text>
+  <text class="note" x="820" y="248">(Bypassed)</text>
+  <text class="adv-main" x="1180" y="224">Eliminated Entirely</text>
+  <text class="adv-sub" x="1180" y="248">(No Operating System)</text>
+  <line class="rule" x1="40" y1="272" x2="1600" y2="272" />
+
+  <text class="metric" x="40" y="318">Total End-to-End Latency</text>
+  <text class="std" x="430" y="322">20.0 to 40.0 ms</text>
+  <text class="arc" x="820" y="314">&lt; 0.15 ms</text>
+  <text class="note" x="820" y="338">(150 &#181;s)</text>
+  <text class="adv-main" x="1180" y="314">130&#215; to 260&#215; Shorter Loop</text>
+  <text class="adv-sub" x="1180" y="338">(Fits within 5.0 kHz window)</text>
+  <line class="rule" x1="40" y1="362" x2="1600" y2="362" />
+
+  <text class="metric" x="40" y="408">Total Dynamic Energy</text>
+  <text class="std" x="430" y="412">6.31 to 35.6 mJ</text>
+  <text class="arc" x="820" y="404">0.14 mJ</text>
+  <text class="note" x="820" y="428">(Isolated Core)</text>
+  <text class="adv-main" x="1180" y="404">45&#215; to 250&#215; More Efficient</text>
+  <line class="rule" x1="40" y1="452" x2="1600" y2="452" />
+</svg>

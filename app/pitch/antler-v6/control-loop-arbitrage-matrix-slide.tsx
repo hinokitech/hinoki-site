@@ -1,6 +1,6 @@
 import React from "react";
-import controlLoopArbitrageMatrixSrc from "../../../public/assets/control-loop-arbitrage-matrix.png";
 import { Slide, Eyebrow, SlideCitation } from "../slides";
+import { LocalizedReflexLayerPerformanceMatrixChart } from "./localized-reflex-layer-performance-matrix-chart";
 import { SlideFooter } from "./slide-footer";
 
 export function ControlLoopArbitrageMatrixSlide() {
@@ -10,23 +10,16 @@ export function ControlLoopArbitrageMatrixSlide() {
 
       <div className="grid max-w-[1640px] shrink-0 grid-cols-[minmax(0,1fr)_minmax(0,480px)] items-end gap-x-10">
         <h2 className="text-[56px] font-light leading-[1.06] tracking-[-0.022em] text-fg-primary">
-          The Control-Loop Arbitrage Matrix
+          The Localized Reflex Layer Performance
         </h2>
         <p className="pb-0.5 text-[20px] leading-[1.42] text-fg-primary/90">
           Conventional edge CPU/GPU stacks (30–50 ms) vs.{" "}
-          <span className="italic">Arc</span> target (modeled) on the same
-          control loop.
+          <span className="italic">Arc</span> core logic fabric (modeled).
         </p>
       </div>
 
       <div className="mt-3 min-h-0 flex-1">
-        <img
-          src={controlLoopArbitrageMatrixSrc.src}
-          alt="Control-loop arbitrage matrix comparing standard edge CPU GPU latency against Hinoki Arc modeled target on the same loop"
-          width={controlLoopArbitrageMatrixSrc.width}
-          height={controlLoopArbitrageMatrixSrc.height}
-          className="h-full w-full object-contain object-center"
-        />
+        <LocalizedReflexLayerPerformanceMatrixChart className="h-full w-full" />
       </div>
 
       <div className="mt-3 max-w-[1640px] shrink-0 rounded-[10px] border-2 border-accent bg-accent-subtle px-8 py-4">
@@ -38,20 +31,18 @@ export function ControlLoopArbitrageMatrixSlide() {
           measuring it is what this raise funds.
         </p>
         <p className="mt-2 font-mono text-[13px] uppercase tracking-[0.1em] text-fg-caption">
-          Baseline bars · measured stack latency ·{" "}
-          <span className="text-accent">Arc bar · target (modeled)</span>
+          Standard edge stack · measured ranges ·{" "}
+          <span className="text-accent">Arc localized fabric · target (modeled)</span>
         </p>
       </div>
 
       <SlideCitation size="large">
-        Peer-Reviewed Validation: Alomar, M. L., et al., Implementation of an
-        Echo State Network (ESN) to Field Programmable Gate Array (FPGA),
-        ICAROB (2020); A 16nJ/Classification FPGA-based Wired-Logic DNN
-        Accelerator Using Fixed-Weight Non-Linear Neural Net, IEEE Journal on
-        Emerging and Selected Topics in Circuits and Systems (2021).
+        Architectural Precedent &amp; Validation: Core ESN optimization and
+        low-energy wired-logic methods validated independently by Alomar et
+        al. (ICAROB 2020) and Kosuge et al. (IEEE JETCAS 2021).
       </SlideCitation>
 
-      <SlideFooter pageLabel="12 · Control-Loop Arbitrage Matrix" />
+      <SlideFooter pageLabel="12 · Localized Reflex Layer Performance" />
     </Slide>
   );
 }

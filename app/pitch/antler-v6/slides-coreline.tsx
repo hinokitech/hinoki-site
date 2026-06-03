@@ -5,7 +5,7 @@ import bottleneck3ContactPhysicsSrc from "../../../public/assets/bottleneck-3-co
 import bottleneck4SensePlanActStackSrc from "../../../public/assets/bottleneck-4-sense-plan-act-stack.png";
 import whyNowHumanEnvironmentsSrc from "../../../public/assets/why-now-human-environments.png";
 import architectureNervousSystemReflexSrc from "../../../public/assets/architecture-nervous-system-reflex.png";
-import steveUrkelSrc from "../../../public/assets/steve-urkel.jpg";
+import technicalSlidesSectionSrc from "../../../public/assets/technical-slides-section.png";
 import {
   Slide,
   Eyebrow,
@@ -48,9 +48,9 @@ import { CaseStudy03HinokiSolutionSlide } from "./case-study-03-hinoki-solution-
 //    07  Solution — Arc gives robots a faster physical response layer.
 //    08  Architecture — The next robotics architecture looks more like a nervous system.
 //    09  Integration — Arc local reflex layer (technical diagram).
-//    10  Let's Get GEEKY! — Steve Urkel hook slide.
+//    10  Technical Slides — section title (localized reflex loop illustration).
 //    11  Latency — The Von Neumann Latency Gauntlet.
-//    12  Performance — The Control-Loop Arbitrage Matrix.
+//    12  Performance — The Localized Reflex Layer Performance.
 //    13  Physics — The Physics of the Grip Limit Surface.
 //    14  Case Studies — section title slide.
 //    15  Case Study 01 — Human-proximate logistics.
@@ -696,27 +696,27 @@ function AntlerArcDiagramSlide() {
 }
 
 // =====================================================================
-//  10 · Let's Get GEEKY!
+//  10 · Technical Slides
 // =====================================================================
 function LetsGetGeekySlide() {
   return (
     <Slide align="start">
       <div className="grid flex-1 grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] items-center gap-14">
         <h2 className="text-[108px] font-light leading-[1.02] tracking-[-0.028em] text-fg-primary">
-          Let&rsquo;s Get GEEKY!
+          Technical Slides
         </h2>
         <div className="flex h-[820px] items-center justify-center overflow-visible">
           <img
-            src={steveUrkelSrc.src}
-            alt="Steve Urkel"
-            width={steveUrkelSrc.width}
-            height={steveUrkelSrc.height}
-            className="max-h-[680px] w-auto object-contain object-center"
+            src={technicalSlidesSectionSrc.src}
+            alt="Robotic gripper with localized reflex loop schematic showing sensor, FPGA core, and sub-millisecond timing"
+            width={technicalSlidesSectionSrc.width}
+            height={technicalSlidesSectionSrc.height}
+            className="max-h-full max-w-full object-contain object-center"
           />
         </div>
       </div>
 
-      <SlideFooter pageLabel="10 · Let's Get GEEKY!" />
+      <SlideFooter pageLabel="10 · Technical Slides" />
     </Slide>
   );
 }
