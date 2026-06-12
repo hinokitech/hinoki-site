@@ -21,7 +21,7 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
     id: "pre-seed",
     title: "Pre-seed · full deck",
     description:
-      "16-slide investor deck — problem through ask. Same deck in English and Japanese.",
+      "16-slide investor deck — problem through ask. Frozen snapshot; iterate on v2.",
     audience: "VCs, angels, NEDO, domestic partners",
     locales: [
       {
@@ -33,6 +33,25 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
         lang: "ja",
         label: "日本語",
         path: "/pitch-jp",
+      },
+    ],
+  },
+  {
+    id: "pre-seed-v2",
+    title: "Pre-seed · full deck · v2",
+    description:
+      "Current working copy — 24-slide investor deck in English and Japanese.",
+    audience: "VCs, angels, NEDO, domestic partners",
+    locales: [
+      {
+        lang: "en",
+        label: "English",
+        path: "/pitch/pre-seed-v2",
+      },
+      {
+        lang: "ja",
+        label: "日本語",
+        path: "/pitch/pre-seed-v2-jp",
       },
     ],
   },
