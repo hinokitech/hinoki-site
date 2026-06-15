@@ -210,7 +210,7 @@ export function TruePhysicalAIConceptSlide() {
               The old way
             </p>
             <p className="mt-3 text-[32px] font-semibold leading-[1.25] text-fg-primary">
-              The Centralized Bottleneck
+              Mainstream Physical AI
             </p>
             <ul className="mt-5 space-y-3 text-[24px] leading-[1.5] text-fg-secondary">
               <li className="flex gap-3">
@@ -239,22 +239,22 @@ export function TruePhysicalAIConceptSlide() {
           </div>
           <div className="flex flex-col justify-center border-l-2 border-accent pl-8">
             <p className="font-mono text-[14px] uppercase tracking-[0.12em] text-accent">
-              The new way
+              The Hinoki way
             </p>
             <p className="mt-3 text-[32px] font-semibold leading-[1.25] text-fg-primary">
-              Distributed Physical Intelligence
+              True Physical Intelligence
             </p>
             <ul className="mt-5 space-y-3 text-[24px] leading-[1.5] text-fg-primary">
               <li className="flex gap-3">
                 <span className="shrink-0 text-accent">·</span>
-                <span>True Physical AI stops making data travel.</span>
+                <span>
+                  At Hinoki, we bake fast, local intelligence directly into the
+                  robot&rsquo;s body.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="shrink-0 text-accent">·</span>
-                <span>
-                  At Hinoki, we bake fast, local intelligence directly into the
-                  robot&rsquo;s integral subsystems.
-                </span>
+                <span>True Physical AI stops making data travel.</span>
               </li>
               <li className="flex gap-3">
                 <span className="shrink-0 text-accent">·</span>
@@ -398,7 +398,7 @@ export function ComputeGapSlide() {
           <div className="flex max-w-[1640px] items-center justify-between gap-12">
             <div className="min-w-0">
               <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-                The Compute Gap in Physical AI
+                The Compute Gap in Robotics
               </h2>
               <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
                 Why centralized software cannot handle the physical world.
@@ -1922,7 +1922,7 @@ type TamModelConfig = {
 
 const TAM_2030_CONFIG: TamModelConfig = {
   year: 2030,
-  pageLabel: "Appendix 5 · 2030 TAM Model",
+  pageLabel: "Appendix 6 · 2030 TAM Model",
   royaltySubtotalShipments: "15,450,000",
   royaltySubtotalTam: "$3.63B",
   programs: "320",
@@ -1991,7 +1991,7 @@ const TAM_2030_CONFIG: TamModelConfig = {
 
 const TAM_2035_CONFIG: TamModelConfig = {
   year: 2035,
-  pageLabel: "Appendix 6 · 2035 TAM Model",
+  pageLabel: "Appendix 7 · 2035 TAM Model",
   royaltySubtotalShipments: "46,500,000",
   royaltySubtotalTam: "$6.88B",
   programs: "630",
@@ -2359,7 +2359,7 @@ export function ValueMultiplierSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="13 · Value Multiplier" />
+      <SlideFooter pageLabel="Appendix 4 · Value Multiplier" />
     </Slide>
   );
 }
@@ -2370,43 +2370,43 @@ export function ValueMultiplierSlide() {
 const USE_OF_FUNDS_ROWS = [
   {
     category: "Engineering & execution",
-    amount: "¥6.0M",
-    pct: "26%",
+    amount: "$40K",
+    pct: "27%",
     funding: "Funding 2× contract engineers for 6 months.",
     goal: "Dedicated talent to build, iterate, and finalize the closed-loop tactile-to-gripper testing rig.",
   },
   {
     category: "Core robotic hardware",
-    amount: "¥2.0M",
-    pct: "9%",
+    amount: "$15K",
+    pct: "10%",
     funding: "Procurement of 2× physical robotic platforms/arms.",
     goal: "The baseline physical infrastructure required to run benchmark tests against conventional edge CPU/GPU stacks.",
   },
   {
     category: "IP defense & patent filing",
-    amount: "¥2.0M",
-    pct: "9%",
+    amount: "$10K",
+    pct: "7%",
     funding: "Legal and filing fees.",
     goal: "Locking down our proprietary edge neuromorphic architecture and closed-loop actuation methodology before tape-out.",
   },
   {
     category: "Go-to-market & business development",
-    amount: "¥1.5M",
+    amount: "$10K",
     pct: "7%",
     funding: "Travel, conferences, and stakeholder relationship building.",
     goal: "Securing face-to-face trust with Japanese gripper OEMs and integrators to convert our pipeline into our first paid pilot.",
   },
   {
     category: "Office & administration",
-    amount: "¥2.0M",
-    pct: "9%",
+    amount: "$15K",
+    pct: "10%",
     funding: "Base operations in Tsukuba.",
     goal: "Maintaining our operational footprint in Japan\u2019s deep-tech robotics ecosystem.",
   },
   {
     category: "Hardware iteration & runway buffer",
-    amount: "¥9.5M",
-    pct: "41%",
+    amount: "$60K",
+    pct: "40%",
     funding:
       "Additional sensors, replacement parts, testing contingencies, and extended runway margin.",
     goal: "Hardware development is unpredictable. This buffer ensures we do not run out of capital if a sensor breaks, a rig needs re-tooling, or physical measurements require an extra iteration cycle.",
@@ -2449,7 +2449,7 @@ export function UseOfFundsSlide() {
           <Eyebrow className="mb-5">The Ask</Eyebrow>
           <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
             Use of Funds{" "}
-            <span className="text-[48px] text-fg-secondary">(¥23M Pre-Seed)</span>
+            <span className="text-[48px] text-fg-secondary">($150K Pre-Seed)</span>
           </h2>
           <p className="mt-3 max-w-[1640px] text-[20px] leading-[1.45] text-fg-secondary">
             Capital optimized to deliver physical validation, secure IP, and
@@ -2458,7 +2458,7 @@ export function UseOfFundsSlide() {
           <div className="mt-5 flex max-w-[1640px] flex-wrap gap-8 font-mono text-[14px] uppercase tracking-[0.1em] text-fg-primary">
             <p>
               <span className="text-fg-caption">Total raise · </span>
-              <span className="font-semibold">¥23,000,000 JPY</span>
+              <span className="font-semibold">$150K USD</span>
             </p>
             <p>
               <span className="text-fg-caption">Runway target · </span>
@@ -2483,7 +2483,7 @@ export function UseOfFundsSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="16 · Use of Funds" />
+      <SlideFooter pageLabel="17 · Use of Funds" />
     </Slide>
   );
 }
@@ -2496,10 +2496,11 @@ const PIPELINE_LOI_PARTNERS = [
     name: "XELA Robotics",
     role: "High-density 3D tactile sensing",
     logoSrc: "/assets/partners/xela-robotics.png",
+    logoClassName: "h-8 max-w-[148px]",
     body: "XELA\u2019s uSkin detects tactile slip; Arc is the downstream hardware-accelerated intelligence layer that acts on that data instantly.",
     timeline: [
-      { period: "Mo. 6–9", phase: "POC", value: "¥15M" },
-      { period: "Mo. 9–15", phase: "Co-dev", value: "¥50M" },
+      { period: "Mo. 6–9", phase: "POC", value: "$250K" },
+      { period: "Mo. 9–15", phase: "Co-dev", value: "$500K" },
       { period: "Mo. 15+", phase: "1–2% per unit royalty", value: "" },
     ],
     timelineLayout: "wrap",
@@ -2510,11 +2511,10 @@ const PIPELINE_LOI_PARTNERS = [
     logoSrc: "/assets/partners/kyostra.webp",
     body: "Kyostra builds the runtime layer that enforces strict physical safety limits. A partnership maps Arc\u2019s neuromorphic speed into their ecosystem to execute those boundaries in real time.",
     timeline: [
-      { period: "Mo. 6–12+", phase: "Co-dev", value: "" },
       {
-        period: "",
-        phase: "Mo. Partnership integration as package for OEMs",
-        value: "",
+        period: "Mo. 6–12+",
+        phase: "Co-dev for Humanoid safety layer",
+        value: "$5B market",
       },
     ],
   },
@@ -2524,8 +2524,8 @@ const PIPELINE_LOI_PARTNERS = [
     logoSrc: "/assets/partners/sophara-robotics.svg",
     body: "Deploying across Europe and Japan, they require Arc\u2019s intelligence layer to guarantee safe, cage-free physical contact in unpredictable human environments.",
     timeline: [
-      { period: "Mo. 6–9", phase: "POC", value: "~¥10M" },
-      { period: "Mo. 9–15", phase: "Co-dev", value: "" },
+      { period: "Mo. 6–9", phase: "POC", value: "~$100K" },
+      { period: "Mo. 9–15", phase: "Co-dev", value: "$500K" },
       {
         period: "Mo. 15+",
         phase: "5–8% per unit royalty — pathway to Euro market",
@@ -2540,8 +2540,8 @@ const PIPELINE_LOI_PARTNERS = [
     logoSrc: "/assets/partners/cyberdyne.svg",
     body: "A leader in our Tsukuba ecosystem building rehabilitation exoskeletons, demanding the ceiling of human-machine safety with Arc for sub-millisecond force-capping.",
     timeline: [
-      { period: "Mo. 6–9", phase: "POC", value: "¥15M" },
-      { period: "Mo. 9–20", phase: "Co-dev", value: "¥50M" },
+      { period: "Mo. 6–9", phase: "POC", value: "$150K" },
+      { period: "Mo. 9–20", phase: "Co-dev", value: "$500K" },
       { period: "Mo. 15+", phase: "1–2% per unit royalty", value: "" },
     ],
     timelineLayout: "wrap",
@@ -2585,6 +2585,7 @@ function PipelinePartnerCard({
   name,
   role,
   logoSrc,
+  logoClassName,
   body,
   timeline,
   timelineLayout = "horizontal",
@@ -2598,7 +2599,7 @@ function PipelinePartnerCard({
       <img
         src={logoSrc}
         alt=""
-        className="mb-3.5 block h-9 w-auto max-w-[168px] object-contain object-left"
+        className={`mb-3.5 block w-auto object-contain object-left ${logoClassName ?? "h-9 max-w-[168px]"}`}
         aria-hidden
       />
       <p className="text-[19px] font-semibold leading-[1.3] text-fg-primary">
@@ -2663,7 +2664,7 @@ export function PipelineTractionSlide() {
             Pipeline Traction: Validating our Intelligence Layer
           </h2>
           <p className="mt-2 max-w-[1640px] text-[22px] font-medium leading-[1.4] text-fg-primary">
-            True Physical AI across the robotics ecosystem
+            Hinoki&rsquo;s <span className="italic">Arc</span> across the robotics ecosystem
           </p>
         </div>
 
@@ -2695,22 +2696,22 @@ export function PipelineTractionSlide() {
           <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-caption">
             High-signal pipeline · active discussions
           </p>
-          <p className="mt-2 text-[16px] leading-[1.5] text-fg-primary">
+          <div className="mt-3 flex items-center gap-6">
             <img
               src="/assets/partners/astroscale.png"
               alt=""
-              className="mr-3 inline-block h-6 w-auto max-w-[120px] align-middle object-contain"
+              className="h-11 w-auto max-w-[200px] shrink-0 object-contain object-left"
               aria-hidden
             />
-            <span className="font-semibold">Astroscale</span>{" "}
-            <span className="text-fg-caption">
-              (on-orbit servicing & space debris removal)
-            </span>
-            {" — "}Active discussions with their Head of R&D. Zero-gravity
-            capture requires ultra-low-latency reaction intelligence to prevent
-            target ricochet — proving Arc&rsquo;s intelligence layer is critical
-            infrastructure for extreme aerospace environments.
-          </p>
+            <p className="min-w-0 text-[16px] leading-[1.5] text-fg-primary">
+              <span className="font-semibold">Astroscale</span>{" "}
+              <span className="text-fg-caption">
+                (on-orbit servicing & space debris removal)
+              </span>
+              {" — "}Active discussions with their Head of R&D, meeting
+              scheduled.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -2994,24 +2995,37 @@ export function XelaCommercialWedgeCaseStudySlide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">Case Study</Eyebrow>
-          <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            Commercializing the Wedge
-          </h2>
-          <p className="mt-3 max-w-[1640px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
-            The deployment and revenue model for hardware partnerships.
-          </p>
+          <div className="flex max-w-[1640px] items-center justify-between gap-12">
+            <div className="min-w-0">
+              <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+                Commercializing the Wedge
+              </h2>
+              <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
+                The deployment and revenue model for hardware partnerships.
+              </p>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/partners/xela-robotics.png"
+              alt=""
+              width={360}
+              height={100}
+              decoding="async"
+              aria-hidden
+              className="h-16 w-auto max-w-[320px] shrink-0 -translate-x-[320px] object-contain object-right"
+            />
+          </div>
         </div>
 
         <p className="mt-6 shrink-0 max-w-[1640px] text-[22px] font-normal leading-[1.55] text-fg-primary">
-          By partnering with sensor manufacturers like XELA, we embed our
-          architecture directly into the hardware supply chain that feeds Hitachi
-          and Denso.
+          Through XELA, we embed our architecture directly into a supply chain
+          that feeds OEMs like Hitachi and Denso.
         </p>
 
         <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col">
           <DenseSlideLedgerRow
             label="Phase 1"
-            subtitle="Paid Proof of Concept (¥10M – ¥30M)"
+            subtitle="Paid Proof of Concept ($63K – $188K)"
             period="Mo. 6–9"
             body={
               <>
@@ -3023,13 +3037,12 @@ export function XelaCommercialWedgeCaseStudySlide() {
           />
           <DenseSlideLedgerRow
             label="Phase 2"
-            subtitle="Reference Design & Integration (¥40M – ¥80M NRE)"
+            subtitle="Reference Design & Integration ($250K – $500K NRE)"
             period="Mo. 10–15"
             body={
               <>
                 We charge an upfront Non-Recurring Engineering (NRE) fee to bake
-                our intelligent hardware layer directly into the standard controller
-                blueprint shipped to XELA&rsquo;s customers.
+                our intelligent hardware layer directly into XELA&rsquo;s product.
               </>
             }
           />
@@ -3039,7 +3052,7 @@ export function XelaCommercialWedgeCaseStudySlide() {
             period="Mo. 15+"
             body={
               <>
-                Hinoki collects a pure-margin per-unit royalty on every
+                Hinoki collects a high-margin per-unit royalty on every
                 intelligent, slip-proof gripper shipped.
               </>
             }
@@ -3066,7 +3079,7 @@ export function XelaVolumeProjectionCaseStudySlide() {
               The Volume Projection
             </h2>
             <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
-              Unit economics and the pathway to venture scale.
+              Unit economics of just one partnership.
             </p>
             <div
               className="absolute right-[120px] top-[36%] flex w-[900px] -translate-y-1/2 items-center justify-end gap-4"
@@ -3116,22 +3129,15 @@ export function XelaVolumeProjectionCaseStudySlide() {
           </div>
         </div>
 
-        <p className="mt-6 shrink-0 max-w-[1640px] text-[22px] font-normal leading-[1.55] text-fg-primary">
-          Tactile sensors are transitioning from R&amp;D labs into high-volume
-          industrial deployment.
-        </p>
-
         <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col">
           <DenseSlideLedgerRow
             label="The Addressable Volume"
             body={
               <>
                 XELA currently has over{" "}
-                <span className="font-semibold">170 active clients</span>. As they
-                transition to standard integrations with high-volume manufacturers
-                like OEM and FANUC, annual shipments of tactile-enabled
-                grippers are projected to scale between{" "}
-                <span className="font-semibold">10,000 and 25,000 units</span> over
+                <span className="font-semibold">170 active clients</span>. Annual
+                shipments are projected to scale between{" "}
+                <span className="font-semibold">10,000 and 50,000 units</span> over
                 the next <span className="font-semibold">36 months</span>.
               </>
             }
@@ -3140,13 +3146,12 @@ export function XelaVolumeProjectionCaseStudySlide() {
             label="The Unit Math"
             body={
               <>
-                Capturing a standard IP royalty of roughly{" "}
-                <span className="font-semibold">¥50,000 per unit</span> on a
-                conservative <span className="font-semibold">10,000</span>{" "}
+                At roughly{" "}
+                <span className="font-semibold">$450 per unit</span> on a
+                conservative <span className="font-semibold">20,000</span>{" "}
                 integrated units yields{" "}
-                <span className="font-semibold">¥500M ($3.3M USD)</span> in
-                recurring, pure-margin annual revenue from just one partner
-                ecosystem.
+                <span className="font-semibold">$9M</span> in high-margin ARR from
+                1 partner ecosystem.
               </>
             }
           />
@@ -3154,9 +3159,7 @@ export function XelaVolumeProjectionCaseStudySlide() {
             label="The Multiplier"
             body={
               <>
-                This is just the wedge. By establishing Hinoki as the standard
-                intelligence layer for tactile data, we copy-paste this exact model
-                across the entire{" "}
+                We copy-paste this exact model across the entire{" "}
                 <span className="font-semibold">
                   $11B (2030) Robot End-Effector Market
                 </span>
@@ -3188,17 +3191,17 @@ export const SLIDES: Array<() => React.JSX.Element> = [
   XelaCommercialWedgeCaseStudySlide,
   XelaVolumeProjectionCaseStudySlide,
   MarketSizingSummarySlide,
-  ValueMultiplierSlide,
   GtmSlide,
   PipelineTractionSlide,
-  UseOfFundsSlide,
   FundraisingTimelineSlide,
+  UseOfFundsSlide,
   CapitalRoadmapSlide,
   TeamSlide,
   ThankYouSlide,
   DiscoverySlide,
   ArcStatusSlide,
   CompetitiveLandscapeSlide,
+  ValueMultiplierSlide,
   PrizeSlide,
   Tam2030ModelSlide,
   Tam2035ModelSlide,

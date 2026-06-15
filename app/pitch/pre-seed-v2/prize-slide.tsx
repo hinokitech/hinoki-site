@@ -9,9 +9,9 @@ const PRIZE_LAYERS = [
     body: (
       <>
         Embedded reflex in industrial grip &amp; slip. 20–30% of annual industrial
-        + cobot shipments (~150–200K units/yr) × ¥45,000–¥75,000/unit ($300–500)
+        + cobot shipments (~150–200K units/yr) × $280–$470/unit
         →{" "}
-        <span className="font-semibold">¥7–15B/yr royalty</span>.
+        <span className="font-semibold">$44M–$94M/yr royalty</span>.
       </>
     ),
     note: "On robots shipping today. No humanoids required.",
@@ -99,7 +99,7 @@ export function PrizeSlide() {
           <p className="mt-4 text-[30px] font-semibold leading-[1.38] tracking-[-0.018em] text-fg-primary">
             Royalty revenue carries ~90% margins, and IP licensing trades at high
             multiples.{" "}
-            <span className="font-mono">¥7–15B</span> royalty (~$50–100M) → a
+            <span className="font-mono">$44M–$94M</span> royalty → a
             billion-dollar valuation. The wedge alone clears that bar — on
             industrial robots shipping today.
           </p>
@@ -116,7 +116,7 @@ export function PrizeSlide() {
         </p>
       </div>
 
-      <SlideFooter pageLabel="Appendix 4 · The Prize" />
+      <SlideFooter pageLabel="Appendix 5 · The Prize" />
     </Slide>
   );
 }

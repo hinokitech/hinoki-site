@@ -16,8 +16,8 @@ const GTM_TIERS = [
     ),
     value: (
       <>
-        <span className="font-semibold text-accent">¥10–30M</span> PoC →{" "}
-        <span className="font-semibold text-accent">¥30–50M</span> ARR per
+        <span className="font-semibold text-accent">$63K–$188K</span> PoC →{" "}
+        <span className="font-semibold text-accent">$188K–$313K</span> ARR per
         account via catalog embedding
       </>
     ),
@@ -34,8 +34,8 @@ const GTM_TIERS = [
     ),
     value: (
       <>
-        <span className="font-semibold text-accent">¥40–80M</span> fee +{" "}
-        <span className="font-semibold text-accent">¥300K</span> IP royalty/cell
+        <span className="font-semibold text-accent">$250K–$500K</span> fee +{" "}
+        <span className="font-semibold text-accent">$1.9K</span> IP royalty/cell
         (avg. 40–80 cell deployments/yr)
       </>
     ),
@@ -57,9 +57,9 @@ const GTM_TIERS = [
     ),
     value: (
       <>
-        <span className="font-semibold text-accent">¥100M–500M</span> platform
+        <span className="font-semibold text-accent">$625K–$3.1M</span> platform
         license fee +{" "}
-        <span className="font-semibold text-accent">¥15K–45K</span> hardware
+        <span className="font-semibold text-accent">$94–$281</span> hardware
         component royalty (400k+ units/yr per account)
       </>
     ),
@@ -162,8 +162,8 @@ export function GtmSlide() {
         <p className="text-[19px] leading-[1.5] tracking-[-0.01em] text-fg-caption">
           At Maturity: 2–3 embedded platforms (targeting &lt;8% of
           Fanuc/Yaskawa&rsquo;s 600K+ annual motion component output) ×
-          ~50,000 automated axes/yr × ¥45,000–¥75,000/axis →{" "}
-          <span className="font-semibold text-accent">¥5–11B/yr</span> annualized
+          ~50,000 automated axes/yr × $280–$470/axis →{" "}
+          <span className="font-semibold text-accent">$31M–$69M/yr</span> annualized
           royalty.
         </p>
       </div>
