@@ -134,7 +134,7 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             style={{ ["--reveal-delay" as any]: "432ms" }}
           >
             <span className="block">
-              Hinoki inserts a continuous-time neuromorphic control layer between
+              Hinoki inserts a continuous-time neuromorphic substrate between
               sensors and actuators,
             </span>
             <span className="mt-2.5 block md:mt-3">

@@ -175,11 +175,7 @@ export function ThankYouSlide() {
       <h1 className="text-[112px] font-light leading-[1.0] tracking-[-0.025em] text-fg-primary">
         Thank you.
       </h1>
-      <p className="mt-10 max-w-[900px] text-[28px] font-normal leading-[1.5] text-fg-secondary">
-        We would welcome the opportunity to build the first continuous reflex
-        loop for Japan and globally with Antler.
-      </p>
-      <p className="mt-8 font-mono text-[20px] tracking-[0.08em] text-fg-tertiary">
+      <p className="mt-10 font-mono text-[20px] tracking-[0.08em] text-fg-tertiary">
         hinokitech.com
       </p>
 
@@ -190,7 +186,7 @@ export function ThankYouSlide() {
         <NeuralMotif className="h-auto w-[780px]" />
       </div>
 
-      <SlideFooter pageLabel="17 · Thank You" />
+      <SlideFooter pageLabel="19 · Thank You" />
     </Slide>
   );
 }

@@ -1,8 +1,11 @@
 import React from "react";
 import { ArcStatusSlide } from "./arc-status-slide";
+import { CompetitiveLandscapeSlide } from "./competitive-landscape-slide";
 import { CapitalRoadmapSlide } from "./capital-roadmap-slide";
+import { FundraisingTimelineSlide } from "./fundraising-timeline-slide";
 import { DiscoverySlide } from "./discovery-slide";
 import { GtmSlide } from "./gtm-slide";
+import { IntegrationSlide } from "./integration-slide";
 import { PrizeSlide } from "./prize-slide";
 import { ThankYouSlide } from "./thank-you-slide";
 
@@ -119,16 +122,34 @@ export function SlideCitation({
 export function TitleSlide() {
   return (
     <Slide>
-      <Eyebrow>Hinoki Technologies</Eyebrow>
-      <h1 className="text-[112px] font-light leading-[1.02] tracking-[-0.025em] text-fg-primary">
-        True Physical AI
-        <br />
-        for Robotic Systems
-      </h1>
-      <p className="mt-14 max-w-[1180px] text-[30px] font-normal leading-[1.55] text-fg-secondary">
-        Building the hardware-accelerated intelligence layer for robotics.
-      </p>
-      <div className="absolute bottom-[80px] left-[140px] font-mono text-[16px] tracking-[0.08em] text-fg-tertiary">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-[60px] z-0 flex w-[820px] items-center justify-end"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/assets/title-slide-physical-ai-motif.png?v=2"
+          alt=""
+          width={1200}
+          height={675}
+          decoding="async"
+          className="max-h-[94%] w-auto max-w-full object-contain object-right"
+        />
+      </div>
+
+      <div className="relative z-10 max-w-[980px]">
+        <Eyebrow>Hinoki Technologies</Eyebrow>
+        <h1 className="text-[112px] font-light leading-[1.02] tracking-[-0.025em] text-fg-primary">
+          True Physical AI
+          <br />
+          for Robotic Systems
+        </h1>
+        <p className="mt-14 max-w-[900px] text-[30px] font-normal leading-[1.55] text-fg-secondary">
+          Building the hardware-accelerated intelligence layer for robotics.
+        </p>
+      </div>
+
+      <div className="absolute bottom-[80px] left-[140px] z-10 font-mono text-[16px] tracking-[0.08em] text-fg-tertiary">
         Pre-Seed · April 2026 · hinokitech.com
       </div>
     </Slide>
@@ -155,102 +176,169 @@ function TruePhysicalAIPillar({
   );
 }
 
-export function TruePhysicalAISlide() {
+export function TruePhysicalAIConceptSlide() {
   return (
     <Slide align="start" dense>
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">Physical AI</Eyebrow>
-          <h2 className="max-w-[1480px] text-[88px] font-light leading-[1.04] tracking-[-0.02em] text-fg-primary">
-            What is True Physical AI?
-          </h2>
-          <p className="mt-4 max-w-[1200px] text-[28px] font-normal leading-[1.45] text-fg-secondary">
-            Intelligence baked directly into the hardware.
-          </p>
+          <div className="flex max-w-[1640px] items-center justify-between gap-12">
+            <div className="min-w-0">
+              <h2 className="max-w-[960px] text-[88px] font-light leading-[1.04] tracking-[-0.02em] text-fg-primary">
+                What is True Physical AI?
+              </h2>
+              <p className="mt-4 max-w-[820px] text-[28px] font-normal leading-[1.45] text-fg-secondary">
+                Intelligence baked directly into the hardware.
+              </p>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/true-physical-ai-asic-intelligence-accent.png?v=2"
+              alt=""
+              width={640}
+              height={480}
+              decoding="async"
+              aria-hidden
+              className="h-[280px] w-[440px] shrink-0 rounded-[8px] object-contain object-center"
+            />
+          </div>
         </div>
 
-        <div className="mt-8 grid min-h-0 max-w-[1640px] flex-1 grid-cols-[1fr_1.05fr] gap-10">
-          <div className="flex min-h-0 flex-col gap-6">
-            <div className="flex flex-1 flex-col justify-center rounded-[8px] border border-border bg-bg-subtle p-8">
-              <p className="font-mono text-[14px] uppercase tracking-[0.12em] text-fg-caption">
-                The old way
-              </p>
-              <p className="mt-3 text-[28px] font-semibold leading-[1.25] text-fg-primary">
-                The Centralized Bottleneck
-              </p>
-              <p className="mt-4 text-[22px] leading-[1.5] text-fg-secondary">
-                Today&rsquo;s robots rely on a single, centralized digital brain.
-                Every physical interaction must travel up a slow software stack,
-                wait for the brain to process it, and travel back down to the
-                motor. It is too slow and too disconnected from the physical
-                environment.
-              </p>
-            </div>
-            <div className="flex flex-1 flex-col justify-center rounded-[8px] border border-accent bg-accent-subtle p-8">
-              <p className="font-mono text-[14px] uppercase tracking-[0.12em] text-accent">
-                The new way
-              </p>
-              <p className="mt-3 text-[28px] font-semibold leading-[1.25] text-fg-primary">
-                Distributed Physical Intelligence
-              </p>
-              <p className="mt-4 text-[22px] leading-[1.5] text-fg-primary">
-                True Physical AI stops making data travel. At Hinoki, we bake fast,
-                local intelligence directly into the robot&rsquo;s integral
-                subsystems&mdash;the hands, the arms, the chassis.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex min-h-0 flex-col">
-            <p className="shrink-0 font-mono text-[14px] uppercase tracking-[0.12em] text-fg-caption">
-              How <span className="italic">Arc</span> changes the architecture
+        <div className="mt-10 grid min-h-0 max-w-[1640px] flex-1 grid-cols-2 gap-12">
+          <div className="flex flex-col justify-center border-l-2 border-border-strong pl-8">
+            <p className="font-mono text-[14px] uppercase tracking-[0.12em] text-fg-caption">
+              The old way
             </p>
-            <div className="mt-3 flex min-h-0 flex-1 flex-col justify-center divide-y divide-border">
-              <TruePhysicalAIPillar
-                title="Hardware-Accelerated"
-                body={
-                  <>
-                    We map intelligent processing directly onto local edge
-                    computing chips, bypassing the software stack entirely.
-                  </>
-                }
-              />
-              <TruePhysicalAIPillar
-                title="Continuous & Local"
-                body={
-                  <>
-                    Subsystems process their own sensory data locally, giving them
-                    the autonomous intelligence to adapt to forces, geometry, and
-                    movement in real time.
-                  </>
-                }
-              />
-              <TruePhysicalAIPillar
-                title="Decentralized Execution"
-                body={
-                  <>
-                    The main AI software is finally free to focus on high-level
-                    strategy, while our hardware layer provides the continuous
-                    physical intelligence required to actually execute it.
-                  </>
-                }
-              />
-            </div>
-
-            <div className="mt-auto shrink-0 border-t border-border pt-6">
-              <p className="font-mono text-[14px] uppercase tracking-[0.12em] text-fg-caption">
-                The bottom line
-              </p>
-              <p className="mt-3 text-[28px] font-semibold leading-[1.35] tracking-[-0.01em] text-fg-primary">
-                We are not just speeding up a reaction; we are distributing true
-                physical intelligence to the edges of the machine.
-              </p>
-            </div>
+            <p className="mt-3 text-[32px] font-semibold leading-[1.25] text-fg-primary">
+              The Centralized Bottleneck
+            </p>
+            <ul className="mt-5 space-y-3 text-[24px] leading-[1.5] text-fg-secondary">
+              <li className="flex gap-3">
+                <span className="shrink-0 text-accent">·</span>
+                <span>
+                  Today&rsquo;s robots rely on a single, centralized digital
+                  brain.
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <span className="shrink-0 text-accent">·</span>
+                <span>
+                  Every physical interaction must travel up an inefficient software
+                  stack, wait for the brain to process it, and travel back down
+                  to the motor.
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <span className="shrink-0 text-accent">·</span>
+                <span>
+                  It is too slow and too disconnected from the physical
+                  environment.
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div className="flex flex-col justify-center border-l-2 border-accent pl-8">
+            <p className="font-mono text-[14px] uppercase tracking-[0.12em] text-accent">
+              The new way
+            </p>
+            <p className="mt-3 text-[32px] font-semibold leading-[1.25] text-fg-primary">
+              Distributed Physical Intelligence
+            </p>
+            <ul className="mt-5 space-y-3 text-[24px] leading-[1.5] text-fg-primary">
+              <li className="flex gap-3">
+                <span className="shrink-0 text-accent">·</span>
+                <span>True Physical AI stops making data travel.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="shrink-0 text-accent">·</span>
+                <span>
+                  At Hinoki, we bake fast, local intelligence directly into the
+                  robot&rsquo;s integral subsystems.
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <span className="shrink-0 text-accent">·</span>
+                <span>The hands, the arms, the chassis, and more.</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
 
       <SlideFooter pageLabel="02 · True Physical AI" />
+    </Slide>
+  );
+}
+
+export function TruePhysicalAIArcSlide() {
+  return (
+    <Slide align="start" dense>
+      <div className="flex min-h-0 flex-1 flex-col">
+        <div className="shrink-0">
+          <Eyebrow className="mb-5">Physical AI</Eyebrow>
+          <div className="flex max-w-[1640px] items-center justify-between gap-12">
+            <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+              How <span className="italic">Arc</span> changes the architecture.
+            </h2>
+            <div className="relative h-[280px] w-[440px] shrink-0 overflow-visible">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/arc-architecture-distributed-nodes-accent.png?v=1"
+                alt=""
+                width={640}
+                height={480}
+                decoding="async"
+                aria-hidden
+                className="absolute left-1/2 top-1/2 h-[336px] w-[528px] -translate-x-1/2 -translate-y-1/2 rounded-[8px] object-cover object-center"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col justify-center divide-y divide-border">
+          <TruePhysicalAIPillar
+            title="Hardware-Accelerated"
+            body={
+              <>
+                We map intelligent processing directly onto local edge computing
+                chips, bypassing the software stack entirely.
+              </>
+            }
+          />
+          <TruePhysicalAIPillar
+            title="Continuous & Local"
+            body={
+              <>
+                Subsystems process their own sensory data locally, enabling
+                autonomous intelligence to adapt to forces, geometry, and
+                movement in real time, at blistering speeds and efficiency.
+              </>
+            }
+          />
+          <TruePhysicalAIPillar
+            title="Decentralized Execution"
+            body={
+              <>
+                The main AI software is finally free to focus on high-level
+                strategy, while our hardware layer provides the continuous
+                physical intelligence required to actually execute it.
+              </>
+            }
+          />
+        </div>
+
+        <div className="mt-auto shrink-0 pt-6 max-w-[1640px]">
+          <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-fg-caption">
+            The bottom line
+          </p>
+          <p className="mt-4 text-[30px] font-semibold leading-[1.38] tracking-[-0.018em] text-fg-primary">
+            We are not just speeding up a reaction; we are distributing true
+            physical intelligence to the edges of the machine.
+          </p>
+        </div>
+      </div>
+
+      <SlideFooter pageLabel="04 · Arc Architecture" />
     </Slide>
   );
 }
@@ -261,11 +349,13 @@ export function TruePhysicalAISlide() {
 function DenseSlideLedgerRow({
   label,
   subtitle,
+  period,
   body,
   labelAccent = true,
 }: {
   label: string;
   subtitle?: string;
+  period?: string;
   body: React.ReactNode;
   labelAccent?: boolean;
 }) {
@@ -285,6 +375,11 @@ function DenseSlideLedgerRow({
               {subtitle}
             </div>
           ) : null}
+          {period ? (
+            <div className="mt-2.5 font-mono text-[16px] font-medium tracking-[0.03em] text-fg-secondary">
+              {period}
+            </div>
+          ) : null}
         </div>
         <p className="text-[22px] font-normal leading-[1.55] text-fg-primary">
           {body}
@@ -300,12 +395,26 @@ export function ComputeGapSlide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">The Bottleneck</Eyebrow>
-          <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            The Compute Gap in Physical AI
-          </h2>
-          <p className="mt-3 max-w-[1640px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
-            Why centralized software cannot handle the physical world.
-          </p>
+          <div className="flex max-w-[1640px] items-center justify-between gap-12">
+            <div className="min-w-0">
+              <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+                The Compute Gap in Physical AI
+              </h2>
+              <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
+                Why centralized software cannot handle the physical world.
+              </p>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/compute-gap-open-world-data-stream-accent.png?v=1"
+              alt=""
+              width={640}
+              height={480}
+              decoding="async"
+              aria-hidden
+              className="h-[280px] w-[440px] shrink-0 rounded-[8px] object-cover object-center"
+            />
+          </div>
         </div>
 
         <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col">
@@ -313,8 +422,8 @@ export function ComputeGapSlide() {
             label="The Reality"
             body={
               <>
-                The real world is a continuous, high-frequency stream of physical
-                data (friction, forces, and micro-geometries).
+                The real world is a continuous, high-frequency stream of
+                unpredictable physical data.
               </>
             }
           />
@@ -322,36 +431,10 @@ export function ComputeGapSlide() {
             label="The Problem"
             body={
               <>
-                Today&rsquo;s robots force this continuous world into a slow,
+                Today&rsquo;s robots force this continuous world into a
                 centralized software stack that takes{" "}
                 <span className="font-semibold">30–50 ms</span>{" "}
                 to process a single cycle.
-              </>
-            }
-          />
-
-          <div className="shrink-0 border-b border-border py-5">
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-caption">
-              The two major taxes on today&rsquo;s robots
-            </p>
-          </div>
-
-          <DenseSlideLedgerRow
-            label="The Communication Tax"
-            body={
-              <>
-                High-speed sensory data is broken up into rigid, clocked
-                &ldquo;frames&rdquo; just to travel up the network bus to the main
-                processor.
-              </>
-            }
-          />
-          <DenseSlideLedgerRow
-            label="The Computation Tax"
-            body={
-              <>
-                Once there, every minor physical change must fight for operating
-                system scheduling and wait for heavy path-planning math to finish.
               </>
             }
           />
@@ -367,12 +450,14 @@ export function ComputeGapSlide() {
             to &ldquo;think,&rdquo; the robot is fundamentally detached from the
             physics happening at its limbs in real time.
           </p>
-          <p className="mt-4 text-[30px] font-semibold leading-[1.38] tracking-[-0.018em] text-fg-primary">
-            It is not acting with the environment.
-          </p>
-          <p className="mt-2 text-[30px] font-semibold leading-[1.38] tracking-[-0.018em] text-fg-primary">
-            It is constantly trying to catch up to it.
-          </p>
+          <div className="mt-4 flex flex-wrap items-baseline gap-x-10 gap-y-2">
+            <p className="text-[30px] font-semibold leading-[1.38] tracking-[-0.018em] text-fg-primary">
+              It is not acting with the environment.
+            </p>
+            <p className="text-[30px] font-semibold leading-[1.38] tracking-[-0.018em] text-fg-primary">
+              It is constantly trying to catch up to it.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -556,13 +641,27 @@ export function SolutionSlide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">Solution</Eyebrow>
-          <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            The 3 Pillars of Hinoki
-          </h2>
-          <p className="mt-3 max-w-[1640px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
-            How <span className="italic">Arc</span> delivers True Physical
-            Intelligence.
-          </p>
+          <div className="flex max-w-[1640px] items-center overflow-visible">
+            <div className="relative z-10 w-[580px] shrink-0 pr-8">
+              <h2 className="text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+                The 3 Pillars of Hinoki
+              </h2>
+              <p className="mt-3 text-[24px] font-normal leading-[1.45] text-fg-secondary">
+                How <span className="italic">Arc</span> delivers True Physical
+                Intelligence.
+              </p>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/solution-pillars-metrics-accent.png?v=10"
+              alt=""
+              width={2200}
+              height={400}
+              decoding="async"
+              aria-hidden
+              className="-ml-[400px] h-[280px] w-[1540px] shrink-0 object-contain object-left pointer-events-none"
+            />
+          </div>
         </div>
 
         <p className="mt-6 shrink-0 max-w-[1640px] border-b border-border pb-6 text-[22px] font-normal leading-[1.55] text-fg-primary">
@@ -612,7 +711,7 @@ export function SolutionSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="04 · Solution" />
+      <SlideFooter pageLabel="05 · Solution" />
     </Slide>
   );
 }
@@ -626,12 +725,28 @@ export function IntelligentHardwareSlide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">The Result</Eyebrow>
-          <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            Intelligent Hardware
-          </h2>
-          <p className="mt-3 max-w-[1640px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
-            Hardware that doesn&rsquo;t just act. It thinks.
-          </p>
+          <div className="flex max-w-[1640px] items-center justify-between gap-12">
+            <div className="min-w-0 shrink-0">
+              <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+                Intelligent Hardware
+              </h2>
+              <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
+                Hardware that doesn&rsquo;t just act. It thinks.
+              </p>
+            </div>
+            <div className="relative ml-auto mr-44 h-[280px] w-[440px] shrink-0 overflow-visible">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/intelligent-hardware-contact-adaptation-accent.png?v=1"
+                alt=""
+                width={640}
+                height={480}
+                decoding="async"
+                aria-hidden
+                className="h-[280px] w-[440px] rounded-[8px] object-cover object-center"
+              />
+            </div>
+          </div>
         </div>
 
         <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col">
@@ -665,7 +780,7 @@ export function IntelligentHardwareSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="05 · Intelligent Hardware" />
+      <SlideFooter pageLabel="06 · Intelligent Hardware" />
     </Slide>
   );
 }
@@ -1072,7 +1187,7 @@ export function CompetitionSlide() {
         layer has been left untouched. We are optimizing the layer no one has
         bridged from research to industry.
       </p>
-      <SlideFooter pageLabel="22 · Competitors" />
+      <SlideFooter pageLabel="24 · Competitors" />
     </Slide>
   );
 }
@@ -1419,18 +1534,15 @@ export function TeamSlide() {
             <FounderBullets
               items={[
                 <>Former biology researcher, University of Tsukuba.</>,
+                <span className="font-semibold text-fg-primary">
+                  Co-architect of the Arc thesis
+                </span>,
                 <>
-                  <span className="font-semibold text-fg-primary">
-                    Co-architect of the Arc thesis
-                  </span>{" "}
-                  — brought the biology framing.
+                  Extensive experience in stakeholder management, client
+                  origination and full sales cycle delivery.
                 </>,
-                <>
-                  Top 5% executive recruiter for Japan and across APAC,
-                  extensive experience in stakeholder management and sales
-                  cycles.
-                </>,
-                <>Team building expertise.</>,
+                <>Team building and management expertise.</>,
+                <>Recruitment expert.</>,
               ]}
             />
           }
@@ -1536,7 +1648,7 @@ export function TeamSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="18 · Team" />
+      <SlideFooter pageLabel="20 · Team" />
     </Slide>
   );
 }
@@ -1810,7 +1922,7 @@ type TamModelConfig = {
 
 const TAM_2030_CONFIG: TamModelConfig = {
   year: 2030,
-  pageLabel: "23 · 2030 TAM Model",
+  pageLabel: "Appendix 5 · 2030 TAM Model",
   royaltySubtotalShipments: "15,450,000",
   royaltySubtotalTam: "$3.63B",
   programs: "320",
@@ -1879,7 +1991,7 @@ const TAM_2030_CONFIG: TamModelConfig = {
 
 const TAM_2035_CONFIG: TamModelConfig = {
   year: 2035,
-  pageLabel: "24 · 2035 TAM Model",
+  pageLabel: "Appendix 6 · 2035 TAM Model",
   royaltySubtotalShipments: "46,500,000",
   royaltySubtotalTam: "$6.88B",
   programs: "630",
@@ -2152,7 +2264,7 @@ export function MarketSizingSummarySlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="11 · Market Sizing Summary" />
+      <SlideFooter pageLabel="12 · Market Sizing Summary" />
     </Slide>
   );
 }
@@ -2240,16 +2352,14 @@ export function ValueMultiplierSlide() {
             The macro impact
           </p>
           <p className="mt-4 text-[30px] font-semibold leading-[1.38] tracking-[-0.018em] text-fg-primary">
-            While our direct licensing revenue is{" "}
+            While our direct TAM is{" "}
             <span className="font-mono">$13.18B</span>, our technology serves
-            as the foundational gatekeeper enabling over{" "}
-            <span className="font-mono">$50B</span> in automated productivity
-            and labor optimization across these eight sectors.
+            as a foundational gatekeeper helping to enable across the industry.
           </p>
         </div>
       </div>
 
-      <SlideFooter pageLabel="12 · Value Multiplier" />
+      <SlideFooter pageLabel="13 · Value Multiplier" />
     </Slide>
   );
 }
@@ -2262,7 +2372,7 @@ const USE_OF_FUNDS_ROWS = [
     category: "Engineering & execution",
     amount: "¥6.0M",
     pct: "26%",
-    funding: "Funding 2× full-time engineers for 6 months.",
+    funding: "Funding 2× contract engineers for 6 months.",
     goal: "Dedicated talent to build, iterate, and finalize the closed-loop tactile-to-gripper testing rig.",
   },
   {
@@ -2353,7 +2463,7 @@ export function UseOfFundsSlide() {
             <p>
               <span className="text-fg-caption">Runway target · </span>
               <span className="font-normal normal-case tracking-normal text-[16px] text-fg-secondary">
-                6 months to measured data and paid pilot
+                15+ months standalone runway · PoC and first revenue within this window
               </span>
             </p>
           </div>
@@ -2373,7 +2483,7 @@ export function UseOfFundsSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="15 · Use of Funds" />
+      <SlideFooter pageLabel="16 · Use of Funds" />
     </Slide>
   );
 }
@@ -2387,46 +2497,158 @@ const PIPELINE_LOI_PARTNERS = [
     role: "High-density 3D tactile sensing",
     logoSrc: "/assets/partners/xela-robotics.png",
     body: "XELA\u2019s uSkin detects tactile slip; Arc is the downstream hardware-accelerated intelligence layer that acts on that data instantly.",
+    timeline: [
+      { period: "Mo. 6–9", phase: "POC", value: "¥15M" },
+      { period: "Mo. 9–15", phase: "Co-dev", value: "¥50M" },
+      { period: "Mo. 15+", phase: "1–2% per unit royalty", value: "" },
+    ],
+    timelineLayout: "wrap",
   },
   {
     name: "Kyostra",
     role: "Deterministic execution governance",
     logoSrc: "/assets/partners/kyostra.webp",
     body: "Kyostra builds the runtime layer that enforces strict physical safety limits. A partnership maps Arc\u2019s neuromorphic speed into their ecosystem to execute those boundaries in real time.",
+    timeline: [
+      { period: "Mo. 6–12+", phase: "Co-dev", value: "" },
+      {
+        period: "",
+        phase: "Mo. Partnership integration as package for OEMs",
+        value: "",
+      },
+    ],
   },
   {
     name: "Sophara Robotics",
     role: "Elder-care & service platforms",
     logoSrc: "/assets/partners/sophara-robotics.svg",
     body: "Deploying across Europe and Japan, they require Arc\u2019s intelligence layer to guarantee safe, cage-free physical contact in unpredictable human environments.",
+    timeline: [
+      { period: "Mo. 6–9", phase: "POC", value: "~¥10M" },
+      { period: "Mo. 9–15", phase: "Co-dev", value: "" },
+      {
+        period: "Mo. 15+",
+        phase: "5–8% per unit royalty — pathway to Euro market",
+        value: "",
+      },
+    ],
+    timelineLayout: "wrap",
   },
   {
     name: "Cyberdyne",
     role: "Medical & human-assistive robotics",
     logoSrc: "/assets/partners/cyberdyne.svg",
     body: "A leader in our Tsukuba ecosystem building rehabilitation exoskeletons, demanding the ceiling of human-machine safety with Arc for sub-millisecond force-capping.",
+    timeline: [
+      { period: "Mo. 6–9", phase: "POC", value: "¥15M" },
+      { period: "Mo. 9–20", phase: "Co-dev", value: "¥50M" },
+      { period: "Mo. 15+", phase: "1–2% per unit royalty", value: "" },
+    ],
+    timelineLayout: "wrap",
   },
 ] as const;
+
+type PipelineTimelineStep = {
+  period: string;
+  phase: string;
+  value: string;
+};
+
+function PipelineTimelineStepText({
+  step,
+  className = "",
+}: {
+  step: PipelineTimelineStep;
+  className?: string;
+}) {
+  return (
+    <p
+      className={`font-mono text-[15px] leading-[1.45] tracking-[0.02em] text-fg-primary ${className}`}
+    >
+      {step.period ? (
+        <>
+          <span className="text-fg-secondary">{step.period}</span> ·{" "}
+        </>
+      ) : null}
+      <span className="font-semibold">{step.phase}</span>
+      {step.value ? (
+        <>
+          {" "}
+          · <span className="text-accent">{step.value}</span>
+        </>
+      ) : null}
+    </p>
+  );
+}
 
 function PipelinePartnerCard({
   name,
   role,
   logoSrc,
   body,
-}: (typeof PIPELINE_LOI_PARTNERS)[number]) {
+  timeline,
+  timelineLayout = "horizontal",
+}: (typeof PIPELINE_LOI_PARTNERS)[number] & {
+  timelineLayout?: "horizontal" | "wrap";
+}) {
+  const timelineWraps = timelineLayout === "wrap";
+
   return (
-    <div className="flex flex-col justify-center border border-border bg-bg-subtle px-5 py-4">
+    <div className="flex flex-col justify-center border border-border bg-bg-subtle px-6 py-5">
       <img
         src={logoSrc}
         alt=""
-        className="mb-3 block h-7 w-auto max-w-[140px] object-contain object-left"
+        className="mb-3.5 block h-9 w-auto max-w-[168px] object-contain object-left"
         aria-hidden
       />
-      <p className="text-[17px] font-semibold leading-[1.3] text-fg-primary">
+      <p className="text-[19px] font-semibold leading-[1.3] text-fg-primary">
         {name}{" "}
         <span className="font-normal text-fg-caption">({role})</span>
       </p>
-      <p className="mt-2 text-[15px] leading-[1.45] text-fg-secondary">{body}</p>
+      <p className="mt-2.5 text-[16px] leading-[1.5] text-fg-secondary">{body}</p>
+      {timeline ? (
+        timelineWraps ? (
+          <p className="mt-3.5 border-t border-border pt-4 font-mono text-[15px] leading-[1.55] tracking-[0.02em] text-fg-primary">
+            {timeline.map((step, index) => (
+              <React.Fragment key={`${step.period}-${step.phase}`}>
+                {index > 0 ? (
+                  <span className="text-fg-caption/60"> → </span>
+                ) : null}
+                {step.period ? (
+                  <span className="text-fg-secondary">{step.period}</span>
+                ) : null}
+                {step.period ? " · " : null}
+                <span className="font-semibold">{step.phase}</span>
+                {step.value ? (
+                  <>
+                    {" · "}
+                    <span className="text-accent">{step.value}</span>
+                  </>
+                ) : null}
+              </React.Fragment>
+            ))}
+          </p>
+        ) : (
+          <div className="mt-3.5 flex flex-nowrap items-center gap-x-3.5 overflow-visible border-t border-border pt-4">
+            {timeline.map((step, index) => (
+              <React.Fragment key={`${step.period}-${step.phase}`}>
+                {index > 0 ? (
+                  <span
+                    className="shrink-0 font-mono text-[15px] text-fg-caption/60"
+                    aria-hidden
+                  >
+                    →
+                  </span>
+                ) : null}
+                <PipelineTimelineStepText
+                  step={step}
+                  className="shrink-0 whitespace-nowrap"
+                />
+              </React.Fragment>
+            ))}
+          </div>
+        )
+      ) : null}
     </div>
   );
 }
@@ -2445,11 +2667,11 @@ export function PipelineTractionSlide() {
           </p>
         </div>
 
-        <div className="mt-5 shrink-0 max-w-[1640px] border-b border-border pb-5">
+        <div className="mt-4 shrink-0 max-w-[1640px] border-b border-border pb-4">
           <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-caption">
             The commercial trigger mechanism
           </p>
-          <p className="mt-2 text-[17px] leading-[1.5] text-fg-primary">
+          <p className="mt-2 text-[16px] leading-[1.5] text-fg-primary">
             Each executed Letter of Intent guarantees a formal executive discussion
             for co-development, hardware partnership, or Proof of Concept (POC)
             integration within{" "}
@@ -2458,22 +2680,22 @@ export function PipelineTractionSlide() {
           </p>
         </div>
 
-        <div className="mt-5 flex min-h-0 flex-1 flex-col max-w-[1640px]">
-          <p className="shrink-0 font-mono text-[11px] uppercase tracking-[0.12em] text-fg-caption">
+        <div className="mt-4 flex min-h-0 flex-1 flex-col max-w-[1640px]">
+          <p className="shrink-0 font-mono text-[13px] uppercase tracking-[0.14em] text-fg-secondary">
             Secured LOIs · ecosystem partners
           </p>
-          <div className="mt-3 grid min-h-0 flex-1 grid-cols-2 grid-rows-2 gap-4">
+          <div className="mt-4 grid min-h-0 flex-1 grid-cols-2 grid-rows-2 gap-5">
             {PIPELINE_LOI_PARTNERS.map((partner) => (
               <PipelinePartnerCard key={partner.name} {...partner} />
             ))}
           </div>
         </div>
 
-        <div className="mt-auto shrink-0 pt-5 max-w-[1640px] border-t border-border">
+        <div className="mt-auto shrink-0 pt-4 max-w-[1640px] border-t border-border">
           <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-caption">
             High-signal pipeline · active discussions
           </p>
-          <p className="mt-2 text-[17px] leading-[1.5] text-fg-primary">
+          <p className="mt-2 text-[16px] leading-[1.5] text-fg-primary">
             <img
               src="/assets/partners/astroscale.png"
               alt=""
@@ -2492,7 +2714,7 @@ export function PipelineTractionSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="14 · Pipeline Traction" />
+      <SlideFooter pageLabel="15 · Pipeline Traction" />
     </Slide>
   );
 }
@@ -2534,7 +2756,7 @@ export function XelaCaseStudySlide() {
               <p className="mt-4 text-[22px] font-normal leading-[1.55] text-fg-primary">
                 XELA Robotics builds industry-leading, high-density 3-axis tactile
                 skin. They supply tier-1 giants like Honda, Hitachi, Samsung, and
-                Denso, and integrate natively into FANUC cobots and Robotiq grippers.
+                Denso, and integrate natively into FANUC cobots and OEM grippers.
                 Their uSkin sensors generate flawless, high-fidelity data the exact
                 millisecond a slip begins.
               </p>
@@ -2545,26 +2767,34 @@ export function XelaCaseStudySlide() {
                 The Frustration
               </p>
               <p className="mt-3 text-[22px] font-normal leading-[1.55] text-fg-primary">
-                During our recent discussion, Alexander confirmed a harsh reality:
-                despite having perfect sensors, his clients still drop objects. The
-                sensor &ldquo;feels&rdquo; the slip instantly, but the robot&rsquo;s
-                centralized software stack is too slow to close the FANUC or Robotiq
-                actuator before gravity takes over.
+                During our recent discussion, Alexander Schmitz, CEO, confirmed a
+                harsh reality: despite having their incredible sensors, his clients
+                still drop objects. The sensor has the ability to detect the slip,
+                but the robot&rsquo;s centralized software is blind to the
+                high-density data of the sensor. The stack is too slow to close the
+                actuator before the object is dropped.
               </p>
             </div>
           </div>
 
-          <div className="flex min-h-0 items-start justify-center overflow-hidden">
-            <img
-              src="/assets/case-study-xela-uskin-gripper.png"
-              alt="XELA uSkin high-density 3-axis tactile sensors on a robotic hand and gripper"
-              className="max-h-full w-full object-contain object-top"
-            />
+          <div className="flex min-h-0 flex-col justify-center">
+            <div className="shrink-0">
+              <img
+                src="/assets/case-study-xela-uskin-gripper.png"
+                alt="XELA uSkin high-density 3-axis tactile sensors on a robotic hand and gripper"
+                className="w-full -translate-y-44 object-contain"
+              />
+              <p className="-mt-10 text-center font-mono text-[13px] leading-[1.5] tracking-[0.04em] text-fg-caption">
+                Type: USkin by XELA
+                <br />
+                Allegro Hand by WONIK Robotics.
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <SlideFooter pageLabel="06 · The Sensor vs. The Stack" />
+      <SlideFooter pageLabel="07 · The Sensor vs. The Stack" />
     </Slide>
   );
 }
@@ -2578,16 +2808,32 @@ export function XelaCostCaseStudySlide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">Case Study</Eyebrow>
-          <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            The Cost of a Dropped Object
-          </h2>
-          <p className="mt-3 max-w-[1640px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
-            The financial bleed for a Honda or Samsung assembly line.
-          </p>
+          <div className="flex max-w-[1640px] items-center justify-between gap-12">
+            <div className="min-w-0">
+              <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+                The Cost of a Dropped Object
+              </h2>
+              <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
+                The financial bleed for a Honda or Samsung assembly line.
+              </p>
+            </div>
+            <div className="relative h-[280px] w-[440px] shrink-0 overflow-visible">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/dropped-object-cost-accent.png?v=6"
+                alt=""
+                width={640}
+                height={480}
+                decoding="async"
+                aria-hidden
+                className="absolute left-[34%] top-[38%] h-[380px] w-[598px] -translate-x-1/2 -translate-y-1/2 rounded-[8px] object-contain object-center"
+              />
+            </div>
+          </div>
         </div>
 
         <p className="mt-6 shrink-0 max-w-[1640px] text-[22px] font-normal leading-[1.55] text-fg-primary">
-          For XELA&rsquo;s clients in EV manufacturing (Honda/Denso) or high-end
+          For XELA&rsquo;s clients in manufacturing (Honda/Denso) or high-end
           electronics (Samsung), dropping a part isn&rsquo;t just an accident&mdash;it&rsquo;s
           a catastrophic margin killer.
         </p>
@@ -2651,7 +2897,7 @@ export function XelaCostCaseStudySlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="07 · The Cost of a Dropped Object" />
+      <SlideFooter pageLabel="08 · The Cost of a Dropped Object" />
     </Slide>
   );
 }
@@ -2665,12 +2911,28 @@ export function XelaHinokiSolutionCaseStudySlide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">Case Study</Eyebrow>
-          <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            The Hinoki Solution
-          </h2>
-          <p className="mt-3 max-w-[1640px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
-            Arresting the slip before it happens. Locally and safely.
-          </p>
+          <div className="flex max-w-[1640px] items-center justify-between gap-12">
+            <div className="min-w-0">
+              <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+                The Hinoki Solution
+              </h2>
+              <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
+                Arresting the slip before it happens. Locally and safely.
+              </p>
+            </div>
+            <div className="relative h-[280px] w-[440px] shrink-0 overflow-visible">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/hinoki-solution-slip-arrest-accent.png?v=4"
+                alt=""
+                width={640}
+                height={480}
+                decoding="async"
+                aria-hidden
+                className="absolute left-[34%] top-[38%] h-[380px] w-[598px] -translate-x-1/2 -translate-y-1/2 rounded-[8px] object-contain object-center"
+              />
+            </div>
+          </div>
         </div>
 
         <p className="mt-6 shrink-0 max-w-[1640px] text-[22px] font-normal leading-[1.55] text-fg-primary">
@@ -2684,10 +2946,10 @@ export function XelaHinokiSolutionCaseStudySlide() {
             label="The Sub-Millisecond Intercept"
             body={
               <>
-                We route XELA&rsquo;s tactile data directly into our local hardware
+                Our solution routes XELA&rsquo;s tactile data directly into our local hardware
                 intelligence layer. We recognize the micro-slip and trigger the
-                Robotiq/FANUC motor response in under{" "}
-                <span className="font-semibold">0.5 ms</span>&mdash;bypassing the
+                OEM/FANUC motor response in{" "}
+                <span className="font-semibold">1.0 ms or less</span>&mdash;bypassing the
                 slow central software brain entirely.
               </>
             }
@@ -2696,7 +2958,7 @@ export function XelaHinokiSolutionCaseStudySlide() {
             label="Intelligent Force Capping"
             body={
               <>
-                We do not just blindly clamp down and crush the{" "}
+                Our solution does not just blindly clamp down and crush the{" "}
                 <span className="font-semibold">$500 ECU</span>. Our hardware
                 intelligently computes the exact minimal friction required to arrest
                 the slip.
@@ -2718,7 +2980,7 @@ export function XelaHinokiSolutionCaseStudySlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="08 · The Hinoki Solution" />
+      <SlideFooter pageLabel="09 · The Hinoki Solution" />
     </Slide>
   );
 }
@@ -2750,6 +3012,7 @@ export function XelaCommercialWedgeCaseStudySlide() {
           <DenseSlideLedgerRow
             label="Phase 1"
             subtitle="Paid Proof of Concept (¥10M – ¥30M)"
+            period="Mo. 6–9"
             body={
               <>
                 We integrate <span className="italic">Arc</span>{" "}
@@ -2761,6 +3024,7 @@ export function XelaCommercialWedgeCaseStudySlide() {
           <DenseSlideLedgerRow
             label="Phase 2"
             subtitle="Reference Design & Integration (¥40M – ¥80M NRE)"
+            period="Mo. 10–15"
             body={
               <>
                 We charge an upfront Non-Recurring Engineering (NRE) fee to bake
@@ -2771,7 +3035,8 @@ export function XelaCommercialWedgeCaseStudySlide() {
           />
           <DenseSlideLedgerRow
             label="Phase 3"
-            subtitle="Scalable Licensing"
+            subtitle="Scalable Licensing (1–2% per unit)"
+            period="Mo. 15+"
             body={
               <>
                 Hinoki collects a pure-margin per-unit royalty on every
@@ -2796,12 +3061,59 @@ export function XelaVolumeProjectionCaseStudySlide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">Case Study</Eyebrow>
-          <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            The Volume Projection
-          </h2>
-          <p className="mt-3 max-w-[1640px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
-            Unit economics and the pathway to venture scale.
-          </p>
+          <div className="relative max-w-[1640px]">
+            <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+              The Volume Projection
+            </h2>
+            <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
+              Unit economics and the pathway to venture scale.
+            </p>
+            <div
+              className="absolute right-[120px] top-[36%] flex w-[900px] -translate-y-1/2 items-center justify-end gap-4"
+              aria-hidden
+            >
+              <img
+                src="/assets/partners/hitachi.png"
+                alt=""
+                className="block h-8 w-auto max-w-[112px] shrink-0 object-contain"
+              />
+              <img
+                src="/assets/partners/denso.png"
+                alt=""
+                className="block h-8 w-auto max-w-[92px] shrink-0 object-contain"
+              />
+              <img
+                src="/assets/partners/samsung.png"
+                alt=""
+                className="block h-9 w-auto max-w-[108px] shrink-0 object-contain"
+              />
+              <img
+                src="/assets/partners/honda.png"
+                alt=""
+                className="block h-8 w-auto max-w-[112px] shrink-0 object-contain"
+              />
+              <img
+                src="/assets/partners/robotiq.png"
+                alt=""
+                className="block h-8 w-auto max-w-[112px] shrink-0 object-contain"
+              />
+              <img
+                src="/assets/partners/fanuc.png"
+                alt=""
+                className="block h-8 w-auto max-w-[96px] shrink-0 object-contain"
+              />
+              <img
+                src="/assets/partners/agile-robots.png"
+                alt=""
+                className="block h-8 w-auto max-w-[120px] shrink-0 object-contain"
+              />
+              <img
+                src="/assets/partners/wonik-robotics.png"
+                alt=""
+                className="block h-12 w-auto max-w-[80px] shrink-0 object-contain"
+              />
+            </div>
+          </div>
         </div>
 
         <p className="mt-6 shrink-0 max-w-[1640px] text-[22px] font-normal leading-[1.55] text-fg-primary">
@@ -2817,7 +3129,7 @@ export function XelaVolumeProjectionCaseStudySlide() {
                 XELA currently has over{" "}
                 <span className="font-semibold">170 active clients</span>. As they
                 transition to standard integrations with high-volume manufacturers
-                like Robotiq and FANUC, annual shipments of tactile-enabled
+                like OEM and FANUC, annual shipments of tactile-enabled
                 grippers are projected to scale between{" "}
                 <span className="font-semibold">10,000 and 25,000 units</span> over
                 the next <span className="font-semibold">36 months</span>.
@@ -2831,7 +3143,7 @@ export function XelaVolumeProjectionCaseStudySlide() {
                 Capturing a standard IP royalty of roughly{" "}
                 <span className="font-semibold">¥50,000 per unit</span> on a
                 conservative <span className="font-semibold">10,000</span>{" "}
-                integrated grippers yields{" "}
+                integrated units yields{" "}
                 <span className="font-semibold">¥500M ($3.3M USD)</span> in
                 recurring, pure-margin annual revenue from just one partner
                 ecosystem.
@@ -2855,7 +3167,7 @@ export function XelaVolumeProjectionCaseStudySlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="10 · The Volume Projection" />
+      <SlideFooter pageLabel="11 · The Volume Projection" />
     </Slide>
   );
 }
@@ -2865,8 +3177,9 @@ export function XelaVolumeProjectionCaseStudySlide() {
 // =====================================================================
 export const SLIDES: Array<() => React.JSX.Element> = [
   TitleSlide,
-  TruePhysicalAISlide,
+  TruePhysicalAIConceptSlide,
   ComputeGapSlide,
+  TruePhysicalAIArcSlide,
   SolutionSlide,
   IntelligentHardwareSlide,
   XelaCaseStudySlide,
@@ -2879,13 +3192,15 @@ export const SLIDES: Array<() => React.JSX.Element> = [
   GtmSlide,
   PipelineTractionSlide,
   UseOfFundsSlide,
+  FundraisingTimelineSlide,
   CapitalRoadmapSlide,
-  ThankYouSlide,
   TeamSlide,
-  ArcStatusSlide,
+  ThankYouSlide,
   DiscoverySlide,
+  ArcStatusSlide,
+  CompetitiveLandscapeSlide,
   PrizeSlide,
-  CompetitionSlide,
   Tam2030ModelSlide,
   Tam2035ModelSlide,
+  IntegrationSlide,
 ];

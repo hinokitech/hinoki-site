@@ -40,7 +40,7 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
     id: "pre-seed-v2",
     title: "Pre-seed · full deck · v2",
     description:
-      "Current working copy — 24-slide investor deck in English and Japanese.",
+      "Current working copy — 20-slide main deck plus 7 appendix slides (English and Japanese).",
     audience: "VCs, angels, NEDO, domestic partners",
     locales: [
       {

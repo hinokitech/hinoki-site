@@ -1,0 +1,30 @@
+<svg viewBox="0 0 320 112" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- Central stack — serialized path (muted) -->
+  <rect x="8" y="28" width="44" height="56" rx="6" stroke="#9099A8" stroke-width="1.25" opacity="0.45" />
+  <rect x="16" y="38" width="28" height="8" rx="2" fill="#9099A8" opacity="0.2" />
+  <rect x="16" y="52" width="28" height="8" rx="2" fill="#9099A8" opacity="0.16" />
+  <rect x="16" y="66" width="28" height="8" rx="2" fill="#9099A8" opacity="0.12" />
+
+  <!-- Edge reflex nodes -->
+  <circle cx="168" cy="24" r="16" fill="#E8622A" fill-opacity="0.1" stroke="#E8622A" stroke-width="1.25" />
+  <circle cx="168" cy="24" r="5" fill="#E8622A" fill-opacity="0.85" />
+
+  <circle cx="248" cy="56" r="16" fill="#E8622A" fill-opacity="0.1" stroke="#E8622A" stroke-width="1.25" />
+  <circle cx="248" cy="56" r="5" fill="#E8622A" fill-opacity="0.85" />
+
+  <circle cx="188" cy="92" r="16" fill="#E8622A" fill-opacity="0.1" stroke="#E8622A" stroke-width="1.25" />
+  <circle cx="188" cy="92" r="5" fill="#E8622A" fill-opacity="0.85" />
+
+  <!-- Local reflex paths — bypass the stack -->
+  <path d="M52 56 C88 56, 108 24, 152 24" stroke="#E8622A" stroke-width="1.1" opacity="0.35" />
+  <path d="M52 56 C96 56, 132 56, 232 56" stroke="#E8622A" stroke-width="1.1" opacity="0.3" />
+  <path d="M52 56 C88 56, 120 92, 172 92" stroke="#C42B2B" stroke-width="1.1" opacity="0.28" />
+
+  <!-- Sensor → edge → actuator micro-loops -->
+  <path d="M160 18 L176 18" stroke="#E8622A" stroke-width="1" opacity="0.5" />
+  <path d="M240 48 L256 48" stroke="#E8622A" stroke-width="1" opacity="0.5" />
+  <path d="M180 92 L196 92" stroke="#E8622A" stroke-width="1" opacity="0.5" />
+  <circle cx="156" cy="18" r="2.5" fill="#C42B2B" fill-opacity="0.7" />
+  <circle cx="260" cy="48" r="2.5" fill="#C42B2B" fill-opacity="0.7" />
+  <circle cx="200" cy="92" r="2.5" fill="#C42B2B" fill-opacity="0.7" />
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="780" viewBox="0 0 1640 780" fill="none" role="img" aria-label="The Competitive Landscape quadrant chart">
+  <rect width="1640" height="780" fill="#f7f4ef"/>
+
+  <text x="820" y="42" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.02em" text-anchor="middle">The Competitive Landscape</text>
+
+  <rect x="188" y="64" width="1264" height="588" rx="10" fill="#ffffff" stroke="#d8d3cb" stroke-width="1.5"/>
+
+  <rect x="188" y="64" width="632" height="294" fill="#d9ead9" fill-opacity="0.55"/>
+  <rect x="820" y="64" width="632" height="294" fill="#f5e0d5" fill-opacity="0.45" stroke="#e8622a" stroke-width="2"/>
+  <rect x="188" y="358" width="632" height="294" fill="#ede9e3" fill-opacity="0.9"/>
+  <rect x="820" y="358" width="632" height="294" fill="#f3ead0" fill-opacity="0.8"/>
+
+  <line x1="820" y1="64" x2="820" y2="652" stroke="#b8b2a8" stroke-width="1.5" stroke-dasharray="7 7"/>
+  <line x1="188" y1="358" x2="1452" y2="358" stroke="#b8b2a8" stroke-width="1.5" stroke-dasharray="7 7"/>
+
+  <path d="M1452 358 L1438 351 L1438 365 Z" fill="#78808f"/>
+  <path d="M820 64 L812 78 L828 78 Z" fill="#78808f"/>
+
+  <text transform="translate(108 358) rotate(-90)" fill="#5a5e6b" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" letter-spacing="2" text-anchor="middle">REAL-TIME RESPONSIVENESS</text>
+  <text x="162" y="98" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" text-anchor="end">Ultra-Low Latency</text>
+  <text x="162" y="118" fill="#78808f" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="end">Microsecond (&#956;s) control loop</text>
+  <text x="162" y="618" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" text-anchor="end">High Latency</text>
+  <text x="162" y="638" fill="#78808f" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="end">Millisecond (ms) cloud network lag</text>
+
+  <text x="820" y="692" fill="#5a5e6b" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" letter-spacing="2" text-anchor="middle">INTELLIGENCE CAPACITY</text>
+  <text x="248" y="718" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="600" text-anchor="start">Rigid fixed-logic</text>
+  <text x="248" y="738" fill="#78808f" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="start">Static microcontrollers</text>
+  <text x="1392" y="718" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="600" text-anchor="end">Advanced edge-AI</text>
+  <text x="1392" y="738" fill="#78808f" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="end">Adaptable neural processing</text>
+
+  <circle cx="228" cy="104" r="11" fill="#4f8f57"/>
+  <text x="248" y="109" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">Traditional Industrial Microcontrollers</text>
+  <text x="504" y="178" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">STMicroelectronics</text>
+  <text x="504" y="210" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">Texas Instruments</text>
+  <text x="504" y="242" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">Renesas</text>
+  <text x="504" y="274" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">NXP</text>
+
+  <rect x="228" y="392" width="11" height="11" fill="#9099a8"/>
+  <text x="248" y="401" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">Commodity Field Components</text>
+  <text x="504" y="468" fill="#5a5e6b" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">Standard legacy IO-link blocks</text>
+  <text x="504" y="498" fill="#5a5e6b" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">Basic digitizers</text>
+  <text x="504" y="542" fill="#78808f" font-family="Arial, Helvetica, sans-serif" font-size="15" font-style="italic" text-anchor="middle">Low intelligence, low speed</text>
+
+  <circle cx="860" cy="392" r="11" fill="#c9a227"/>
+  <text x="880" y="401" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">General-Purpose Edge SoCs &amp; Cloud</text>
+  <text x="1136" y="468" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">NVIDIA (Jetson Orin)</text>
+  <text x="1136" y="502" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">Intel (Core Ultra Edge)</text>
+  <text x="1136" y="536" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">Qualcomm (RB5)</text>
+
+  <text x="1136" y="188" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="600" text-anchor="middle">Hinoki</text>
+  <text x="1136" y="224" fill="#252830" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">The Real-Time Physical AI Layer</text>
+  <text x="1136" y="256" fill="#78808f" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle">Ultra-low latency and advanced edge intelligence</text>
+</svg>

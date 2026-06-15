@@ -2,34 +2,47 @@ import React from "react";
 import { Slide, Eyebrow, SlideFooter } from "./slides";
 import {
   MicroLabel,
-  PER_UNIT_ROYALTY_RANGE,
-  MODEL_ASSUMPTIONS_LINE,
 } from "./pitch-micro-label";
 
 const GTM_TIERS = [
   {
-    tier: "Tactile sensor OEMs",
-    horizon: "Year 0–1",
-    reach: "50+ companies",
-    win: <span className="font-semibold text-accent">8–10</span>,
+    tier: "End effector OEMs",
+    horizon: "Year 0–2",
+    reach: "75+ companies",
+    win: (
+      <>
+        <span className="font-semibold text-accent">8–10</span> accounts
+      </>
+    ),
     value: (
       <>
-        <span className="font-semibold text-accent">¥10–30M</span> each · first
-        embeds
+        <span className="font-semibold text-accent">¥10–30M</span> PoC →{" "}
+        <span className="font-semibold text-accent">¥30–50M</span> ARR per
+        account via catalog embedding
       </>
     ),
     step: 0 as const,
   },
   {
-    tier: "Integrators + humanoid devs",
+    tier: "Integrators",
     horizon: "Year 2–3",
-    reach: "340+ / 10–15 accounts",
-    win: "channel pull-through",
-    value: "pull-through + per-deployment revenue at volume",
+    reach: "340+",
+    win: (
+      <>
+        <span className="font-semibold text-accent">10–15</span> accounts
+      </>
+    ),
+    value: (
+      <>
+        <span className="font-semibold text-accent">¥40–80M</span> fee +{" "}
+        <span className="font-semibold text-accent">¥300K</span> IP royalty/cell
+        (avg. 40–80 cell deployments/yr)
+      </>
+    ),
     step: 1 as const,
   },
   {
-    tier: "Arm OEMs",
+    tier: "Industrial OEMs",
     horizon: "Year 3+",
     reach: (
       <>
@@ -37,15 +50,32 @@ const GTM_TIERS = [
         <span className="text-[17px] text-fg-caption">(Fanuc · Yaskawa class)</span>
       </>
     ),
-    win: <span className="font-semibold text-accent">2–3</span>,
+    win: (
+      <>
+        <span className="font-semibold text-accent">2–3</span> accounts
+      </>
+    ),
     value: (
       <>
-        <span className="font-semibold text-accent">¥100M+</span> per partner →
-        per-unit royalty at scale
+        <span className="font-semibold text-accent">¥100M–500M</span> platform
+        license fee +{" "}
+        <span className="font-semibold text-accent">¥15K–45K</span> hardware
+        component royalty (400k+ units/yr per account)
       </>
     ),
     step: 2 as const,
   },
+] as const;
+
+const GTM_SAME_MODEL_INDUSTRIES = [
+  "Humanoids",
+  "Industrial systems",
+  "Social robotics / AMRs",
+  "Defense UAVs / swarms",
+  "PGMs / guided munitions",
+  "EV active suspension",
+  "Assistive exoskeletons",
+  "Bionic prosthetics",
 ] as const;
 
 const PHASE_TITLE_CLASS = [
@@ -81,8 +111,8 @@ export function GtmSlide() {
         Bottom-up: start where the wedge is closest.
       </h2>
       <p className="mt-5 max-w-[1320px] text-[28px] font-light leading-[1.45] tracking-[-0.015em] text-fg-secondary">
-        Bottom-up: revenue built account by account — the mirror of the
-        top-down ceiling.
+        Bottom-up: Multi-tiered B2B Commercialization Pipeline — spreading
+        across sectors.
       </p>
 
       <div className="mt-10 max-w-[1640px] shrink-0">
@@ -130,28 +160,28 @@ export function GtmSlide() {
 
       <div className="mt-10 max-w-[1640px] shrink-0 rounded-[8px] bg-bg-subtle px-8 py-5">
         <p className="text-[19px] leading-[1.5] tracking-[-0.01em] text-fg-caption">
-          At maturity: 2–3 embedded platforms × ~50,000 units/yr ×{" "}
-          {PER_UNIT_ROYALTY_RANGE} →{" "}
+          At Maturity: 2–3 embedded platforms (targeting &lt;8% of
+          Fanuc/Yaskawa&rsquo;s 600K+ annual motion component output) ×
+          ~50,000 automated axes/yr × ¥45,000–¥75,000/axis →{" "}
           <span className="font-semibold text-accent">¥5–11B/yr</span> annualized
-          royalty — built bottom-up from nameable accounts.{" "}
-          <span className="font-normal text-fg-primary">
-            (Illustrative / at maturity.)
-          </span>
+          royalty.
         </p>
       </div>
 
-      <p className="mt-3 max-w-[1640px] shrink-0 text-[17px] leading-[1.45] text-fg-caption">
-        {MODEL_ASSUMPTIONS_LINE}
-      </p>
-
-      <div className="mt-5 max-w-[1640px] shrink-0 rounded-[10px] border border-border bg-bg-subtle px-10 py-5">
-        <p className="font-mono text-[18px] leading-[1.45] tracking-[0.04em] text-fg-caption">
-          <span className="font-semibold text-fg-secondary">Source</span> — JARA
-          / METI / analyst aggregates
+      <div className="mt-5 max-w-[1640px] shrink-0 border-t border-border pt-5">
+        <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-fg-secondary">
+          Same model across these industries
         </p>
+        <ul className="mt-3 columns-2 gap-x-12 text-[18px] leading-[1.65] text-fg-primary">
+          {GTM_SAME_MODEL_INDUSTRIES.map((industry) => (
+            <li key={industry} className="break-inside-avoid">
+              {industry}
+            </li>
+          ))}
+        </ul>
       </div>
 
-      <SlideFooter pageLabel="13 · Go-to-Market" />
+      <SlideFooter pageLabel="14 · Go-to-Market" />
     </Slide>
   );
 }
