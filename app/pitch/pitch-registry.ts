@@ -18,6 +18,20 @@ export type PitchDeckEntry = {
 /** Single source of truth for pitch routes — hub UI reads this list. */
 export const PITCH_DECKS: PitchDeckEntry[] = [
   {
+    id: "antler-ic-final",
+    title: "ANTLER IC Final",
+    description:
+      "Final Antler IC deck — 20-slide main path plus 11 appendix slides (XELA case studies, 2035 vision, product roadmap, capital roadmap, unfair advantage, technical network). Pre-Seed · June 2026.",
+    audience: "Antler Japan Pre-IC / IC",
+    locales: [
+      {
+        lang: "en",
+        label: "English",
+        path: "/pitch/antler-ic-final",
+      },
+    ],
+  },
+  {
     id: "pre-seed",
     title: "Pre-seed · full deck",
     description:

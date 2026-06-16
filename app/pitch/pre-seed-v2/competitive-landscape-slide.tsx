@@ -109,9 +109,6 @@ export function CompetitiveLandscapeSlide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">Competitive Landscape</Eyebrow>
-          <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            Why the problem won&rsquo;t solve itself.
-          </h2>
         </div>
 
         <div className="mt-10 flex min-h-0 max-w-[1640px] flex-1 flex-col rounded-lg border border-border bg-bg-subtle/60 px-10 py-3">
@@ -140,7 +137,7 @@ export function CompetitiveLandscapeSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="Appendix 3 · Competitive Landscape" />
+      <SlideFooter pageLabel="Appendix 5 · Competitive Landscape" />
     </Slide>
   );
 }

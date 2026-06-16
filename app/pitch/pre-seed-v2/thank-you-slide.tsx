@@ -186,7 +186,7 @@ export function ThankYouSlide() {
         <NeuralMotif className="h-auto w-[780px]" />
       </div>
 
-      <SlideFooter pageLabel="19 · Thank You" />
+      <SlideFooter pageLabel="20 · Thank You" />
     </Slide>
   );
 }

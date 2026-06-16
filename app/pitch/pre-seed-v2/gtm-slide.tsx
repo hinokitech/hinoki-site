@@ -185,7 +185,7 @@ export function GtmSlide() {
         </ul>
       </div>
 
-      <SlideFooter pageLabel="14 · Go-to-Market" />
+      <SlideFooter pageLabel="12 · Go-to-Market" />
     </Slide>
   );
 }

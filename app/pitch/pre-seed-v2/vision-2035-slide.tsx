@@ -67,9 +67,23 @@ export function Vision2035Slide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">2035 Vision</Eyebrow>
-          <h2 className="max-w-[1640px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            The Physical AI Monopoly
-          </h2>
+          <div className="flex max-w-[1640px] items-center">
+            <h2 className="min-w-0 max-w-[980px] shrink-0 text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+              The Physical AI Monopoly
+            </h2>
+            <div className="ml-20 -translate-y-8 shrink-0 bg-bg-base">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/vision-2035-physical-ai-monopoly-dice-accent.png?v=4"
+                alt=""
+                width={640}
+                height={360}
+                decoding="async"
+                aria-hidden
+                className="h-[220px] w-[540px] object-contain object-left"
+              />
+            </div>
+          </div>
         </div>
 
         <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col">
@@ -100,7 +114,7 @@ export function Vision2035Slide() {
         </p>
       </div>
 
-      <SlideFooter pageLabel="14 · 2035 Vision" />
+      <SlideFooter pageLabel="13 · 2035 Vision" />
     </Slide>
   );
 }

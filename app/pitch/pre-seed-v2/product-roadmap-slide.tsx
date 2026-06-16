@@ -129,9 +129,21 @@ export function ProductRoadmapSlide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-4">Product Roadmap</Eyebrow>
-          <h2 className="max-w-[1640px] text-[60px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-            The Path to Custom Silicon
-          </h2>
+          <div className="flex max-w-[1640px] items-center">
+            <h2 className="min-w-0 max-w-[980px] shrink-0 text-[60px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+              The Path to Custom Silicon
+            </h2>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/product-roadmap-path-to-silicon-accent.png?v=1"
+              alt=""
+              width={640}
+              height={360}
+              decoding="async"
+              aria-hidden
+              className="ml-44 h-[186px] w-[462px] shrink-0 object-contain object-left opacity-95"
+            />
+          </div>
         </div>
 
         <div className="mt-5 flex min-h-0 max-w-[1640px] flex-1 flex-col">
@@ -141,7 +153,7 @@ export function ProductRoadmapSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="15 · Product Roadmap" />
+      <SlideFooter pageLabel="14 · Product Roadmap" />
     </Slide>
   );
 }

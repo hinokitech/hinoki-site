@@ -94,7 +94,7 @@ export function DiscoverySlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="Appendix 1 · Discovery" />
+      <SlideFooter pageLabel="Appendix 3 · Discovery" />
     </Slide>
   );
 }
