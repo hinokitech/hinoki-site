@@ -147,7 +147,8 @@ export function TitleSlide() {
           for Robotic Systems
         </h1>
         <p className="mt-14 max-w-[900px] text-[30px] font-normal leading-[1.55] text-fg-secondary">
-          Building the hardware-accelerated intelligence layer for robotics.
+          Building <span className="italic">Arc</span> true physical AI for
+          robotics.
         </p>
       </div>
 
@@ -183,14 +184,17 @@ export function TruePhysicalAIConceptSlide() {
     <Slide align="start" dense>
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
-          <Eyebrow className="mb-5">Physical AI</Eyebrow>
+          <Eyebrow className="mb-5">Arc</Eyebrow>
           <div className="flex max-w-[1640px] items-center justify-between gap-12">
             <div className="min-w-0">
-              <h2 className="max-w-[960px] text-[88px] font-light leading-[1.04] tracking-[-0.02em] text-fg-primary">
-                What is True Physical AI?
+              <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+                Introducing <span className="italic">Arc</span> by Hinoki
               </h2>
-              <p className="mt-4 max-w-[820px] text-[28px] font-normal leading-[1.45] text-fg-secondary">
-                Intelligence baked directly into the hardware.
+              <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
+                An Edge Neuromorphic AI running in an{" "}
+                <span className="font-semibold text-fg-primary">FPGA</span>, then{" "}
+                <span className="font-semibold text-fg-primary">PCB</span>, then{" "}
+                <span className="font-semibold text-accent">ASIC</span>
               </p>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -206,68 +210,23 @@ export function TruePhysicalAIConceptSlide() {
           </div>
         </div>
 
-        <div className="mt-10 grid min-h-0 max-w-[1640px] flex-1 grid-cols-2 gap-12">
-          <div className="flex flex-col justify-center border-l-2 border-border-strong pl-8">
-            <p className="font-mono text-[14px] uppercase tracking-[0.12em] text-fg-caption">
-              The old way
-            </p>
-            <p className="mt-3 text-[32px] font-semibold leading-[1.25] text-fg-primary">
-              Mainstream Physical AI
-            </p>
-            <ul className="mt-5 space-y-3 text-[24px] leading-[1.5] text-fg-secondary">
-              <li className="flex gap-3">
-                <span className="shrink-0 text-accent">·</span>
-                <span>
-                  Today&rsquo;s robots rely on a single, centralized digital
-                  brain.
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <span className="shrink-0 text-accent">·</span>
-                <span>
-                  Every physical interaction must travel up an inefficient software
-                  stack, wait for the brain to process it, and travel back down
-                  to the motor.
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <span className="shrink-0 text-accent">·</span>
-                <span>
-                  It is too slow and too disconnected from the physical
-                  environment.
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div className="flex flex-col justify-center border-l-2 border-accent pl-8">
-            <p className="font-mono text-[14px] uppercase tracking-[0.12em] text-accent">
-              The Hinoki way
-            </p>
-            <p className="mt-3 text-[32px] font-semibold leading-[1.25] text-fg-primary">
-              True Physical Intelligence
-            </p>
-            <ul className="mt-5 space-y-3 text-[24px] leading-[1.5] text-fg-primary">
-              <li className="flex gap-3">
-                <span className="shrink-0 text-accent">·</span>
-                <span>
-                  At Hinoki, we bake fast, local intelligence directly into the
-                  robot&rsquo;s body.
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <span className="shrink-0 text-accent">·</span>
-                <span>True Physical AI stops making data travel.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="shrink-0 text-accent">·</span>
-                <span>The hands, the arms, the chassis, and more.</span>
-              </li>
-            </ul>
-          </div>
+        <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col">
+          <DenseSlideLedgerRow
+            label="Where it sits"
+            body="Directly between selected sensors and actuators."
+          />
+          <DenseSlideLedgerRow
+            label="What it does"
+            body="Enabling robots to respond, adapt, and stabilize in real time."
+          />
+          <DenseSlideLedgerRow
+            label="The Integration"
+            body="Operates locally while the main centralized controller stays completely in charge."
+          />
         </div>
       </div>
 
-      <SlideFooter pageLabel="02 · True Physical AI" />
+      <SlideFooter pageLabel="02 · Introducing Arc" />
     </Slide>
   );
 }
@@ -302,8 +261,8 @@ export function TruePhysicalAIArcSlide() {
             title="Hardware-Accelerated"
             body={
               <>
-                We map intelligent processing directly onto local edge computing
-                chips, bypassing the software stack entirely.
+                We map intelligent processing directly onto hardware between
+                sensors and actuators, bypassing the software stack entirely.
               </>
             }
           />
@@ -340,7 +299,7 @@ export function TruePhysicalAIArcSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="04 · Arc Architecture" />
+      <SlideFooter pageLabel="Appendix 9 · Arc Architecture" />
     </Slide>
   );
 }
@@ -396,14 +355,14 @@ export function ComputeGapSlide() {
     <Slide align="start" dense>
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
-          <Eyebrow className="mb-5">The Bottleneck</Eyebrow>
+          <Eyebrow className="mb-5">Why This Matters</Eyebrow>
           <div className="flex max-w-[1640px] items-center justify-between gap-12">
             <div className="min-w-0">
               <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-                The Compute Gap in Robotics
+                The Compute Gap
               </h2>
               <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
-                Why centralized software cannot handle the physical world.
+                Centralized Software Cannot Handle the Physical World
               </p>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -421,45 +380,39 @@ export function ComputeGapSlide() {
 
         <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col">
           <DenseSlideLedgerRow
-            label="The Reality"
+            label="The Gripper Drop"
             body={
               <>
-                The real world is a continuous, high-frequency stream of
-                unpredictable physical data.
+                A tactile sensor detects a micro-slip instantly. But with a{" "}
+                <span className="font-semibold">40 ms</span> processing delay,
+                the expensive automotive part hits the factory floor before the
+                central brain tells the gripper to tighten.
               </>
             }
           />
           <DenseSlideLedgerRow
-            label="The Problem"
+            label="Unstable Humanoids"
             body={
               <>
-                Today&rsquo;s robots force this continuous world into a
-                centralized software stack that takes{" "}
-                <span className="font-semibold">30–50 ms</span>{" "}
-                to process a single cycle.
+                An unexpected terrain shift requires microsecond
+                ankle-stabilization. At{" "}
+                <span className="font-semibold">50 ms</span> latency, the
+                humanoid robot hits the ground before it can even register that
+                it tripped.
               </>
             }
           />
-        </div>
-
-        <div className="mt-auto shrink-0 pt-6 max-w-[1640px]">
-          <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-fg-caption">
-            The structural breakpoint
-          </p>
-          <p className="mt-4 text-[22px] font-normal leading-[1.55] text-fg-primary">
-            Because the central software stack takes up to{" "}
-            <span className="font-semibold">50 ms</span>{" "}
-            to &ldquo;think,&rdquo; the robot is fundamentally detached from the
-            physics happening at its limbs in real time.
-          </p>
-          <div className="mt-4 flex flex-wrap items-baseline gap-x-10 gap-y-2">
-            <p className="text-[30px] font-semibold leading-[1.38] tracking-[-0.018em] text-fg-primary">
-              It is not acting with the environment.
-            </p>
-            <p className="text-[30px] font-semibold leading-[1.38] tracking-[-0.018em] text-fg-primary">
-              It is constantly trying to catch up to it.
-            </p>
-          </div>
+          <DenseSlideLedgerRow
+            label="Collision with Humans"
+            body={
+              <>
+                A collaborative robot detects an unexpected physical impact.
+                With a <span className="font-semibold">50 ms</span> latency, the
+                heavy steel arm transfers dangerous kinetic energy into a human
+                worker before the software emergency brake kicks in.
+              </>
+            }
+          />
         </div>
       </div>
 
@@ -643,40 +596,26 @@ export function SolutionSlide() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
           <Eyebrow className="mb-5">Solution</Eyebrow>
-          <div className="flex max-w-[1640px] items-center overflow-visible">
-            <div className="relative z-10 w-[580px] shrink-0 pr-8">
-              <h2 className="text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-                The 3 Pillars of Hinoki
-              </h2>
-              <p className="mt-3 text-[24px] font-normal leading-[1.45] text-fg-secondary">
-                How <span className="italic">Arc</span> delivers True Physical
-                Intelligence.
-              </p>
-            </div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/assets/solution-pillars-metrics-accent.png?v=10"
-              alt=""
-              width={2200}
-              height={400}
-              decoding="async"
-              aria-hidden
-              className="-ml-[400px] h-[280px] w-[1540px] shrink-0 object-contain object-left pointer-events-none"
-            />
+          <div className="max-w-[1640px]">
+            <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
+              <span className="italic">Arc</span> Versus Today&rsquo;s Standards
+            </h2>
+            <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
+              How <span className="italic">Arc</span> delivers True Physical
+              Intelligence.
+            </p>
           </div>
         </div>
 
         <p className="mt-6 shrink-0 max-w-[1640px] border-b border-border pb-6 text-[22px] font-normal leading-[1.55] text-fg-primary">
           Instead of forcing data to travel up a slow software stack, our
-          architecture maps intelligence directly onto local, edge-computing chips
-          at the subsystem level. This delivers three paradigm-shifting performance
-          pillars:
+          architecture maps intelligence directly onto local, edge subsystem
+          level.
         </p>
 
         <div className="mt-2 flex min-h-0 max-w-[1640px] flex-1 flex-col">
           <DenseSlideLedgerRow
-            label="Pillar 1"
-            subtitle="40–80× Lower Latency"
+            label="40–80× Lower Latency"
             body={
               <>
                 Bypasses the centralized operating system entirely, collapsing
@@ -687,8 +626,7 @@ export function SolutionSlide() {
             }
           />
           <DenseSlideLedgerRow
-            label="Pillar 2"
-            subtitle="Up to 5× Higher Loop Rate"
+            label="Up to 5× Higher Loop Rate"
             body={
               <>
                 Operates at a lightning-fast{" "}
@@ -699,8 +637,7 @@ export function SolutionSlide() {
             }
           />
           <DenseSlideLedgerRow
-            label="Pillar 3"
-            subtitle="45–250× Lower Energy Per Cycle"
+            label="45–250× Lower Energy Per Cycle"
             body={
               <>
                 Runs on a highly sparse{" "}
@@ -713,7 +650,7 @@ export function SolutionSlide() {
         </div>
       </div>
 
-      <SlideFooter pageLabel="05 · Solution" />
+      <SlideFooter pageLabel="04 · Arc Versus Today&rsquo;s Standards" />
     </Slide>
   );
 }
@@ -726,11 +663,11 @@ export function IntelligentHardwareSlide() {
     <Slide align="start" dense>
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
-          <Eyebrow className="mb-5">The Result</Eyebrow>
+          <Eyebrow className="mb-5">Arc</Eyebrow>
           <div className="flex max-w-[1640px] items-center justify-between gap-12">
             <div className="min-w-0 shrink-0">
               <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-                Intelligent Hardware
+                The 3 Pillars of <span className="italic">Arc</span>
               </h2>
               <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
                 Hardware that doesn&rsquo;t just act. It thinks.
@@ -753,7 +690,7 @@ export function IntelligentHardwareSlide() {
 
         <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col">
           <DenseSlideLedgerRow
-            label="Environmental Synchronicity"
+            label="Real-Time Reaction"
             body={
               <>
                 Subsystems process physics natively, eliminating the delays that
@@ -780,9 +717,41 @@ export function IntelligentHardwareSlide() {
             }
           />
         </div>
+
+        <div className="mt-auto shrink-0 max-w-[1640px] border-t border-border pt-6">
+          <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
+            Preventing
+          </p>
+          <div className="mt-4 grid grid-cols-3 gap-8">
+            <div>
+              <p className="text-[20px] font-semibold leading-[1.35] text-fg-primary">
+                Precision failure
+              </p>
+              <p className="mt-1.5 text-[17px] leading-[1.45] text-fg-secondary">
+                Dropping parts
+              </p>
+            </div>
+            <div>
+              <p className="text-[20px] font-semibold leading-[1.35] text-fg-primary">
+                Locomotion failure
+              </p>
+              <p className="mt-1.5 text-[17px] leading-[1.45] text-fg-secondary">
+                Humanoids tripping
+              </p>
+            </div>
+            <div>
+              <p className="text-[20px] font-semibold leading-[1.35] text-fg-primary">
+                Safety failure
+              </p>
+              <p className="mt-1.5 text-[17px] leading-[1.45] text-fg-secondary">
+                Injuring humans
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <SlideFooter pageLabel="06 · Intelligent Hardware" />
+      <SlideFooter pageLabel="05 · The 3 Pillars of Arc" />
     </Slide>
   );
 }
@@ -3194,7 +3163,6 @@ export const SLIDES: Array<() => React.JSX.Element> = [
   TitleSlide,
   TruePhysicalAIConceptSlide,
   ComputeGapSlide,
-  TruePhysicalAIArcSlide,
   SolutionSlide,
   IntelligentHardwareSlide,
   XelaCaseStudySlide,
@@ -3220,4 +3188,5 @@ export const SLIDES: Array<() => React.JSX.Element> = [
   Tam2030ModelSlide,
   Tam2035ModelSlide,
   IntegrationSlide,
+  TruePhysicalAIArcSlide,
 ];
