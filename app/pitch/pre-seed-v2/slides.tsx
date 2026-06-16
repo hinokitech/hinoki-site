@@ -5,6 +5,8 @@ import { CapitalRoadmapSlide } from "./capital-roadmap-slide";
 import { FundraisingTimelineSlide } from "./fundraising-timeline-slide";
 import { DiscoverySlide } from "./discovery-slide";
 import { GtmSlide } from "./gtm-slide";
+import { ProductRoadmapSlide } from "./product-roadmap-slide";
+import { Vision2035Slide } from "./vision-2035-slide";
 import { IntegrationSlide } from "./integration-slide";
 import { PrizeSlide } from "./prize-slide";
 import { ThankYouSlide } from "./thank-you-slide";
@@ -2915,7 +2917,7 @@ export function XelaHinokiSolutionCaseStudySlide() {
           <div className="flex max-w-[1640px] items-center justify-between gap-12">
             <div className="min-w-0">
               <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
-                The Hinoki Solution
+                The <span className="italic">Arc</span> solution
               </h2>
               <p className="mt-3 max-w-[820px] text-[24px] font-normal leading-[1.45] text-fg-secondary">
                 Arresting the slip before it happens. Locally and safely.
@@ -2937,7 +2939,7 @@ export function XelaHinokiSolutionCaseStudySlide() {
         </div>
 
         <p className="mt-6 shrink-0 max-w-[1640px] text-[22px] font-normal leading-[1.55] text-fg-primary">
-          XELA provides the world-class sensory data to Honda and Samsung. Hinoki
+          XELA provides the world-class sensory data to OEMs. Hinoki
           provides the True Physical AI required to actually use it in continuous
           time.
         </p>
@@ -2947,9 +2949,9 @@ export function XelaHinokiSolutionCaseStudySlide() {
             label="The Sub-Millisecond Intercept"
             body={
               <>
-                Our solution routes XELA&rsquo;s tactile data directly into our local hardware
-                intelligence layer. We recognize the micro-slip and trigger the
-                OEM/FANUC motor response in{" "}
+                <span className="italic">Arc</span>{" "}
+                routes XELA&rsquo;s tactile data directly into our substrate. We
+                recognize the micro-slip and trigger the OEM/FANUC motor response in{" "}
                 <span className="font-semibold">1.0 ms or less</span>&mdash;bypassing the
                 slow central software brain entirely.
               </>
@@ -2959,10 +2961,9 @@ export function XelaHinokiSolutionCaseStudySlide() {
             label="Intelligent Force Capping"
             body={
               <>
-                Our solution does not just blindly clamp down and crush the{" "}
-                <span className="font-semibold">$500 ECU</span>. Our hardware
+                <span className="italic">Arc</span>{" "}
                 intelligently computes the exact minimal friction required to arrest
-                the slip.
+                the slip. Does not crush the object.
               </>
             }
           />
@@ -2972,16 +2973,15 @@ export function XelaHinokiSolutionCaseStudySlide() {
               <>
                 The object is caught before it visibly moves, eliminating the{" "}
                 <span className="font-semibold">10-minute</span> safety reset and
-                preserving the{" "}
-                <span className="font-semibold">$15.6M</span> in production
-                capacity.
+                preventing the{" "}
+                <span className="font-semibold">$15.6M</span> production stop.
               </>
             }
           />
         </div>
       </div>
 
-      <SlideFooter pageLabel="09 · The Hinoki Solution" />
+      <SlideFooter pageLabel="09 · The Arc Solution" />
     </Slide>
   );
 }
@@ -3025,7 +3025,7 @@ export function XelaCommercialWedgeCaseStudySlide() {
         <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col">
           <DenseSlideLedgerRow
             label="Phase 1"
-            subtitle="Paid Proof of Concept ($63K – $188K)"
+            subtitle="Paid Proof of Concept ($250K)"
             period="Mo. 6–9"
             body={
               <>
@@ -3037,23 +3037,25 @@ export function XelaCommercialWedgeCaseStudySlide() {
           />
           <DenseSlideLedgerRow
             label="Phase 2"
-            subtitle="Reference Design & Integration ($250K – $500K NRE)"
+            subtitle="Reference Design & Integration ($500K NRE)"
             period="Mo. 10–15"
             body={
               <>
-                We charge an upfront Non-Recurring Engineering (NRE) fee to bake
-                our intelligent hardware layer directly into XELA&rsquo;s product.
+                We charge an upfront Non-Recurring Engineering (NRE) fee to bake{" "}
+                <span className="italic">Arc</span>{" "}
+                directly into XELA&rsquo;s
+                product.
               </>
             }
           />
           <DenseSlideLedgerRow
             label="Phase 3"
-            subtitle="Scalable Licensing (1–2% per unit)"
+            subtitle="Scalable Licensing (10% per unit) due to partnership"
             period="Mo. 15+"
             body={
               <>
-                Hinoki collects a high-margin per-unit royalty on every
-                intelligent, slip-proof gripper shipped.
+                Hinoki collects a high-margin per-unit royalty on every unit
+                shipped, along with proprietary data collection.
               </>
             }
           />
@@ -3147,10 +3149,10 @@ export function XelaVolumeProjectionCaseStudySlide() {
             body={
               <>
                 At roughly{" "}
-                <span className="font-semibold">$450 per unit</span> on a
+                <span className="font-semibold">$500 per unit</span> on a
                 conservative <span className="font-semibold">20,000</span>{" "}
                 integrated units yields{" "}
-                <span className="font-semibold">$9M</span> in high-margin ARR from
+                <span className="font-semibold">$10M</span> in high-margin ARR from
                 1 partner ecosystem.
               </>
             }
@@ -3192,6 +3194,8 @@ export const SLIDES: Array<() => React.JSX.Element> = [
   XelaVolumeProjectionCaseStudySlide,
   MarketSizingSummarySlide,
   GtmSlide,
+  Vision2035Slide,
+  ProductRoadmapSlide,
   PipelineTractionSlide,
   FundraisingTimelineSlide,
   UseOfFundsSlide,

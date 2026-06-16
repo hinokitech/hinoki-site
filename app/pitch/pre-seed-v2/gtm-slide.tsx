@@ -16,9 +16,10 @@ const GTM_TIERS = [
     ),
     value: (
       <>
-        <span className="font-semibold text-accent">$63K–$188K</span> PoC →{" "}
-        <span className="font-semibold text-accent">$188K–$313K</span> ARR per
-        account via catalog embedding
+        <span className="font-semibold text-accent">$250K</span> Paid PoC →{" "}
+        <span className="font-semibold text-accent">$500K</span> NRE Fee →{" "}
+        <span className="font-semibold text-accent">$2.5M</span> ARR per account
+        (via catalog embedding) on average
       </>
     ),
     step: 0 as const,
@@ -34,16 +35,17 @@ const GTM_TIERS = [
     ),
     value: (
       <>
-        <span className="font-semibold text-accent">$250K–$500K</span> fee +{" "}
-        <span className="font-semibold text-accent">$1.9K</span> IP royalty/cell
-        (avg. 40–80 cell deployments/yr)
+        <span className="font-semibold text-accent">$500K</span> fee +{" "}
+        <span className="font-semibold text-accent">$5K</span> Edge License/cell
+        (avg. 40–80 cell deployments/yr) ={" "}
+        <span className="font-semibold text-accent">$400K</span> ARR per account
       </>
     ),
     step: 1 as const,
   },
   {
     tier: "Industrial OEMs",
-    horizon: "Year 3+",
+    horizon: "Year 3–5",
     reach: (
       <>
         7–10 conglomerates{" "}
@@ -57,10 +59,10 @@ const GTM_TIERS = [
     ),
     value: (
       <>
-        <span className="font-semibold text-accent">$625K–$3.1M</span> platform
-        license fee +{" "}
-        <span className="font-semibold text-accent">$94–$281</span> hardware
-        component royalty (400k+ units/yr per account)
+        <span className="font-semibold text-accent">$3.0M</span> Enterprise Platform
+        Fee +{" "}
+        <span className="font-semibold text-accent">$75M</span> ARR per account
+        (via 150K embedded units/yr at $500/unit)
       </>
     ),
     step: 2 as const,
@@ -160,11 +162,13 @@ export function GtmSlide() {
 
       <div className="mt-10 max-w-[1640px] shrink-0 rounded-[8px] bg-bg-subtle px-8 py-5">
         <p className="text-[19px] leading-[1.5] tracking-[-0.01em] text-fg-caption">
-          At Maturity: 2–3 embedded platforms (targeting &lt;8% of
-          Fanuc/Yaskawa&rsquo;s 600K+ annual motion component output) ×
-          ~50,000 automated axes/yr × $280–$470/axis →{" "}
-          <span className="font-semibold text-accent">$31M–$69M/yr</span> annualized
-          royalty.
+          <span className="font-semibold text-fg-primary">
+            Industrial Vertical Run-Rate:
+          </span>{" "}
+          2–3 embedded platforms (targeting ~25% of projected 2030 core motion
+          lines) × 450,000 total units/yr × $500/unit →{" "}
+          <span className="font-semibold text-accent">$225M/yr</span> from this
+          single vertical alone.
         </p>
       </div>
 

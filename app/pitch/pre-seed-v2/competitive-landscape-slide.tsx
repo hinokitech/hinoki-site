@@ -1,95 +1,103 @@
 import React from "react";
 import { Slide, Eyebrow, SlideFooter } from "./slides";
 
-const PROBLEM_ROWS = [
+const TABLE_GRID =
+  "grid grid-cols-[minmax(0,0.82fr)_minmax(0,0.92fr)_minmax(0,1.18fr)_minmax(0,1.18fr)] gap-x-8";
+
+const COMPETITOR_TABLE_COLUMNS = [
+  "Competitor",
+  "Their Focus",
+  "The Robotics Bottleneck",
+  "Hinoki\u2019s Advantage",
+] as const;
+
+const COMPETITOR_TABLE_ROWS = [
   {
-    label: "The Physics Bottleneck",
-    body: (
-      <>
-        Cloud networks add <span className="font-semibold">100ms+ latency</span>;
-        physical motion requires{" "}
-        <span className="font-semibold">&#956;s determinism</span>.
-      </>
-    ),
+    competitor: "EdgeCortix",
+    focus: "Edge GenAI & LLMs",
+    bottleneck: {
+      label: "The \u201cCentralized Brain\u201d",
+      body: "Built to process language/video, taking too long to compute.",
+    },
+    advantage: {
+      label: "The \u201cSpinal Cord\u201d",
+      body: "Sub-millisecond hardware-level motor intercept loops.",
+    },
   },
   {
-    label: "The Enterprise Wall",
-    body: (
-      <>
-        Global manufacturing plants mandate{" "}
-        <span className="font-semibold">air-gapped, offline edge security</span>.
-      </>
-    ),
+    competitor: "Axelera AI",
+    focus: "Heavy Vision (629 TOPS)",
+    bottleneck: {
+      label: "Power Overkill",
+      body: "High-throughput monsters that are too hot and heavy for edge AI.",
+    },
+    advantage: {
+      label: "Extreme Sparsity",
+      body: "0.14 mJ baseline computing raw time-series physics.",
+    },
   },
   {
-    label: "The Algorithmic Failure",
-    body: (
-      <>
-        Deep learning requires massive matrix math; physical control requires
-        light, real-time temporal processing.
-      </>
-    ),
+    competitor: "BrainChip",
+    focus: "Generalized Neuromorphic IP",
+    bottleneck: {
+      label: "The \u201cLego Block\u201d",
+      body: "Horizontal silicon IP with zero industrial integration expertise.",
+    },
+    advantage: {
+      label: "The Finished Product",
+      body: "Plug-and-play mapping directly to FANUC drives and XELA skin.",
+    },
+  },
+  {
+    competitor: "TDK",
+    focus: "Analog Reservoir AI",
+    bottleneck: {
+      label: "Sensor-Bound",
+      body: "Isolated telemetry. They can feel the slip, but they cannot tell the motor to stop.",
+    },
+    advantage: {
+      label: "Full Reflex Loop",
+      body: "Maps multi-brand sensor inputs directly to instant actuator control.",
+    },
   },
 ] as const;
 
-const MARKET_MAPPING_ROWS = [
-  {
-    label: "Legacy MCUs",
-    subtitle: "STMicro · TI · Renesas",
-    body: (
-      <>
-        <span className="font-semibold">Static, fixed-logic code.</span>{" "}
-        No AI compute — cannot process complex, dynamic data.
-      </>
-    ),
-  },
-  {
-    label: "Edge AI SoMs",
-    subtitle: "NVIDIA Jetson · Intel",
-    body: (
-      <>
-        <span className="font-semibold">Deep learning software.</span>{" "}
-        High latency &amp; power — not built for &#956;s motor loops.
-      </>
-    ),
-  },
-  {
-    label: "Smart Components",
-    subtitle: "TDK (Reservoir Prototype)",
-    body: (
-      <>
-        <span className="font-semibold">Analog reservoir AI.</span>{" "}
-        Sensor-bound — isolated to local component telemetry.
-      </>
-    ),
-  },
-] as const;
-
-function LandscapeLedgerRow({
+function CompetitorTableCell({
   label,
-  subtitle,
   body,
+  accent = false,
 }: {
   label: string;
-  subtitle?: string;
-  body: React.ReactNode;
+  body: string;
+  accent?: boolean;
 }) {
   return (
-    <div className="flex flex-1 flex-col justify-center border-b border-border py-5">
-      <div className="grid grid-cols-[minmax(0,320px)_1fr] items-start gap-x-10">
-        <div>
-          <div className="font-mono text-[15px] uppercase tracking-[0.14em] text-accent">
-            {label}
-          </div>
-          {subtitle ? (
-            <div className="mt-2 text-[20px] font-semibold leading-[1.35] text-fg-primary">
-              {subtitle}
-            </div>
-          ) : null}
-        </div>
-        <p className="text-[22px] font-normal leading-[1.55] text-fg-primary">
-          {body}
-        </p>
+    <p className="text-[20px] leading-[1.55] text-fg-primary">
+      <span className={`font-semibold ${accent ? "text-accent" : ""}`}>
+        {label}:
+      </span>{" "}
+      {body}
+    </p>
+  );
+}
+
+function CompetitorTableRow({
+  competitor,
+  focus,
+  bottleneck,
+  advantage,
+}: (typeof COMPETITOR_TABLE_ROWS)[number]) {
+  return (
+    <div
+      className={`${TABLE_GRID} min-h-0 flex-1 items-center border-b border-border py-7 last:border-b-0`}
+    >
+      <div className="text-[24px] font-semibold leading-[1.3] tracking-[-0.01em] text-fg-primary">
+        {competitor}
+      </div>
+      <div className="text-[20px] leading-[1.5] text-fg-secondary">{focus}</div>
+      <CompetitorTableCell {...bottleneck} />
+      <div className="border-l-2 border-accent/35 pl-6">
+        <CompetitorTableCell {...advantage} accent />
       </div>
     </div>
   );
@@ -106,28 +114,29 @@ export function CompetitiveLandscapeSlide() {
           </h2>
         </div>
 
-        <div className="mt-6 flex min-h-0 max-w-[1640px] flex-1 flex-col">
-          {PROBLEM_ROWS.map((row) => (
-            <LandscapeLedgerRow key={row.label} {...row} />
-          ))}
+        <div className="mt-10 flex min-h-0 max-w-[1640px] flex-1 flex-col rounded-lg border border-border bg-bg-subtle/60 px-10 py-3">
+          <div
+            className={`${TABLE_GRID} shrink-0 border-b border-border-strong py-4 font-mono text-[13px] uppercase tracking-[0.12em] text-fg-caption`}
+          >
+            {COMPETITOR_TABLE_COLUMNS.map((column, index) => (
+              <div
+                key={column}
+                className={
+                  index === COMPETITOR_TABLE_COLUMNS.length - 1
+                    ? "border-l-2 border-accent/35 pl-6 text-accent"
+                    : undefined
+                }
+              >
+                {column}
+              </div>
+            ))}
+          </div>
 
-          <p className="mt-6 shrink-0 font-mono text-[13px] uppercase tracking-[0.14em] text-fg-caption">
-            Strategic Market Mapping
-          </p>
-
-          {MARKET_MAPPING_ROWS.map((row) => (
-            <LandscapeLedgerRow key={row.label} {...row} />
-          ))}
-        </div>
-
-        <div className="mt-auto shrink-0 pt-6 max-w-[1640px]">
-          <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-fg-caption">
-            Our solution
-          </p>
-          <p className="mt-4 text-[30px] font-semibold leading-[1.38] tracking-[-0.018em] text-fg-primary">
-            <span className="text-accent">Hinoki Technologies</span> — RC
-            Physical AI maps multi-brand inputs to instant actuator control.
-          </p>
+          <div className="flex min-h-0 flex-1 flex-col">
+            {COMPETITOR_TABLE_ROWS.map((row) => (
+              <CompetitorTableRow key={row.competitor} {...row} />
+            ))}
+          </div>
         </div>
       </div>
 
