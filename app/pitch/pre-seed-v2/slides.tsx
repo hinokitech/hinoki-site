@@ -2493,7 +2493,23 @@ export function UseOfFundsSlide() {
 // ---------------------------------------------------------------------
 //  23 · Pipeline Traction
 // ---------------------------------------------------------------------
-const PIPELINE_LOI_PARTNERS = [
+type PipelineTimelineStep = {
+  period: string;
+  phase: string;
+  value: string;
+};
+
+type PipelinePartner = {
+  name: string;
+  role: string;
+  logoSrc: string;
+  logoClassName?: string;
+  body: string;
+  timeline: readonly PipelineTimelineStep[];
+  timelineLayout?: "horizontal" | "wrap";
+};
+
+const PIPELINE_LOI_PARTNERS: readonly PipelinePartner[] = [
   {
     name: "XELA Robotics",
     role: "High-density 3D tactile sensing",
@@ -2548,13 +2564,7 @@ const PIPELINE_LOI_PARTNERS = [
     ],
     timelineLayout: "wrap",
   },
-] as const;
-
-type PipelineTimelineStep = {
-  period: string;
-  phase: string;
-  value: string;
-};
+];
 
 function PipelineTimelineStepText({
   step,
@@ -2591,7 +2601,7 @@ function PipelinePartnerCard({
   body,
   timeline,
   timelineLayout = "horizontal",
-}: (typeof PIPELINE_LOI_PARTNERS)[number] & {
+}: PipelinePartner & {
   timelineLayout?: "horizontal" | "wrap";
 }) {
   const timelineWraps = timelineLayout === "wrap";
