@@ -119,13 +119,13 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             className={`reveal mb-5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "0ms" }}
           >
-            ARC BY HINOKI · REACTION INTELLIGENCE FOR ROBOTICS
+            ARC BY HINOKI · TRUE PHYSICAL AI FOR ROBOTS
           </div>
           <h1
             className={`reveal mb-6 text-[36px] font-light leading-[1.1] tracking-[-0.025em] text-fg-primary md:text-[52px] ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "216ms" }}
           >
-            The reaction intelligence
+            The physical intelligence
             <br />
             robots have been missing.
           </h1>
@@ -134,7 +134,7 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             style={{ ["--reveal-delay" as any]: "432ms" }}
           >
             <span className="block">
-              Hinoki inserts a continuous-time neuromorphic substrate between
+              Hinoki inserts an edge continuous-time neuromorphic substrate between
               sensors and actuators,
             </span>
             <span className="mt-2.5 block md:mt-3">
@@ -1142,9 +1142,8 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
           For investors
         </div>
         <p className="mb-4 text-[16px] leading-[1.7] text-fg-secondary">
-          We are raising a pre-seed round to complete the benchmark and bring
-          physical intelligence to robotic platforms at scale. Selected for
-          Antler Japan 2026 Residency.
+          Pre-seed backed by Antler Japan. We are completing the benchmark and
+          bringing physical intelligence to robotic platforms at scale.
         </p>
         <div className="mb-8">
           <img
@@ -1194,7 +1193,7 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
             </span>
           </div>
           <div className="text-[12px] text-fg-secondary">
-            Arc — Reaction Intelligence
+            Arc — Physical AI
           </div>
           <div className="text-[12px] text-fg-secondary">Tsukuba, Japan</div>
         </div>
