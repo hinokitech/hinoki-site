@@ -127,7 +127,7 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
           >
             The physical intelligence
             <br />
-            robots have been missing.
+            robotics has been missing.
           </h1>
           <p
             className={`reveal mb-9 max-w-[min(640px,100%)] text-pretty text-[16px] font-normal leading-[1.7] text-fg-secondary md:text-[17px] ${heroVisible ? "is-visible" : ""}`}
@@ -167,23 +167,33 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
           </div>
 
           <div
-            className={`reveal flex flex-wrap items-center gap-[10px] text-[12px] text-fg-tertiary ${heroVisible ? "is-visible" : ""}`}
+            className={`reveal flex flex-col gap-2.5 text-[12px] text-fg-tertiary ${heroVisible ? "is-visible" : ""}`}
             style={{ ["--reveal-delay" as any]: "864ms" }}
           >
             <span>Tsukuba, Japan</span>
-            <span className="text-border">·</span>
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex flex-wrap items-center gap-x-6 gap-y-3">
               <img
-                src="/assets/antler-mark.png"
-                alt=""
-                width={18}
-                height={18}
-                className="h-[18px] w-[18px] shrink-0 rounded-[3px] object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.06)]"
+                src="/assets/antler-wordmark.png"
+                alt="Antler"
+                width={132}
+                height={29}
+                className="h-7 w-auto object-contain md:h-9"
               />
-              <span>Antler Japan 2026</span>
+              <img
+                src="/assets/university-of-tsukuba-logo.png"
+                alt="University of Tsukuba"
+                width={168}
+                height={67}
+                className="h-9 w-auto object-contain md:h-10"
+              />
+              <img
+                src="/assets/aist-logo.png"
+                alt="AIST"
+                width={108}
+                height={43}
+                className="h-7 w-auto object-contain md:h-9"
+              />
             </span>
-            <span className="text-border">·</span>
-            <span>Hardware validation underway</span>
           </div>
         </div>
 
@@ -888,41 +898,6 @@ function FeatureSection() {
                   data movement and compute for selected control loops.
                 </p>
               </div>
-              <p className="mt-4 text-[13px] leading-[1.65] text-fg-tertiary md:text-[14px]">
-                Phase 2 benchmarks will measure latency, energy per response,
-                and adaptive stability against a digital baseline.
-              </p>
-              <div className="mt-6">
-                <p className="mb-3 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6E7F99] md:text-left">
-                  Phase 2 benchmark targets
-                </p>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  <div className="rounded-lg border border-[#E0DDD8] bg-bg-base px-3 py-2.5 text-left">
-                    <div className="text-[11px] font-semibold text-fg-primary">
-                      Latency
-                    </div>
-                    <div className="mt-0.5 text-[11px] leading-snug text-fg-secondary">
-                      sub-ms response target
-                    </div>
-                  </div>
-                  <div className="rounded-lg border border-[#E0DDD8] bg-bg-base px-3 py-2.5 text-left">
-                    <div className="text-[11px] font-semibold text-fg-primary">
-                      Energy
-                    </div>
-                    <div className="mt-0.5 text-[11px] leading-snug text-fg-secondary">
-                      lower energy per response
-                    </div>
-                  </div>
-                  <div className="rounded-lg border border-[#E0DDD8] bg-bg-base px-3 py-2.5 text-left">
-                    <div className="text-[11px] font-semibold text-fg-primary">
-                      Adaptation
-                    </div>
-                    <div className="mt-0.5 text-[11px] leading-snug text-fg-secondary">
-                      stable control under variable conditions
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div className="mt-8 md:mt-10">
@@ -1135,15 +1110,12 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
         <div className="mb-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-accent md:mb-[18px] md:text-[14px] md:tracking-[0.12em]">
           Work with us
         </div>
-        <h2 className="mb-4 text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-fg-primary md:text-[36px]">
-          Hardware validation is underway.
-        </h2>
         <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
           For investors
         </div>
         <p className="mb-4 text-[16px] leading-[1.7] text-fg-secondary">
-          Pre-seed backed by Antler Japan. We are completing the benchmark and
-          bringing physical intelligence to robotic platforms at scale.
+          An Antler Japan portfolio company. We are in early conversation with
+          aligned investors and welcome introductions.
         </p>
         <div className="mb-8">
           <img
@@ -1158,10 +1130,9 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
           For partners
         </div>
         <p className="mb-8 text-[16px] leading-[1.7] text-fg-secondary">
-          We are in active conversation with robotics engineers and research
-          institutions across Japan, and selectively opening co-development
-          discussions. If your platform could benefit from Arc, let&apos;s
-          talk.
+          Tier-1 robotics partnerships are in active pipeline as Arc moves into
+          platform integration. We are onboarding the next wave of platform
+          partners.
         </p>
         <button
           type="button"
@@ -1193,7 +1164,7 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
             </span>
           </div>
           <div className="text-[12px] text-fg-secondary">
-            Arc — Physical AI
+            Arc — True Physical AI for Robotics
           </div>
           <div className="text-[12px] text-fg-secondary">Tsukuba, Japan</div>
         </div>

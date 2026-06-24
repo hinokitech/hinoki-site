@@ -33,7 +33,7 @@ const SITE_URL =
 
 const SITE_TITLE = "Hinoki — Reaction intelligence for robotics";
 const SITE_DESCRIPTION =
-  "Arc by Hinoki is the architecture layer that gives robots reaction intelligence. Sub-millisecond, adaptive, zero inference. Hardware validation underway.";
+  "Arc by Hinoki is the architecture layer that gives robots reaction intelligence. Sub-millisecond, adaptive, zero inference.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
