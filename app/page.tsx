@@ -173,21 +173,21 @@ function Hero({ onRequestAccess }: { onRequestAccess: () => void }) {
             <span>Tsukuba, Japan</span>
             <span className="inline-flex flex-wrap items-center gap-x-6 gap-y-3">
               <img
-                src="/assets/antler-wordmark.png"
+                src="/assets/antler-wordmark.png?v=2"
                 alt="Antler"
                 width={132}
                 height={29}
                 className="h-7 w-auto object-contain md:h-9"
               />
               <img
-                src="/assets/university-of-tsukuba-logo.png"
+                src="/assets/university-of-tsukuba-logo.png?v=2"
                 alt="University of Tsukuba"
                 width={168}
                 height={67}
                 className="h-9 w-auto object-contain md:h-10"
               />
               <img
-                src="/assets/aist-logo.png"
+                src="/assets/aist-logo.png?v=2"
                 alt="AIST"
                 width={108}
                 height={43}
@@ -1119,7 +1119,7 @@ function CTASection({ onRequestAccess }: { onRequestAccess: () => void }) {
         </p>
         <div className="mb-8">
           <img
-            src="/assets/antler-wordmark.png"
+            src="/assets/antler-wordmark.png?v=2"
             alt="Antler"
             width={220}
             height={48}

@@ -77,7 +77,7 @@ export function UnfairAdvantageSlide() {
           <div className="mt-auto flex max-w-[1640px] shrink-0 items-center gap-20 border-t border-border/70 pt-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/university-of-tsukuba-logo.png?v=1"
+              src="/assets/university-of-tsukuba-logo.png?v=2"
               alt="University of Tsukuba"
               width={640}
               height={256}
@@ -86,7 +86,7 @@ export function UnfairAdvantageSlide() {
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/aist-logo.png?v=1"
+              src="/assets/aist-logo.png?v=2"
               alt="AIST"
               width={320}
               height={128}
