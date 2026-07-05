@@ -352,8 +352,8 @@ function ProofDemoVideo({ active }: { active: boolean }) {
           </span>
         </button>
       </div>
-      <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-fg-tertiary">
-        Recorded on hardware
+      <p className="mt-3 max-w-[320px] font-mono text-[10px] uppercase leading-[1.6] tracking-[0.16em] text-fg-tertiary md:max-w-none">
+        Recorded on hardware — No CPU, GPU, or cloud in the loop
       </p>
     </div>
   );
@@ -375,7 +375,7 @@ function ProofChapter() {
       detail: "Sustained acquisition on high-speed vision — proven on hardware.",
     },
     {
-      value: "Lower power",
+      value: "Fractional power",
       detail: "Edge-native intelligence. Fraction of the energy. No inference tax.",
     },
   ];
