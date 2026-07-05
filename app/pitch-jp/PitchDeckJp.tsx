@@ -9,7 +9,7 @@ export default function PitchDeckJp() {
     <PitchDeck
       slides={SLIDES_JP}
       mobileDeck={MobileDeckJp}
-      altLang={{ href: "/pitch", label: "EN" }}
+      altLang={{ href: "/pitch/pre-seed-v2", label: "EN" }}
       navHint="← → でスライド移動 · F でフルスクリーン"
     />
   );

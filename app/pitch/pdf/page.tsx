@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import PdfDeckView from "../PdfDeckView";
-import { SLIDES } from "../slides";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Hinoki — Deck (PDF export)",
@@ -11,13 +10,7 @@ export const metadata: Metadata = {
   },
 };
 
-/** English deck — print / Save-as-PDF: `/pitch/pdf` */
+/** Retired — PDF export for the frozen English deck at `/pitch`. */
 export default function PitchPdfPage() {
-  return (
-    <PdfDeckView
-      slides={SLIDES}
-      ariaLabel="Hinoki investor deck — printable"
-      slideAriaLabel={(i, total) => `Slide ${i + 1} of ${total}`}
-    />
-  );
+  notFound();
 }

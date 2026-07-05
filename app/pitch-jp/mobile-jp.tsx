@@ -60,7 +60,7 @@ export default function MobileDeckJp() {
             Hinoki Technologies · 投資家向け資料
           </div>
           <Link
-            href="/pitch"
+            href="/pitch/pre-seed-v2"
             className="rounded-md border border-border bg-bg-subtle px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-fg-secondary transition-colors hover:border-accent hover:text-accent"
           >
             EN

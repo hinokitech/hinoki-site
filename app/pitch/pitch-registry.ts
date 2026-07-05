@@ -33,16 +33,11 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
   },
   {
     id: "pre-seed",
-    title: "Pre-seed · full deck",
+    title: "Pre-seed · full deck (JP)",
     description:
-      "16-slide investor deck — problem through ask. Frozen snapshot; iterate on v2.",
+      "16-slide investor deck — frozen Japanese snapshot. English v2 is the current working copy.",
     audience: "VCs, angels, NEDO, domestic partners",
     locales: [
-      {
-        lang: "en",
-        label: "English",
-        path: "/pitch",
-      },
       {
         lang: "ja",
         label: "日本語",

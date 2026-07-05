@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
-/** Bookmarks — canonical PDF is `/pitch/pdf` */
+/** Retired bookmark — PDF export for `/pitch` is no longer available. */
 export default function PitchPreSeedPdfRedirectPage() {
-  redirect("/pitch/pdf");
+  notFound();
 }

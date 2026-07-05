@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { DM_Mono, DM_Sans, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
@@ -31,31 +31,33 @@ const notoSansJp = Noto_Sans_JP({
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://hinokitech.com";
 
-const SITE_TITLE = "Hinoki — Reaction intelligence for robotics";
+const SITE_TITLE = "Hinoki Technologies — Building the future";
 const SITE_DESCRIPTION =
-  "Arc by Hinoki is the architecture layer that gives robots reaction intelligence. Sub-millisecond, adaptive, zero inference.";
+  "Neuromorphic edge AI for physical systems. Real-time. Adaptive. Power-efficient.";
+const OG_IMAGE_ALT = "Hinoki Technologies — Building the future";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
-    template: "%s — Hinoki",
+    template: "%s — Hinoki Technologies",
   },
   description: SITE_DESCRIPTION,
-  applicationName: "Hinoki",
+  applicationName: "Hinoki Technologies",
   keywords: [
-    "reaction intelligence",
+    "Hinoki Technologies",
+    "neuromorphic edge AI",
+    "edge intelligence",
+    "physical systems",
+    "physical AI",
     "robotics",
-    "reflex control",
-    "humanoid robotics",
-    "industrial robotics",
-    "defense robotics",
-    "Hinoki",
-    "Arc",
+    "sensor fusion",
+    "Tsukuba",
   ],
   authors: [{ name: "Hinoki Technologies" }],
   creator: "Hinoki Technologies",
   publisher: "Hinoki Technologies",
+  category: "technology",
   icons: {
     icon: [
       { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
@@ -67,14 +69,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
-    siteName: "Hinoki",
+    siteName: "Hinoki Technologies",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: OG_IMAGE_ALT,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: ["/twitter-image"],
   },
   robots: {
     index: true,
@@ -88,6 +99,10 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0a0b0d",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -96,6 +111,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-theme="dark"
       className={`${dmSans.variable} ${dmMono.variable} ${notoSansJp.variable} h-full antialiased`}
     >
       <head>

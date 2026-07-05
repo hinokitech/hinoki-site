@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
-/** Bookmarks — canonical English deck is `/pitch` */
+/** Retired bookmark — English pre-seed deck is no longer at `/pitch`. */
 export default function PitchPreSeedRedirectPage() {
-  redirect("/pitch");
+  notFound();
 }

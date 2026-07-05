@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PitchDeck from "./PitchDeck";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Investor Deck",
@@ -10,12 +10,7 @@ export const metadata: Metadata = {
   },
 };
 
-/** English investor deck — canonical URL for sharing: `/pitch` */
+/** Retired — frozen English pre-seed deck is no longer served at `/pitch`. */
 export default function PitchPage() {
-  return (
-    <PitchDeck
-      altLang={{ href: "/pitch-jp", label: "日本語" }}
-      navHint="← → to navigate · F for fullscreen"
-    />
-  );
+  notFound();
 }
