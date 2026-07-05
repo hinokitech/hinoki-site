@@ -121,17 +121,17 @@ function VideoIntro() {
             <div className="absolute inset-0 bg-gradient-to-r from-[#0a0b0d]/92 via-[#0a0b0d]/50 to-[#0a0b0d]/10 max-md:from-[#0a0b0d]/90 max-md:via-[#0a0b0d]/62 max-md:to-[#0a0b0d]/20" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0b0d]/70 via-transparent to-[#0a0b0d]/30 max-md:from-[#0a0b0d]/82 max-md:via-[#0a0b0d]/20" />
 
-            <div className="relative flex h-full items-center px-6 py-10 max-md:min-h-[100svh] max-md:items-end max-md:px-[clamp(1rem,4.5vw,1.5rem)] max-md:pb-[clamp(5.5rem,18vw,7rem)] max-md:pt-24 md:px-10 md:py-14 lg:px-14">
+            <div className="relative flex h-full items-center px-6 py-10 max-md:min-h-[100svh] max-md:items-start max-md:px-[clamp(1rem,4.5vw,1.5rem)] max-md:pb-8 max-md:pt-[clamp(7.5rem,24vh,9.5rem)] md:px-10 md:py-14 lg:px-14">
               <div className="max-w-[1100px] max-md:max-w-[min(100%,22.5rem)] max-md:translate-y-0 -translate-y-5 md:-translate-y-7">
                 <p
-                  className={`reveal reveal-hero mb-6 font-mono uppercase tracking-[0.28em] text-accent max-md:mb-4 max-md:text-[clamp(9px,2.45vw,11px)] max-md:tracking-[0.22em] md:text-[11px] ${ready ? "is-visible" : ""}`}
+                  className={`reveal reveal-hero mb-6 font-mono uppercase tracking-[0.28em] text-accent max-md:mb-4 max-md:text-[clamp(11px,3.2vw,14px)] max-md:tracking-[0.24em] md:text-[16px] md:tracking-[0.24em] lg:text-[18px] ${ready ? "is-visible" : ""}`}
                   style={{ ["--reveal-delay" as any]: "0ms" }}
                 >
                   Neuromorphic Edge AI
                 </p>
 
                 <h1
-                  className={`reveal reveal-hero font-light leading-[0.95] tracking-[-0.04em] text-fg-primary max-md:text-[clamp(2.125rem,10.8vw,3.625rem)] md:text-[clamp(2.75rem,9vw,7.5rem)] ${ready ? "is-visible" : ""}`}
+                  className={`reveal reveal-hero font-light leading-[0.95] tracking-[-0.04em] text-fg-primary max-md:mt-8 max-md:text-[clamp(2.125rem,10.8vw,3.625rem)] md:text-[clamp(2.75rem,9vw,7.5rem)] ${ready ? "is-visible" : ""}`}
                   style={{ ["--reveal-delay" as any]: "400ms" }}
                 >
                   Building the
@@ -139,13 +139,14 @@ function VideoIntro() {
                   <span className="text-gradient-logo">future.</span>
                 </h1>
 
-                <div className="mt-6 flex max-w-[520px] flex-col gap-1 leading-[1.65] text-fg-secondary max-md:mt-4 max-md:max-w-none max-md:gap-0.5 max-md:text-[clamp(0.8125rem,3.65vw,1.0625rem)] max-md:leading-[1.55] md:mt-8 md:gap-1.5 md:text-[clamp(1rem,2.2vw,1.25rem)]">
+                <div className="mt-6 flex max-w-[520px] flex-col gap-1 leading-[1.65] text-fg-secondary max-md:mt-0 max-md:max-w-none max-md:gap-0.5 max-md:text-[clamp(0.8125rem,3.65vw,1.0625rem)] max-md:leading-[1.55] md:mt-8 md:gap-1.5 md:text-[clamp(1rem,2.2vw,1.25rem)]">
                   <span
-                    className={`reveal reveal-hero ${ready ? "is-visible" : ""}`}
+                    className={`reveal reveal-hero text-fg-primary max-md:mt-4 ${ready ? "is-visible" : ""}`}
                     style={{ ["--reveal-delay" as any]: "400ms" }}
                   >
                     Edge intelligence for physical systems.
                   </span>
+                  <div className="flex flex-col gap-1 max-md:mt-6 max-md:gap-0.5 md:contents">
                   <span
                     className={`reveal reveal-hero ${ready ? "is-visible" : ""}`}
                     style={{ ["--reveal-delay" as any]: "1650ms" }}
@@ -164,6 +165,7 @@ function VideoIntro() {
                   >
                     Power-efficient.
                   </span>
+                  </div>
                 </div>
               </div>
             </div>
