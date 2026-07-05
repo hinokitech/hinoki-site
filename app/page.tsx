@@ -41,7 +41,7 @@ export default function Home() {
       <ProofChapter />
       <PilotsChapter />
       <ContactChapter onRequestAccess={openRequest} />
-      <Footer onRequestAccess={openRequest} />
+      <Footer />
       <RequestAccessModal open={requestOpen} onClose={closeRequest} />
     </div>
   );
@@ -112,26 +112,26 @@ function VideoIntro() {
   }, []);
 
   return (
-    <section className="film-grain relative px-6 pb-16 pt-24 md:px-10 md:pb-20 md:pt-28">
-      <div className="mx-auto w-full max-w-[1400px]">
-        <div className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-[#0a0b0d] shadow-[0_0_72px_color-mix(in_srgb,var(--color-logo-mid)_10%,transparent)]">
+    <section className="film-grain relative max-md:min-h-[100svh] max-md:px-0 max-md:pb-0 max-md:pt-0 px-6 pb-16 pt-24 md:px-10 md:pb-20 md:pt-28">
+      <div className="mx-auto w-full max-w-[1400px] max-md:max-w-none">
+        <div className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-[#0a0b0d] shadow-[0_0_72px_color-mix(in_srgb,var(--color-logo-mid)_10%,transparent)] max-md:min-h-[100svh] max-md:rounded-none max-md:border-0 max-md:shadow-none">
           <HeroBackdrop />
 
           <div className="pointer-events-none absolute inset-0 z-[1]">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0a0b0d]/92 via-[#0a0b0d]/50 to-[#0a0b0d]/10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0b0d]/70 via-transparent to-[#0a0b0d]/30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0a0b0d]/92 via-[#0a0b0d]/50 to-[#0a0b0d]/10 max-md:from-[#0a0b0d]/90 max-md:via-[#0a0b0d]/62 max-md:to-[#0a0b0d]/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0b0d]/70 via-transparent to-[#0a0b0d]/30 max-md:from-[#0a0b0d]/82 max-md:via-[#0a0b0d]/20" />
 
-            <div className="relative flex h-full items-center px-6 py-10 md:px-10 md:py-14 lg:px-14">
-              <div className="max-w-[1100px] -translate-y-5 md:-translate-y-7">
+            <div className="relative flex h-full items-center px-6 py-10 max-md:min-h-[100svh] max-md:items-end max-md:px-[clamp(1rem,4.5vw,1.5rem)] max-md:pb-[clamp(5.5rem,18vw,7rem)] max-md:pt-24 md:px-10 md:py-14 lg:px-14">
+              <div className="max-w-[1100px] max-md:max-w-[min(100%,22.5rem)] max-md:translate-y-0 -translate-y-5 md:-translate-y-7">
                 <p
-                  className={`reveal reveal-hero mb-6 font-mono text-[11px] uppercase tracking-[0.28em] text-accent ${ready ? "is-visible" : ""}`}
+                  className={`reveal reveal-hero mb-6 font-mono uppercase tracking-[0.28em] text-accent max-md:mb-4 max-md:text-[clamp(9px,2.45vw,11px)] max-md:tracking-[0.22em] md:text-[11px] ${ready ? "is-visible" : ""}`}
                   style={{ ["--reveal-delay" as any]: "0ms" }}
                 >
                   Neuromorphic Edge AI
                 </p>
 
                 <h1
-                  className={`reveal reveal-hero text-[clamp(2.75rem,9vw,7.5rem)] font-light leading-[0.95] tracking-[-0.04em] text-fg-primary ${ready ? "is-visible" : ""}`}
+                  className={`reveal reveal-hero font-light leading-[0.95] tracking-[-0.04em] text-fg-primary max-md:text-[clamp(2.125rem,10.8vw,3.625rem)] md:text-[clamp(2.75rem,9vw,7.5rem)] ${ready ? "is-visible" : ""}`}
                   style={{ ["--reveal-delay" as any]: "400ms" }}
                 >
                   Building the
@@ -139,7 +139,7 @@ function VideoIntro() {
                   <span className="text-gradient-logo">future.</span>
                 </h1>
 
-                <div className="mt-6 flex max-w-[520px] flex-col gap-1 text-[clamp(1rem,2.2vw,1.25rem)] leading-[1.65] text-fg-secondary md:mt-8 md:gap-1.5">
+                <div className="mt-6 flex max-w-[520px] flex-col gap-1 leading-[1.65] text-fg-secondary max-md:mt-4 max-md:max-w-none max-md:gap-0.5 max-md:text-[clamp(0.8125rem,3.65vw,1.0625rem)] max-md:leading-[1.55] md:mt-8 md:gap-1.5 md:text-[clamp(1rem,2.2vw,1.25rem)]">
                   <span
                     className={`reveal reveal-hero ${ready ? "is-visible" : ""}`}
                     style={{ ["--reveal-delay" as any]: "400ms" }}
@@ -175,7 +175,7 @@ function VideoIntro() {
         type="button"
         onClick={scrollToContent}
         aria-label="Scroll to explore"
-        className={`mx-auto mt-10 flex flex-col items-center gap-4 transition-all duration-1000 md:mt-12 ${
+        className={`mx-auto mt-10 flex flex-col items-center gap-4 transition-all duration-1000 max-md:absolute max-md:bottom-[clamp(1.25rem,5vw,2rem)] max-md:left-1/2 max-md:z-[2] max-md:mt-0 max-md:-translate-x-1/2 md:mt-12 ${
           showCue
             ? "translate-y-0 opacity-100"
             : "pointer-events-none translate-y-3 opacity-0"
@@ -229,7 +229,10 @@ function HeroBackdrop() {
   const sources = useHeroVideoSources();
 
   return (
-    <div aria-hidden className="pointer-events-none relative bg-[#0a0b0d]">
+    <div
+      aria-hidden
+      className="pointer-events-none relative bg-[#0a0b0d] max-md:absolute max-md:inset-0 max-md:h-full max-md:w-full"
+    >
       {sources ? (
         <video
           key={sources.mp4}
@@ -237,13 +240,13 @@ function HeroBackdrop() {
           muted
           playsInline
           preload={sources.preload}
-          className="aspect-video w-full bg-black object-cover"
+          className="w-full bg-black object-cover max-md:h-full max-md:min-h-[100svh] md:aspect-video"
         >
           <source src={sources.mp4} type="video/mp4" />
           <source src={sources.webm} type="video/webm" />
         </video>
       ) : (
-        <div className="aspect-video w-full bg-[#0a0b0d]" />
+        <div className="w-full bg-[#0a0b0d] max-md:min-h-[100svh] md:aspect-video" />
       )}
     </div>
   );
@@ -622,8 +625,6 @@ function ContactChapter({ onRequestAccess }: { onRequestAccess: () => void }) {
           Selectively engaging aligned partners and investors.
         </p>
 
-        <AntlerPortfolio className="mt-10 flex flex-col items-center md:mt-12" />
-
         <button
           type="button"
           onClick={onRequestAccess}
@@ -636,28 +637,12 @@ function ContactChapter({ onRequestAccess }: { onRequestAccess: () => void }) {
   );
 }
 
-function AntlerPortfolio({
-  className = "",
-  compact = false,
-  showLabel = true,
-}: {
-  className?: string;
-  compact?: boolean;
-  showLabel?: boolean;
-}) {
+function AntlerPortfolio({ className = "" }: { className?: string }) {
   return (
     <div className={className}>
-      {showLabel ? (
-        <p
-          className={`font-mono uppercase tracking-[0.22em] text-fg-tertiary ${
-            compact
-              ? "mb-3 text-[9px] tracking-[0.2em]"
-              : "mb-4 text-[10px]"
-          }`}
-        >
-          Antler portfolio company
-        </p>
-      ) : null}
+      <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-fg-tertiary">
+        Antler portfolio company
+      </p>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/assets/antler-wordmark.png"
@@ -665,22 +650,18 @@ function AntlerPortfolio({
         width={320}
         height={80}
         decoding="async"
-        className={
-          compact
-            ? "h-4 w-auto max-w-[88px] object-contain opacity-85"
-            : "h-5 w-auto max-w-[100px] object-contain opacity-90 md:h-6 md:max-w-[120px]"
-        }
+        className="h-7 w-auto max-w-[132px] object-contain opacity-90 md:h-8 md:max-w-[152px]"
       />
     </div>
   );
 }
 
-function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
+function Footer() {
   return (
     <footer className="border-t border-white/[0.06] px-6 py-12 md:px-10">
-      <div className="mx-auto flex max-w-[1400px] flex-col justify-between gap-8 md:flex-row md:items-end">
+      <div className="mx-auto flex max-w-[1400px] flex-col gap-8 md:flex-row md:items-center md:justify-between">
         <div>
-          <div className="mb-3 flex items-center gap-2">
+          <div className="mb-3 flex h-8 items-center gap-2">
             <img
               src="/assets/logo-hinoki-tree.png"
               alt=""
@@ -692,19 +673,12 @@ function Footer({ onRequestAccess }: { onRequestAccess: () => void }) {
               Hinoki Technologies
             </span>
           </div>
-          <p className="mt-1 text-[12px] text-fg-tertiary">
+          <p className="text-[12px] text-fg-tertiary">
             Neuromorphic Edge AI · Tsukuba, Japan
           </p>
-          <AntlerPortfolio compact showLabel={false} className="mt-5" />
         </div>
 
-        <button
-          type="button"
-          onClick={onRequestAccess}
-          className="text-left text-[13px] text-fg-tertiary transition-colors hover:text-accent"
-        >
-          Request Access
-        </button>
+        <AntlerPortfolio className="flex flex-col md:items-end" />
       </div>
 
       <div className="mx-auto mt-10 max-w-[1400px] border-t border-white/[0.06] pt-6 text-[11px] text-fg-tertiary">
