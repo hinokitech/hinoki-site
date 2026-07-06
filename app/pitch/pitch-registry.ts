@@ -18,6 +18,20 @@ export type PitchDeckEntry = {
 /** Single source of truth for pitch routes — hub UI reads this list. */
 export const PITCH_DECKS: PitchDeckEntry[] = [
   {
+    id: "sony-innovation",
+    title: "Sony Innovation Deck",
+    description:
+      "Sony Innovation fork — copied from ANTLER IC Final (June 2026). Independent working copy for Sony-specific build-out.",
+    audience: "Sony Innovation",
+    locales: [
+      {
+        lang: "en",
+        label: "English",
+        path: "/pitch/sony-innovation",
+      },
+    ],
+  },
+  {
     id: "antler-ic-final",
     title: "ANTLER IC Final",
     description:
@@ -33,11 +47,16 @@ export const PITCH_DECKS: PitchDeckEntry[] = [
   },
   {
     id: "pre-seed",
-    title: "Pre-seed · full deck (JP)",
+    title: "Pre-seed · full deck",
     description:
-      "16-slide investor deck — frozen Japanese snapshot. English v2 is the current working copy.",
+      "16-slide investor deck — problem through ask. Frozen snapshot; iterate on v2.",
     audience: "VCs, angels, NEDO, domestic partners",
     locales: [
+      {
+        lang: "en",
+        label: "English",
+        path: "/pitch",
+      },
       {
         lang: "ja",
         label: "日本語",

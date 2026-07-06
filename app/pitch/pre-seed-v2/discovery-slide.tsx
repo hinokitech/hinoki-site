@@ -1,5 +1,6 @@
 import React from "react";
 import { Slide, Eyebrow, SlideFooter } from "./slides";
+import { XelaLogo } from "./xela-logo";
 
 const DISCOVERY_QUOTES = [
   {
@@ -45,13 +46,20 @@ function DiscoveryQuoteBlock({
     <div className="flex flex-1 flex-col justify-center border-b border-border py-5">
       <div className="grid grid-cols-[minmax(0,320px)_1fr] items-start gap-x-10">
         <div className="min-w-0 overflow-visible">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={logoSrc}
-            alt=""
-            className={logoClassName}
-            aria-hidden
-          />
+          {logoSrc.includes("xela-robotics") ? (
+            <XelaLogo
+              className="mb-3"
+              imgClassName="h-8 w-auto max-w-[160px] object-contain object-left"
+            />
+          ) : (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={logoSrc}
+              alt=""
+              className={logoClassName}
+              aria-hidden
+            />
+          )}
           <div className="text-[20px] font-semibold leading-[1.35] text-fg-primary">
             {subtitle}
           </div>

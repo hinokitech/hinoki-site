@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PdfDeckView from "../../PdfDeckView";
-import { SLIDES } from "../../pre-seed-v2/slides";
+import { SLIDES } from "../../antler-ic-final-deck/slides";
 
 export const metadata: Metadata = {
   title: "Hinoki — ANTLER IC Final (PDF export)",

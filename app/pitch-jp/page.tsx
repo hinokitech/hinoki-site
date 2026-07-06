@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Hinoki の Arc は、ロボットにフィジカルインテリジェンスを与えるアーキテクチャ層です。サブミリ秒、適応的、ゼロ推論。ハードウェア検証進行中。",
   alternates: {
     languages: {
-      en: "/pitch/pre-seed-v2",
+      en: "/pitch",
       ja: "/pitch-jp",
     },
   },

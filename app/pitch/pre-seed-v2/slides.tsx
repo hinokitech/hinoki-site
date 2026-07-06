@@ -11,6 +11,7 @@ import { IntegrationSlide } from "./integration-slide";
 import { ThankYouSlide } from "./thank-you-slide";
 import { TechnicalNetworkSlide } from "./technical-network-slide";
 import { UnfairAdvantageSlide } from "./unfair-advantage-slide";
+import { XelaLogo, PartnerLogoPad } from "./xela-logo";
 
 // =====================================================================
 //  HINOKI — INVESTOR DECK SLIDES (v2 working copy)
@@ -2754,11 +2755,10 @@ function PipelinePartnerCard({
 
   return (
     <div className="flex flex-col justify-center border border-border bg-bg-subtle px-6 py-5">
-      <img
+      <PartnerLogoPad
         src={logoSrc}
-        alt=""
-        className={`mb-3.5 block w-auto object-contain object-left ${logoClassName ?? "h-9 max-w-[168px]"}`}
-        aria-hidden
+        className="mb-3.5"
+        imgClassName={`block w-auto object-contain object-left ${logoClassName ?? "h-9 max-w-[168px]"}`}
       />
       <p className="text-[19px] font-semibold leading-[1.3] text-fg-primary">
         {name}{" "}
@@ -2855,11 +2855,9 @@ export function PipelineTractionSlide() {
             High-signal pipeline · active discussions
           </p>
           <div className="mt-3 flex items-center gap-6">
-            <img
+            <PartnerLogoPad
               src="/assets/partners/astroscale.png"
-              alt=""
-              className="h-11 w-auto max-w-[200px] shrink-0 object-contain object-left"
-              aria-hidden
+              imgClassName="h-11 w-auto max-w-[200px] shrink-0 object-contain object-left"
             />
             <p className="min-w-0 text-[16px] leading-[1.5] text-fg-primary">
               <span className="font-semibold">Astroscale</span>{" "}
@@ -2891,12 +2889,7 @@ export function XelaCaseStudySlide() {
             The Sensor vs. The Stack
           </h2>
           <div className="mt-3 flex max-w-[1640px] items-center gap-4">
-            <img
-              src="/assets/partners/xela-robotics.png"
-              alt=""
-              className="block h-7 w-auto max-w-[120px] object-contain object-left"
-              aria-hidden
-            />
+            <XelaLogo imgClassName="block h-7 w-auto max-w-[120px] object-contain object-left" />
             <p className="text-[20px] leading-[1.45] text-fg-secondary">
               XELA Robotics · CEO Alexander Schmitz
             </p>
@@ -3017,12 +3010,7 @@ export function XelaCostCaseStudySlide() {
             <span className="shrink-0 text-[20px] font-semibold uppercase leading-none tracking-[0.18em] text-accent">
               Case Study
             </span>
-            <img
-              src="/assets/partners/xela-robotics.png"
-              alt=""
-              className="block h-[22px] w-auto max-w-[120px] object-contain object-left"
-              aria-hidden
-            />
+            <XelaLogo imgClassName="block h-[22px] w-auto max-w-[120px] object-contain object-left" />
           </div>
           <div className="flex max-w-[1640px] items-start justify-between gap-12">
             <div className="min-w-0">
@@ -3113,12 +3101,7 @@ export function XelaHinokiSolutionCaseStudySlide() {
             <span className="shrink-0 text-[20px] font-semibold uppercase leading-none tracking-[0.18em] text-accent">
               Case Study
             </span>
-            <img
-              src="/assets/partners/xela-robotics.png"
-              alt=""
-              className="block h-[22px] w-auto max-w-[120px] object-contain object-left"
-              aria-hidden
-            />
+            <XelaLogo imgClassName="block h-[22px] w-auto max-w-[120px] object-contain object-left" />
           </div>
           <div className="flex max-w-[1640px] items-start justify-between gap-12">
             <div className="min-w-0">
@@ -3193,12 +3176,7 @@ export function XelaCommercialWedgeCaseStudySlide() {
             <span className="shrink-0 text-[20px] font-semibold uppercase leading-none tracking-[0.18em] text-accent">
               Case Study
             </span>
-            <img
-              src="/assets/partners/xela-robotics.png"
-              alt=""
-              className="block h-[22px] w-auto max-w-[120px] object-contain object-left"
-              aria-hidden
-            />
+            <XelaLogo imgClassName="block h-[22px] w-auto max-w-[120px] object-contain object-left" />
           </div>
           <div className="max-w-[1640px]">
             <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
@@ -3268,12 +3246,7 @@ export function XelaVolumeProjectionCaseStudySlide() {
             <span className="shrink-0 text-[20px] font-semibold uppercase leading-none tracking-[0.18em] text-accent">
               Case Study
             </span>
-            <img
-              src="/assets/partners/xela-robotics.png"
-              alt=""
-              className="block h-[22px] w-auto max-w-[120px] object-contain object-left"
-              aria-hidden
-            />
+            <XelaLogo imgClassName="block h-[22px] w-auto max-w-[120px] object-contain object-left" />
           </div>
           <div className="relative max-w-[1640px]">
             <h2 className="max-w-[960px] text-[64px] font-light leading-[1.05] tracking-[-0.022em] text-fg-primary">
@@ -3283,48 +3256,48 @@ export function XelaVolumeProjectionCaseStudySlide() {
               Unit economics of just one partnership.
             </p>
             <div
-              className="absolute right-[120px] top-[36%] flex w-[900px] -translate-y-1/2 items-center justify-end gap-4"
+              className="absolute right-0 top-[36%] flex w-[900px] -translate-y-1/2 items-center justify-end gap-3"
               aria-hidden
             >
-              <img
+              <PartnerLogoPad
                 src="/assets/partners/hitachi.png"
-                alt=""
-                className="block h-8 w-auto max-w-[112px] shrink-0 object-contain"
+                className="px-2 py-1"
+                imgClassName="block h-8 w-auto max-w-[112px] shrink-0 object-contain"
               />
-              <img
+              <PartnerLogoPad
                 src="/assets/partners/denso.png"
-                alt=""
-                className="block h-8 w-auto max-w-[92px] shrink-0 object-contain"
+                className="px-2 py-1"
+                imgClassName="block h-8 w-auto max-w-[92px] shrink-0 object-contain"
               />
-              <img
+              <PartnerLogoPad
                 src="/assets/partners/samsung.png"
-                alt=""
-                className="block h-9 w-auto max-w-[108px] shrink-0 object-contain"
+                className="px-2 py-1"
+                imgClassName="block h-9 w-auto max-w-[108px] shrink-0 object-contain"
               />
-              <img
+              <PartnerLogoPad
                 src="/assets/partners/honda.png"
-                alt=""
-                className="block h-8 w-auto max-w-[112px] shrink-0 object-contain"
+                className="px-2 py-1"
+                imgClassName="block h-8 w-auto max-w-[112px] shrink-0 object-contain"
               />
-              <img
+              <PartnerLogoPad
                 src="/assets/partners/robotiq.png"
-                alt=""
-                className="block h-8 w-auto max-w-[112px] shrink-0 object-contain"
+                className="px-2 py-1"
+                imgClassName="block h-8 w-auto max-w-[112px] shrink-0 object-contain"
               />
-              <img
+              <PartnerLogoPad
                 src="/assets/partners/fanuc.png"
-                alt=""
-                className="block h-8 w-auto max-w-[96px] shrink-0 object-contain"
+                className="px-2 py-1"
+                imgClassName="block h-8 w-auto max-w-[96px] shrink-0 object-contain"
               />
-              <img
+              <PartnerLogoPad
                 src="/assets/partners/agile-robots.png"
-                alt=""
-                className="block h-8 w-auto max-w-[120px] shrink-0 object-contain"
+                className="px-2 py-1"
+                imgClassName="block h-8 w-auto max-w-[120px] shrink-0 object-contain"
               />
-              <img
+              <PartnerLogoPad
                 src="/assets/partners/wonik-robotics.png"
-                alt=""
-                className="block h-12 w-auto max-w-[80px] shrink-0 object-contain"
+                className="px-2 py-1"
+                imgClassName="block h-12 w-auto max-w-[80px] shrink-0 object-contain"
               />
             </div>
           </div>

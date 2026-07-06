@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PitchDeckPreSeedV2 from "../pre-seed-v2/PitchDeckPreSeedV2";
+import PitchDeckAntlerIcFinal from "../antler-ic-final-deck/PitchDeckAntlerIcFinal";
 
 export const metadata: Metadata = {
   title: "Hinoki — ANTLER IC Final",
@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function PitchAntlerIcFinalPage() {
-  return <PitchDeckPreSeedV2 />;
+  return <PitchDeckAntlerIcFinal />;
 }

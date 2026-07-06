@@ -14,8 +14,10 @@ npm run dev
 - `/` — marketing one-pager (Nav → Hero → Metrics → Features → Applications → CTA → Footer)
 - `/reflex` — canvas animation reference (discrete vs continuous control)
 - `/hub` — private deck index (password: `PITCH_HUB_PASSWORD`; notes sync via Vercel Blob in production, or `data/pitch-hub-notes.json` locally). Old URL `/pitch/hub` redirects here.
-- `/pitch-jp` — Japanese investor deck (frozen pre-seed snapshot)
-- `/pitch/pre-seed-v2` — current English investor deck (PDF at `/pitch/pre-seed-v2/pdf`)
+- `/pitch` — English investor deck (share this link; PDF at `/pitch/pdf`)
+- `/pitch/pre-seed` — redirects to `/pitch` (bookmarks)
+- `/pitch-jp` — Japanese investor deck
+- `/pitch/pre-seed-v2` — current working copy (PDF at `/pitch/pre-seed-v2/pdf`)
 
 ## Assets
 
