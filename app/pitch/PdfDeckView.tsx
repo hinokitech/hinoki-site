@@ -1,17 +1,53 @@
 const SLIDE_W = 1920;
 const SLIDE_H = 1080;
 
+const PDF_THEMES = {
+  light: {
+    pageBg: "#f7f4ef",
+    shadow: "0 4px 18px rgba(0, 0, 0, 0.06)",
+  },
+  dark: {
+    pageBg: "#1e2124",
+    shadow: "0 4px 18px rgba(0, 0, 0, 0.35)",
+  },
+} as const;
+
 export type PdfDeckViewProps = {
   slides: Array<() => React.JSX.Element>;
   ariaLabel: string;
   slideAriaLabel: (index: number, total: number) => string;
+  /** Match interactive deck surface — Sony Innovation uses dark. */
+  theme?: keyof typeof PDF_THEMES;
 };
 
 export default function PdfDeckView({
   slides,
   ariaLabel,
   slideAriaLabel,
+  theme = "light",
 }: PdfDeckViewProps) {
+  const { pageBg, shadow } = PDF_THEMES[theme];
+  const lightTokenScope =
+    theme === "light"
+      ? `
+        .pdf-deck {
+          --color-bg-base: #f7f4ef;
+          --color-bg-subtle: #ede9e3;
+          --color-bg-recessed: #e6e1d9;
+          --color-bg-inverse: #1e2124;
+          --color-fg-primary: #252830;
+          --color-fg-secondary: #5a5e6b;
+          --color-fg-tertiary: #9099a8;
+          --color-fg-caption: #78808f;
+          --color-fg-inverse: #f4f1ed;
+          --color-border: #d8d3cb;
+          --color-border-strong: #b8b2a8;
+          --color-accent-subtle: #f5e0d5;
+          --color-data-bar: #7b8fab;
+        }
+      `
+      : "";
+
   return (
     <>
       <style>{`
@@ -22,8 +58,12 @@ export default function PdfDeckView({
         html, body {
           margin: 0;
           padding: 0;
-          background: #f7f4ef;
+          background: ${pageBg};
+          color-scheme: ${theme === "dark" ? "dark" : "light"};
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
         }
+        ${lightTokenScope}
         .pdf-deck {
           display: flex;
           flex-direction: column;
@@ -36,8 +76,10 @@ export default function PdfDeckView({
           overflow: hidden;
           width: ${SLIDE_W}px;
           height: ${SLIDE_H}px;
-          background: #f7f4ef;
-          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+          background: ${pageBg};
+          box-shadow: ${shadow};
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
         }
         @media print {
           .pdf-deck {

@@ -15,6 +15,7 @@ export default function PitchSonyInnovationPdfPage() {
   return (
     <PdfDeckView
       slides={SLIDES}
+      theme="dark"
       ariaLabel="Hinoki Sony Innovation deck — printable"
       slideAriaLabel={(i, total) => `Slide ${i + 1} of ${total}`}
     />
