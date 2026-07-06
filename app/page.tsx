@@ -124,7 +124,7 @@ function VideoIntro() {
             <div className="relative flex h-full items-center px-6 py-10 md:px-10 md:py-14 lg:px-14 max-md:absolute max-md:inset-x-[18px] max-md:top-[9.5rem] max-md:min-h-0 max-md:px-0 max-md:py-0 max-md:items-start">
               <div className="max-w-[1100px] max-md:max-w-[354px] max-md:translate-y-0 -translate-y-5 md:-translate-y-7">
                 <p
-                  className={`reveal reveal-hero mb-6 font-mono uppercase tracking-[0.28em] text-accent max-md:mb-4 max-md:text-[13px] max-md:tracking-[0.24em] md:text-[16px] md:tracking-[0.24em] lg:text-[18px] ${ready ? "is-visible" : ""}`}
+                  className={`reveal reveal-hero mb-6 font-mono uppercase tracking-[0.28em] text-accent max-md:mb-4 max-md:translate-y-4 max-md:text-[13px] max-md:tracking-[0.24em] md:text-[16px] md:tracking-[0.24em] lg:text-[18px] ${ready ? "is-visible" : ""}`}
                   style={{ ["--reveal-delay" as any]: "0ms" }}
                 >
                   Neuromorphic Edge AI
