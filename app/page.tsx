@@ -227,8 +227,74 @@ function useHeroVideoSources() {
   return sources;
 }
 
+const HERO_VIDEO_END_TRIM_SEC = 1;
+
 function HeroBackdrop() {
   const sources = useHeroVideoSources();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let stopped = false;
+    let frameId = 0;
+
+    const lockBeforeEnd = () => {
+      if (stopped) return;
+
+      const { duration, currentTime } = video;
+      if (!Number.isFinite(duration) || duration <= HERO_VIDEO_END_TRIM_SEC) return;
+
+      const endAt = duration - HERO_VIDEO_END_TRIM_SEC;
+      if (currentTime < endAt - 0.04) return;
+
+      stopped = true;
+      video.pause();
+
+      // Only seek back if we overshot — avoids a visible hitch on a clean stop.
+      if (currentTime > endAt + 0.02) {
+        video.currentTime = endAt;
+      }
+    };
+
+    const watchFrame = () => {
+      lockBeforeEnd();
+      if (!stopped) {
+        if ("requestVideoFrameCallback" in video) {
+          frameId = video.requestVideoFrameCallback(() => watchFrame());
+        } else {
+          frameId = window.requestAnimationFrame(watchFrame);
+        }
+      }
+    };
+
+    const onPlay = () => {
+      stopped = false;
+      watchFrame();
+    };
+
+    const onEnded = (event: Event) => {
+      event.preventDefault();
+      lockBeforeEnd();
+    };
+
+    video.addEventListener("play", onPlay);
+    video.addEventListener("timeupdate", lockBeforeEnd);
+    video.addEventListener("ended", onEnded);
+    if (!video.paused) onPlay();
+
+    return () => {
+      if ("cancelVideoFrameCallback" in video) {
+        video.cancelVideoFrameCallback(frameId);
+      } else {
+        window.cancelAnimationFrame(frameId);
+      }
+      video.removeEventListener("play", onPlay);
+      video.removeEventListener("timeupdate", lockBeforeEnd);
+      video.removeEventListener("ended", onEnded);
+    };
+  }, [sources?.mp4]);
 
   return (
     <div
@@ -237,6 +303,7 @@ function HeroBackdrop() {
     >
       {sources ? (
         <video
+          ref={videoRef}
           key={sources.mp4}
           autoPlay
           muted
@@ -368,7 +435,7 @@ function ProofChapter() {
     },
     {
       value: "Zero jitter",
-      detail: "Deterministic tracking. Stable lock. No frame-to-frame waver.",
+      detail: "Deterministic. No OS, No CPU, No GPU.",
     },
     {
       value: "100% lock",
@@ -471,7 +538,7 @@ function PilotsChapter() {
     },
     {
       index: "III",
-      title: "Deep technology",
+      title: "Deep tech",
       line: "In conversation with global innovation leaders for what comes next.",
     },
   ];
@@ -499,8 +566,8 @@ function PilotsChapter() {
             Already in the room.
           </h2>
           <p className="mx-auto mt-5 max-w-[480px] text-[15px] leading-[1.7] text-fg-secondary">
-            Active conversations with leaders across space robotics, tactile
-            sensing, and deep technology — without naming names.
+            Active conversations with leaders across robotics, sensing, and
+            deep technology — without naming names.
           </p>
         </div>
 
