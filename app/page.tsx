@@ -130,13 +130,27 @@ function VideoIntro() {
                   Neuromorphic Edge AI
                 </p>
 
-                <h1
-                  className={`reveal reveal-hero font-light leading-[0.95] tracking-[-0.04em] text-fg-primary max-md:mt-8 max-md:text-[2.625rem] md:text-[clamp(2.75rem,9vw,7.5rem)] ${ready ? "is-visible" : ""}`}
-                  style={{ ["--reveal-delay" as any]: "400ms" }}
-                >
-                  Building the
-                  <br />
-                  <span className="text-gradient-logo">future.</span>
+                <h1 className="font-light leading-[0.95] tracking-[-0.04em] text-fg-primary max-md:mt-8 max-md:text-[2.625rem] md:text-[clamp(2.75rem,9vw,7.5rem)]">
+                  <span className="block">
+                    <span
+                      className={`reveal reveal-hero inline-block ${ready ? "is-visible" : ""}`}
+                      style={{ ["--reveal-delay" as any]: "140ms" }}
+                    >
+                      Building
+                    </span>{" "}
+                    <span
+                      className={`reveal reveal-hero inline-block ${ready ? "is-visible" : ""}`}
+                      style={{ ["--reveal-delay" as any]: "260ms" }}
+                    >
+                      the
+                    </span>
+                  </span>
+                  <span
+                    className={`reveal reveal-hero block text-gradient-logo ${ready ? "is-visible" : ""}`}
+                    style={{ ["--reveal-delay" as any]: "360ms" }}
+                  >
+                    future.
+                  </span>
                 </h1>
 
                 <div className="mt-6 flex max-w-[520px] flex-col gap-1 leading-[1.65] text-fg-secondary max-md:mt-0 max-md:max-w-none max-md:gap-0.5 max-md:text-[14px] max-md:leading-[1.55] md:mt-8 md:gap-1.5 md:text-[clamp(1rem,2.2vw,1.25rem)]">
