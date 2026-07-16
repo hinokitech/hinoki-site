@@ -154,12 +154,14 @@ function VideoIntro() {
                 </h1>
 
                 <div className="mt-6 flex max-w-[520px] flex-col gap-1 leading-[1.65] text-fg-secondary max-md:mt-0 max-md:max-w-none max-md:gap-0.5 max-md:text-[14px] max-md:leading-[1.55] md:mt-8 md:gap-1.5 md:text-[clamp(1rem,2.2vw,1.25rem)]">
-                  <span
-                    className={`reveal reveal-hero text-fg-primary max-md:mt-4 ${ready ? "is-visible" : ""}`}
-                    style={{ ["--reveal-delay" as any]: "400ms" }}
-                  >
-                    Edge intelligence for physical systems.
-                  </span>
+                  <div className="max-md:-translate-y-4">
+                    <span
+                      className={`reveal reveal-hero text-fg-primary max-md:mt-4 ${ready ? "is-visible" : ""}`}
+                      style={{ ["--reveal-delay" as any]: "400ms" }}
+                    >
+                      Edge intelligence for physical systems.
+                    </span>
+                  </div>
                   <div className="flex flex-col gap-1 max-md:mt-6 max-md:gap-0.5 md:contents">
                   <span
                     className={`reveal reveal-hero ${ready ? "is-visible" : ""}`}
@@ -620,11 +622,11 @@ function ContactChapter({ onRequestAccess }: { onRequestAccess: () => void }) {
     },
     {
       period: "2026 · Q3",
-      title: "Integration with High Fidelity tactile sensors",
+      title: "Integration with Event Based Visual cameras",
     },
     {
       period: "2026 · Q4",
-      title: "Integration with Event Based Visual cameras",
+      title: "Integration with High Fidelity tactile sensors",
     },
     {
       period: "2027 · Q1",

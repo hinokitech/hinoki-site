@@ -9,11 +9,11 @@ const WEBSITE_ROADMAP = [
   },
   {
     period: "2026 · Q3",
-    title: "Integration with High Fidelity tactile sensors",
+    title: "Integration with Event Based Visual cameras",
   },
   {
     period: "2026 · Q4",
-    title: "Integration with Event Based Visual cameras",
+    title: "Integration with High Fidelity tactile sensors",
   },
   {
     period: "2027 · Q1",
