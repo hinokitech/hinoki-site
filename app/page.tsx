@@ -544,13 +544,13 @@ function PilotsChapter() {
   const pilots = [
     {
       index: "I",
-      title: "Tactile sensing",
-      line: "Sensor integration as the first step toward a unified edge platform.",
+      title: "Space & vision",
+      line: "Event-based camera integration for real-time edge tracking.",
     },
     {
       index: "II",
-      title: "Space & vision",
-      line: "Event-based camera integration for real-time edge tracking.",
+      title: "Tactile sensing",
+      line: "Sensor integration as the first step toward a unified edge platform.",
     },
     {
       index: "III",
