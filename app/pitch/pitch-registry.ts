@@ -18,6 +18,20 @@ export type PitchDeckEntry = {
 /** Single source of truth for pitch routes — hub UI reads this list. */
 export const PITCH_DECKS: PitchDeckEntry[] = [
   {
+    id: "global-startup-expo",
+    title: "Global Startup Expo Deck",
+    description:
+      "Global Startup Expo fork — copied from Sony Innovation Deck. Independent working copy for Expo-specific build-out.",
+    audience: "Global Startup Expo",
+    locales: [
+      {
+        lang: "en",
+        label: "English",
+        path: "/pitch/global-startup-expo",
+      },
+    ],
+  },
+  {
     id: "sony-innovation",
     title: "Sony Innovation Deck",
     description:
