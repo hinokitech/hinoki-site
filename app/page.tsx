@@ -153,8 +153,8 @@ function VideoIntro() {
                   </span>
                 </h1>
 
-                <div className="mt-6 flex max-w-[520px] flex-col gap-1 leading-[1.65] text-fg-secondary max-md:mt-0 max-md:max-w-none max-md:gap-0.5 max-md:text-[14px] max-md:leading-[1.55] md:mt-8 md:gap-1.5 md:text-[clamp(1rem,2.2vw,1.25rem)]">
-                  <div className="max-md:-translate-y-4">
+                <div className="mt-6 flex max-w-[520px] flex-col gap-1 leading-[1.65] text-fg-secondary max-md:mt-0 max-md:max-w-none max-md:translate-y-4 max-md:gap-0.5 max-md:text-[14px] max-md:leading-[1.55] md:mt-8 md:gap-1.5 md:text-[clamp(1rem,2.2vw,1.25rem)]">
+                  <div className="max-md:-translate-y-1">
                     <span
                       className={`reveal reveal-hero text-fg-primary max-md:mt-4 ${ready ? "is-visible" : ""}`}
                       style={{ ["--reveal-delay" as any]: "400ms" }}
