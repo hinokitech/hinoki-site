@@ -96,7 +96,7 @@ function VideoIntro() {
   const [showCue, setShowCue] = useState(true);
 
   useEffect(() => {
-    const id = window.setTimeout(() => setReady(true), 450);
+    const id = window.setTimeout(() => setReady(true), 700);
     return () => window.clearTimeout(id);
   }, []);
 
@@ -134,20 +134,20 @@ function VideoIntro() {
                   <span className="block">
                     <span
                       className={`reveal reveal-hero inline-block ${ready ? "is-visible" : ""}`}
-                      style={{ ["--reveal-delay" as any]: "140ms" }}
+                      style={{ ["--reveal-delay" as any]: "280ms" }}
                     >
                       Building
                     </span>{" "}
                     <span
                       className={`reveal reveal-hero inline-block ${ready ? "is-visible" : ""}`}
-                      style={{ ["--reveal-delay" as any]: "260ms" }}
+                      style={{ ["--reveal-delay" as any]: "520ms" }}
                     >
                       the
                     </span>
                   </span>
                   <span
                     className={`reveal reveal-hero block text-gradient-logo ${ready ? "is-visible" : ""}`}
-                    style={{ ["--reveal-delay" as any]: "360ms" }}
+                    style={{ ["--reveal-delay" as any]: "760ms" }}
                   >
                     future.
                   </span>
@@ -157,7 +157,7 @@ function VideoIntro() {
                   <div className="max-md:-translate-y-1">
                     <span
                       className={`reveal reveal-hero text-fg-primary max-md:mt-4 ${ready ? "is-visible" : ""}`}
-                      style={{ ["--reveal-delay" as any]: "400ms" }}
+                      style={{ ["--reveal-delay" as any]: "2100ms" }}
                     >
                       Edge intelligence for physical systems.
                     </span>
@@ -165,19 +165,19 @@ function VideoIntro() {
                   <div className="flex flex-col gap-1 max-md:mt-6 max-md:gap-0.5 md:contents">
                   <span
                     className={`reveal reveal-hero ${ready ? "is-visible" : ""}`}
-                    style={{ ["--reveal-delay" as any]: "1650ms" }}
+                    style={{ ["--reveal-delay" as any]: "3200ms" }}
                   >
                     Real-time.
                   </span>
                   <span
                     className={`reveal reveal-hero ${ready ? "is-visible" : ""}`}
-                    style={{ ["--reveal-delay" as any]: "2500ms" }}
+                    style={{ ["--reveal-delay" as any]: "4400ms" }}
                   >
                     Adaptive.
                   </span>
                   <span
                     className={`reveal reveal-hero ${ready ? "is-visible" : ""}`}
-                    style={{ ["--reveal-delay" as any]: "3350ms" }}
+                    style={{ ["--reveal-delay" as any]: "5600ms" }}
                   >
                     Power-efficient.
                   </span>
