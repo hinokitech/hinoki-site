@@ -127,7 +127,7 @@ function VideoIntro() {
                   className={`reveal reveal-hero mb-6 font-mono uppercase tracking-[0.28em] text-accent max-md:mb-4 max-md:translate-y-4 max-md:text-[13px] max-md:tracking-[0.24em] md:text-[16px] md:tracking-[0.24em] lg:text-[18px] ${ready ? "is-visible" : ""}`}
                   style={{ ["--reveal-delay" as any]: "0ms" }}
                 >
-                  Neuromorphic Edge AI
+                  Physical Edge AI
                 </p>
 
                 <h1 className="font-light leading-[0.95] tracking-[-0.04em] text-fg-primary max-md:mt-8 max-md:text-[2.625rem] md:text-[clamp(2.75rem,9vw,7.5rem)]">
