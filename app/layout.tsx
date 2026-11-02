@@ -31,10 +31,11 @@ const notoSansJp = Noto_Sans_JP({
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://hinokitech.com";
 
-const SITE_TITLE = "Hinoki Technologies — Building the future";
+// Homepage defaults, from the approved copy (build brief Appendix A).
+const SITE_TITLE = "Hinoki Technologies — Fast vision for machines.";
 const SITE_DESCRIPTION =
-  "Neuromorphic edge AI for physical systems. Real-time. Adaptive. Power-efficient.";
-const OG_IMAGE_ALT = "Hinoki Technologies — Building the future";
+  "Hinoki turns fast motion into real-time answers for machines, at the edge.";
+const OG_IMAGE_ALT = "Hinoki Technologies — Fast vision for machines.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -46,12 +47,12 @@ export const metadata: Metadata = {
   applicationName: "Hinoki Technologies",
   keywords: [
     "Hinoki Technologies",
-    "neuromorphic edge AI",
-    "edge intelligence",
-    "physical systems",
-    "physical AI",
-    "robotics",
-    "sensor fusion",
+    "event-based vision",
+    "event camera",
+    "edge AI",
+    "FPGA",
+    "autonomous forklifts",
+    "mobile robots",
     "Tsukuba",
   ],
   authors: [{ name: "Hinoki Technologies" }],
