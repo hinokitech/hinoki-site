@@ -5,11 +5,12 @@ import { ProofMedia } from "./ProofMedia";
 // Web exports of the demo footage, in the same order as copy.videos. Every
 // Real capture clip must trace back to an original in assets/source/
 // (kept in site-rebuild-inputs/videos until the repo is private).
-// The forklift simulation is still awaiting its cut.
+// The simulation is the scene only: no HUD, readouts or result banners,
+// with SIMULATION burned into the picture (build brief §3, §5E).
 const MEDIA: { src: string | null; poster: string | null }[] = [
   { src: "/media/stereo-3d-tracking.mp4", poster: "/media/stereo-3d-tracking-poster.jpg" },
   { src: "/media/laser-tracking-3d.mp4", poster: "/media/laser-tracking-3d-poster.jpg" },
-  { src: null, poster: null },
+  { src: "/media/blind-corner-sim.mp4", poster: "/media/blind-corner-sim-poster.jpg" },
 ];
 
 export function Proof({ copy }: { copy: SiteCopy["proof"] }) {
@@ -41,12 +42,21 @@ export function Proof({ copy }: { copy: SiteCopy["proof"] }) {
           </Cell>
         ))}
 
-        <ProofMedia {...large} tall className="md:col-span-6 lg:col-span-8" />
-        <div className="grid gap-px bg-white/[0.06] md:col-span-6 md:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
-          {stacked.map((video) => (
-            <ProofMedia key={video.title} {...video} />
-          ))}
-        </div>
+        {/* The ultra-wide stereo clip runs the full width like a cinema strip;
+            the other two sit side by side in frames close to their shape. */}
+        <ProofMedia
+          {...large}
+          viewport="aspect-[1304/536]"
+          className="md:col-span-6 lg:col-span-12"
+        />
+        {stacked.map((video) => (
+          <ProofMedia
+            key={video.title}
+            {...video}
+            viewport="aspect-[4/3]"
+            className="md:col-span-3 lg:col-span-6"
+          />
+        ))}
       </Bento>
     </Section>
   );

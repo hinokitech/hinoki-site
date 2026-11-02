@@ -11,7 +11,8 @@ type ProofMediaProps = {
   caption: string;
   src: string | null;
   poster: string | null;
-  tall?: boolean;
+  /** Aspect class for the picture area, close to the clip's own shape. */
+  viewport?: string;
   className?: string;
 };
 
@@ -30,7 +31,7 @@ export function ProofMedia({
   caption,
   src,
   poster,
-  tall = false,
+  viewport = "aspect-video",
   className,
 }: ProofMediaProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -124,7 +125,9 @@ export function ProofMedia({
         </div>
       </div>
 
-      <div className={cn("bg-ground", tall ? "aspect-video" : "aspect-video lg:aspect-[16/7]")}>
+      {/* min-h-0 + overflow-hidden keep the frame at its aspect even when a
+          clip is taller; object-contain then letterboxes it inside. */}
+      <div className={cn("min-h-0 overflow-hidden bg-ground", viewport)}>
         {src ? (
           <video
             ref={videoRef}
