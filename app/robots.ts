@@ -10,8 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         "/pitch",
         "/pitch/",
-        "/hub",
-        "/hub/",
         "/pitch-jp",
         "/pitch-jp/",
         "/reflex",
