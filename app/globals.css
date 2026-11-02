@@ -457,3 +457,28 @@ body:has(.site) {
     scroll-behavior: auto;
   }
 }
+
+/* Hero entrance (HeroHeadline). The resting offsets apply only when motion is
+   allowed; the script animates them away. If it never runs, they settle anyway. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-headline {
+    transform: translateX(-0.25em);
+  }
+
+  .hero-rise {
+    opacity: 0.5;
+    transform: translateY(8px);
+  }
+
+  .hero-headline,
+  .hero-rise {
+    animation: hero-settle 900ms cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
+  }
+}
+
+@keyframes hero-settle {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
