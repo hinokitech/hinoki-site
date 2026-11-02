@@ -12,7 +12,6 @@ export default function robots(): MetadataRoute.Robots {
         "/pitch/",
         "/pitch-jp",
         "/pitch-jp/",
-        "/reflex",
       ],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
