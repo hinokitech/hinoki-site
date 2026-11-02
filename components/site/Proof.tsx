@@ -3,10 +3,11 @@ import { Bento, Cell, CellBar, Section, SectionHeader } from "./Cell";
 import { ProofMedia } from "./ProofMedia";
 
 // Web exports of the demo footage, in the same order as copy.videos. Every
-// Real capture clip must trace back to an original in assets/source/.
-// Stereo 3D tracking and the forklift simulation are still awaiting files.
+// Real capture clip must trace back to an original in assets/source/
+// (kept in site-rebuild-inputs/videos until the repo is private).
+// The forklift simulation is still awaiting its cut.
 const MEDIA: { src: string | null; poster: string | null }[] = [
-  { src: null, poster: null },
+  { src: "/media/stereo-3d-tracking.mp4", poster: "/media/stereo-3d-tracking-poster.jpg" },
   { src: "/media/laser-tracking-3d.mp4", poster: "/media/laser-tracking-3d-poster.jpg" },
   { src: null, poster: null },
 ];

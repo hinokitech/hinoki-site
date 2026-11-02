@@ -77,7 +77,7 @@ export function ProofMedia({
       video.removeEventListener("play", onPlay);
       video.removeEventListener("pause", onPause);
     };
-  }, []);
+  }, [src]);
 
   const toggle = () => {
     const video = videoRef.current;
