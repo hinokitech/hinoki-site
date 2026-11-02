@@ -1,30 +1,59 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import type { SiteCopy } from "@/content/site.en";
-import { Section, SectionHeading } from "./Section";
+import { Bento, Cell, CellBar, Section, SectionHeader } from "./Cell";
 
 export function Problem({ copy }: { copy: SiteCopy["problem"] }) {
   return (
-    <Section id="problem" index="01" label={copy.label}>
-      <SectionHeading id="problem">{copy.heading}</SectionHeading>
-      <p className="mt-8 max-w-[62ch] text-pretty text-[17px] leading-[1.7] text-muted md:text-[18px]">
-        {copy.body}
-      </p>
+    <Section id="problem">
+      <Bento>
+        <Cell className="p-6 md:col-span-6 md:p-8 lg:col-span-5">
+          <SectionHeader id="problem" index="01" label={copy.label}>
+            {copy.heading}
+          </SectionHeader>
+          <p className="text-pretty text-[16px] leading-[1.75] text-muted">{copy.body}</p>
+        </Cell>
 
-      <ul className="mt-16 grid border-y border-line md:mt-20 md:grid-cols-3">
-        {copy.facts.map((fact, i) => (
-          <li
-            key={fact.tag}
-            className={`py-8 md:py-10 md:pr-8 ${
-              i > 0 ? "border-t border-line md:border-l md:border-t-0 md:pl-8" : ""
-            }`}
-          >
-            <p className="font-label text-[22px] leading-none tracking-[-0.02em] text-ink lg:text-[26px]">
-              {fact.tag}
-            </p>
-            <h3 className="mt-6 text-[16px] font-semibold text-ink">{fact.title}</h3>
-            <p className="mt-2 text-[15px] leading-[1.6] text-muted">{fact.text}</p>
-          </li>
-        ))}
-      </ul>
+        <Cell className="flex flex-col md:col-span-6 lg:col-span-7">
+          <CellBar aside={<span className="tabular-nums">03</span>}>Spec</CellBar>
+          <div className="flex flex-1 items-center px-6 py-4 md:px-8">
+            {/* On phones each row restacks: value and parameter, note beneath. */}
+            <Table>
+              <TableHeader className="max-md:hidden">
+                <TableRow className="hover:bg-transparent">
+                  <TableHead>Value</TableHead>
+                  <TableHead>Parameter</TableHead>
+                  <TableHead>Note</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {copy.facts.map((fact) => (
+                  <TableRow
+                    key={fact.tag}
+                    className="last:border-b-0 max-md:grid max-md:grid-cols-[auto_1fr] max-md:items-baseline max-md:gap-x-4 max-md:gap-y-2 max-md:py-5"
+                  >
+                    <TableCell className="whitespace-nowrap font-label text-[15px] tracking-[-0.01em] text-accent max-md:p-0 md:text-[17px]">
+                      {fact.tag}
+                    </TableCell>
+                    <TableCell className="text-[15px] font-semibold text-ink max-md:p-0 md:min-w-[9rem]">
+                      {fact.title}
+                    </TableCell>
+                    <TableCell className="text-[14px] leading-[1.6] text-muted max-md:col-span-2 max-md:p-0 md:min-w-[14rem]">
+                      {fact.text}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </Cell>
+      </Bento>
     </Section>
   );
 }

@@ -1,6 +1,6 @@
 import type { SiteCopy } from "@/content/site.en";
-import { Section, SectionHeading } from "./Section";
-import { VideoFrame } from "./VideoFrame";
+import { Bento, Cell, CellBar, Section, SectionHeader } from "./Cell";
+import { ProofMedia } from "./ProofMedia";
 
 // Web exports of the demo footage, in the same order as copy.videos. Every
 // Real capture clip must trace back to an original in assets/source/.
@@ -12,48 +12,41 @@ const MEDIA: { src: string | null; poster: string | null }[] = [
 ];
 
 export function Proof({ copy }: { copy: SiteCopy["proof"] }) {
+  const [large, ...stacked] = copy.videos.map((video, i) => ({ ...video, ...MEDIA[i] }));
+
   return (
-    <Section id="proof" index="03" label={copy.label}>
-      <SectionHeading id="proof" className="max-w-[18ch]">
+    <Section id="proof">
+      <SectionHeader id="proof" index="03" label={copy.label}>
         {copy.heading}
-      </SectionHeading>
-
-      <ul className="mt-16 grid border-y border-line md:mt-20 md:grid-cols-3">
+      </SectionHeader>
+      <Bento>
         {copy.stats.map((stat, i) => (
-          <li
-            key={stat.value}
-            className={`py-8 md:py-10 md:pr-8 ${
-              i > 0 ? "border-t border-line md:border-l md:border-t-0 md:pl-8" : ""
-            }`}
-          >
-            <p className="font-display text-[clamp(3rem,5.6vw,5rem)] font-extrabold leading-none tracking-[-0.045em] text-ink wdth-125">
-              {stat.value}
-              {stat.unit ? (
-                <>
-                  {" "}
-                  <span className="font-label text-[0.3em] font-normal tracking-normal text-muted">
-                    {stat.unit}
-                  </span>
-                </>
-              ) : null}
-            </p>
-            <p className="mt-5 max-w-[32ch] text-[14px] leading-[1.6] text-muted">
-              {stat.text}
-            </p>
-          </li>
+          <Cell key={stat.value} className="flex flex-col md:col-span-2 lg:col-span-4">
+            <CellBar aside={<span className="tabular-nums">0{i + 1}</span>}>Measured</CellBar>
+            <div className="flex flex-1 flex-col p-6 md:p-8">
+              <p className="font-display text-[clamp(3.5rem,6vw,5.5rem)] font-extrabold leading-none tracking-[-0.055em] text-ink wdth-125">
+                {stat.value}
+                {stat.unit ? (
+                  <>
+                    {" "}
+                    <span className="font-label text-[0.26em] font-normal tracking-normal text-accent">
+                      {stat.unit}
+                    </span>
+                  </>
+                ) : null}
+              </p>
+              <p className="mt-6 max-w-[34ch] text-[14px] leading-[1.6] text-muted">{stat.text}</p>
+            </div>
+          </Cell>
         ))}
-      </ul>
 
-      <div className="mt-16 grid gap-x-6 gap-y-14 md:mt-24 lg:grid-cols-2">
-        {copy.videos.map((video, i) => (
-          <VideoFrame
-            key={video.title}
-            {...video}
-            {...MEDIA[i]}
-            className={i === 0 ? "lg:col-span-2" : ""}
-          />
-        ))}
-      </div>
+        <ProofMedia {...large} tall className="md:col-span-6 lg:col-span-8" />
+        <div className="grid gap-px bg-white/[0.06] md:col-span-6 md:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
+          {stacked.map((video) => (
+            <ProofMedia key={video.title} {...video} />
+          ))}
+        </div>
+      </Bento>
     </Section>
   );
 }

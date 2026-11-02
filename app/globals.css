@@ -413,45 +413,6 @@ body:has(.site) {
   outline-offset: 3px;
 }
 
-@layer components {
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    height: 3rem;
-    padding-inline: 1.5rem;
-    border-radius: 2px;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    white-space: nowrap;
-    transition:
-      background-color 160ms var(--ease-standard),
-      border-color 160ms var(--ease-standard),
-      color 160ms var(--ease-standard);
-  }
-
-  /* Dark text on orange: 5.8:1, where white would be 3.0:1. */
-  .btn-primary {
-    background-color: var(--color-accent);
-    color: var(--color-accent-ink);
-  }
-
-  .btn-primary:hover {
-    background-color: var(--color-accent-hover);
-  }
-
-  .btn-secondary {
-    border: 1px solid var(--color-line-strong);
-    color: var(--color-ink);
-  }
-
-  .btn-secondary:hover {
-    border-color: rgb(244 241 237 / 0.45);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html:has(.site) {
     scroll-behavior: auto;
