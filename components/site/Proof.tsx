@@ -7,7 +7,7 @@ import { ProofMedia } from "./ProofMedia";
 // Stereo 3D tracking and the forklift simulation are still awaiting files.
 const MEDIA: { src: string | null; poster: string | null }[] = [
   { src: null, poster: null },
-  { src: "/media/laser-tracking.mp4", poster: "/media/laser-tracking-poster.jpg" },
+  { src: "/media/laser-tracking-3d.mp4", poster: "/media/laser-tracking-3d-poster.jpg" },
   { src: null, poster: null },
 ];
 

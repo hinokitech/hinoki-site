@@ -118,12 +118,14 @@ const en = {
         title: "Stereo 3D tracking",
         caption: "Two event cameras tracking 22 fast-moving, colliding objects in 3D.",
       },
+      // Replaces "High-speed laser tracking" to match the upgraded stereo
+      // event-camera clip (approved by Sal, 2026-11-03).
       {
         kind: "real",
         chip: "REAL CAPTURE",
-        title: "High-speed laser tracking",
+        title: "3D laser tracking",
         caption:
-          "A high-speed frame camera locking on to a randomly moving laser dot, running entirely on the device.",
+          "Two event cameras locking on to a hand-held laser dot and tracking it in 3D.",
       },
       {
         kind: "simulation",
