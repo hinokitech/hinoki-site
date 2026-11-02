@@ -8,10 +8,27 @@ import { SimCompare } from "./SimCompare";
 const STEREO = { src: "/media/stereo-3d-tracking.mp4", poster: "/media/stereo-3d-tracking-poster.jpg" };
 const LASER = { src: "/media/laser-tracking-3d.mp4", poster: "/media/laser-tracking-3d-poster.jpg" };
 // Sim 1A (without Hinoki) and Sim 1B (with Hinoki), cut to the same span of
-// simulation time so the toggle can swap them mid-play.
+// simulation time so the toggle can swap them mid-play. Marker times are the
+// frames where each run's own overlay changes (measured, 30 fps), labelled
+// with the overlay's own words.
+const BLIND_CORNER_DURATION = 638 / 30;
 const BLIND_CORNER = {
-  baseline: { src: "/media/blind-corner-baseline.mp4", poster: "/media/blind-corner-baseline-poster.jpg" },
-  hinoki: { src: "/media/blind-corner-hinoki.mp4", poster: "/media/blind-corner-hinoki-poster.jpg" },
+  baseline: {
+    src: "/media/blind-corner-baseline.mp4",
+    poster: "/media/blind-corner-baseline-poster.jpg",
+    markers: [
+      { at: 314 / 30, label: "STO" },
+      { at: 566 / 30, label: "Impact" },
+    ],
+  },
+  hinoki: {
+    src: "/media/blind-corner-hinoki.mp4",
+    poster: "/media/blind-corner-hinoki-poster.jpg",
+    markers: [
+      { at: 299 / 30, label: "STO" },
+      { at: 555 / 30, label: "Safe stop" },
+    ],
+  },
 };
 
 export function Proof({ copy }: { copy: SiteCopy["proof"] }) {
@@ -58,6 +75,7 @@ export function Proof({ copy }: { copy: SiteCopy["proof"] }) {
           caption={simulation.caption}
           labels={copy.compare}
           runs={BLIND_CORNER}
+          duration={BLIND_CORNER_DURATION}
           className="md:col-span-6 lg:col-span-7"
         />
       </Bento>

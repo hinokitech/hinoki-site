@@ -443,3 +443,56 @@ body:has(.site) {
     transform: none;
   }
 }
+
+/* Scrubber for the comparison player: hairline track, orange progress up to
+   --p (set from script), small square thumb. */
+.scrubber {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 16px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.scrubber::-webkit-slider-runnable-track {
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    var(--color-accent) var(--p, 0%),
+    rgb(255 255 255 / 0.14) var(--p, 0%)
+  );
+}
+
+.scrubber::-moz-range-track {
+  height: 2px;
+  background: rgb(255 255 255 / 0.14);
+}
+
+.scrubber::-moz-range-progress {
+  height: 2px;
+  background: var(--color-accent);
+}
+
+.scrubber::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  margin-top: -4px;
+  border: 0;
+  border-radius: 1px;
+  background: var(--color-ink);
+}
+
+.scrubber::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-radius: 1px;
+  background: var(--color-ink);
+}
+
+.scrubber:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
