@@ -135,6 +135,8 @@ const en = {
           "A person stepping out at a blind corner in front of an autonomous forklift. Next, we test this on a real vehicle.",
       },
     ],
+    // Toggle between the two runs of the blind-corner simulation (Sal, 2026-11-03).
+    compare: { baseline: "Without Hinoki", hinoki: "With Hinoki" },
   },
 
   application: {

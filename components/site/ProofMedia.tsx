@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { ExpandButton, PlayToggle, VideoLightbox, stamp } from "./MediaControls";
 
 type ProofMediaProps = {
   kind: string;
@@ -16,14 +17,15 @@ type ProofMediaProps = {
   className?: string;
 };
 
-const stamp = (t: number) =>
-  `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(Math.floor(t % 60)).padStart(2, "0")}.${String(
-    Math.floor((t % 1) * 100),
-  ).padStart(2, "0")}`;
+export const FIGURE =
+  "group/cell relative flex min-w-0 flex-col bg-lift outline outline-1 outline-transparent transition-[translate,outline-color] duration-300 ease-out hover:z-10 hover:-translate-y-0.5 hover:outline-white/[0.14] motion-reduce:transition-none motion-reduce:hover:translate-y-0";
+
+export const BAR =
+  "flex min-h-12 items-center justify-between gap-3 border-b border-white/[0.06] px-5 transition-[background-color,backdrop-filter] duration-300 group-hover/cell:bg-white/[0.02] group-hover/cell:backdrop-blur-md md:px-6";
 
 // A demo clip framed like an instrument readout. The timecode is the video's
 // own playback position, not invented data. Muted loops play only while on
-// screen and never on their own under reduced motion; the button always works.
+// screen and never on their own under reduced motion; the buttons always work.
 export function ProofMedia({
   kind,
   chip,
@@ -37,6 +39,7 @@ export function ProofMedia({
   const videoRef = useRef<HTMLVideoElement>(null);
   const timeRef = useRef<HTMLSpanElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [expanded, setExpanded] = useState<number | null>(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -87,40 +90,28 @@ export function ProofMedia({
     else video.pause();
   };
 
+  const expand = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.pause();
+    setExpanded(video.currentTime);
+  };
+
   return (
-    <figure
-      className={cn(
-        "group/cell relative flex min-w-0 flex-col bg-lift outline outline-1 outline-transparent transition-[translate,outline-color] duration-300 ease-out hover:z-10 hover:-translate-y-0.5 hover:outline-white/[0.14] motion-reduce:transition-none motion-reduce:hover:translate-y-0",
-        className,
-      )}
-    >
+    <figure className={cn(FIGURE, className)}>
       {/* The chip sits in a bar above the picture so it never covers the
           footage or the readouts recorded into it. */}
-      <div className="flex min-h-12 items-center justify-between gap-3 border-b border-white/[0.06] px-5 transition-[background-color,backdrop-filter] duration-300 group-hover/cell:bg-white/[0.02] group-hover/cell:backdrop-blur-md md:px-6">
+      <div className={BAR}>
         <Badge variant={kind === "simulation" ? "simulation" : "real"}>{chip}</Badge>
-        <div className="flex items-center gap-3 font-label text-[10px] uppercase tracking-[0.12em] text-faint">
-          <span ref={timeRef} className="tabular-nums">
+        <div className="flex items-center gap-2 font-label text-[10px] uppercase tracking-[0.12em] text-faint">
+          <span ref={timeRef} className="mr-1 tabular-nums">
             --:--.--
           </span>
           {src ? (
-            <button
-              type="button"
-              onClick={toggle}
-              aria-label={`${playing ? "Pause" : "Play"}: ${title}`}
-              className="flex size-7 items-center justify-center rounded-[2px] border border-white/[0.1] text-muted transition-colors hover:border-white/25 hover:text-ink"
-            >
-              {playing ? (
-                <span aria-hidden className="flex gap-[3px]">
-                  <span className="h-2.5 w-[2px] bg-current" />
-                  <span className="h-2.5 w-[2px] bg-current" />
-                </span>
-              ) : (
-                <span
-                  aria-hidden
-                  className="ml-0.5 size-0 border-y-[5px] border-l-[7px] border-y-transparent border-l-current"
-                />
-              )}
-            </button>
+            <>
+              <PlayToggle playing={playing} title={title} onClick={toggle} />
+              <ExpandButton title={title} onClick={expand} />
+            </>
           ) : null}
         </div>
       </div>
@@ -153,6 +144,16 @@ export function ProofMedia({
         <span className="block text-[17px] font-semibold tracking-[-0.01em] text-ink">{title}</span>
         <span className="mt-2 block text-[14px] leading-[1.6] text-muted">{caption}</span>
       </figcaption>
+
+      {src ? (
+        <VideoLightbox
+          open={expanded !== null}
+          src={src}
+          title={title}
+          startAt={expanded ?? 0}
+          onClose={() => setExpanded(null)}
+        />
+      ) : null}
     </figure>
   );
 }
