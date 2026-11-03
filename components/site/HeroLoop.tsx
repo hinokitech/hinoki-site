@@ -32,6 +32,7 @@ export function HeroLoop({ className }: { className?: string }) {
       aria-hidden
       className={className}
     >
+      <source media="(max-width: 767px)" src="/assets/epic-brand-loop-720.mp4" type="video/mp4" />
       <source src="/assets/epic-brand-loop.webm" type="video/webm" />
       <source src="/assets/epic-brand-loop.mp4" type="video/mp4" />
     </video>
