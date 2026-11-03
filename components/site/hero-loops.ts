@@ -4,11 +4,14 @@
 export type LoopSources = { webm: string; mp4: string; mobile?: string; poster: string };
 
 export const LOOPS = {
-  // Higgsfield render: abstract light, never a stand-in for real footage.
+  // Higgsfield render (MiniMax H3) of two workers in a warehouse aisle, run
+  // through a local event-camera simulator: only moving edges draw, in dim
+  // blue. An intro visual, not sensor output. The phone file is a centre
+  // crop sized for the tall mobile panel.
   brand: {
     webm: "/assets/epic-brand-loop.webm",
     mp4: "/assets/epic-brand-loop.mp4",
-    mobile: "/assets/epic-brand-loop-720.mp4",
+    mobile: "/assets/epic-brand-loop-mobile.mp4",
     poster: "/assets/epic-brand-loop-poster.jpg",
   },
   // Real event-camera data: the raw right-hand stream of the 22-object
