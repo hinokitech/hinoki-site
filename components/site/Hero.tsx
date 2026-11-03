@@ -10,11 +10,11 @@ export function Hero({ copy }: { copy: SiteCopy["hero"] }) {
   return (
     <section id="top" aria-labelledby="hero-title" className="scroll-mt-16 pt-6 md:pt-8">
       <Bento className="lg:grid-rows-[1fr_auto_auto]">
-        {/* Media viewport: the event-view loop of two workers walking down a
-            warehouse aisle, headline above it. */}
+        {/* Media viewport: the event view from a warehouse robot driving down
+            an aisle, stopping, and seeing only a worker cross; headline above. */}
         <Cell className="overflow-hidden md:col-span-6 lg:col-span-8 lg:row-span-3">
           <div className="relative flex h-full min-h-[480px] flex-col justify-start md:min-h-[560px] lg:aspect-[16/10] lg:min-h-0">
-            <HeroLoop loop={LOOPS.brand} className="absolute inset-0 size-full object-cover object-bottom" />
+            <HeroLoop loop={LOOPS.pov} className="absolute inset-0 size-full object-cover object-bottom" />
             <div
               aria-hidden
               className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(10_11_13/0.92)_15%,transparent_60%)]"

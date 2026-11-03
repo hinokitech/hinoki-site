@@ -4,6 +4,16 @@
 export type LoopSources = { webm: string; mp4: string; mobile?: string; poster: string };
 
 export const LOOPS = {
+  // Higgsfield render (MiniMax H3) from the low camera of a warehouse robot,
+  // run through the local event-camera simulator at 8 reads per frame: the
+  // aisle draws itself while the robot drives, vanishes when it stops, and
+  // only a worker crossing ahead remains. An intro visual, not sensor output.
+  pov: {
+    webm: "/assets/hero-pov-loop.webm",
+    mp4: "/assets/hero-pov-loop.mp4",
+    mobile: "/assets/hero-pov-loop-mobile.mp4",
+    poster: "/assets/hero-pov-poster.jpg",
+  },
   // Higgsfield render (MiniMax H3) of two workers in a warehouse aisle, run
   // through a local event-camera simulator: only moving edges draw, in dim
   // blue. An intro visual, not sensor output. The phone file is a centre
