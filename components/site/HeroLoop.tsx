@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { LoopSources } from "./hero-loops";
 import { PlayToggle } from "./MediaControls";
 
-// The generated atmosphere loop behind the hero headline (abstract light only;
-// never a stand-in for real footage). Plays silently while on screen. Under
-// reduced motion it waits on its poster frame; the button starts or stops it
-// either way, and a manual pause sticks.
-export function HeroLoop({ className }: { className?: string }) {
+// The hero background loop. Plays silently while on screen. Under reduced
+// motion it waits on its poster frame; the button starts or stops it either
+// way, and a manual pause sticks.
+export function HeroLoop({ loop, className }: { loop: LoopSources; className?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const heldRef = useRef(false);
   const [playing, setPlaying] = useState(false);
@@ -52,13 +52,15 @@ export function HeroLoop({ className }: { className?: string }) {
         loop
         playsInline
         preload="metadata"
-        poster="/assets/epic-brand-loop-poster.jpg"
+        poster={loop.poster}
         aria-hidden
         className={className}
       >
-        <source media="(max-width: 767px)" src="/assets/epic-brand-loop-720.mp4" type="video/mp4" />
-        <source src="/assets/epic-brand-loop.webm" type="video/webm" />
-        <source src="/assets/epic-brand-loop.mp4" type="video/mp4" />
+        {loop.mobile ? (
+          <source media="(max-width: 767px)" src={loop.mobile} type="video/mp4" />
+        ) : null}
+        <source src={loop.webm} type="video/webm" />
+        <source src={loop.mp4} type="video/mp4" />
       </video>
       <div className="absolute right-4 top-4 z-10 md:right-6 md:top-6">
         <PlayToggle playing={playing} title="background motion" onClick={toggle} />

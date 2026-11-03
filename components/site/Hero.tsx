@@ -3,19 +3,21 @@ import type { SiteCopy } from "@/content/site.en";
 import { Bento, Cell } from "./Cell";
 import { HeroHeadline } from "./HeroHeadline";
 import { HeroLoop } from "./HeroLoop";
+import { LOOPS } from "./hero-loops";
 import { TsukubaClock } from "./TsukubaClock";
 
 export function Hero({ copy }: { copy: SiteCopy["hero"] }) {
   return (
     <section id="top" aria-labelledby="hero-title" className="scroll-mt-16 pt-6 md:pt-8">
       <Bento className="lg:grid-rows-[1fr_auto_auto]">
-        {/* Media viewport: the generated atmosphere loop, headline over it. */}
+        {/* Media viewport: real event-camera data bursting along the bottom,
+            headline above it. */}
         <Cell className="overflow-hidden md:col-span-6 lg:col-span-8 lg:row-span-3">
-          <div className="relative flex h-full min-h-[480px] flex-col justify-end md:min-h-[560px] lg:aspect-[16/10] lg:min-h-0">
-            <HeroLoop className="absolute inset-0 size-full object-cover opacity-75" />
+          <div className="relative flex h-full min-h-[480px] flex-col justify-start md:min-h-[560px] lg:aspect-[16/10] lg:min-h-0">
+            <HeroLoop loop={LOOPS.events} className="absolute inset-0 size-full object-cover object-bottom" />
             <div
               aria-hidden
-              className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_20%,rgb(10_11_13/0.94))]"
+              className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(10_11_13/0.92)_15%,transparent_60%)]"
             />
             <div className="relative p-6 md:p-10">
               <p className="hero-rise font-label text-[10px] uppercase leading-5 tracking-[0.18em] text-muted md:text-[11px]">
