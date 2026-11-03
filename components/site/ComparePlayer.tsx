@@ -266,10 +266,11 @@ export function ComparePlayer({
               onClick={() => seekTo(m.at - 0.4)}
               aria-label={`Jump to ${m.label}`}
               style={{ left: `${(m.at / duration) * 100}%` }}
-              className="group/marker absolute top-[3px] flex -translate-x-1/2 flex-col items-center gap-1.5"
+              className="group/marker absolute top-[3px] flex -translate-x-1/2 flex-col items-center gap-1.5 px-2"
             >
               <span aria-hidden className="h-2.5 w-px bg-accent" />
-              <span className="whitespace-nowrap text-[9px] uppercase tracking-[0.12em] text-muted transition-colors group-hover/marker:text-ink">
+              {/* Labels need room; on phones the ticks stand alone. */}
+              <span className="hidden whitespace-nowrap text-[9px] uppercase tracking-[0.12em] text-muted transition-colors group-hover/marker:text-ink sm:block">
                 {m.label}
               </span>
             </button>
