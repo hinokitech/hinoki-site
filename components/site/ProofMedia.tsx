@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ExpandButton, PlayToggle, VideoLightbox, stamp } from "./MediaControls";
+import { useNear } from "./useNear";
 
 type ProofMediaProps = {
   kind: string;
@@ -17,15 +18,20 @@ type ProofMediaProps = {
   className?: string;
 };
 
+// The live site's video frame: rounded, hairline border, a faint orange glow.
 export const FIGURE =
-  "group/cell relative flex min-w-0 flex-col bg-lift outline outline-1 outline-transparent transition-[translate,outline-color] duration-300 ease-out hover:z-10 hover:-translate-y-0.5 hover:outline-white/[0.14] motion-reduce:transition-none motion-reduce:hover:translate-y-0";
+  "shadow-frame relative flex min-w-0 flex-col overflow-hidden rounded-xl border border-edge bg-card transition-[border-color] duration-500 hover:border-edge-strong";
 
-export const BAR =
-  "flex min-h-12 items-center justify-between gap-3 border-b border-white/[0.06] px-5 transition-[background-color,backdrop-filter] duration-300 group-hover/cell:bg-white/[0.02] group-hover/cell:backdrop-blur-md md:px-6";
+export const BAR = "flex min-h-14 items-center justify-between gap-3 border-b border-line px-4 md:px-5";
 
-// A demo clip framed like an instrument readout. The timecode is the video's
-// own playback position, not invented data. Muted loops play only while on
-// screen and never on their own under reduced motion; the buttons always work.
+export const CAPTION = "mt-auto border-t border-line p-5 md:p-6";
+
+// The picture area: a dark screen in both themes.
+export const SCREEN = "stay-dark relative min-h-0 overflow-hidden bg-[#0a0b0d]";
+
+// A demo clip in a framed player. The timecode is the video's own playback
+// position, not invented data. Muted loops play only while on screen and never
+// on their own under reduced motion; the buttons always work.
 export function ProofMedia({
   kind,
   chip,
@@ -40,6 +46,9 @@ export function ProofMedia({
   const timeRef = useRef<HTMLSpanElement>(null);
   const [playing, setPlaying] = useState(false);
   const [expanded, setExpanded] = useState<number | null>(null);
+  // The poster loads only as the player nears the screen (the clip itself
+  // already waits, with preload "none").
+  const near = useNear(videoRef);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -63,20 +72,18 @@ export function ProofMedia({
     video.addEventListener("play", onPlay);
     video.addEventListener("pause", onPause);
 
-    let observer: IntersectionObserver | undefined;
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) void video.play().catch(() => {});
-          else video.pause();
-        },
-        { threshold: 0.35 },
-      );
-      observer.observe(video);
-    }
+    // Plays only when pressed: on this page only the interactive demo starts
+    // by itself (Sal, 2026-11-05). A playing clip pauses when scrolled away.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) video.pause();
+      },
+      { threshold: 0.35 },
+    );
+    observer.observe(video);
 
     return () => {
-      observer?.disconnect();
+      observer.disconnect();
       cancelAnimationFrame(frame);
       video.removeEventListener("play", onPlay);
       video.removeEventListener("pause", onPause);
@@ -103,7 +110,7 @@ export function ProofMedia({
           footage or the readouts recorded into it. */}
       <div className={BAR}>
         <Badge variant={kind === "simulation" ? "simulation" : "real"}>{chip}</Badge>
-        <div className="flex items-center gap-2 font-label text-[10px] uppercase tracking-[0.12em] text-faint">
+        <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] text-fg-tertiary">
           <span ref={timeRef} className="mr-1 tabular-nums">
             --:--.--
           </span>
@@ -118,12 +125,12 @@ export function ProofMedia({
 
       {/* min-h-0 + overflow-hidden keep the frame at its aspect even when a
           clip is taller; object-contain then letterboxes it inside. */}
-      <div className={cn("min-h-0 overflow-hidden bg-ground", viewport)}>
+      <div className={cn(SCREEN, viewport)}>
         {src ? (
           <video
             ref={videoRef}
             src={src}
-            poster={poster ?? undefined}
+            poster={near && poster ? poster : undefined}
             muted
             loop
             playsInline
@@ -133,16 +140,16 @@ export function ProofMedia({
           />
         ) : (
           <div className="flex size-full items-center justify-center">
-            <p className="font-label text-[10px] uppercase tracking-[0.16em] text-faint">
+            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fg-tertiary">
               Original footage needed
             </p>
           </div>
         )}
       </div>
 
-      <figcaption className="mt-auto border-t border-white/[0.06] p-5 md:p-6">
-        <span className="block text-[17px] font-semibold tracking-[-0.01em] text-ink">{title}</span>
-        <span className="mt-2 block text-[14px] leading-[1.6] text-muted">{caption}</span>
+      <figcaption className={CAPTION}>
+        <span className="block text-[17px] font-medium tracking-[-0.01em] text-fg-primary">{title}</span>
+        <span className="mt-1.5 block text-[14px] leading-[1.65] text-fg-secondary">{caption}</span>
       </figcaption>
 
       {src ? (

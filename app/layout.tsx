@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { DM_Mono, DM_Sans, Noto_Sans_JP } from "next/font/google";
+import { DM_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -17,31 +17,25 @@ const dmMono = DM_Mono({
   display: "swap",
 });
 
-// Noto Sans JP is loaded as a fallback so Japanese characters across the site
-// (and the /pitch-jp deck) render in a tone that matches DM Sans. Latin glyphs
-// stay on DM Sans because it appears first in the --font-sans stack; the
-// browser falls through to Noto for CJK code points.
-const notoSansJp = Noto_Sans_JP({
-  variable: "--font-noto-jp",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
+// Noto Sans JP now loads in app/pitch/layout.tsx, for the decks that use it.
+// Japanese web fonts come in about 120 character slices per weight, so here
+// it added roughly 150 KB of render-blocking CSS to every page, while the site
+// itself has only a four-character label in Japanese (system fonts cover it).
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://hinokitech.com";
 
 // Homepage defaults, from the approved copy (build brief Appendix A).
-const SITE_TITLE = "Hinoki Technologies — Fast vision for machines.";
+const SITE_TITLE = "Hinoki Technologies | Fast vision for forklifts and mobile robots";
 const SITE_DESCRIPTION =
   "Hinoki turns fast motion into real-time answers for machines, at the edge.";
-const OG_IMAGE_ALT = "Hinoki Technologies — Fast vision for machines.";
+const OG_IMAGE_ALT = "Hinoki Technologies | Fast vision for forklifts and mobile robots";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
-    template: "%s — Hinoki Technologies",
+    template: "%s | Hinoki Technologies",
   },
   description: SITE_DESCRIPTION,
   applicationName: "Hinoki Technologies",
@@ -113,7 +107,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="dark"
-      className={`${dmSans.variable} ${dmMono.variable} ${notoSansJp.variable} h-full antialiased`}
+      className={`${dmSans.variable} ${dmMono.variable} h-full antialiased`}
     >
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />

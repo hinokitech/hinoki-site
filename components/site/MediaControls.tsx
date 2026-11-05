@@ -7,8 +7,9 @@ export const stamp = (t: number) =>
     Math.floor((t % 1) * 100),
   ).padStart(2, "0")}`;
 
+// Round, like the live site's play button and pills.
 const ICON_BUTTON =
-  "flex size-7 items-center justify-center rounded-[2px] border border-white/[0.1] text-muted transition-colors hover:border-white/25 hover:text-ink";
+  "flex size-8 items-center justify-center rounded-full border border-edge bg-ground/70 text-fg-secondary backdrop-blur-sm transition-colors duration-300 hover:border-accent/40 hover:bg-accent/10 hover:text-accent";
 
 export function PlayToggle({
   playing,
@@ -28,8 +29,8 @@ export function PlayToggle({
     >
       {playing ? (
         <span aria-hidden className="flex gap-[3px]">
-          <span className="h-2.5 w-[2px] bg-current" />
-          <span className="h-2.5 w-[2px] bg-current" />
+          <span className="h-2.5 w-[2px] rounded-full bg-current" />
+          <span className="h-2.5 w-[2px] rounded-full bg-current" />
         </span>
       ) : (
         <span
@@ -84,14 +85,14 @@ export function VideoLightbox({
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="m-auto w-[min(94vw,1600px)] max-w-none bg-transparent p-0 text-ink backdrop:bg-ground/90 backdrop:backdrop-blur-sm"
+      className="stay-dark m-auto w-[min(94vw,1600px)] max-w-none overflow-hidden rounded-xl border border-edge bg-[#0a0b0d] p-0 text-fg-primary backdrop:bg-[#0a0b0d]/90 backdrop:backdrop-blur-sm"
     >
-      <div className="flex items-center justify-between border border-b-0 border-white/[0.08] bg-lift px-4 py-3">
-        <p className="font-label text-[10px] uppercase tracking-[0.16em] text-muted">{title}</p>
+      <div className="flex items-center justify-between border-b border-line px-5 py-3">
+        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fg-secondary">{title}</p>
         <button
           type="button"
           onClick={onClose}
-          className="font-label text-[10px] uppercase tracking-[0.16em] text-muted transition-colors hover:text-ink"
+          className="rounded-full border border-edge px-4 py-1.5 text-[12px] font-medium text-fg-secondary transition-colors duration-300 hover:border-accent/40 hover:text-accent"
         >
           Close
         </button>
@@ -107,7 +108,7 @@ export function VideoLightbox({
           onLoadedMetadata={(e) => {
             e.currentTarget.currentTime = startAt;
           }}
-          className="block max-h-[82vh] w-full border border-white/[0.08] bg-ground"
+          className="block max-h-[82vh] w-full bg-[#0a0b0d]"
         />
       ) : null}
     </dialog>

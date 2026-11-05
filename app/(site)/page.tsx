@@ -8,14 +8,13 @@ import { HowItWorks } from "@/components/site/HowItWorks";
 import { Problem } from "@/components/site/Problem";
 import { Progress } from "@/components/site/Progress";
 import { Proof } from "@/components/site/Proof";
-import { Team } from "@/components/site/Team";
 import { siteCopy as copy } from "@/content/site.en";
 
 export default function Home() {
   return (
     <>
       <Header nav={copy.nav} />
-      <main className="site-container">
+      <main>
         <Hero copy={copy.hero} />
         <EventCameraPanel copy={copy.hero} />
         <Problem copy={copy.problem} />
@@ -23,10 +22,9 @@ export default function Home() {
         <Proof copy={copy.proof} />
         <Application copy={copy.application} />
         <Progress copy={copy.progress} />
-        <Team copy={copy.team} />
         <Contact copy={copy.contact} />
       </main>
-      <Footer text={copy.footer} />
+      <Footer nav={copy.nav} small={copy.footer} />
     </>
   );
 }

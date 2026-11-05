@@ -1,84 +1,87 @@
 import type { SiteCopy } from "@/content/site.en";
-import { Bento, Cell, CellBar, Section, SectionHeader } from "./Cell";
+import { Chapter, ChapterLabel, ChapterTitle, delay } from "./Chapter";
 import { ProofMedia } from "./ProofMedia";
-import { SimCompare } from "./SimCompare";
+import { Reveal } from "./Reveal";
 
 // Web exports of the demo footage. Every Real capture clip must trace back to
 // an original (kept in site-rebuild-inputs/videos until the repo is private).
 const STEREO = { src: "/media/stereo-3d-tracking.mp4", poster: "/media/stereo-3d-tracking-poster.jpg" };
 const LASER = { src: "/media/laser-tracking-3d.mp4", poster: "/media/laser-tracking-3d-poster.jpg" };
-// Sim 1A (without Hinoki) and Sim 1B (with Hinoki), cut to the same span of
-// simulation time so the toggle can swap them mid-play. Marker times are the
-// frames where each run's own overlay changes (measured, 30 fps), labelled
-// with the overlay's own words.
-const BLIND_CORNER_DURATION = 638 / 30;
-const BLIND_CORNER = {
-  baseline: {
-    src: "/media/blind-corner-baseline.mp4",
-    poster: "/media/blind-corner-baseline-poster.jpg",
-    markers: [
-      { at: 314 / 30, label: "STO" },
-      { at: 566 / 30, label: "Impact" },
-    ],
-  },
-  hinoki: {
-    src: "/media/blind-corner-hinoki.mp4",
-    poster: "/media/blind-corner-hinoki-poster.jpg",
-    markers: [
-      { at: 299 / 30, label: "STO" },
-      { at: 555 / 30, label: "Safe stop" },
-    ],
-  },
-};
+
+type StatCopy = SiteCopy["proof"]["stats"][number];
+
+function Stat({ stat, n }: { stat: StatCopy; n: number }) {
+  return (
+    <div
+      className="reveal group h-full bg-card p-8 transition-colors duration-500 hover:bg-raise md:p-10"
+      style={delay(n * 100 - 20)}
+    >
+      <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-fg-tertiary">
+        Measured <span className="tabular-nums">· 0{n}</span>
+      </p>
+      <div className="mt-4 border-t border-accent/70 pt-5">
+        <p className="font-mono text-[clamp(2.5rem,4.4vw,3.75rem)] font-light leading-none tracking-[-0.04em] text-accent">
+          {stat.value}
+          <span className="ml-2 text-[0.3em] tracking-normal text-fg-secondary">{stat.unit}</span>
+        </p>
+        <p className="mt-6 max-w-[38ch] text-pretty text-[15px] leading-[1.6] text-fg-primary">{stat.text}</p>
+      </div>
+    </div>
+  );
+}
 
 export function Proof({ copy }: { copy: SiteCopy["proof"] }) {
-  const [stereo, laser, simulation] = copy.videos;
+  const [stereo, laser] = copy.videos;
+  const benchmark = copy.stats.slice(0, 3);
+  const recording = copy.stats[3];
+  // The live site sets its Proven heading as a statement and a quieter reply.
+  const [claim, ...reply] = copy.heading.split(/(?<=\.)\s+/);
 
   return (
-    <Section id="proof">
-      <SectionHeader id="proof" index="03" label={copy.label}>
-        {copy.heading}
-      </SectionHeader>
-      <Bento>
-        {copy.stats.map((stat, i) => (
-          <Cell key={stat.value} className="flex flex-col md:col-span-2 lg:col-span-4">
-            <CellBar aside={<span className="tabular-nums">0{i + 1}</span>}>Measured</CellBar>
-            <div className="flex flex-1 flex-col p-6 md:p-8">
-              <p className="font-display text-[clamp(3.5rem,6vw,5.5rem)] font-extrabold leading-none tracking-[-0.055em] text-ink wdth-125">
-                {stat.value}
-                {stat.unit ? (
-                  <>
-                    {" "}
-                    <span className="font-label text-[0.26em] font-normal tracking-normal text-accent">
-                      {stat.unit}
-                    </span>
-                  </>
-                ) : null}
-              </p>
-              <p className="mt-6 max-w-[34ch] text-[14px] leading-[1.6] text-muted">{stat.text}</p>
-            </div>
-          </Cell>
-        ))}
+    <Chapter id="proof">
+      <Reveal>
+        <ChapterLabel index="03" label={copy.label} className="reveal" />
+        <ChapterTitle id="proof" className="reveal max-w-[760px]">
+          {claim}
+          {reply.length ? (
+            <>
+              <br />
+              <span className="text-fg-secondary">{reply.join(" ")}</span>
+            </>
+          ) : null}
+        </ChapterTitle>
+      </Reveal>
 
-        {/* The ultra-wide stereo recording runs full width like a cinema strip;
-            below it, the laser clip and the with/without simulation. */}
+      {/* Each measured number with what it means. The first three come from
+          one benchmark, with how they were measured underneath them; the
+          fourth, from a real recording, sits beside them on wide screens and
+          after that line on narrow ones. */}
+      <Reveal className="mt-16 grid gap-6 md:mt-20 lg:grid-cols-4 lg:items-start">
+        <div className="lg:col-span-3">
+          <div className="stat-frame grid gap-px overflow-hidden rounded-lg bg-line md:grid-cols-3">
+            {benchmark.map((stat, i) => (
+              <Stat key={stat.value} stat={stat} n={i + 1} />
+            ))}
+          </div>
+          <p className="reveal mt-3 text-pretty text-[13px] leading-[1.6] text-fg-tertiary" style={delay(400)}>
+            {copy.note}
+          </p>
+        </div>
+        <div className="stat-frame overflow-hidden rounded-lg bg-line">
+          <Stat stat={recording} n={4} />
+        </div>
+      </Reveal>
+
+      {/* The two real recordings side by side. */}
+      <Reveal className="mt-8 grid gap-6 md:mt-10 md:gap-8 lg:grid-cols-12">
+        <ProofMedia {...stereo} {...STEREO} viewport="aspect-video" className="reveal lg:col-span-7" />
         <ProofMedia
-          {...stereo}
-          {...STEREO}
-          viewport="aspect-[1304/536]"
-          className="md:col-span-6 lg:col-span-12"
+          {...laser}
+          {...LASER}
+          viewport="aspect-[4/3]"
+          className="reveal [--reveal-delay:120ms] lg:col-span-5"
         />
-        <ProofMedia {...laser} {...LASER} viewport="aspect-[4/3]" className="md:col-span-6 lg:col-span-5" />
-        <SimCompare
-          chip={simulation.chip}
-          title={simulation.title}
-          caption={simulation.caption}
-          labels={copy.compare}
-          runs={BLIND_CORNER}
-          duration={BLIND_CORNER_DURATION}
-          className="md:col-span-6 lg:col-span-7"
-        />
-      </Bento>
-    </Section>
+      </Reveal>
+    </Chapter>
   );
 }

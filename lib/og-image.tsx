@@ -1,8 +1,20 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { siteCopy } from "@/content/site.en";
 
-export const ogImageAlt = "Hinoki Technologies — Building the future";
+// The link-preview card, worded from the approved homepage hero.
+const { hero } = siteCopy;
+// Any of the three parts may be empty (the headline can open on the accent).
+const words = (text: string, accent: boolean) =>
+  text.split(" ").filter(Boolean).map((w) => ({ w, accent }));
+const HEADLINE_WORDS = [
+  ...words(hero.headline.lead, false),
+  ...words(hero.headline.accent, true),
+  ...words(hero.headline.tail, false),
+];
+
+export const ogImageAlt = siteCopy.meta.title;
 export const ogImageSize = { width: 1200, height: 630 };
 export const ogImageContentType = "image/png";
 
@@ -99,43 +111,27 @@ export async function generateOgImage() {
               color: "#e8622a",
             }}
           >
-            Neuromorphic Edge AI
+            {hero.eyebrow}
           </div>
 
+          {/* The one-sentence headline, word by word so it wraps, with the
+              accent part in accent orange as on the page. */}
           <div
             style={{
               display: "flex",
-              flexDirection: "column",
-              fontSize: 88,
+              flexWrap: "wrap",
+              maxWidth: 1000,
+              fontSize: 64,
               fontWeight: 300,
-              color: "#f4f1ed",
-              letterSpacing: "-0.04em",
-              lineHeight: 0.95,
+              letterSpacing: "-0.035em",
+              lineHeight: 1.08,
             }}
           >
-            <div style={{ display: "flex" }}>Building the</div>
-            <div
-              style={{
-                display: "flex",
-                background: "linear-gradient(135deg, #f07a30 0%, #e8622a 45%, #c42b2b 100%)",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              future.
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              fontSize: 28,
-              fontWeight: 400,
-              color: "#9099a8",
-              lineHeight: 1.5,
-            }}
-          >
-            Edge intelligence for physical systems.
+            {HEADLINE_WORDS.map(({ w, accent }, i) => (
+              <span key={i} style={{ marginRight: 16, color: accent ? "#e8622a" : "#f4f1ed" }}>
+                {w}
+              </span>
+            ))}
           </div>
         </div>
 

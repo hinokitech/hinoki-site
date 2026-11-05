@@ -2,16 +2,17 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
-// shadcn/ui badge as the console's status chip.
+// shadcn/ui badge as a small mono pill, in the live site's rounded shapes.
 export const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 rounded-[2px] border px-2 py-1 font-label text-[10px] uppercase leading-none tracking-[0.14em]",
+  "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase leading-none tracking-[0.16em]",
   {
     variants: {
       variant: {
-        real: "border-accent/50 bg-accent/[0.06] text-accent",
-        simulation: "border-dashed border-faint text-muted",
-        status: "border-white/[0.08] text-faint",
-        live: "border-accent/40 text-ink",
+        real: "border-accent/40 bg-accent/10 text-accent",
+        simulation: "border-dashed border-edge-strong text-fg-secondary",
+        status: "border-edge text-fg-tertiary",
+        done: "border-transparent bg-accent/15 text-accent",
+        live: "border-accent/40 text-fg-primary",
       },
     },
     defaultVariants: { variant: "status" },

@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 
-export function EmailCopy({ email }: { email: string | null }) {
+export function EmailCopy({ email, placeholder }: { email: string | null; placeholder: string }) {
   const [copied, setCopied] = useState(false);
 
-  // Placeholder until Sal provides the address.
+  // Shown as-is until Sal provides the address.
   if (!email) {
-    return <span className="text-[16px] text-faint">[Email to come]</span>;
+    return <span className="text-[15px] text-fg-tertiary">{placeholder}</span>;
   }
 
   async function copy() {
@@ -22,13 +22,13 @@ export function EmailCopy({ email }: { email: string | null }) {
 
   return (
     <span className="flex flex-wrap items-center gap-4">
-      <a href={`mailto:${email}`} className="text-[16px] text-ink underline-offset-4 hover:underline">
+      <a href={`mailto:${email}`} className="text-[16px] text-fg-primary underline-offset-4 hover:underline">
         {email}
       </a>
       <button
         type="button"
         onClick={copy}
-        className="rounded-[2px] border border-line-strong px-2.5 py-1.5 font-label text-[10px] uppercase tracking-[0.14em] text-muted transition-colors hover:text-ink"
+        className="rounded-full border border-edge px-3.5 py-1.5 text-[12px] font-medium text-fg-secondary transition-colors duration-300 hover:border-accent/40 hover:text-accent"
       >
         <span aria-live="polite">{copied ? "Copied" : "Copy"}</span>
       </button>
