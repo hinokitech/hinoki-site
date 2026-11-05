@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { Badge } from "@/components/ui/badge";
 import { JOURNEY, isPlanned, whenLabel } from "@/content/journey";
 import { cn } from "@/lib/utils";
@@ -12,11 +12,20 @@ const NOW = JOURNEY.findIndex((m) => m.tag === "NOW");
 
 // When each milestone's ring fills, in ms after the chart comes into view.
 // A steady beat (Sal, 2026-11-05: "a steady premium professional cadence",
-// then "a little bit faster", so 300 became 250): the line travels at one
-// even speed and fills each ring as it reaches it, BEAT apart. The rings
-// appear first, in a quick wave.
-const START = 600, BEAT = 250, RING_STEP = 40;
+// then "a little bit faster" (300 to 250 ms), then the whole curve slightly
+// faster again (250 to 220 ms, starting at 500 rather than 600)): the line
+// travels at one even speed and fills each ring as it reaches it, BEAT apart.
+// The rings appear first, in a quick wave.
+const START = 500, BEAT = 220, RING_STEP = 40;
 const FILL_AT = JOURNEY.map((_, i) => START + i * BEAT);
+
+// Today comes last (Sal, 2026-11-05: "the today should be the last thing to
+// load"): once the line has reached the final, planned milestone, today's
+// dashed line draws up from the current one, and the tag and the pulsing dot
+// rise in as it arrives. About a second, so it isn't slow.
+const LAST_AT = FILL_AT[JOURNEY.length - 1];
+const TODAY_LINE_AT = LAST_AT + 250, TODAY_LINE_MS = 400;
+const TODAY_TAG_AT = TODAY_LINE_AT + 300;
 
 // The milestones along one rising line, evenly spaced, oldest on the left.
 // Rounded to a hundredth: the server and the browser can differ in the last
@@ -58,11 +67,50 @@ function Plot({
   const now = points[NOW];
   const tagBottom = pad.top * 0.42;
   const pct = (p: Point) => ({ left: `${(p.x / w) * 100}%`, top: `${(p.y / h) * 100}%` });
+  // Ids for this plot's masks (two plots can share a page).
+  const uid = useId().replace(/[^\w-]/g, "");
 
   return (
     <>
       <svg viewBox={`0 0 ${w} ${h}`} aria-hidden className="absolute inset-0 size-full overflow-visible">
-        {/* Today: a dashed line up from the current milestone to its tag. */}
+        {/* A dashed line can't draw itself with a dash offset (its dashes
+            are the dash pattern), so each one is revealed through a mask
+            whose solid stroke draws instead, at the line's own steady pace. */}
+        <defs>
+          <mask id={`today-${uid}`} maskUnits="userSpaceOnUse" x={0} y={0} width={w} height={h}>
+            <line
+              x1={now.x}
+              y1={now.y - dot * 2}
+              x2={now.x}
+              y2={tagBottom}
+              pathLength={1}
+              stroke="#fff"
+              strokeWidth={dot * 2}
+              className="journey-line"
+              style={stretch(TODAY_LINE_AT, TODAY_LINE_AT + TODAY_LINE_MS)}
+            />
+          </mask>
+          {points.slice(1).map((to, k) =>
+            isPlanned(JOURNEY[k + 1]) ? (
+              <mask key={k} id={`plan-${uid}-${k}`} maskUnits="userSpaceOnUse" x={0} y={0} width={w} height={h}>
+                <line
+                  x1={points[k].x}
+                  y1={points[k].y}
+                  x2={to.x}
+                  y2={to.y}
+                  pathLength={1}
+                  stroke="#fff"
+                  strokeWidth={dot * 2}
+                  className="journey-line"
+                  style={stretch(FILL_AT[k], FILL_AT[k + 1])}
+                />
+              </mask>
+            ) : null,
+          )}
+        </defs>
+
+        {/* Today: a dashed line up from the current milestone to its tag,
+            drawn last. */}
         <line
           x1={now.x}
           x2={now.x}
@@ -72,16 +120,27 @@ function Plot({
           strokeWidth={1}
           strokeDasharray="3 4"
           vectorEffect="non-scaling-stroke"
-          className="journey-later"
-          style={wait(FILL_AT[NOW] + 300)}
+          mask={`url(#today-${uid})`}
         />
 
-        {/* The line travels from ring to ring at the calendar's pace; the
-            stretch to a plan is dashed and fades in instead. */}
+        {/* The line travels from ring to ring at a steady beat; the stretch
+            to a plan is dashed, like its hollow ring. */}
         {points.slice(1).map((to, k) => {
           const from = points[k];
-          const planned = isPlanned(JOURNEY[k + 1]);
-          return (
+          return isPlanned(JOURNEY[k + 1]) ? (
+            <line
+              key={k}
+              x1={from.x}
+              y1={from.y}
+              x2={to.x}
+              y2={to.y}
+              stroke="var(--color-edge-strong)"
+              strokeWidth={stroke}
+              strokeDasharray="4 4"
+              vectorEffect="non-scaling-stroke"
+              mask={`url(#plan-${uid}-${k})`}
+            />
+          ) : (
             <line
               key={k}
               x1={from.x}
@@ -91,9 +150,8 @@ function Plot({
               pathLength={1}
               stroke="var(--color-edge-strong)"
               strokeWidth={stroke}
-              strokeDasharray={planned ? "4 4" : undefined}
               vectorEffect="non-scaling-stroke"
-              className={planned ? "journey-plan" : "journey-line"}
+              className="journey-line"
               style={stretch(FILL_AT[k], FILL_AT[k + 1])}
             />
           );
@@ -123,7 +181,7 @@ function Plot({
                 <circle cx={p.x} cy={p.y} r={dot} fill="var(--color-accent)" className="journey-fill" style={wait(FILL_AT[i])} />
               )}
               {i === NOW ? (
-                <g className="journey-later" style={wait(FILL_AT[i] + 400)}>
+                <g className="journey-later" style={wait(TODAY_TAG_AT)}>
                   <circle
                     cx={p.x}
                     cy={p.y}
@@ -142,8 +200,8 @@ function Plot({
 
       <Badge
         variant="live"
-        className="journey-later absolute -translate-x-1/2 -translate-y-full bg-ground"
-        style={{ ...wait(FILL_AT[NOW] + 300), left: `${(now.x / w) * 100}%`, top: `${(tagBottom / h) * 100}%` }}
+        className="journey-rise absolute -translate-x-1/2 -translate-y-full bg-ground"
+        style={{ ...wait(TODAY_TAG_AT), left: `${(now.x / w) * 100}%`, top: `${(tagBottom / h) * 100}%` }}
       >
         <span aria-hidden className="size-1.5 animate-pulse rounded-full bg-accent motion-reduce:animate-none" />
         Today

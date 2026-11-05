@@ -755,15 +755,25 @@ body:has(.site) {
 /* The About page's rising timeline (JourneyChart), Sal 2026-11-05: every
    milestone starts as a hollow ring; the line then travels from one to the
    next at a steady beat, and each ring fills with orange (with a soft halo)
-   as the line reaches it. Planned milestones stay hollow. Timings come from
-   the component (--d: when, --len: how long a stretch of line takes).
+   as the line reaches it. Planned milestones stay hollow, reached by a
+   dashed stretch (revealed through a mask that draws like the line). Today
+   comes last: its dashed line draws up and the tag rises in. Timings come
+   from the component (--d: when, --len: how long a stretch of line takes).
    Under reduced motion the rings still fill and the line still draws, without
-   the growing and the halo. */
+   the growing, the halo and the tag's rise. */
 .journey .journey-ring,
 .journey .journey-label,
 .journey .journey-later {
   opacity: 0;
   transition: opacity 900ms var(--ease-calm, ease-out) var(--d, 0ms);
+}
+
+.journey .journey-rise {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 600ms var(--ease-calm, ease-out) var(--d, 0ms),
+    transform 700ms var(--ease-calm, ease-out) var(--d, 0ms);
 }
 
 .journey .journey-fill {
@@ -789,11 +799,6 @@ body:has(.site) {
   transition: stroke-dashoffset var(--len, 400ms) linear var(--d, 0ms);
 }
 
-.journey .journey-plan {
-  opacity: 0;
-  transition: opacity var(--len, 400ms) linear var(--d, 0ms);
-}
-
 @keyframes journey-halo {
   0% {
     opacity: 0;
@@ -812,7 +817,7 @@ body:has(.site) {
 .journey[data-drawn] .journey-label,
 .journey[data-drawn] .journey-later,
 .journey[data-drawn] .journey-fill,
-.journey[data-drawn] .journey-plan {
+.journey[data-drawn] .journey-rise {
   opacity: 1;
   transform: none;
 }
@@ -826,7 +831,8 @@ body:has(.site) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .journey .journey-fill {
+  .journey .journey-fill,
+  .journey .journey-rise {
     transform: none;
   }
 
@@ -840,7 +846,7 @@ body:has(.site) {
   .journey .journey-label,
   .journey .journey-later,
   .journey .journey-fill,
-  .journey .journey-plan {
+  .journey .journey-rise {
     opacity: 1;
     transform: none;
   }
