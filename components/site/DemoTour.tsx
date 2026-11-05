@@ -392,20 +392,24 @@ export function DemoTour({
       ))}
 
       {/* Set like the site's own cards: dark in both themes, a hairline, an
-          orange rule along the top and a mono label. */}
+          orange rule along the top and a mono label. A shade lighter than
+          the demo's own panels, with a deeper shadow, so it stands clear of
+          them once Hinoki is on (Sal, 2026-11-05: "a little brighter"). */}
       <div
         ref={bubbleRef}
         key={`${index}-${phase}`}
         role="dialog"
         aria-label={label}
         className={cn(
-          "tour-bubble stay-dark z-50 rounded-xl border border-white/[0.12] bg-[#111318]/95 px-5 pb-4 pt-4 text-left text-fg-primary shadow-[0_20px_50px_rgb(0_0_0/0.55)] backdrop-blur-md",
+          "tour-bubble stay-dark z-50 rounded-xl border border-white/[0.2] bg-[#1f232b] px-5 pb-4 pt-4 text-left text-fg-primary shadow-[0_24px_60px_-8px_rgb(0_0_0/0.8),0_0_0_1px_rgb(0_0_0/0.4)]",
           layout?.sheet ? "fixed inset-x-3 bottom-3 mx-auto max-w-[440px]" : "absolute",
           !layout && "invisible",
+          // A soft orange glow that breathes while Hinoki is on (globals.css).
+          state.hinoki && "tour-glow",
         )}
         style={layout && !layout.sheet && layout.bubble ? { left: layout.bubble.left, top: layout.bubble.top, width: layout.bubble.width } : undefined}
       >
-        <div aria-hidden className="absolute inset-x-5 top-0 h-px bg-accent/70" />
+        <div aria-hidden className="absolute inset-x-5 top-0 h-px bg-accent" />
         <div className="flex items-baseline justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.2em]">
           <span className="text-accent">{label}</span>
           <span className="tabular-nums text-fg-tertiary">{count}</span>
@@ -427,7 +431,7 @@ export function DemoTour({
           )}
         </div>
 
-        <div className="mt-4 flex items-center justify-between gap-4 border-t border-white/[0.08] pt-3">
+        <div className="mt-4 flex items-center justify-between gap-4 border-t border-white/[0.1] pt-3">
           {phase === "final" ? (
             <>
               <button type="button" onClick={close} className="text-[12px] text-fg-tertiary transition-colors hover:text-fg-primary">
@@ -465,7 +469,10 @@ export function DemoTour({
         {layout?.arrow ? (
           <span
             aria-hidden
-            className="absolute size-3 border-l border-t border-white/[0.12] bg-[#111318]"
+            className={cn(
+              "absolute size-3 border-l border-t bg-[#1f232b]",
+              state.hinoki ? "border-accent/50" : "border-white/[0.2]",
+            )}
             style={
               layout.arrow.side === "right"
                 ? { left: -7, top: layout.arrow.at - 6, transform: "rotate(-45deg)" }

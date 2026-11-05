@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ExpandButton, PlayToggle, VideoLightbox, stamp } from "./MediaControls";
 import { useNear } from "./useNear";
+import { useWarm } from "./warm";
 
 type ProofMediaProps = {
   kind: string;
@@ -46,9 +47,10 @@ export function ProofMedia({
   const timeRef = useRef<HTMLSpanElement>(null);
   const [playing, setPlaying] = useState(false);
   const [expanded, setExpanded] = useState<number | null>(null);
-  // The poster loads only as the player nears the screen (the clip itself
-  // already waits, with preload "none").
+  // The poster loads only as the player nears the screen, and the clip once
+  // the page has loaded too, so play starts at once (see warm.ts).
   const near = useNear(videoRef);
+  const warm = useWarm(videoRef);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -134,7 +136,7 @@ export function ProofMedia({
             muted
             loop
             playsInline
-            preload="none"
+            preload={warm ? "auto" : "none"}
             aria-label={title}
             className="size-full object-contain"
           />

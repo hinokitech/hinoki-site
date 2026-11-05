@@ -1000,6 +1000,36 @@ body:has(.site) {
   animation: tour-pop 420ms var(--ease-calm) both;
 }
 
+/* Once Hinoki is on, the scene behind the tour card is busy, so the card
+   wears a soft orange glow that breathes slowly (Sal, 2026-11-05: "a little
+   glowing ... or a pulsing type thing"). The glow is a layer of its own that
+   only fades in and out, so it costs next to nothing to animate and leaves
+   the card's own entrance alone. Under reduced motion it holds still. */
+.tour-bubble.tour-glow {
+  border-color: rgb(232 98 42 / 0.5);
+}
+
+.tour-bubble.tour-glow::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    0 0 0 1px rgb(232 98 42 / 0.35),
+    0 0 30px 2px rgb(232 98 42 / 0.34);
+  animation: tour-glow 2200ms ease-in-out infinite alternate;
+}
+
+@keyframes tour-glow {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .tour-check {
   display: inline-block;
   animation: tour-check 420ms var(--ease-calm) both;
@@ -1034,6 +1064,10 @@ body:has(.site) {
 @media (prefers-reduced-motion: reduce) {
   .tour-bubble {
     animation: tour-fade 200ms ease-out both;
+  }
+  .tour-bubble.tour-glow::after {
+    animation: none;
+    opacity: 0.8;
   }
   .tour-check,
   .tour-nudge .tour-arrow,

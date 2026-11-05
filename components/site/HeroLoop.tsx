@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import type { LoopPart, LoopSources } from "./hero-loops";
+import type { LoopPart, LoopSources, LoopStill } from "./hero-loops";
+import { afterLoad, canWarm } from "./warm";
 
 const PHONE = "(max-width: 767px)";
 
@@ -12,16 +13,24 @@ function pickSrc(part: LoopPart, video: HTMLVideoElement) {
   return video.canPlayType("video/webm") ? part.webm : part.mp4;
 }
 
+// Where in the first part the still was taken, for this screen's file.
+function stillTime(still: LoopStill) {
+  return window.matchMedia(PHONE).matches && still.mobileTime != null ? still.mobileTime : still.time;
+}
+
 // The hero background. It opens on a still frame of the loop (Sal's pick,
-// 2026-11-05), and nothing plays or downloads until the visitor presses play;
-// the video then starts at that same frame, so the picture simply carries on.
+// 2026-11-05), and nothing plays until the visitor presses play; the video
+// then starts at that same frame, so the picture simply carries on. Once the
+// page has loaded, the first part loads quietly and stands on that frame,
+// hidden, so play starts at once (Sal: "delays on hitting play"); on Data
+// Saver or a slow connection it loads on the press instead.
 // A loop with follow-on parts plays them in order and starts over; every part
 // begins and ends on black, so the switch can't be seen. Playback pauses
 // while the hero is scrolled away and resumes on return.
 //
 // The button is a labelled pill ("Play video"), so people know the picture
 // plays (Sal, 2026-11-05). It arrives after the hero's lines, and until the
-// video has been played its orange disc pulses softly three times.
+// video has been played its disc pulses softly three times.
 export function HeroLoop({
   loop,
   labels,
@@ -71,6 +80,26 @@ export function HeroLoop({
     };
   }, []);
 
+  // Warm the first part: load it once the page has settled and stand it on
+  // the still's frame, so the press only has to start it.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !still || !canWarm()) return;
+    return afterLoad(() => {
+      if (video.readyState > 0 || !video.paused) return;
+      const at = stillTime(still);
+      video.addEventListener(
+        "loadedmetadata",
+        () => {
+          if (video.paused) video.currentTime = at;
+        },
+        { once: true },
+      );
+      video.preload = "auto";
+      video.load();
+    });
+  }, [still]);
+
   // A new part swaps the <source> list, which takes a reload.
   useEffect(() => {
     const video = videoRef.current;
@@ -97,19 +126,24 @@ export function HeroLoop({
       return;
     }
     wantRef.current = true;
-    // The first press starts where the still was taken.
+    // The first press starts where the still was taken (a warmed video is
+    // already standing there).
     if (!started && step === 0 && still) {
-      const at = window.matchMedia(PHONE).matches && still.mobileTime != null ? still.mobileTime : still.time;
+      const at = stillTime(still);
       fromStillRef.current = true;
       const go = () => {
-        video.currentTime = at;
+        if (Math.abs(video.currentTime - at) > 0.05) video.currentTime = at;
         void video.play().catch(() => {});
       };
       if (video.readyState >= 1) go();
       else {
         video.addEventListener("loadedmetadata", go, { once: true });
-        video.preload = "auto";
-        video.load();
+        // Not warmed yet: start loading now. If warming is under way, it
+        // carries on, and `go` runs when the video is ready.
+        if (video.preload === "none") {
+          video.preload = "auto";
+          video.load();
+        }
       }
       return;
     }

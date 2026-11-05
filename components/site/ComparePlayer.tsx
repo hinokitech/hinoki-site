@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { ExpandButton, PlayToggle, stamp } from "./MediaControls";
 import { BAR, SCREEN } from "./ProofMedia";
 import { useNear } from "./useNear";
+import { useWarm } from "./warm";
 
 export type Run = "baseline" | "hinoki";
 export type Marker = { at: number; label: string };
@@ -61,6 +62,11 @@ export function ComparePlayer({
   // expanded view shows them at once.
   const near = useNear(hinokiRef);
   const posters = near || size === "large";
+  // Once the page has loaded and the player is near, the shown run loads so
+  // play starts at once, and the other loads its header; after the first
+  // play, the other loads fully too, so switching runs is quick (see warm.ts).
+  const warm = useWarm(hinokiRef);
+  const [played, setPlayed] = useState(false);
 
   const videoFor = (r: Run) => (r === "baseline" ? baselineRef.current : hinokiRef.current);
 
@@ -128,7 +134,9 @@ export function ComparePlayer({
     const sync = () => {
       cancelAnimationFrame(frameRef.current);
       const active = videoFor(runRef.current);
-      setPlaying(Boolean(active && !active.paused));
+      const on = Boolean(active && !active.paused);
+      setPlaying(on);
+      if (on) setPlayed(true);
       loop();
     };
     for (const v of videos) {
@@ -235,7 +243,7 @@ export function ComparePlayer({
             muted
             loop
             playsInline
-            preload={large ? "auto" : "none"}
+            preload={large || (warm && (run === r || played)) ? "auto" : warm ? "metadata" : "none"}
             aria-label={`${title}, ${labels[r]}`}
             aria-hidden={run !== r}
             className={cn(

@@ -16,6 +16,11 @@ import type { TwoCameraRates } from "./live/two-camera-engine";
 
 const VIEWS: CameraView[] = ["compare", "frame", "event"];
 
+// Where Speed and Sunlight start, and where "Show me around" brings them
+// back. The tour's power-up glides Speed home over GLIDE_MS.
+const START = { speed: 55, sun: 25 };
+const GLIDE_MS = 700;
+
 // One part of the explanation: a hairline, a small title, then its text.
 function Part({ title, className, children }: { title: string; className?: string; children: ReactNode }) {
   return (
@@ -49,8 +54,8 @@ function Item({ children }: { children: ReactNode }) {
 export function EventCameraPanel({ copy }: { copy: SiteCopy["hero"] }) {
   const [view, setView] = useState<CameraView>("compare");
   const [playing, setPlaying] = useState(false);
-  const [speed, setSpeed] = useState(55);
-  const [sun, setSun] = useState(25);
+  const [speed, setSpeed] = useState(START.speed);
+  const [sun, setSun] = useState(START.sun);
   const [hold, setHold] = useState(false);
   const [rates, setRates] = useState<TwoCameraRates | null>(null);
   const [hinoki, setHinoki] = useState(false);
@@ -81,6 +86,32 @@ export function EventCameraPanel({ copy }: { copy: SiteCopy["hero"] }) {
   useEffect(() => {
     if (fallback) stopWaiting();
   }, [fallback, stopWaiting]);
+
+  // By the power-up the tour has the ball racing; Hinoki's steps read best at
+  // the base pace, so Speed glides back to where the demo starts (Sal,
+  // 2026-11-05). The slider visibly travels home on an ease-out close to the
+  // site's calm curve; under reduced motion it jumps. Sunlight stays put:
+  // easing it down makes the event camera fire a burst over the doorway (a
+  // light change is exactly what it reports), which reads as static at the
+  // climax. A visitor's own slider move stops the glide.
+  const glideRef = useRef(0);
+  const stopGlide = () => cancelAnimationFrame(glideRef.current);
+  const glideHome = (from: number) => {
+    stopGlide();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setSpeed(START.speed);
+      return;
+    }
+    const t0 = performance.now();
+    const frame = (now: number) => {
+      const t = Math.min(1, (now - t0) / GLIDE_MS);
+      const k = 1 - Math.pow(1 - t, 4);
+      setSpeed(Math.round(from + (START.speed - from) * k));
+      if (t < 1) glideRef.current = requestAnimationFrame(frame);
+    };
+    glideRef.current = requestAnimationFrame(frame);
+  };
+  useEffect(() => () => cancelAnimationFrame(glideRef.current), []);
 
   const switchHinoki = useCallback((on: boolean) => {
     setHinoki(on);
@@ -216,7 +247,10 @@ export function EventCameraPanel({ copy }: { copy: SiteCopy["hero"] }) {
                   step={1}
                   value={speed}
                   aria-label={copy.controls.speed}
-                  onChange={(e) => setSpeed(Number(e.target.value))}
+                  onChange={(e) => {
+                    stopGlide();
+                    setSpeed(Number(e.target.value));
+                  }}
                   className="h-1 w-full cursor-pointer accent-accent"
                 />
               </label>
@@ -230,7 +264,10 @@ export function EventCameraPanel({ copy }: { copy: SiteCopy["hero"] }) {
                   step={1}
                   value={sun}
                   aria-label={copy.controls.sun}
-                  onChange={(e) => setSun(Number(e.target.value))}
+                  onChange={(e) => {
+                    stopGlide();
+                    setSun(Number(e.target.value));
+                  }}
                   className="h-1 w-full cursor-pointer accent-accent"
                 />
               </label>
@@ -300,8 +337,9 @@ export function EventCameraPanel({ copy }: { copy: SiteCopy["hero"] }) {
                   // A fresh start: the demo's controls back to how it opens.
                   beforeHinokiRef.current = "compare";
                   setView("compare");
-                  setSpeed(55);
-                  setSun(25);
+                  stopGlide();
+                  setSpeed(START.speed);
+                  setSun(START.sun);
                   setHold(false);
                   setHinoki(false);
                   if (!heldRef.current) setPlaying(true);
@@ -358,6 +396,7 @@ export function EventCameraPanel({ copy }: { copy: SiteCopy["hero"] }) {
         onPowerUp={() => {
           switchHinoki(true);
           setHold(false);
+          glideHome(speed);
         }}
         onView={setView}
       />
