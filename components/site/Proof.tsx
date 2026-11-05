@@ -1,5 +1,5 @@
 import type { SiteCopy } from "@/content/site.en";
-import { Chapter, ChapterLabel, ChapterTitle, delay } from "./Chapter";
+import { Chapter, ChapterLabel, ChapterTitle, step } from "./Chapter";
 import { ProofMedia } from "./ProofMedia";
 import { Reveal } from "./Reveal";
 
@@ -14,7 +14,7 @@ function Stat({ stat, n }: { stat: StatCopy; n: number }) {
   return (
     <div
       className="reveal group h-full bg-card p-8 transition-colors duration-500 hover:bg-raise md:p-10"
-      style={delay(n * 100 - 20)}
+      style={step(n - 1)}
     >
       <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-fg-tertiary">
         Measured <span className="tabular-nums">· 0{n}</span>
@@ -63,7 +63,7 @@ export function Proof({ copy }: { copy: SiteCopy["proof"] }) {
               <Stat key={stat.value} stat={stat} n={i + 1} />
             ))}
           </div>
-          <p className="reveal mt-3 text-pretty text-[13px] leading-[1.6] text-fg-tertiary" style={delay(400)}>
+          <p className="reveal mt-3 text-pretty text-[13px] leading-[1.6] text-fg-tertiary" style={step(3)}>
             {copy.note}
           </p>
         </div>

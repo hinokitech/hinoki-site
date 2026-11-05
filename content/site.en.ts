@@ -41,6 +41,9 @@ const en = {
       "Start with a four-week, recording-only trial on one vehicle or one location. You get a tailored report on what caused stops and near-misses, plus a hazard log. It works alongside your existing safety equipment and isn't connected to it.",
     primaryCta: "Ask about a trial",
     secondaryCta: "See the real captures",
+    // The hero picture's play button, labelled so people know it plays
+    // (Sal, 2026-11-05).
+    video: { play: "Play video", pause: "Pause video" },
     // Under the hero frame, in place of the old "Starting with" strip.
     proofStrip: {
       items: [
@@ -428,6 +431,10 @@ const en = {
     email: "contact@hinokitech.com" as string | null,
     emailPlaceholder: "[email address]",
     location: "INNOBASE, Prologis Park Tsukuba, Ibaraki, Japan",
+    // The map under the address (Sal, 2026-11-05): the same point as the
+    // About page's map, the building's own, so the pin carries no other
+    // tenant's name.
+    map: { title: "Map of INNOBASE, Prologis Park Tsukuba 3", coords: "36.0712512,140.0786364" },
     // Shown above Antler's wordmark, as on the live site (Sal, 2026-11-05).
     portfolio: "Antler portfolio company",
     topic: {

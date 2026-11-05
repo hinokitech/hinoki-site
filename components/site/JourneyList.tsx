@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { JOURNEY, isPlanned, whenLabel, type JourneyTag, type Milestone } from "@/content/journey";
 import { cn } from "@/lib/utils";
-import { delay } from "./Chapter";
+import { delay, STEP } from "./Chapter";
 
 const CHIP: Record<JourneyTag, "real" | "simulation" | "live" | "status"> = {
   MEASURED: "real",
@@ -77,7 +77,7 @@ export function JourneyList() {
           <li
             key={`${m.when}-${index}`}
             className="reveal grid grid-cols-[24px_minmax(0,1fr)] gap-x-5 lg:grid-cols-[240px_24px_minmax(0,1fr)] lg:gap-x-12"
-            style={delay(Math.min(index, 6) * 60)}
+            style={delay(Math.min(index, 6) * (STEP / 2))}
           >
             <p
               className={cn(

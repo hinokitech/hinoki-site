@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { JOURNEY, isPlanned, whenLabel, type JourneyTag } from "@/content/journey";
 import { cn } from "@/lib/utils";
-import { delay } from "./Chapter";
+import { delay, STEP } from "./Chapter";
 
 const CHIP: Record<JourneyTag, "real" | "simulation" | "live" | "status"> = {
   MEASURED: "real",
@@ -26,7 +26,7 @@ export function JourneyTimeline() {
           <li
             key={`${m.when}-${index}`}
             className="reveal relative py-5 pl-8 md:py-6 md:pl-10"
-            style={delay(Math.min(index, 6) * 60)}
+            style={delay(Math.min(index, 6) * (STEP / 2))}
           >
             <span
               aria-hidden

@@ -8,6 +8,7 @@ import { JourneyGraph } from "@/components/site/JourneyGraph";
 import { JourneyList } from "@/components/site/JourneyList";
 import { JourneyStrip } from "@/components/site/JourneyStrip";
 import { JourneyTimeline } from "@/components/site/JourneyTimeline";
+import { OfficeMap } from "@/components/site/OfficeMap";
 import { RailSection } from "@/components/site/RailSection";
 import { Reveal } from "@/components/site/Reveal";
 import { aboutCopy } from "@/content/about.en";
@@ -161,20 +162,13 @@ export default async function About({
             ))}
           </dl>
 
-          {/* A small map of the office. Google's embed can't be themed, so on
-              the dark theme it is inverted and its hues turned back, and on
-              the light theme it is softened toward the paper. It loads only
-              when scrolled near. */}
+          {/* A small map of the office, with a link out to Google Maps. */}
           <figure className="reveal mt-8 max-w-[760px]">
-            <div className="aspect-[4/3] overflow-hidden rounded-lg border border-edge bg-raise sm:aspect-[16/7]">
-              <iframe
-                title={company.map.title}
-                src={`https://www.google.com/maps?q=${company.map.coords}&z=15&hl=en&output=embed`}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="block size-full border-0 [filter:invert(0.9)_hue-rotate(180deg)_saturate(0.75)_contrast(0.9)] light:[filter:grayscale(0.35)_contrast(0.95)]"
-              />
-            </div>
+            <OfficeMap
+              title={company.map.title}
+              coords={company.map.coords}
+              className="aspect-[4/3] sm:aspect-[16/7]"
+            />
             <figcaption className="mt-3 text-[13px]">
               <a
                 href={`https://www.google.com/maps/search/?api=1&query=${company.map.coords}`}

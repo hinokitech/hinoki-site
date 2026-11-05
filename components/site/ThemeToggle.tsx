@@ -10,9 +10,11 @@ const site = () => document.querySelector<HTMLElement>(".site");
 const read = (): Theme => (site()?.getAttribute("data-site-theme") === "light" ? "light" : "dark");
 const apply = (theme: Theme) => site()?.setAttribute("data-site-theme", theme);
 
+// The visitor's switch, for this visit only: each new visit opens in the
+// device's setting (Sal, 2026-11-05).
 function stored(): Theme | null {
   try {
-    const value = localStorage.getItem(KEY);
+    const value = sessionStorage.getItem(KEY);
     return value === "light" || value === "dark" ? value : null;
   } catch {
     return null;
@@ -29,9 +31,10 @@ function subscribe(onChange: () => void) {
   return () => observer.disconnect();
 }
 
-// Switches the homepage between its dark and light themes and remembers the
-// choice. Until someone chooses, the page follows the device setting, even
-// when it changes. The icons swap in CSS, so they are right before hydration.
+// Switches the homepage between its dark and light themes for the rest of
+// the visit. Until someone switches, the page follows the device setting,
+// even when it changes. The icons swap in CSS, so they are right before
+// hydration.
 export function ThemeToggle() {
   const theme = useSyncExternalStore(subscribe, read, () => null);
 
@@ -47,9 +50,9 @@ export function ThemeToggle() {
   const toggle = () => {
     const next: Theme = read() === "light" ? "dark" : "light";
     try {
-      localStorage.setItem(KEY, next);
+      sessionStorage.setItem(KEY, next);
     } catch {
-      // Storage blocked: the switch still works for this visit.
+      // Storage blocked: the switch still works on this page.
     }
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!still && "startViewTransition" in document) document.startViewTransition(() => apply(next));

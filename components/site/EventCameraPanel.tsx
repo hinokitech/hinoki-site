@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import type { SiteCopy } from "@/content/site.en";
 import { cn } from "@/lib/utils";
-import { delay } from "./Chapter";
-import { DemoTour, tourDone } from "./DemoTour";
+import { step } from "./Chapter";
+import { DemoTour } from "./DemoTour";
 import { EventCameraView } from "./EventCameraView";
 import type { StreamView } from "./HinokiHud";
 import { PlayToggle } from "./MediaControls";
@@ -38,14 +38,14 @@ function Item({ children }: { children: ReactNode }) {
 
 // The interactive event-camera illustration: one scene seen by a normal
 // camera and an event camera at once, with controls for speed and sunlight.
-// On a first visit it waits on a still frame, and the guided tour's first tip
-// asks for play (Sal, 2026-11-05: "a bubble to encourage a click to begin");
-// once the tour has been finished or skipped, it starts by itself whenever
-// it's on screen, the only thing on the page that does (also under reduced
-// motion, since the demo is the point). The button starts or stops it, and a
-// manual pause sticks. Switching on With Hinoki fills the view with the event
-// camera, for the full effect. Without WebGL2 it falls back to the simpler
-// two-ball drawing, which starts by itself.
+// Every page load opens it at the designed start, paused on its first frame,
+// with the tour's tip at the play button asking for play (Sal, 2026-11-05:
+// "a bubble to encourage a click to begin", "designated start at least on
+// refresh"). Once played, it runs whenever it's on screen and pauses when
+// scrolled away (also under reduced motion, since the demo is the point).
+// The button starts or stops it, and a manual pause sticks. Switching on With
+// Hinoki fills the view with the event camera, for the full effect. Without
+// WebGL2 it falls back to the simpler two-ball drawing, which starts by itself.
 export function EventCameraPanel({ copy }: { copy: SiteCopy["hero"] }) {
   const [view, setView] = useState<CameraView>("compare");
   const [playing, setPlaying] = useState(false);
@@ -96,7 +96,9 @@ export function EventCameraPanel({ copy }: { copy: SiteCopy["hero"] }) {
   useEffect(() => {
     const el = viewRef.current;
     if (!el) return;
-    waitRef.current = !tourDone();
+    // Every visit opens at the designed start: paused until the visitor
+    // presses play (the tour's tip asks for it).
+    waitRef.current = true;
     const observer = new IntersectionObserver(
       ([entry]) => {
         visibleRef.current = entry.isIntersecting;
@@ -272,7 +274,7 @@ export function EventCameraPanel({ copy }: { copy: SiteCopy["hero"] }) {
 
         {/* Beside the interactive: what the visitor is looking at and what to
             try (only when the full interactive runs). */}
-        <div className="reveal lg:col-span-4" style={delay(200)}>
+        <div className="reveal lg:col-span-4" style={step(1)}>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">{copy.toggle.event}</p>
           <h2
             id="event-camera-title"
@@ -319,7 +321,7 @@ export function EventCameraPanel({ copy }: { copy: SiteCopy["hero"] }) {
         {/* Below it, across the width: why event vision is hard, and how Hinoki makes it work. */}
         <div
           className="reveal grid gap-x-14 gap-y-8 border-t border-line pt-10 lg:col-span-12 lg:grid-cols-12"
-          style={delay(300)}
+          style={step(2)}
         >
           <Part title={e.hard.title} className="mt-0 border-t-0 pt-0 lg:col-span-5">
             <p className="max-w-[560px] text-pretty text-[15px] leading-[1.75] text-fg-secondary">{e.hard.text}</p>

@@ -1,6 +1,6 @@
 import { buttonVariants } from "@/components/ui/button";
 import type { SiteCopy } from "@/content/site.en";
-import { Chapter, ChapterLabel, ChapterTitle, delay } from "./Chapter";
+import { Chapter, ChapterLabel, ChapterTitle, step } from "./Chapter";
 import { Reveal } from "./Reveal";
 import { SimCompare } from "./SimCompare";
 
@@ -46,7 +46,7 @@ export function Application({ copy }: { copy: SiteCopy["application"] }) {
             {copy.body}
           </p>
 
-          <dl className="reveal mt-10 border-t border-line" style={delay(120)}>
+          <dl className="reveal mt-10 border-t border-line" style={step(1)}>
             {copy.values.map((value) => (
               <div
                 key={value.label}
@@ -60,15 +60,15 @@ export function Application({ copy }: { copy: SiteCopy["application"] }) {
 
           <p
             className="reveal mt-8 max-w-[52ch] text-pretty text-[clamp(1.125rem,1.7vw,1.3125rem)] leading-[1.5] tracking-[-0.01em] text-fg-primary"
-            style={delay(180)}
+            style={step(2)}
           >
             {copy.bridge}
           </p>
-          <p className="reveal mt-4 max-w-[62ch] text-[14px] leading-[1.7] text-fg-tertiary" style={delay(220)}>
+          <p className="reveal mt-4 max-w-[62ch] text-[14px] leading-[1.7] text-fg-tertiary" style={step(3)}>
             {copy.safetyNote}
           </p>
 
-          <div className="reveal mt-12" style={delay(280)}>
+          <div className="reveal mt-12" style={step(4)}>
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-fg-tertiary">
               {copy.alsoSuited.label}
             </p>
@@ -88,13 +88,13 @@ export function Application({ copy }: { copy: SiteCopy["application"] }) {
         <Reveal className="lg:col-span-5">
           <p
             className="reveal mb-6 max-w-[40ch] text-pretty text-[clamp(1.125rem,1.7vw,1.3125rem)] leading-[1.5] tracking-[-0.01em] text-fg-primary"
-            style={delay(100)}
+            style={step(1)}
           >
             {copy.stopLogs}
           </p>
           <div
             className="reveal shadow-frame relative overflow-hidden rounded-xl border border-edge bg-lift p-8 md:p-10"
-            style={delay(150)}
+            style={step(2)}
           >
             <div
               aria-hidden

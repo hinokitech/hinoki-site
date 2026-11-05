@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import type { SiteCopy } from "@/content/site.en";
 import { cn } from "@/lib/utils";
-import { Chapter, ChapterLabel, ChapterTitle, delay } from "./Chapter";
+import { Chapter, ChapterLabel, ChapterTitle, step } from "./Chapter";
 import { Reveal } from "./Reveal";
 
 // Set like the live site's Roadmap: centred heading, then one vertical
@@ -27,7 +27,7 @@ export function Progress({ copy }: { copy: SiteCopy["progress"] }) {
               <li
                 key={`${m.date} ${m.text}`}
                 className="reveal relative py-5 pl-8 md:py-6 md:pl-10"
-                style={delay(i * 100 + 120)}
+                style={step(i + 1)}
               >
                 <span
                   aria-hidden
@@ -76,7 +76,7 @@ export function Progress({ copy }: { copy: SiteCopy["progress"] }) {
         <Link
           href={copy.link.href}
           className="reveal mt-10 inline-block text-[14px] text-accent underline decoration-accent/40 underline-offset-[6px] transition-colors duration-300 hover:decoration-accent md:mt-12"
-          style={delay(copy.milestones.length * 100 + 120)}
+          style={step(copy.milestones.length + 1)}
         >
           {copy.link.label}
         </Link>

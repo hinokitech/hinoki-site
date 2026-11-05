@@ -1,7 +1,8 @@
 import type { SiteCopy } from "@/content/site.en";
-import { Chapter, ChapterLabel, delay } from "./Chapter";
+import { Chapter, ChapterLabel, step } from "./Chapter";
 import { ContactForm } from "./ContactForm";
 import { EmailCopy } from "./EmailCopy";
+import { OfficeMap } from "./OfficeMap";
 import { Reveal } from "./Reveal";
 
 // The live site's closing chapter (grain, ember glow, centred call), with the
@@ -24,7 +25,7 @@ export function Contact({ copy }: { copy: SiteCopy["contact"] }) {
         </h2>
         <p
           className="reveal mx-auto mt-8 max-w-[600px] text-pretty text-[clamp(1.0625rem,1.6vw,1.25rem)] leading-[1.7] text-fg-secondary"
-          style={delay(150)}
+          style={step(1)}
         >
           {copy.body}
         </p>
@@ -33,7 +34,7 @@ export function Contact({ copy }: { copy: SiteCopy["contact"] }) {
       <Reveal className="mx-auto mt-14 max-w-[980px] md:mt-16">
         <div
           className="reveal shadow-frame grid gap-px overflow-hidden rounded-xl border border-edge bg-line md:grid-cols-[2fr_3fr]"
-          style={delay(250)}
+          style={step(2)}
         >
           <div className="flex flex-col gap-8 bg-card p-6 md:p-10">
             <dl className="flex flex-col gap-8">
@@ -44,6 +45,14 @@ export function Contact({ copy }: { copy: SiteCopy["contact"] }) {
                 </div>
               ))}
             </dl>
+            {/* The office on the map, just under the address, filling the
+                space beside the form (Sal, 2026-11-05). On phones, where the
+                form sits below, a short strip. */}
+            <OfficeMap
+              title={copy.map.title}
+              coords={copy.map.coords}
+              className="-mt-4 aspect-[16/10] md:aspect-auto md:min-h-[160px] md:flex-1"
+            />
             {/* As on the live site: Antler's own wordmark under a quiet label,
                 set apart from the contact details by a hairline. Its red reads
                 on both themes. */}

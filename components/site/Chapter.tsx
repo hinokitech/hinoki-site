@@ -4,6 +4,12 @@ import { cn } from "@/lib/utils";
 // Stagger for .reveal children, as on the live site.
 export const delay = (ms: number) => ({ "--reveal-delay": `${ms}ms` }) as CSSProperties;
 
+// The site's one stagger step (Sal, 2026-11-05: timing "in lockstep with the
+// design language"): within a block, each element arrives STEP after the one
+// before; long lists use half a step. The hero's opening uses the same step.
+export const STEP = 140;
+export const step = (n: number) => delay(n * STEP);
+
 const GLOWS = {
   // The soft orange bloom behind the live site's Belief chapter.
   center: "glow-center",

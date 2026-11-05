@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import type { LoopPart, LoopSources } from "./hero-loops";
-import { PlayToggle } from "./MediaControls";
 
 const PHONE = "(max-width: 767px)";
 
@@ -19,12 +18,18 @@ function pickSrc(part: LoopPart, video: HTMLVideoElement) {
 // A loop with follow-on parts plays them in order and starts over; every part
 // begins and ends on black, so the switch can't be seen. Playback pauses
 // while the hero is scrolled away and resumes on return.
+//
+// The button is a labelled pill ("Play video"), so people know the picture
+// plays (Sal, 2026-11-05). It arrives after the hero's lines, and until the
+// video has been played its orange disc pulses softly three times.
 export function HeroLoop({
   loop,
+  labels,
   className,
   controlsClassName,
 }: {
   loop: LoopSources;
+  labels: { play: string; pause: string };
   className?: string;
   controlsClassName?: string;
 }) {
@@ -158,8 +163,35 @@ export function HeroLoop({
         <source src={part.webm} type="video/webm" />
         <source src={part.mp4} type="video/mp4" />
       </video>
-      <div className={controlsClassName ?? "absolute right-[18px] top-[88px] z-10 md:right-6 md:top-6"}>
-        <PlayToggle playing={playing} title="background motion" onClick={toggle} />
+      <div className={controlsClassName ?? "absolute right-[18px] top-[84px] z-10 md:bottom-10 md:right-10"}>
+        {/* Quiet, in the page's own ink rather than orange (Sal, 2026-11-05:
+            "softer", "a little smaller"), with a mono label like the site's
+            other small tags. */}
+        <button
+          type="button"
+          onClick={toggle}
+          className="hero-rise group inline-flex items-center gap-2 rounded-full border border-edge-strong bg-ground/60 py-[3px] pl-[3px] pr-3 font-mono text-[10px] uppercase tracking-[0.16em] text-fg-secondary backdrop-blur-md transition-colors duration-300 hover:bg-ground/85 hover:text-fg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          // After the hero's lines and the measured results.
+          style={{ "--reveal-delay": "1100ms" } as CSSProperties}
+        >
+          <span
+            aria-hidden
+            className={cn(
+              "grid size-6 place-items-center rounded-full bg-fg-primary/[0.08] text-fg-primary transition-colors duration-300 group-hover:bg-fg-primary/[0.14]",
+              !started && "play-ring",
+            )}
+          >
+            {playing ? (
+              <span className="flex gap-[2px]">
+                <span className="h-2 w-[2px] rounded-full bg-current" />
+                <span className="h-2 w-[2px] rounded-full bg-current" />
+              </span>
+            ) : (
+              <span className="ml-[2px] size-0 border-y-[4px] border-l-[6px] border-y-transparent border-l-current" />
+            )}
+          </span>
+          {playing ? labels.pause : labels.play}
+        </button>
       </div>
     </>
   );

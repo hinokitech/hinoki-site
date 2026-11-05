@@ -12,12 +12,12 @@ import { cn } from "@/lib/utils";
 // does it, and the power-up (With Hinoki) as the climax, then a few tips on
 // what Hinoki is doing and a last "try to lose it". Nothing moves on by
 // itself: every tip waits for Next, so there's time to read and look.
-// On a first visit the demo waits, and the tour opens on a tip at the play
-// button: pressing play starts the demo and the tour together. The tour
-// never blocks the demo, scrolls each control into sight, and once finished
-// or skipped it doesn't come back in that browser (the demo then starts by
-// itself); "Show me around" replays it. On phones the tip is a card at the
-// bottom of the screen.
+// On every visit the demo waits at its start, and a tip at the play button
+// asks for play (Sal, 2026-11-05: "isn't starting from the start position we
+// designed"). Pressing play (or Start) starts the demo and the tour together;
+// Skip tour just starts the demo. The tour never blocks the demo and scrolls
+// each control into sight; "Show me around" replays it. On phones the tip is
+// a card at the bottom of the screen.
 
 export type TourState = {
   playing: boolean;
@@ -48,7 +48,6 @@ type Step = {
   skip?: (s: TourState) => boolean;
 };
 
-const KEY = "hinoki-demo-tour";
 const PHONE_W = 640;
 const centred = (s: TourState) => Math.abs(s.compareAt - 0.5) <= 0.04;
 
@@ -81,23 +80,6 @@ type Layout = {
   ring: (Box & { radius: number }) | null;
 };
 
-const stored = () => {
-  try {
-    return window.localStorage.getItem(KEY);
-  } catch {
-    return null;
-  }
-};
-
-/** Has this browser finished or skipped the tour? Until then the demo waits for play. */
-export const tourDone = () => stored() === "done";
-const remember = () => {
-  try {
-    window.localStorage.setItem(KEY, "done");
-  } catch {
-    // Private mode or blocked storage: the tour may simply show again.
-  }
-};
 const still = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function Arrow() {
@@ -128,7 +110,7 @@ export function DemoTour({
   replay: number;
   /** Start the demo (the first tip's Start, or a jump to the power-up). */
   onStart: () => void;
-  /** The tour was finished or skipped: from now on the demo starts by itself. */
+  /** The tips are closed: from now on the demo starts by itself when in view. */
   onClose: () => void;
   /** The climax: switch Hinoki on (if the visitor pressed Next) and let the ball go. */
   onPowerUp: () => void;
@@ -166,7 +148,6 @@ export function DemoTour({
   };
 
   const close = () => {
-    remember();
     setIndex(null);
     onClose();
   };
@@ -187,10 +168,8 @@ export function DemoTour({
     const s = STEPS[i];
     if (s.id === "hinoki") onPowerUp();
     burst(s.anchor);
-    if (i === STEPS.length - 1) {
-      remember();
-      setPhase("final");
-    } else if (copy.steps[s.id]?.reaction) setPhase("react");
+    if (i === STEPS.length - 1) setPhase("final");
+    else if (copy.steps[s.id]?.reaction) setPhase("react");
     else begin(i + 1);
   };
 
@@ -204,10 +183,10 @@ export function DemoTour({
     else begin(index + 1);
   };
 
-  // Start once the demo has been on screen for a moment, unless done before.
+  // Ask for play once the demo has been on screen for a moment.
   useEffect(() => {
     const view = rootRef.current?.querySelector('[data-tour="view"]');
-    if (!enabled || !view || stored()) return;
+    if (!enabled || !view) return;
     let wait = 0;
     const seen = new IntersectionObserver(
       ([entry]) => {
@@ -382,6 +361,7 @@ export function DemoTour({
   if (!root || index === null || !step) return null;
 
   const words = copy.steps[step.id] ?? { title: "" };
+  const label = copy.parts[step.part];
   const cheering = phase !== "ask" && !!words.reaction;
   // The play tip is the way in, so the count starts after it.
   const first = step.id === "play";
@@ -417,7 +397,7 @@ export function DemoTour({
         ref={bubbleRef}
         key={`${index}-${phase}`}
         role="dialog"
-        aria-label={copy.parts[step.part]}
+        aria-label={label}
         className={cn(
           "tour-bubble stay-dark z-50 rounded-xl border border-white/[0.12] bg-[#111318]/95 px-5 pb-4 pt-4 text-left text-fg-primary shadow-[0_20px_50px_rgb(0_0_0/0.55)] backdrop-blur-md",
           layout?.sheet ? "fixed inset-x-3 bottom-3 mx-auto max-w-[440px]" : "absolute",
@@ -427,7 +407,7 @@ export function DemoTour({
       >
         <div aria-hidden className="absolute inset-x-5 top-0 h-px bg-accent/70" />
         <div className="flex items-baseline justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.2em]">
-          <span className="text-accent">{copy.parts[step.part]}</span>
+          <span className="text-accent">{label}</span>
           <span className="tabular-nums text-fg-tertiary">{count}</span>
         </div>
 

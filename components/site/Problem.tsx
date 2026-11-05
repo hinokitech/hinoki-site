@@ -1,5 +1,5 @@
 import type { SiteCopy } from "@/content/site.en";
-import { Chapter, ChapterLabel, ChapterTitle, delay } from "./Chapter";
+import { Chapter, ChapterLabel, ChapterTitle, step } from "./Chapter";
 import { Reveal } from "./Reveal";
 
 // Set like the live site's Belief chapter: one large light statement, the
@@ -20,7 +20,7 @@ export function Problem({ copy }: { copy: SiteCopy["problem"] }) {
         </ChapterTitle>
         <p
           className="reveal mt-10 max-w-[720px] text-pretty text-[clamp(1.0625rem,1.8vw,1.3125rem)] leading-[1.75] text-fg-secondary md:mt-12"
-          style={delay(200)}
+          style={step(1)}
         >
           {copy.body}
         </p>
@@ -31,7 +31,7 @@ export function Problem({ copy }: { copy: SiteCopy["problem"] }) {
           <div
             key={fact.tag}
             className="reveal group bg-card p-8 transition-colors duration-500 hover:bg-raise md:p-10"
-            style={delay(i * 100 + 80)}
+            style={step(i)}
           >
             {/* Each tag with one line on what it means. */}
             <div className="border-t border-accent/70 pt-5">

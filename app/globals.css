@@ -533,7 +533,7 @@ body:has(.site) {
   min-width: 0;
   transition-property: width, min-width, box-shadow;
   transition-duration: var(--grow, 2000ms), var(--grow, 2000ms), 1400ms;
-  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1), cubic-bezier(0.65, 0, 0.35, 1), ease-out;
+  transition-timing-function: var(--ease-calm), var(--ease-calm), ease-out;
   transition-delay: var(--at, 0ms), var(--at, 0ms), calc(var(--at, 0ms) + var(--grow, 0ms) * 0.6);
 }
 
@@ -552,7 +552,7 @@ body:has(.site) {
 
 .site .time-value {
   opacity: 0;
-  transition: opacity 900ms ease var(--show, 0ms);
+  transition: opacity 900ms var(--ease-calm) var(--show, 0ms);
 }
 
 .site .is-visible .time-value {
@@ -576,12 +576,23 @@ body:has(.site) {
   }
 }
 
-/* Load-ins for what's on screen when a page opens: the same rise as
-   .reveal, as a CSS animation that starts with the first paint instead of
-   waiting for scripts. .hero-rise is the hero's slow version. A block marked
-   .reveal-onload (the About page's opening) shows its .reveal children at
-   once: it holds the page's largest text, which has to be visible from the
-   first paint to meet the brief's Lighthouse target. */
+/* The site's one motion curve: everything that arrives (reveals, the
+   opening, the time chart, the journey) eases out on it, so the page moves
+   in a single calm rhythm (Sal, 2026-11-05). */
+.site {
+  --ease-calm: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The opening, from the first paint, without waiting for scripts (Sal,
+   2026-11-05: "a professional fade in"). The nav and the picture fade up;
+   the hero's lines rise in one after another, 140 ms apart (the steps are
+   set in Hero.tsx); then the play button arrives and its ring pulses softly
+   three times, so people know the picture plays. The headline and subhead
+   start faintly visible rather than invisible, so they count as painted
+   from the first frame (the brief's Lighthouse target). Under reduced
+   motion it all fades without moving. A block marked .reveal-onload (the
+   About page's opening) shows its .reveal children at once, for the same
+   reason. */
 @keyframes hero-rise {
   from {
     opacity: 0;
@@ -600,8 +611,58 @@ body:has(.site) {
     opacity: 1;
   }
 }
+@keyframes intro-text {
+  from {
+    opacity: 0.15;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes intro-text-fade {
+  from {
+    opacity: 0.15;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* A veil in the page's colour lifts off the picture, so the picture itself
+   (and its light-theme blend) is never touched. */
+@keyframes intro-veil {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* A soft ring in the play button's own ink, not orange. */
+@keyframes play-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 30%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 9px color-mix(in srgb, currentColor 0%, transparent);
+  }
+}
 .site .hero-rise {
-  animation: hero-rise 2800ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
+  animation: hero-rise 1600ms var(--ease-calm) var(--reveal-delay, 0ms) both;
+}
+.site .intro-text {
+  animation: intro-text 1600ms var(--ease-calm) var(--reveal-delay, 0ms) both;
+}
+.site .intro-fade {
+  animation: hero-fade 1200ms ease-out var(--reveal-delay, 0ms) both;
+}
+.site .intro-veil {
+  animation: intro-veil 2400ms var(--ease-calm) var(--reveal-delay, 0ms) both;
+}
+.site .play-ring {
+  animation: play-ring 1800ms ease-out 2600ms 3;
 }
 .site .reveal-onload .reveal {
   opacity: 1;
@@ -611,6 +672,12 @@ body:has(.site) {
 @media (prefers-reduced-motion: reduce) {
   .site .hero-rise {
     animation-name: hero-fade;
+  }
+  .site .intro-text {
+    animation-name: intro-text-fade;
+  }
+  .site .play-ring {
+    animation: none;
   }
 }
 
@@ -681,6 +748,104 @@ body:has(.site) {
   }
 
   .journey .journey-draw {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* The About page's rising timeline (JourneyChart), Sal 2026-11-05: every
+   milestone starts as a hollow ring; the line then travels from one to the
+   next at a steady beat, and each ring fills with orange (with a soft halo)
+   as the line reaches it. Planned milestones stay hollow. Timings come from
+   the component (--d: when, --len: how long a stretch of line takes).
+   Under reduced motion the rings still fill and the line still draws, without
+   the growing and the halo. */
+.journey .journey-ring,
+.journey .journey-label,
+.journey .journey-later {
+  opacity: 0;
+  transition: opacity 900ms var(--ease-calm, ease-out) var(--d, 0ms);
+}
+
+.journey .journey-fill {
+  opacity: 0;
+  transform: scale(0.2);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    opacity 500ms ease-out var(--d, 0ms),
+    transform 700ms var(--ease-calm, ease-out) var(--d, 0ms);
+}
+
+.journey .journey-halo {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* One even speed from ring to ring. */
+.journey .journey-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset var(--len, 400ms) linear var(--d, 0ms);
+}
+
+.journey .journey-plan {
+  opacity: 0;
+  transition: opacity var(--len, 400ms) linear var(--d, 0ms);
+}
+
+@keyframes journey-halo {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  12% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.journey[data-drawn] .journey-ring,
+.journey[data-drawn] .journey-label,
+.journey[data-drawn] .journey-later,
+.journey[data-drawn] .journey-fill,
+.journey[data-drawn] .journey-plan {
+  opacity: 1;
+  transform: none;
+}
+
+.journey[data-drawn] .journey-line {
+  stroke-dashoffset: 0;
+}
+
+.journey[data-drawn] .journey-halo {
+  animation: journey-halo 1000ms ease-out var(--d, 0ms) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey .journey-fill {
+    transform: none;
+  }
+
+  .journey[data-drawn] .journey-halo {
+    animation: none;
+  }
+}
+
+@media (scripting: none) {
+  .journey .journey-ring,
+  .journey .journey-label,
+  .journey .journey-later,
+  .journey .journey-fill,
+  .journey .journey-plan {
+    opacity: 1;
+    transform: none;
+  }
+
+  .journey .journey-line {
     stroke-dashoffset: 0;
   }
 }
@@ -832,12 +997,12 @@ body:has(.site) {
 }
 
 .tour-bubble {
-  animation: tour-pop 320ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  animation: tour-pop 420ms var(--ease-calm) both;
 }
 
 .tour-check {
   display: inline-block;
-  animation: tour-check 360ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: tour-check 420ms var(--ease-calm) both;
 }
 
 .tour-nudge .tour-arrow {
@@ -863,7 +1028,7 @@ body:has(.site) {
   height: 5px;
   border-radius: 9px;
   background: var(--color-accent);
-  animation: tour-burst 760ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+  animation: tour-burst 760ms var(--ease-calm) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

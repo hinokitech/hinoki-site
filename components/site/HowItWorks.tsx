@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import type { SiteCopy } from "@/content/site.en";
 import { cn } from "@/lib/utils";
-import { Chapter, ChapterLabel, ChapterTitle, delay } from "./Chapter";
+import { Chapter, ChapterLabel, ChapterTitle, step } from "./Chapter";
 import { Reveal } from "./Reveal";
 
 // "45 ms" -> ["45", "ms"], so the unit can be set small, as in the Proof stats.
@@ -108,11 +108,11 @@ export function HowItWorks({ copy }: { copy: SiteCopy["how"] }) {
           the live site's roadmap turned on its side. */}
       <Reveal className="mt-16 md:mt-20">
         <ol className="grid md:grid-cols-2 md:gap-x-10 lg:grid-cols-4 lg:gap-x-0">
-          {copy.steps.map((step, i) => (
+          {copy.steps.map((stage, i) => (
             <li
-              key={step.step}
+              key={stage.step}
               className="reveal relative border-t border-edge pb-12 pt-10 lg:pb-0 lg:pr-10"
-              style={delay(i * 120)}
+              style={step(i)}
             >
               {/* Hollow nodes for the stages, a filled one for the answer. */}
               <span
@@ -122,17 +122,17 @@ export function HowItWorks({ copy }: { copy: SiteCopy["how"] }) {
                   i === copy.steps.length - 1 ? "bg-accent shadow-[0_0_14px_rgb(232_98_42/0.7)]" : "bg-ground",
                 )}
               />
-              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">{step.step}</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">{stage.step}</p>
               <h3 className="mt-5 text-[20px] font-medium tracking-[-0.02em] text-fg-primary md:text-[22px]">
-                {step.title}
+                {stage.title}
               </h3>
-              <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">{step.text}</p>
+              <p className="mt-3 text-[15px] leading-[1.65] text-fg-secondary">{stage.text}</p>
             </li>
           ))}
         </ol>
         <p
           className="reveal mt-4 flex max-w-[720px] gap-4 text-[14px] leading-[1.7] text-fg-tertiary md:mt-16"
-          style={delay(480)}
+          style={step(4)}
         >
           <span aria-hidden className="mt-[0.8em] h-px w-5 shrink-0 bg-accent" />
           {copy.note}

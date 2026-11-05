@@ -22,7 +22,8 @@ export function Header({ nav, current }: { nav: SiteCopy["nav"]; current?: strin
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-[100] border-b transition-all duration-500",
+        // Fades in with the page's opening (globals.css, .intro-fade).
+        "intro-fade fixed inset-x-0 top-0 z-[100] border-b transition-all duration-500",
         scrolled ? "border-line bg-ground/90 backdrop-blur-xl" : "border-transparent bg-transparent",
       )}
     >
