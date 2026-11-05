@@ -29,7 +29,10 @@ const SITE_URL =
 const SITE_TITLE = "Hinoki Technologies | Fast vision for forklifts and mobile robots";
 const SITE_DESCRIPTION =
   "Hinoki turns fast motion into real-time answers for machines, at the edge.";
-const OG_IMAGE_ALT = "Hinoki Technologies | Fast vision for forklifts and mobile robots";
+// The link-preview image is a designed card saved as app/opengraph-image.jpg
+// and app/twitter-image.jpg (alt text in the matching .alt.txt files); Next
+// adds their meta tags with a content hash, so a new card isn't stuck behind
+// chat apps' caches. Made from site-rebuild-inputs/tools/og-card.
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -67,20 +70,11 @@ export const metadata: Metadata = {
     siteName: "Hinoki Technologies",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: OG_IMAGE_ALT,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/twitter-image"],
   },
   robots: {
     index: true,
