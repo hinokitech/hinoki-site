@@ -40,13 +40,14 @@ export function Footer({ nav, small }: { nav: SiteCopy["nav"]; small: SiteCopy["
           {small.backedBy}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/assets/antler-wordmark.png"
+            src="/assets/partners/antler-16-1x.png"
+            srcSet="/assets/partners/antler-16-1x.png 1x, /assets/partners/antler-16-2x.png 2x, /assets/partners/antler-16-3x.png 3x"
             alt="Antler"
-            width={458}
-            height={110}
+            width={67}
+            height={16}
             loading="lazy"
             decoding="async"
-            className="h-4 w-auto opacity-90"
+            className="h-4 w-[67px] opacity-90"
           />
         </span>
       </div>

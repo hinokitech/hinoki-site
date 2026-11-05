@@ -55,19 +55,30 @@ export function Contact({ copy }: { copy: SiteCopy["contact"] }) {
             />
             {/* As on the live site: Antler's own wordmark under a quiet label,
                 set apart from the contact details by a hairline. Its red reads
-                on both themes. */}
+                on both themes. Exact-pixel copies per size and screen density,
+                so the browser never resizes it (Sal, 2026-11-05: logos "a
+                little blurry"). */}
             <div className="mt-auto border-t border-line pt-6">
               <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-fg-tertiary">{copy.portfolio}</p>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/antler-wordmark.png"
-                alt="Antler"
-                width={458}
-                height={110}
-                loading="lazy"
-                decoding="async"
-                className="mt-3 h-7 w-auto opacity-90 md:h-8"
-              />
+              <picture>
+                <source
+                  media="(min-width: 768px)"
+                  srcSet="/assets/partners/antler-32-1x.png 1x, /assets/partners/antler-32-2x.png 2x, /assets/partners/antler-32-3x.png 3x"
+                  width={133}
+                  height={32}
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/partners/antler-28-1x.png"
+                  srcSet="/assets/partners/antler-28-1x.png 1x, /assets/partners/antler-28-2x.png 2x, /assets/partners/antler-28-3x.png 3x"
+                  alt="Antler"
+                  width={117}
+                  height={28}
+                  loading="lazy"
+                  decoding="async"
+                  className="mt-3 h-7 w-[117px] opacity-90 md:h-8 md:w-[133px]"
+                />
+              </picture>
             </div>
           </div>
           <div className="bg-card p-6 md:p-10">

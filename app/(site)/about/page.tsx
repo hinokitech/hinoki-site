@@ -13,6 +13,7 @@ import { RailSection } from "@/components/site/RailSection";
 import { Reveal } from "@/components/site/Reveal";
 import { aboutCopy } from "@/content/about.en";
 import { siteCopy } from "@/content/site.en";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: aboutCopy.meta.title,
@@ -113,8 +114,10 @@ export default async function About({
             ))}
             {/* Partners, then Programs, by logo: each at its own height so they
                 read the same size, and at full strength, since the programs'
-                rules say their colours must not be altered. A logo without a
-                file shows its name. */}
+                rules say their colours must not be altered. Sizes are whole
+                pixels and the raster logos exact-pixel copies, so none is
+                resized or lands between pixels. A logo without a file shows
+                its name. */}
             {company.logoRows.map((group) => (
               <div key={group.term} className="grid gap-3 border-b border-line py-4 sm:grid-cols-[11rem_1fr] sm:gap-6">
                 <dt className="pt-1 font-mono text-[11px] uppercase tracking-[0.22em] text-accent">{group.term}</dt>
@@ -129,25 +132,27 @@ export default async function About({
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src={p.logoOnDark ?? p.logo}
+                              srcSet={p.logoOnDark ? p.srcSetOnDark : p.srcSet}
                               alt={p.name}
-                              width={p.width}
-                              height={p.height}
+                              width={p.w}
+                              height={p.h}
                               loading="lazy"
                               decoding="async"
-                              style={{ height: p.h ?? 24 }}
-                              className={`${p.logoOnDark ? "light:hidden " : ""}w-auto`}
+                              style={{ width: p.w, height: p.h ?? 24 }}
+                              className={cn(p.logoOnDark && "light:hidden", !p.w && "w-auto")}
                             />
                             {p.logoOnDark ? (
                               // eslint-disable-next-line @next/next/no-img-element
                               <img
                                 src={p.logo}
+                                srcSet={p.srcSet}
                                 alt={p.name}
-                                width={p.width}
-                                height={p.height}
+                                width={p.w}
+                                height={p.h}
                                 loading="lazy"
                                 decoding="async"
-                                style={{ height: p.h ?? 24 }}
-                                className="hidden w-auto light:block"
+                                style={{ width: p.w, height: p.h ?? 24 }}
+                                className={cn("hidden light:block", !p.w && "w-auto")}
                               />
                             ) : null}
                           </>

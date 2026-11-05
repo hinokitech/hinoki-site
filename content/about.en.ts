@@ -61,39 +61,62 @@ export const aboutCopy = {
     // download, 2026-11-05) works on both themes as is: white panel, black
     // frame. Its file carries clear space, so 40 px keeps the visible badge
     // over NVIDIA's 30 px minimum. `h` is each logo's display height, set by
-    // eye so they look the same size. No logo's colours are altered.
+    // eye so they look the same size, and `w` its width, both in whole
+    // pixels so no logo lands between pixels (Sal, 2026-11-05: "a little
+    // blurry"). The raster logos (Antler, AWS) come as exact-pixel copies
+    // per screen density (`srcSet`), so the browser never resizes them; the
+    // vector ones keep their own proportions inside their box. No logo's
+    // colours are altered.
     // Sal, 2026-11-05: Antler under Partners; the three startup programs
     // under Programs.
     logoRows: [
       {
         term: "Partners",
-        items: [{ name: "Antler", logo: "/assets/antler-wordmark.png", width: 458, height: 110, h: 24 }],
+        items: [
+          {
+            name: "Antler",
+            logo: "/assets/partners/antler-24-1x.png",
+            srcSet:
+              "/assets/partners/antler-24-1x.png 1x, /assets/partners/antler-24-2x.png 2x, /assets/partners/antler-24-3x.png 3x",
+            w: 100,
+            h: 24,
+          },
+        ],
       },
       {
         term: "Programs",
         items: [
-          { name: "NVIDIA Inception", logo: "/assets/partners/nvidia-inception-badge.svg", width: 500, height: 216, h: 40 },
+          { name: "NVIDIA Inception", logo: "/assets/partners/nvidia-inception-badge.svg", w: 93, h: 40 },
           {
             name: "Google for Startups",
             logo: "/assets/partners/google-for-startups.svg",
             logoOnDark: "/assets/partners/google-for-startups-on-dark.svg",
-            width: 824,
-            height: 100,
+            w: 157,
             h: 19,
           },
           {
             name: "Powered by AWS",
-            logo: "/assets/partners/powered-by-aws.png",
-            logoOnDark: "/assets/partners/powered-by-aws-white.png",
-            width: 200,
-            height: 72,
-            h: 34,
+            logo: "/assets/partners/powered-by-aws-36-1x.png",
+            srcSet: "/assets/partners/powered-by-aws-36-1x.png 1x, /assets/partners/powered-by-aws-36-2x.png 2x",
+            logoOnDark: "/assets/partners/powered-by-aws-white-36-1x.png",
+            srcSetOnDark:
+              "/assets/partners/powered-by-aws-white-36-1x.png 1x, /assets/partners/powered-by-aws-white-36-2x.png 2x",
+            w: 100,
+            h: 36,
           },
         ],
       },
     ] as {
       term: string;
-      items: { name: string; logo?: string; logoOnDark?: string; width?: number; height?: number; h?: number }[];
+      items: {
+        name: string;
+        logo?: string;
+        logoOnDark?: string;
+        srcSet?: string;
+        srcSetOnDark?: string;
+        w?: number;
+        h?: number;
+      }[];
     }[],
     map: {
       title: "Map of INNOBASE, Prologis Park Tsukuba 3",
