@@ -25,40 +25,51 @@ export function Hero({ copy }: { copy: SiteCopy["hero"] }) {
 
   return (
     <section id="top" aria-labelledby="hero-title" className="film-grain relative pb-16 max-md:pb-0 md:pb-20">
-      {/* Full width, no frame. On phones the height of the screen; wider up,
-          16:9 but never taller than the screen or 900 px, and taller still if
-          the text needs it. Its text sits in the page's 1400 px column.
+      {/* Full width, no frame. From md up, 16:9 but never taller than the
+          screen or 900 px, and taller still if the text needs it, with the
+          text over the picture. Its text sits in the page's 1400 px column.
           The picture keeps its 16:9 shape and a fixed place: at most 1600 px
           wide, centred, so on wide screens it isn't blown up and cropped (Sal,
           2026-11-05: the worker's head was cut off and the dots went coarse).
-          Past 1600 px its sides fade into the page, so it still has no edge. */}
+          Past 1600 px its sides fade into the page, so it still has no edge.
+          On phones the whole widescreen scene sits across the top under the
+          nav and fades into the page, and the text starts where it fades, so
+          the robot's-eye view of the aisle reads instead of a tall crop
+          hidden behind the text (Sal, 2026-11-05). */}
       <div>
-        <div className="relative flex overflow-hidden bg-ground max-md:min-h-[100svh] md:min-h-[min(56.25vw,100svh,900px)]">
-          <div className="absolute inset-0 mx-auto max-w-[1600px]">
-            {/* The play button: under the nav on phones; on wider screens at
-                the bottom right of the picture, near the walking figure. */}
+        <div className="relative flex overflow-hidden bg-ground md:min-h-[min(56.25vw,100svh,900px)]">
+          <div className="absolute inset-x-0 top-[72px] mx-auto aspect-video max-w-[1600px] md:inset-y-0 md:aspect-auto">
+            {/* The play button: at the top right of the picture on phones; on
+                wider screens at its bottom right, near the walking figure. */}
             <HeroLoop
               loop={LOOPS.pov}
               labels={copy.video}
               className="absolute inset-0 size-full object-cover object-bottom md:object-[50%_60%] light:mix-blend-multiply light:[filter:invert(1)_grayscale(1)_contrast(1.15)] min-[1600px]:[mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]"
-              controlsClassName="pointer-events-none absolute inset-x-0 top-[84px] z-10 mx-auto flex max-w-[1400px] justify-end px-[18px] md:bottom-10 md:top-auto md:px-10 [&>*]:pointer-events-auto"
+              controlsClassName="pointer-events-none absolute inset-x-0 top-3 z-10 mx-auto flex max-w-[1400px] justify-end px-[18px] md:bottom-10 md:top-auto md:px-10 [&>*]:pointer-events-auto"
             />
           </div>
           {/* The picture fades up from the page as it opens. */}
           <div aria-hidden className="intro-veil pointer-events-none absolute inset-0 bg-ground" style={step(1)} />
-          {/* Shades that keep the text readable, in the theme's ground colour. */}
+          {/* Shades that keep the text readable, in the theme's ground colour
+              (from md up, where the text sits over the picture). */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ground/92 via-ground/50 to-ground/10 max-md:from-ground/90 max-md:via-ground/62 max-md:to-ground/20"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ground/92 via-ground/50 to-ground/10 max-md:hidden"
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ground/70 via-transparent to-ground/30 max-md:from-ground/82 max-md:via-ground/20"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ground/70 via-transparent to-ground/30 max-md:hidden"
+          />
+          {/* Phones: the scene's top edge melts into the nav and its lower
+              half into the page, where the text begins. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-[72px] aspect-video bg-[linear-gradient(to_bottom,var(--color-ground)_0%,transparent_22%,transparent_52%,var(--color-ground)_100%)] md:hidden"
           />
 
           {/* The rises are CSS animations from the first paint (.hero-rise),
               so nothing waits for scripts to appear. */}
-          <div className="relative z-[1] mx-auto flex w-full max-w-[1400px] flex-col justify-center px-6 py-12 max-md:justify-start max-md:px-[18px] max-md:pb-32 max-md:pt-36 md:px-10 md:pt-24">
+          <div className="relative z-[1] mx-auto flex w-full max-w-[1400px] flex-col justify-center px-6 py-12 max-md:justify-start max-md:px-[18px] max-md:pb-8 max-md:pt-[calc(72px+56.25vw-1.75rem)] md:px-10 md:pt-24">
             <div className="max-w-[1100px]">
               <p
                 className="hero-rise font-mono text-[11px] uppercase leading-[1.7] tracking-[0.24em] text-accent md:text-[13px] lg:text-[14px]"
@@ -108,16 +119,18 @@ export function Hero({ copy }: { copy: SiteCopy["hero"] }) {
 
         {/* Below the hero: the measured results, in the same column as its
             text. How they were measured is stated in Proof (Sal took the note
-            out of the hero, 2026-11-05). */}
-        <div className="mx-auto mt-5 max-w-[1400px] px-[18px] max-md:mt-0 max-md:py-6 md:px-10">
+            out of the hero, 2026-11-05). One line from md up; on phones one
+            result per line, without the dots, close under the hero's text
+            (Sal, 2026-11-05: it was "weirdly spaced" there). */}
+        <div className="mx-auto mt-5 max-w-[1400px] px-[18px] max-md:mt-0 max-md:pb-10 max-md:pt-2 md:px-10">
           <ul
-            className="hero-rise flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[14px] leading-[1.5] text-fg-secondary"
+            className="hero-rise flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[14px] leading-[1.5] text-fg-secondary max-md:flex-col max-md:items-start max-md:gap-y-2"
             style={at(5)}
           >
             {copy.proofStrip.items.map((item, i) => (
               <li key={item} className="flex items-center gap-3">
                 {i ? (
-                  <span aria-hidden className="text-fg-tertiary">
+                  <span aria-hidden className="text-fg-tertiary max-md:hidden">
                     ·
                   </span>
                 ) : null}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { Badge } from "@/components/ui/badge";
 import { JOURNEY, isPlanned, whenLabel } from "@/content/journey";
 import { cn } from "@/lib/utils";
@@ -26,6 +26,11 @@ const FILL_AT = JOURNEY.map((_, i) => START + i * BEAT);
 const LAST_AT = FILL_AT[JOURNEY.length - 1];
 const TODAY_LINE_AT = LAST_AT + 250, TODAY_LINE_MS = 400;
 const TODAY_TAG_AT = TODAY_LINE_AT + 300;
+
+// The chart's drawing space. Its labels clear one another from 1300 px wide
+// (measured 2026-11-05: at 1200 two collide and one leaves the chart), so
+// that is the narrowest it is ever drawn (`min-w-[1300px]` below).
+const PLOT = { w: 1200, h: 440, pad: { l: 36, r: 180, top: 120, bottom: 80 } };
 
 // The milestones along one rising line, evenly spaced, oldest on the left.
 // Rounded to a hundredth: the server and the browser can differ in the last
@@ -241,9 +246,19 @@ function Plot({
 // today marked. Plays once when scrolled to: hollow rings, then the line
 // filling them at a steady beat (see FILL_AT). The list below carries every
 // detail, so the chart is hidden from screen readers.
-export function JourneyChart({ caption, className }: { caption: string; className?: string }) {
+//
+// It's the same labelled chart at every width. Where the column is narrower
+// than its labels need (phones, tablets, small laptops), it becomes a strip
+// you swipe sideways, with soft edges where there's more to see; as the line
+// draws, the strip glides along with it and comes to rest on Today (Sal,
+// 2026-11-05: phones showed no labels). A touch, wheel or key hands the strip
+// to the visitor at once. Like the line it follows, which draws under reduced
+// motion too, it glides there as well: a steady pan, nothing bouncing.
+export function JourneyChart({ caption, label, className }: { caption: string; label: string; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
   const [drawn, setDrawn] = useState(false);
+  const [edges, setEdges] = useState({ start: false, end: false });
 
   useEffect(() => {
     const el = ref.current;
@@ -261,15 +276,93 @@ export function JourneyChart({ caption, className }: { caption: string; classNam
     return () => observer.disconnect();
   }, []);
 
+  // Which edges have more chart beyond them (for the soft edges), and
+  // whether the strip scrolls at all: only then does it take keyboard focus.
+  const measure = useCallback(() => {
+    const s = stripRef.current;
+    if (!s) return;
+    const max = s.scrollWidth - s.clientWidth;
+    s.tabIndex = max > 1 ? 0 : -1;
+    const start = s.scrollLeft > 2;
+    const end = s.scrollLeft < max - 2;
+    setEdges((e) => (e.start === start && e.end === end ? e : { start, end }));
+  }, []);
+
+  useEffect(() => {
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [measure]);
+
+  // Glide along with the line's tip, keeping it a little past the middle,
+  // then ease onto Today as its tag rises.
+  useEffect(() => {
+    const s = stripRef.current;
+    if (!drawn || !s) return;
+    const max = s.scrollWidth - s.clientWidth;
+    if (max <= 1) return;
+    const pts = layout(PLOT.w, PLOT.h, PLOT.pad);
+    const scale = s.scrollWidth / PLOT.w;
+    const tipAt = (t: number) => {
+      if (t <= FILL_AT[0]) return pts[0].x;
+      if (t >= LAST_AT) return pts[pts.length - 1].x;
+      const k = Math.min(pts.length - 2, Math.floor((t - FILL_AT[0]) / BEAT));
+      return pts[k].x + (pts[k + 1].x - pts[k].x) * ((t - FILL_AT[k]) / BEAT);
+    };
+    const follow = (t: number) => Math.min(max, Math.max(0, tipAt(t) * scale - s.clientWidth * 0.6));
+    const settleMs = TODAY_TAG_AT + 400 - LAST_AT;
+    const t0 = performance.now();
+    let raf = 0;
+    const frame = (now: number) => {
+      const t = now - t0;
+      if (t < LAST_AT) s.scrollLeft = follow(t);
+      else {
+        const f = Math.min(1, (t - LAST_AT) / settleMs);
+        const from = follow(LAST_AT);
+        s.scrollLeft = from + (max - from) * (1 - Math.pow(1 - f, 3));
+        if (f >= 1) return;
+      }
+      raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+    const stop = () => cancelAnimationFrame(raf);
+    const takeOver = ["pointerdown", "touchstart", "wheel", "keydown"] as const;
+    for (const ev of takeOver) s.addEventListener(ev, stop, { passive: true });
+    return () => {
+      stop();
+      for (const ev of takeOver) s.removeEventListener(ev, stop);
+    };
+  }, [drawn]);
+
   return (
     <figure ref={ref} data-drawn={drawn ? "" : undefined} className={cn("journey", className)}>
-      {/* Wide screens: every milestone labelled. */}
-      <div className="relative hidden aspect-[1200/440] lg:block">
-        <Plot w={1200} h={440} pad={{ l: 36, r: 180, top: 120, bottom: 80 }} dot={5} stroke={1} labels />
-      </div>
-      {/* Narrower screens: the shape alone; the list below has the words. */}
-      <div className="relative aspect-[360/250] lg:hidden">
-        <Plot w={360} h={250} pad={{ l: 14, r: 34, top: 64, bottom: 26 }} dot={3.4} stroke={1} />
+      <div className="relative">
+        <div
+          ref={stripRef}
+          role="region"
+          aria-label={label}
+          onScroll={measure}
+          className="overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          <div aria-hidden className="relative aspect-[1200/440] w-full min-w-[1300px]">
+            <Plot w={PLOT.w} h={PLOT.h} pad={PLOT.pad} dot={5} stroke={1} labels />
+          </div>
+        </div>
+        {/* Soft edges where there's more of the chart to swipe to. */}
+        <div
+          aria-hidden
+          className={cn(
+            "pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-ground to-transparent transition-opacity duration-300",
+            edges.start ? "opacity-100" : "opacity-0",
+          )}
+        />
+        <div
+          aria-hidden
+          className={cn(
+            "pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-ground to-transparent transition-opacity duration-300",
+            edges.end ? "opacity-100" : "opacity-0",
+          )}
+        />
       </div>
       <figcaption className="mt-6 font-mono text-[10px] uppercase tracking-[0.16em] text-fg-tertiary">
         {caption}

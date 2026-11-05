@@ -15,19 +15,21 @@ export const LOOPS = {
   // aisle draws itself while the robot drives, a worker steps out ahead in
   // brighter dots, and the robot stops for them, so the aisle vanishes and
   // only the worker remains. An intro visual, not sensor output.
+  // Phones show the whole widescreen scene too (Sal, 2026-11-05: the phone
+  // "perspective" was a tall crop behind the text), from 960×540 files: the
+  // simulated event camera's own resolution, so nothing is lost, with a
+  // keyframe every second (and one on the still's frame) so play starts and
+  // switches at once. The old portrait crops (*-mobile) are no longer used.
   pov: {
     webm: "/assets/hero-pov-loop.webm",
     mp4: "/assets/hero-pov-loop.mp4",
-    mobile: "/assets/hero-pov-loop-mobile.mp4",
+    mobile: "/assets/hero-pov-loop-phone.mp4",
     poster: "/assets/hero-pov-poster.jpg",
-    // Sal's pick (2026-11-05): the hero opens on the worker mid-stride, 6.5 s
-    // in (6.0 s in the phone file, where the same stride sits in its crop).
+    // Sal's pick (2026-11-05): the hero opens on the worker mid-stride, 6.5 s in.
     still: {
       src: "/assets/hero-pov-still.webp",
       srcSet: "/assets/hero-pov-still-1280.webp 1280w, /assets/hero-pov-still.webp 1920w",
-      mobile: "/assets/hero-pov-still-mobile.webp",
       time: 6.5,
-      mobileTime: 6.0,
     },
     // Then the robot drives on and spots a forklift crossing ahead, and
     // finally stops at a sunlit dock door while a backlit worker walks past.
@@ -35,12 +37,12 @@ export const LOOPS = {
       {
         webm: "/assets/hero-pov-forklift.webm",
         mp4: "/assets/hero-pov-forklift.mp4",
-        mobile: "/assets/hero-pov-forklift-mobile.mp4",
+        mobile: "/assets/hero-pov-forklift-phone.mp4",
       },
       {
         webm: "/assets/hero-pov-dock.webm",
         mp4: "/assets/hero-pov-dock.mp4",
-        mobile: "/assets/hero-pov-dock-mobile.mp4",
+        mobile: "/assets/hero-pov-dock-phone.mp4",
       },
     ],
   },

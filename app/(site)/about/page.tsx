@@ -69,7 +69,7 @@ export default async function About({
           wide={
             rising ? (
               <>
-                <JourneyChart caption={journey.caption} className="mt-14 md:mt-16" />
+                <JourneyChart caption={journey.caption} label={journey.label} className="mt-14 md:mt-16" />
                 <Reveal>
                   <JourneyList />
                 </Reveal>
@@ -81,7 +81,7 @@ export default async function About({
                 ) : timeline === "graph" ? (
                   <JourneyGraph caption={journey.caption} className="mt-14 md:mt-16" />
                 ) : (
-                  <JourneyChart caption={journey.caption} className="mt-14 md:mt-16" />
+                  <JourneyChart caption={journey.caption} label={journey.label} className="mt-14 md:mt-16" />
                 )}
                 <Reveal>
                   <JourneyTimeline />
