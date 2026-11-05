@@ -127,25 +127,18 @@ export function HeroLoop({
     }
     wantRef.current = true;
     // The first press starts where the still was taken (a warmed video is
-    // already standing there).
+    // already standing there). Play is asked for right here, inside the tap,
+    // never later from a loading event: phones (iPhones above all) only
+    // start a video for a tap if the request comes with the tap, and a
+    // deferred one could wait on data that never came (Sal, 2026-11-05:
+    // "isn't playing when you press the button"). A video with nothing
+    // loaded yet takes the still's time as its starting point and begins
+    // there once it has loaded.
     if (!started && step === 0 && still) {
       const at = stillTime(still);
       fromStillRef.current = true;
-      const go = () => {
-        if (Math.abs(video.currentTime - at) > 0.05) video.currentTime = at;
-        void video.play().catch(() => {});
-      };
-      if (video.readyState >= 1) go();
-      else {
-        video.addEventListener("loadedmetadata", go, { once: true });
-        // Not warmed yet: start loading now. If warming is under way, it
-        // carries on, and `go` runs when the video is ready.
-        if (video.preload === "none") {
-          video.preload = "auto";
-          video.load();
-        }
-      }
-      return;
+      if (video.preload === "none") video.preload = "auto";
+      if (Math.abs(video.currentTime - at) > 0.05) video.currentTime = at;
     }
     void video.play().catch(() => {});
   };
