@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { SiteCopy } from "@/content/site.en";
+import { HomeLink } from "./HomeLink";
 import { FooterLogo } from "./Logo";
 
 // The live site's footer: lockup on the left, then a hairline and the small
@@ -10,9 +11,9 @@ export function Footer({ nav, small }: { nav: SiteCopy["nav"]; small: SiteCopy["
   return (
     <footer className="border-t border-line px-6 py-12 md:px-10">
       <div className="mx-auto flex max-w-[1400px] flex-col gap-8 md:flex-row md:items-center md:justify-between">
-        <Link href="/" className="self-start">
+        <HomeLink className="self-start">
           <FooterLogo />
-        </Link>
+        </HomeLink>
 
         <nav aria-label="Footer">
           <ul className="flex flex-wrap gap-x-7 gap-y-3">

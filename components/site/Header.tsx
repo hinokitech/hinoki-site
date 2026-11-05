@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { SiteCopy } from "@/content/site.en";
 import { cn } from "@/lib/utils";
+import { HomeLink } from "./HomeLink";
 import { HeaderLogo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -28,9 +29,9 @@ export function Header({ nav, current }: { nav: SiteCopy["nav"]; current?: strin
       )}
     >
       <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between gap-6 px-6 md:px-10">
-        <Link href="/" className="flex items-center">
+        <HomeLink className="flex items-center">
           <HeaderLogo />
-        </Link>
+        </HomeLink>
 
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-8">
